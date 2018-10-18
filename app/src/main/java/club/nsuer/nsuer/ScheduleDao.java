@@ -32,7 +32,7 @@ public interface ScheduleDao {
     String isEmpty();
 
 
-    @Query("SELECT COUNT(uid) from scheduleEntity")
+    @Query("SELECT COUNT(id) from scheduleEntity")
     int count();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

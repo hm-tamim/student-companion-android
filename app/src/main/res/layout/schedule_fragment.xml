@@ -17,6 +17,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/titleLinear"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center_vertical"
@@ -31,7 +32,7 @@
                 android:textSize="16sp" />
 
             <View
-                android:id="@+id/view2"
+                android:id="@+id/view"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/vertical_line_ac" />
@@ -74,17 +75,10 @@
         </LinearLayout>
 
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:src="@drawable/ic_plus" />
-
         <LinearLayout
             android:id="@+id/noSchedule"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="vertical">

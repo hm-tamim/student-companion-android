@@ -2,6 +2,7 @@ package club.nsuer.nsuer;
 
 
 import android.app.Activity;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +15,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -34,6 +37,11 @@ public class ScheduleFragment extends Fragment {
     private ArrayList<ScheduleItem> itemList;
     private ScheduleAdapter itemAdapter;
     private RecyclerView recyclerView;
+    private ScheduleDatabase db;
+
+    private LinearLayout titleLinear;
+    private LinearLayout crLine2;
+    private LinearLayout noSchedule;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -49,6 +57,12 @@ public class ScheduleFragment extends Fragment {
         main = (MainActivity) getActivity();
 
         context = getContext();
+
+
+
+        db = Room.databaseBuilder(context,
+                ScheduleDatabase.class, "schedules").allowMainThreadQueries().build();
+
 
 
     }
@@ -78,7 +92,11 @@ public class ScheduleFragment extends Fragment {
 
         main.setActionBarTitle("Schedules");
 
-        Toast.makeText(context,"Yoo",Toast.LENGTH_SHORT).show();
+
+
+        titleLinear = v.findViewById(R.id.titleLinear);
+        crLine2  = v.findViewById(R.id.crLine2);
+        noSchedule = v.findViewById(R.id.noSchedule);
 
 
         ft = getFragmentManager().beginTransaction();
@@ -105,14 +123,38 @@ public class ScheduleFragment extends Fragment {
 
 
 
-        itemList.add(new ScheduleItem(1,"CSE231", "PROJECT 2", "Bring calculator and ruler" , 1540120800, 000, -11566660, true, false));
+        List<ScheduleEntity> list = db.scheduleDao().getAll();
 
-        itemList.add(new ScheduleItem(1,"CSE231", "QUIZ 2", "Chapter 3, 4, 6 and 7" , 1540552801,000,-14246231, true, false));
+       if(list.size() < 1) {
+           titleLinear.setVisibility(View.GONE);
+           crLine2.setVisibility(View.GONE);
+       } else {
+           noSchedule.setVisibility(View.GONE);
+       }
 
-        itemList.add(new ScheduleItem(1,"MAT130", "QUIZ 3", "Chapter 2.5, 2.6, and 2.7" , 1540892400,000,-14246231, true, false));
+        for (int i=0; i < list.size(); i++) {
 
-        itemList.add(new ScheduleItem(1,"EEE141", "MID 2", "Chapter 4, 6, 7 and 8" , 1541515200,000,-49023, false, false));
+            int id = list.get(i).getId();
+            String title = list.get(i).getTitle();
+            String type = list.get(i).getType();
+            String note = list.get(i).getExtraNote();
+            long date = list.get(i).getDate();
+            long reminderDate = list.get(i).getReminderDate();
+            int color = list.get(i).getColor();
+            boolean doRemind = list.get(i).isDoReminder();
 
+            boolean isPassed = false;
+
+            long unixTime = System.currentTimeMillis() / 1000L;
+
+            if(unixTime > date)
+                isPassed = true;
+
+
+            itemList.add(new ScheduleItem(id, title, type, note, date, reminderDate, color, doRemind, isPassed));
+
+
+        }
 
 
         recyclerView.setAdapter(itemAdapter);
