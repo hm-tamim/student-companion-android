@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_user_profile"
+            android:icon="@drawable/ic_profile"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_newsfeed"
+            android:icon="@drawable/ic_newsfeed"
+            android:title="Newsfeed" />
+
+        <item
+            android:id="@+id/nav_classmates"
+            android:icon="@drawable/ic_students_white"
+            android:title="Classmates" />
+
+    </group>
+
+    <group android:id="@+id/eduItems" android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_courses"
+            android:icon="@drawable/ic_courses"
+            android:title="Courses" />
+
+        <item
+            android:id="@+id/nav_faculty"
+            android:icon="@drawable/ic_people_dark"
+            android:title="Faculties" />
+
+        <item
+            android:id="@+id/nav_classes"
+            android:icon="@drawable/ic_classroom"
+            android:title="Classes" />
+
+        <item
+            android:id="@+id/nav_books"
+            android:icon="@drawable/ic_books"
+            android:title="Books" />
+
+
+    </group>
+
+
+
+
+    <group android:id="@+id/nsuItems" android:checkableBehavior="none">
+
+
+
+        <item
+            android:id="@+id/nav_academic_calendar"
+            android:icon="@drawable/ic_planer_white"
+            android:title="Academic Calander" />
+
+        <item
+            android:id="@+id/nav_notice_events"
+            android:icon="@drawable/ic_board_white"
+            android:title="Notices &amp; Events" />
+
+            <item
+                android:id="@+id/nav_cgpa_calculator"
+                android:icon="@drawable/ic_calculator"
+                android:title="CGPA Calculator" />
+            <item
+                android:id="@+id/nav_cgpa_analyzer"
+                android:icon="@drawable/ic_analyzer"
+                android:title="CGPA Analyzer" />
+
+
+    </group>
+
+
+
+
+    <group android:id="@+id/advisingToolsItems" android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/nav_faculty_predictor"
+            android:icon="@drawable/ic_faculty_predictor"
+            android:title="Faculty Predictor" />
+        <item
+            android:id="@+id/nav_faculty_rankings"
+            android:icon="@drawable/ic_faculty_ranking"
+            android:title="Faculty Rankings" />
+        <item
+            android:id="@+id/nav_advising_assistant"
+            android:icon="@drawable/ic_advising_assistant"
+            android:title="Advising Assistant" />
+
+
+
+    </group>
+
+    <!--<item android:title="Communicate">-->
+        <!--<menu>-->
+        <!--</menu>-->
+    <!--</item>-->
+
+
+    <group android:id="@+id/moreaaaaaa">
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@drawable/ic_message_material"
+            android:title="Contact" />
+        <item
+            android:id="@+id/nav_contribute"
+            android:icon="@drawable/ic_handshake_white"
+            android:title="Contribute" />
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_help_white"
+                android:title="About" />
+
+    </group>
+
+
+</menu>

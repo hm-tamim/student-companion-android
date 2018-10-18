@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingEnd="10dp"
+            android:paddingLeft="15dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/cgpaCourse"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/cgpa_calculator_input"
+                android:ems="10"
+                android:hint="Course"
+                android:inputType="textCapCharacters|textNoSuggestions"
+                android:paddingBottom="12dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="12dp"
+                android:textColorHint="@android:color/black"
+                android:textSize="15sp"
+                android:singleLine="true"
+                android:completionThreshold="1"
+                android:imeOptions="actionDone"
+                android:dropDownVerticalOffset="50dp"/>
+
+
+                <!--android:dropDownAnchor="@id/cgpaCourse"/>-->
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <Spinner
+                android:id="@+id/cgpaCredit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/cgpa_calculator_input"
+                android:entries="@array/credits"
+                android:paddingLeft="10dp"
+                android:popupTheme="@style/spinnerStyle"
+                android:spinnerMode="dialog" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="-22dp"
+                android:src="@drawable/ic_down_grey" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <Spinner
+                android:id="@+id/cgpaGrade"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/cgpa_calculator_input"
+                android:entries="@array/grades"
+                android:paddingLeft="10dp"
+                android:popupTheme="@style/spinnerStyle"
+                android:spinnerMode="dialog" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="-22dp"
+                android:src="@drawable/ic_down_grey" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/cgpaCloseButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:src="@drawable/ic_close_red" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</RelativeLayout>

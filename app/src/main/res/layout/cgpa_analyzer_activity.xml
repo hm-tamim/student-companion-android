@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/analyzeScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:maxHeight="5000dp"
+    tools:context=".CgpaAnalyzer">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/analyzeGraphLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/cgpaBarChart"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp">
+
+            </com.github.mikephil.charting.charts.BarChart>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="25dp"
+                android:text="Grades Comparison"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="#444"
+                android:textSize="20sp" />
+
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/subjectBarChart"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp">
+
+            </com.github.mikephil.charting.charts.HorizontalBarChart>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp"
+                app:cardBackgroundColor="#fff"
+                app:cardElevation="1dp">
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="70dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_info_white_filled"
+                        android:tint="#555" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/analyzerRequiredText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="You will need another semester to achieve your targeted CGPA."
+                    android:textColor="#444"
+                    android:textSize="16sp" />
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/card_tiles_cgpa"
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:id="@+id/editText3"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="bottom"
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="2dp"
+                        android:text="Target CGPA"
+                        android:textColor="#fff"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/editText2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="bottom"
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="2dp"
+                        android:text="Your CGPA"
+                        android:textColor="#fff"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/editText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="bottom"
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="2dp"
+                        android:text="Credits"
+                        android:textColor="#fff"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="5dp">
+
+                    <EditText
+                        android:id="@+id/targetCgpa"
+                        style="@android:style/Widget.Material.EditText"
+                        android:layout_width="20dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#eee"
+                        android:ems="10"
+                        android:hint="0.0"
+                        android:inputType="numberDecimal"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:textColor="#fff"
+                        android:textColorHint="#eee"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/yourCgpa"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#eee"
+                        android:ems="10"
+                        android:hint="0.0"
+                        android:inputType="numberDecimal"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:textColor="#fff"
+                        android:textColorHint="#eee"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/yourCredits"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#eee"
+                        android:ems="10"
+                        android:hint="0"
+                        android:inputType="numberDecimal"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:textColor="#fff"
+                        android:textColorHint="#eee"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="Current Semester's Courses"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#444"
+            android:textSize="19sp" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cgpaCalculatorRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/analyzeAddCourseButton"
+                style="@style/RobotoButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:backgroundTint="#4ea850"
+                android:text="Add Course" />
+
+            <Button
+                android:id="@+id/analyzeButton"
+                style="@style/RobotoButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:backgroundTint="#3d81c2"
+                android:text="Analyze" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:drawable="@drawable/login_blurry_bg"/>
+
+
+    <!--<item-->
+        <!--android:gravity="center"-->
+        <!--android:drawable="@mipmap/ic_launcher_round"-->
+        <!--android:width="80dp"-->
+        <!--android:height="80dp" />-->
+    <item
+        android:gravity="center"
+        android:drawable="@drawable/ic_nsuer_logo"
+        android:width="280dp"
+        android:height="70dp"
+        android:bottom="340dp"/>
+
+
+
+
+
+
+</layer-list>
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<animation-list-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:id="@+id/splash_animation" android:oneshot="false">-->
+
+    <!--<item android:drawable="@color/colorPrimary" android:duration="6600"/>-->
+
+    <!--<item android:drawable="@drawable/ic_analyzer" android:duration="330" />-->
+    <!--<item android:drawable="@drawable/ic_nsuer_logo" android:duration="330" />-->
+<!--</animation-list>-->
+
+
+

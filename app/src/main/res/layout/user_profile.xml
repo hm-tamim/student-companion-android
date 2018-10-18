@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="0dp"
+    android:fillViewport="true"
+    android:padding="0dp"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".UserProfile">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#f9f9f9"
+        android:minHeight="1200dp"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/profileBackground"
+            android:layout_width="fill_parent"
+            android:layout_height="155dp"
+            android:layout_marginBottom="10dp"
+            android:fitsSystemWindows="true"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/profile_background_gradient"
+                android:elevation="0dp"
+                android:gravity="top|left"
+                android:paddingTop="4dp">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/dpCropperCard"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginLeft="20dp"
+                    app:cardBackgroundColor="#eee"
+                    app:cardCornerRadius="36dp"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:id="@+id/userProfilePicture"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="2dp"
+                        android:adjustViewBounds="false"
+                        android:contentDescription="TODO"
+                        android:cropToPadding="true"
+                        android:src="@drawable/default_user_pic" />
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="110dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_toRightOf="@+id/dpCropperCard"
+                    android:maxLines="1"
+                    android:text="HM Tamim TamimTest"
+                    android:textSize="20dp"
+                    android:textColor="?attr/colorBackgroundFloating" />
+
+                <TextView
+                    android:id="@+id/userProfileDept"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/userName"
+                    android:layout_marginRight="110dp"
+                    android:layout_marginTop="36dp"
+                    android:drawableLeft="@drawable/ic_graduation_cap_win10"
+                    android:drawablePadding="5dp"
+                    android:maxLines="1"
+                    android:text="BS in CSE"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+                    android:textColor="@color/eee"
+                    android:textSize="14dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginTop="2dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/editProfileButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp"
+                        android:layout_alignStart="@+id/textView3"
+                        android:layout_below="@+id/userName"
+                        android:background="@drawable/round_border_white"
+                        android:text="EDIT PROFILE"
+                        android:textAlignment="center"
+                        android:textColor="#fcfcfc"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/nsuRdsBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp"
+                        android:layout_alignStart="@+id/textView3"
+                        android:layout_below="@+id/userName"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/round_border_white"
+                        android:text="NSU RDS"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="#fcfcfc"
+                        android:textSize="12dp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/profile_card_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="-70dp"
+            android:elevation="0dp"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="1dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="17dp"
+                android:weightSum="3">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+
+                    <club.nsuer.nsuer.ArcProgressz xmlns:custom="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/arc_cgpa"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:background="@null"
+                        custom:arc_bottom_text="CGPA"
+                        custom:arc_bottom_text_size="12dp"
+                        custom:arc_finished_color="#2393ec"
+                        custom:arc_max="4"
+                        custom:arc_progress="0"
+                        custom:arc_suffix_text=" "
+                        custom:arc_text_size="20dp"
+                        custom:arc_unfinished_color="#dfdfdf" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+
+                    <com.github.lzyzsd.circleprogress.ArcProgress xmlns:custom="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/arc_credits"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:background="@null"
+                        custom:arc_bottom_text="CREDIT"
+                        custom:arc_bottom_text_size="12dp"
+                        custom:arc_finished_color="#6fc059"
+                        custom:arc_max="130"
+                        custom:arc_progress="0"
+                        custom:arc_suffix_text=" "
+                        custom:arc_text_size="20dp"
+                        custom:arc_unfinished_color="#dfdfdf" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+
+                    <com.github.lzyzsd.circleprogress.ArcProgress xmlns:custom="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/arc_semester"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:background="@null"
+                        custom:arc_bottom_text="SEMs"
+                        custom:arc_bottom_text_size="12dp"
+                        custom:arc_finished_color="#ed7c30"
+                        custom:arc_max="15"
+                        custom:arc_progress="0"
+                        custom:arc_suffix_text="th"
+                        custom:arc_suffix_text_padding="0dp"
+                        custom:arc_suffix_text_size="14dp"
+                        custom:arc_text_size="20dp"
+                        custom:arc_unfinished_color="#dfdfdf" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_viewToday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:elevation="0dp"
+            android:minHeight="165dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="1dp">
+
+
+            <LinearLayout
+                android:id="@+id/todayGradientLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_tiles_today"
+                android:minHeight="165dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/todayTitleHolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="20sp"
+                        android:layout_marginTop="20sp"
+                        android:text="TODAY"
+                        android:textColor="#f9fafe"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:id="@+id/todayDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/date_shape"
+                        android:text="30 Mar 2018"
+                        android:textColor="@android:color/white"
+                        android:textSize="13dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/todayRecyclerHolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="-5dp"
+                    android:paddingBottom="10dp">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/noClassToday"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:elevation="0dp"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="45dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_thumbs_up" />
+
+                            <TextView
+                                android:id="@+id/textView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp"
+                                android:text="No Classes Today"
+                                android:textColor="@color/white"
+                                android:textSize="17dp" />
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/todayRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:nestedScrollingEnabled="false"
+                        android:padding="10dp">
+
+                    </android.support.v7.widget.RecyclerView>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_viewTomorrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:elevation="0dp"
+            android:minHeight="165dp"
+            app:cardBackgroundColor="@null"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:id="@+id/tomorrowGradientLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_tiles_tomorrow"
+                android:minHeight="165dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/aaa"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="100dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="TOMORROW"
+                        android:textColor="#f9fafe"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:id="@+id/tomorrowDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/date_shape"
+                        android:text="31 Mar 2018"
+                        android:textColor="@android:color/white"
+                        android:textSize="13dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/tomorrowRecyclerHolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="-5dp"
+                    android:paddingBottom="10dp">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/noClassTomorrow"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:elevation="0dp"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="45dp"
+                                android:layout_height="60dp"
+                                android:src="@drawable/ic_thumbs_up" />
+
+                            <TextView
+                                android:id="@+id/textView2tm"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp"
+                                android:text="No Classes Tomorrow"
+                                android:textColor="@color/white"
+                                android:textSize="17dp" />
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/tomorrowRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:nestedScrollingEnabled="false"
+                        android:padding="10dp">
+
+                    </android.support.v7.widget.RecyclerView>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <include
+            android:id="@+id/weatherCardIncluder"
+            layout="@layout/weather_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <!--<include-->
+        <!--android:id="@+id/navigationMenuIncluder"-->
+        <!--layout="@layout/navigation_menu"-->
+        <!--android:layout_below="@+id/nsuNoticeEventsCardView" />-->
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f8f8f8">
+
+            <club.nsuer.nsuer.StaticGridView
+                android:id="@+id/menuGridView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawSelectorOnTop="true"
+                android:gravity="center"
+                android:horizontalSpacing="1dp"
+                android:nestedScrollingEnabled="false"
+                android:numColumns="3"
+                android:verticalSpacing="1dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>

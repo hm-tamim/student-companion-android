@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AddSchedule"
+    tools:showIn="@layout/schedule_add_new">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/titlePicker"
+                style="@style/Widget.AppCompat.Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:hint="Select subject"
+                android:inputType="none"
+                android:paddingLeft="22dp"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="#ebecef" />
+
+            <EditText
+                android:id="@+id/typePicker"
+                style="@style/Widget.AppCompat.Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:hint="Select type"
+                android:inputType="none"
+                android:paddingLeft="22dp"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ebecef" />
+
+        <LinearLayout
+            android:id="@+id/colorPickLayout"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_weight="0"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/colorCard"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:cardBackgroundColor="@color/barColor2"
+                app:cardCornerRadius="13dp"
+                app:cardElevation="0dp" />
+
+            <TextView
+                android:id="@+id/pickAColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_weight="1"
+                android:text="Pick a color"
+                android:textColor="#5f6267"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ebecef" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="25dp"
+                android:layout_height="21dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0"
+                android:tint="#5f6267"
+                app:srcCompat="@drawable/ic_calendar_white" />
+
+            <EditText
+                android:id="@+id/datePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Pick a date"
+                android:inputType="none" />
+
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="#ebecef" />
+
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0"
+                android:tint="#444"
+                app:srcCompat="@drawable/ic_clock_white" />
+
+            <EditText
+                android:id="@+id/timePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Pick a time"
+                android:inputType="none" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="0"
+            android:background="#ebecef" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="18dp">
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:tint="#5f6267"
+                app:srcCompat="@drawable/ic_alarm_clock_white" />
+
+            <Switch
+                android:id="@+id/setReminder"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:paddingLeft="12dp"
+                android:paddingRight="20dp"
+                android:text="Set Reminder"
+                android:textColor="#5f6267"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="-15dp"
+            android:orientation="horizontal"
+            android:paddingRight="15dp">
+
+            <EditText
+                android:id="@+id/titlePicker"
+                style="@style/Widget.AppCompat.Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="33dp"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:hint="Remind me"
+                android:inputType="none"
+                android:paddingLeft="22dp"
+                android:text="Remind me before 1 day"
+                android:textColor="#5f6267"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="0"
+            android:background="#ebecef" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="19dp"
+                android:layout_weight="1"
+                android:tint="#5f6267"
+                app:srcCompat="@drawable/ic_info_outline" />
+
+            <EditText
+                android:id="@+id/note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
+                android:hint="Extra note... (optional)"
+                android:minHeight="70dp"
+                android:paddingLeft="17dp"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="0"
+            android:background="#ebecef" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

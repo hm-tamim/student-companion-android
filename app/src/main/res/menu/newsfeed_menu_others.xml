@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menuBar">
+
+    <item
+        android:id="@+id/cr_action_who_liked"
+        android:orderInCategory="100"
+        android:title="View who liked"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/cr_action_message"
+        android:orderInCategory="100"
+        android:title="Message"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/cr_action_report"
+        android:orderInCategory="100"
+        android:title="Report"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/cr_action_none"
+        android:orderInCategory="100"
+        android:title="Close"
+        app:showAsAction="never" />
+    <!--  <item
+         android:id="@+id/menuSearch"
+         android:icon="@android:drawable/ic_menu_search"
+         android:title="Search"
+         app:actionViewClass="android.widget.SearchView"
+         app:showAsAction="always" />
+
+         -->
+</menu>

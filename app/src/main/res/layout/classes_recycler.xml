@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="30dp">
+
+    <LinearLayout
+        android:layout_width="15dp"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="1dp"
+            android:layout_height="8dp"
+            android:background="@drawable/vertical_line_ac" />
+
+        <View
+            android:id="@+id/crCircle"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/ac_circle_ddd" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/vertical_line_ac" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/crEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="22dp"
+            android:paddingTop="2dp"
+            android:text="CSE225"
+            android:textColor="#555"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/crTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="27dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="4dp"
+            android:text="11:20 AM - 01:00 PM"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

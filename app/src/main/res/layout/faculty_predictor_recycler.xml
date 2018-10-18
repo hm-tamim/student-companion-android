@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingBottom="15dp"
+    android:paddingTop="15dp">
+
+    <TextView
+        android:id="@+id/fpFaculty"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="SvA"
+        android:textAlignment="center"
+        android:textColor="#333"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/fpSection"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:textAlignment="center"
+        android:textColor="#333"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/fpTime"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="RA 01:00 PM \n- 02:30 PM"
+        android:textAlignment="center"
+        android:textColor="#333"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/fpPrevious"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="12, 14, 1, 14"
+        android:textAlignment="center"
+        android:textColor="#333"
+        android:textSize="16sp" />
+</LinearLayout>

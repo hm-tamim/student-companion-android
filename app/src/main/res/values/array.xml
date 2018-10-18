@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="credits">
+        <item>0</item>
+        <item>1</item>
+        <item>1.5</item>
+        <item>2</item>
+        <item>3</item>
+        <item>3.5</item>
+        <item>4</item>
+        <item>4.5</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="grades">
+        <item>A</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B</item>
+        <item>B-</item>
+        <item>C+</item>
+        <item>C</item>
+        <item>C-</item>
+        <item>D+</item>
+        <item>D</item>
+        <item>F</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="numbers">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+        <item>50</item>
+    </string-array>
+
+    <string-array name="department">
+        <item>Bachelor of Architecture</item>
+        <item>BS in Civil &amp; Environmental Engineering (CEE)</item>
+        <item>BS in Computer Science &amp; Engineering (CSE)</item>
+        <item>BS in Electrical &amp; Electronic Engineering (EEE)</item>
+        <item>BS in Electronic &amp; Telecom Engineering (ETE)</item>
+        <item>BS in Biochemistry and Biotechnology</item>
+        <item>BS in Environmental Science &amp; Management</item>
+        <item>BS in Microbiology</item>
+        <item>Bachelor of Pharmacy - Professional</item>
+        <item>BBA in Accounting</item>
+        <item>BBA in Economics</item>
+        <item>BBA in Entrepreneurship</item>
+        <item>BBA in Finance</item>
+        <item>BBA in Human Resource Management</item>
+        <item>BBA in International Business</item>
+        <item>BBA in Management</item>
+        <item>BBA in Management Information Systems</item>
+        <item>BBA in Marketing</item>
+        <item>BBA in Supply Chain Management</item>
+        <item>BBA General</item>
+        <item>BS in Economics</item>
+        <item>BA in English</item>
+        <item>Bachelor of Laws (LLB Hons)</item>
+        <item>Master of Business Administration (MBA)</item>
+        <item>Executive Master of Business Administration (EMBA)</item>
+        <item>MS in Economics </item>
+        <item>Master in Development Studies (MDS)</item>
+        <item>MS in Computer Science and Engineering</item>
+        <item>MS in Electronic and Telecommunication Engineering</item>
+        <item>MS in Electrical and Electronic Engineering</item>
+        <item>MS in Biotechnology</item>
+        <item>MPharm in Pharmaceutical Technology and Biopharmaceutics</item>
+        <item>MPharm in Pharmacology and Clinical Pharmacy</item>
+        <item>Master of Public Health (MPH)</item>
+        <item>Executive Master of Public Health (EMPH)</item>
+        <item>MS in Environmental Science and Management</item>
+        <item>MA in English</item>
+        <item>Master in Public Policy and Governance (MPPG)</item>
+        <item>Master of Laws (LL.M)</item>
+        <item>General Bachelor of Pharmacy</item>
+    </string-array>
+
+    <string-array name="deptShort">
+        <item>B. Architecture</item>
+        <item>BS in CEE</item>
+        <item>BS in CSE</item>
+        <item>BS in EEE</item>
+        <item>BS in ETE</item>
+        <item>BS in Biochemistry</item>
+        <item>BS in ESM</item>
+        <item>BS in Microbiology</item>
+        <item>BPharm Professional</item>
+        <item>BBA in Accounting</item>
+        <item>BBA in Economics</item>
+        <item>BBA in Entrep.</item>
+        <item>BBA in Finance</item>
+        <item>BBA in HRM</item>
+        <item>BBA in IB</item>
+        <item>BBA in Management</item>
+        <item>BBA in MIS</item>
+        <item>BBA in Marketing</item>
+        <item>BBA in SCM</item>
+        <item>BBA General</item>
+        <item>BS in Economics</item>
+        <item>BA in English</item>
+        <item>LLB Hons</item>
+        <item>MBA</item>
+        <item>EMBA</item>
+        <item>MS in Economics</item>
+        <item>MDS</item>
+        <item>MS in CSE</item>
+        <item>MS in ETE</item>
+        <item>MS in EEE</item>
+        <item>MS in Biotech.</item>
+        <item>MPharm in PTB</item>
+        <item>MPharm in PCP</item>
+        <item>Master of MPH</item>
+        <item>EMPH</item>
+        <item>MS in ESM</item>
+        <item>MA in English</item>
+        <item>Master in PPG</item>
+        <item>LL.M</item>
+        <item>General BPharm</item>
+    </string-array>
+
+
+    <string-array name="numbersZero">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+        <item>50</item>
+    </string-array>
+
+</resources>

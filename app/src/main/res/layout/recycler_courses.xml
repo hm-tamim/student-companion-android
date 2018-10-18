@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rcCardView"
+    android:layout_width="match_parent"
+    android:layout_height="205dp"
+    android:layout_marginBottom="0dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginTop="10dp"
+    android:elevation="4dp"
+    app:cardBackgroundColor="@android:color/holo_blue_dark"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/courses_bg"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="17dp">
+
+        <RelativeLayout
+            android:id="@+id/courssesInfoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+            <RelativeLayout
+                android:id="@+id/rcSectionHolder"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:layout_alignStart="@+id/rcCourseName"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="3dp"
+                android:gravity="center_vertical|center_horizontal">
+
+                <TextView
+                    android:id="@+id/rcCourseSection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_centerHorizontal="true"
+                    android:text="7"
+                    android:textColor="@android:color/white"
+                    android:textSize="60dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/rcCourseName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="13dp"
+                android:text="CSE225"
+                android:textColor="@android:color/white"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:id="@+id/rcOptionButton"
+                android:layout_width="35dp"
+                android:layout_height="23dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                app:srcCompat="@drawable/ic_menu_three" />
+
+
+            <RelativeLayout
+                android:id="@+id/rcTimeHolder"
+                android:layout_width="105dp"
+                android:layout_height="58dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="false"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/classStartCourses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/view"
+                    android:layout_centerHorizontal="true"
+                    android:autoText="false"
+                    android:text="11:20 AM"
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/classEndCourses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/rcCourseSection"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="false"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="-1dp"
+                    android:text="01:00 PM"
+                    android:textColor="#c3ffffff"
+                    android:textSize="18dp" />
+
+                <RelativeLayout
+                    android:id="@+id/timelineOnCourses"
+                    android:layout_width="22dp"
+                    android:layout_height="52dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_toStartOf="@+id/classStartCourses"
+                    android:paddingBottom="0dp"
+                    android:paddingTop="10dp">
+
+                    <View
+                        android:id="@+id/timelineIcon"
+                        android:layout_width="2dp"
+                        android:layout_height="37dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerInParent="false"
+                        android:layout_centerVertical="true"
+                        android:background="#fff"
+                        android:paddingBottom="2dp" />
+
+                    <TextView
+                        android:id="@+id/ball2"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/whitecircle" />
+
+                    <TextView
+                        android:id="@+id/ball1"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/whitecircle" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/rcFacultyIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/rcCourseName"
+                android:layout_marginBottom="4dp"
+                app:srcCompat="@drawable/ic_faculty" />
+
+            <TextView
+                android:id="@+id/facultyCourses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="2dp"
+                android:layout_toEndOf="@+id/rcFacultyIcon"
+                android:text="SFM1"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/rcRoomIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="4dp"
+                android:layout_toStartOf="@+id/view"
+                app:srcCompat="@drawable/ic_classroom" />
+
+            <TextView
+                android:id="@+id/classRoomCourses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="2dp"
+                android:layout_toEndOf="@+id/rcRoomIcon"
+                android:text="SAC403"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/view"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:elevation="5dp"
+                app:cardBackgroundColor="#26000000"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="0dp">
+
+                    <TextView
+                        android:id="@+id/rcCourseDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="ST"
+                        android:textColor="@color/white"
+                        android:textSize="18dp" />
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

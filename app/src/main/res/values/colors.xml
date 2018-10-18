@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4196af</color>
+    <color name="colorPrimaryDark">#388096</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+
+
+    <color name="c222">#222</color>
+    <color name="c333">#333</color>
+    <color name="c444">#444</color>
+    <color name="c555">#555</color>
+
+
+    <color name="barColor1">#4f81bc</color>
+    <color name="barColor2">#269ea9</color>
+    <color name="barColor3">#9bbb58</color>
+    <color name="barColor4">#db843d</color>
+    <color name="barColor5">#db843d</color>
+    <color name="barColor6">#26a2ed</color>
+    <color name="barColor7">#db843d</color>
+
+
+
+
+    <!-- Login related #2d566b #1c4558 -->
+
+    <color name="bg_login">#1d4a5d</color>
+    <color name="bg_register">#2e3237</color>
+    <color name="bg_main">#428bca</color>
+    <color name="white">#ffffff</color>
+    <color name="red">#b20000</color>
+
+
+
+    <color name="materialGreen">#5dc695</color>
+
+    <color name="eee">#eeeeee</color>
+
+    <color name="ddd">#dddddd</color>
+
+    <color name="input_login">#222222</color>
+    <color name="input_login_hint">#999999</color>
+    <color name="input_register">#888888</color>
+    <color name="input_register_bg">#3b4148</color>
+    <color name="input_register_hint">#5e6266</color>
+    <color name="btn_login">#26ae90</color>
+    <color name="btn_login_bg">#eceef1</color>
+    <color name="lbl_name">#333333</color>
+    <color name="btn_logut_bg">#ff6861</color>
+
+
+    <color name="viewBg">#f1f5f8</color>
+    <color name="album_title">#4c4c4c</color>
+
+
+
+
+    <array name="color_palette">
+        <item>#269ea9</item>
+        <item>#FF4081</item>
+        <item>#4f81bc</item>
+        <item>#db843d</item>
+        <item>#1d4a5d</item>
+        <item>#9bbb58</item>
+        <item>#e62117</item>
+        <item>#33b5e5</item>
+        <item>#0b8043</item>
+        <item>#7986cb</item>
+    </array>
+
+
+</resources>
