@@ -82,8 +82,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
 
 
-        int timeI =  itemList.get(listPosition).getDate();
-
+        long timeI =  itemList.get(listPosition).getDate();
 
         long timestamp = (long) timeI * 1000L;
 

@@ -105,13 +105,13 @@ public class ScheduleFragment extends Fragment {
 
 
 
-        itemList.add(new ScheduleItem(1,"CSE231", "PROJECT 2", "Bring calculator and ruler" , 1540120800,-11566660, true, false));
+        itemList.add(new ScheduleItem(1,"CSE231", "PROJECT 2", "Bring calculator and ruler" , 1540120800, 000, -11566660, true, false));
 
-        itemList.add(new ScheduleItem(1,"CSE231", "QUIZ 2", "Chapter 3, 4, 6 and 7" , 1540552801,-14246231, true, false));
+        itemList.add(new ScheduleItem(1,"CSE231", "QUIZ 2", "Chapter 3, 4, 6 and 7" , 1540552801,000,-14246231, true, false));
 
-        itemList.add(new ScheduleItem(1,"MAT130", "QUIZ 3", "Chapter 2.5, 2.6, and 2.7" , 1540892400,-14246231, true, false));
+        itemList.add(new ScheduleItem(1,"MAT130", "QUIZ 3", "Chapter 2.5, 2.6, and 2.7" , 1540892400,000,-14246231, true, false));
 
-        itemList.add(new ScheduleItem(1,"EEE141", "MID 2", "Chapter 4, 6, 7 and 8" , 1541515200,-49023, false, false));
+        itemList.add(new ScheduleItem(1,"EEE141", "MID 2", "Chapter 4, 6, 7 and 8" , 1541515200,000,-49023, false, false));
 
 
 

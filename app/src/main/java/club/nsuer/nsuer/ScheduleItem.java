@@ -8,19 +8,20 @@ public class ScheduleItem {
     private String title;
     private String type;
     private String extraNote;
-    private int date;
-    private int reminderDate;
+    private long date;
+    private long reminderDate;
     private int color;
     private boolean doReminder;
     private boolean passed;
 
 
-    public ScheduleItem(int id, String title, String type, String extraNote, int date, int color, boolean doReminder, boolean passed) {
+    public ScheduleItem(int id, String title, String type, String extraNote, long date, long reminderDate, int color, boolean doReminder, boolean passed) {
         this.id = id;
         this.title = title;
         this.type = type;
         this.extraNote = extraNote;
         this.date = date;
+        this.reminderDate = reminderDate;
         this.color = color;
         this.doReminder = doReminder;
         this.passed = passed;
@@ -58,19 +59,19 @@ public class ScheduleItem {
         this.extraNote = extraNote;
     }
 
-    public int getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
-    public int getReminderDate() {
+    public long getReminderDate() {
         return reminderDate;
     }
 
-    public void setReminderDate(int reminderDate) {
+    public void setReminderDate(long reminderDate) {
         this.reminderDate = reminderDate;
     }
 
