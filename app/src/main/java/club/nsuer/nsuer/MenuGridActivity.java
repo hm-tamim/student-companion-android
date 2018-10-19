@@ -36,12 +36,12 @@ public class MenuGridActivity{
             "Schedules",
             "CGPA Calculator",
             "CGPA Analyzer",
-            "Faculty Predictor",
+            "Buy-Sell Shop",
             "Faculty Rankings",
+            "Faculty Predictor",
             "Advising Assistant",
             "Weather",
             "Storage",
-            "Buy Sell",
             "Contribute"
 
 
@@ -60,12 +60,14 @@ public class MenuGridActivity{
             R.drawable.ic_schedule_dark,
             R.drawable.ic_calculator,
             R.drawable.ic_analyzer,
-            R.drawable.ic_faculty_predictor,
+
+            R.drawable.ic_shopping_cart_white,
             R.drawable.ic_faculty_ranking,
+
+            R.drawable.ic_faculty_predictor,
             R.drawable.ic_advising_assistant,
             R.drawable.ic_weather_white_umbrella,
             R.drawable.ic_downloads_folder,
-            R.drawable.ic_shopping_cart_white,
             R.drawable.ic_handshake_white
 
     };
@@ -225,9 +227,13 @@ public class MenuGridActivity{
                     ft.addToBackStack(null);
                     ft.commit();
 
-                }else if(gridViewString[+i].equals("Buy Sell")){
+                }else if(gridViewString[+i].equals("Buy-Sell Shop")){
 
-                    comingSoon();
+                    fragment = new BuySell();
+                    ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
+                    ft.replace(R.id.mainFrame, fragment, gridViewString[+i]);
+                    ft.addToBackStack(null);
+                    ft.commit();
 
                 }else if(gridViewString[+i].equals("Storage")){
 

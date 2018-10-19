@@ -42,11 +42,18 @@ public class ScheduleFragment extends Fragment {
     private LinearLayout titleLinear;
     private LinearLayout crLine2;
     private LinearLayout noSchedule;
+    private int scrollID = 999999;
 
     public ScheduleFragment() {
         // Required empty public constructor
     }
 
+
+    public ScheduleFragment(int scrollID) {
+
+        this.scrollID = scrollID;
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,7 +91,19 @@ public class ScheduleFragment extends Fragment {
 
         if ((requestCode == 10001) && (resultCode == Activity.RESULT_OK))
             ft.detach(ScheduleFragment.this).attach(ScheduleFragment.this).commit();
-        }
+    }
+
+
+    public void openActivityWithId(int id){
+
+        Intent intent = new Intent(context,
+                AddSchedule.class);
+        intent.putExtra("id", id);
+        startActivityForResult(intent, 10001);
+
+
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -115,7 +134,7 @@ public class ScheduleFragment extends Fragment {
 
         itemList = new ArrayList<ScheduleItem>();
 
-        itemAdapter = new ScheduleAdapter(R.layout.schedule_recycler, itemList, context);
+        itemAdapter = new ScheduleAdapter(R.layout.schedule_recycler, itemList, context, this);
 
         recyclerView = (RecyclerView) v.findViewById(R.id.scheduleRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));

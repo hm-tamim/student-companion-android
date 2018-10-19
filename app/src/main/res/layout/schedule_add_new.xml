@@ -23,14 +23,27 @@
     <include layout="@layout/content_add_schedule" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
         android:clickable="true"
+        app:backgroundTint="@color/colorPrimary"
         app:srcCompat="@drawable/ic_send_white" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/deleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:clickable="true"
+        android:visibility="gone"
+        app:backgroundTint="@android:color/holo_red_light"
+        app:srcCompat="@drawable/ic_trash_white" />
 
 
 </android.support.design.widget.CoordinatorLayout>

@@ -34,8 +34,8 @@ public class ScheduleEntity {
     private boolean doReminder;
 
 
-    public ScheduleEntity(int id, String title, String type, String extraNote, long date, long reminderDate, int color, boolean doReminder) {
-        this.id = id;
+    public ScheduleEntity(String title, String type, String extraNote, long date, long reminderDate, int color, boolean doReminder) {
+
         this.title = title;
         this.type = type;
         this.extraNote = extraNote;

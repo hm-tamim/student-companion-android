@@ -1,7 +1,9 @@
 package club.nsuer.nsuer;
 
 
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -26,12 +28,14 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
     private int listItemLayout;
     private ArrayList<ScheduleItem> itemList;
     private Context context;
+    private ScheduleFragment instance;
 
 
-    public ScheduleAdapter(int layoutId, ArrayList<ScheduleItem> itemList,Context context) {
+    public ScheduleAdapter(int layoutId, ArrayList<ScheduleItem> itemList,Context context, ScheduleFragment instance) {
         listItemLayout = layoutId;
         this.itemList = itemList;
         this.context = context;
+        this.instance = instance;
     }
 
 
@@ -66,6 +70,18 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         RelativeLayout noteHolder = holder.noteHolder;
         CardView cardView = holder.cardView;
         View circle = holder.circle;
+
+
+
+        cardView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                instance.openActivityWithId(itemList.get(listPosition).getId());
+
+            }
+        });
 
         boolean isPassed = false;
 

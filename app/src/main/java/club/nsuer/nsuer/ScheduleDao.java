@@ -8,6 +8,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.RawQuery;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -18,15 +19,20 @@ public interface ScheduleDao {
     List<ScheduleEntity> getViaQuery(SupportSQLiteQuery query);
 
 
-    @Query("SELECT * FROM scheduleEntity")
+    @Query("SELECT * FROM scheduleEntity ORDER BY date ASC")
     List<ScheduleEntity> getAll();
 
     @Query("SELECT * FROM scheduleEntity WHERE title LIKE :name LIMIT 1")
     ScheduleEntity findByTitle(String name);
 
+    @Query("SELECT * FROM scheduleEntity WHERE id = :id LIMIT 1")
+    ScheduleEntity findById(int id);
+
     @Query("DELETE FROM scheduleEntity WHERE title LIKE :name")
     void deleteByTitle(String name);
 
+    @Query("DELETE FROM scheduleEntity WHERE id = :id")
+    void deleteById(int id);
 
     @Query("SELECT title FROM scheduleEntity LIMIT 1")
     String isEmpty();
@@ -36,7 +42,10 @@ public interface ScheduleDao {
     int count();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(ScheduleEntity... scheduleEntities);
+    long[] insertAll(ScheduleEntity... scheduleEntities);
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void updateAll(ScheduleEntity... scheduleEntities);
 
     @Delete
     void delete(ScheduleEntity scheduleEntity);

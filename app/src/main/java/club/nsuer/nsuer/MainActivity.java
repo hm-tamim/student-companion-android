@@ -494,6 +494,20 @@ public class MainActivity extends AppCompatActivity
                 ft.replace(R.id.mainFrame, fragments,"Newsfeed");
                 ft.commit();
 
+            }else if(type.equals("reminder"))
+            {
+
+
+//                String typeExtra = intent.getStringExtra("typeExtra");
+//                int openID = Integer.parseInt(typeExtra);
+
+
+                Fragment fragments = new ScheduleFragment();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+                ft.replace(R.id.mainFrame, fragments,"Schedule");
+                ft.commit();
+
             }
 
 

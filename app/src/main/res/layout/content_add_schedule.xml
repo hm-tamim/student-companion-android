@@ -30,7 +30,7 @@
                 android:hint="Select subject"
                 android:inputType="none"
                 android:paddingLeft="22dp"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
             <View
                 android:layout_width="1dp"
@@ -48,7 +48,7 @@
                 android:hint="Select type"
                 android:inputType="none"
                 android:paddingLeft="22dp"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
 
@@ -84,7 +84,7 @@
                 android:layout_weight="1"
                 android:text="Pick a color"
                 android:textColor="#5f6267"
-                android:textSize="17sp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -104,7 +104,7 @@
                 android:layout_width="25dp"
                 android:layout_height="21dp"
                 android:layout_marginLeft="18dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="9dp"
                 android:layout_weight="0"
                 android:tint="#5f6267"
                 app:srcCompat="@drawable/ic_calendar_white" />
@@ -118,7 +118,8 @@
                 android:ems="10"
                 android:focusable="false"
                 android:hint="Pick a date"
-                android:inputType="none" />
+                android:inputType="none"
+                android:textSize="16dp" />
 
 
             <View
@@ -133,7 +134,7 @@
                 android:layout_width="25dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="18dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="9dp"
                 android:layout_weight="0"
                 android:tint="#444"
                 app:srcCompat="@drawable/ic_clock_white" />
@@ -147,7 +148,8 @@
                 android:ems="10"
                 android:focusable="false"
                 android:hint="Pick a time"
-                android:inputType="none" />
+                android:inputType="none"
+                android:textSize="16dp" />
         </LinearLayout>
 
 
@@ -181,31 +183,78 @@
                 android:paddingRight="20dp"
                 android:text="Set Reminder"
                 android:textColor="#5f6267"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
 
         <LinearLayout
+            android:id="@+id/reminderHolder"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="-15dp"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="53dp"
+            android:layout_marginTop="-10dp"
+            android:orientation="vertical"
             android:paddingRight="15dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/reminderDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="Pick a date"
+                    android:inputType="none"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@" />
+
+                <EditText
+                    android:id="@+id/reminderTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="Pick a time"
+                    android:inputType="none"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:text="Quick Selection"
+                android:textColor="@color/colorAccent" />
+
             <EditText
-                android:id="@+id/titlePicker"
+                android:id="@+id/reminderPicker"
                 style="@style/Widget.AppCompat.Spinner"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="33dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="-5dp"
                 android:layout_weight="1"
                 android:focusable="false"
-                android:hint="Remind me"
+                android:hint="Remind me before..."
                 android:inputType="none"
-                android:paddingLeft="22dp"
-                android:text="Remind me before 1 day"
                 android:textColor="#5f6267"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -240,7 +289,7 @@
                 android:hint="Extra note... (optional)"
                 android:minHeight="70dp"
                 android:paddingLeft="17dp"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
