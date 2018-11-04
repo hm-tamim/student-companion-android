@@ -197,6 +197,118 @@ public class Utils {
         return timeAgo;
     }
 
+
+    public static String getTimeAgoShop(long timestamp) {
+
+        Calendar cal = Calendar.getInstance();
+        TimeZone tz = cal.getTimeZone();//get your local time zone.
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH);
+        sdf.setTimeZone(tz);//set time zone.
+        String localTime = sdf.format(new Date(timestamp * 1000));
+        Date date = new Date();
+        try {
+            date = sdf.parse(localTime);//get local date
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(date == null) {
+            return null;
+        }
+
+        long time = date.getTime();
+
+        Date curDate = currentDate();
+        long now = curDate.getTime();
+        if (time > now || time <= 0) {
+            return null;
+        }
+
+        int timeDIM = getTimeDistanceInMinutes(time);
+
+        String timeAgo = null;
+
+        if (timeDIM == 0) {
+            timeAgo = "Just now";
+        } else if (timeDIM == 1) {
+            return "1 min ago";
+        } else if (timeDIM >= 2 && timeDIM <= 44) {
+            timeAgo = timeDIM + " mins ago";
+        } else if (timeDIM >= 45 && timeDIM <= 89) {
+            timeAgo = "1 hour ago";
+        } else if (timeDIM >= 90 && timeDIM <= 1439) {
+            timeAgo = (Math.round(timeDIM / 60)) + " hours ago";
+        } else if (timeDIM >= 1440) {
+
+            Date tdate = new Date(timestamp * 1000);
+
+            SimpleDateFormat jdf = new SimpleDateFormat("MMM dd", Locale.ENGLISH);
+            jdf.setTimeZone(TimeZone.getTimeZone("GMT-6"));
+
+            timeAgo = jdf.format(tdate);
+
+        }
+
+        return timeAgo;
+    }
+
+
+
+    public static String getTimeAgoChat(long timestamp) {
+
+        Calendar cal = Calendar.getInstance();
+        TimeZone tz = cal.getTimeZone();//get your local time zone.
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH);
+        sdf.setTimeZone(tz);//set time zone.
+        String localTime = sdf.format(new Date(timestamp * 1000));
+        Date date = new Date();
+        try {
+            date = sdf.parse(localTime);//get local date
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(date == null) {
+            return null;
+        }
+
+        long time = date.getTime();
+
+        Date curDate = currentDate();
+        long now = curDate.getTime();
+        if (time > now || time <= 0) {
+            return null;
+        }
+
+        int timeDIM = getTimeDistanceInMinutes(time);
+
+        String timeAgo = null;
+
+        if (timeDIM == 0) {
+            timeAgo = "Just now";
+        } else if (timeDIM == 1) {
+            return "1 min ago";
+        } else if (timeDIM >= 2 && timeDIM <= 44) {
+            timeAgo = timeDIM + " mins ago";
+        } else if (timeDIM >= 45 && timeDIM <= 89) {
+            timeAgo = "1 hour ago";
+        } else if (timeDIM >= 90 && timeDIM <= 1439) {
+            timeAgo = (Math.round(timeDIM / 60)) + " hours ago";
+        } else if (timeDIM >= 1440) {
+
+            Date tdate = new Date(timestamp * 1000);
+
+            SimpleDateFormat jdf = new SimpleDateFormat("MMM dd, hh:mm a", Locale.ENGLISH);
+            jdf.setTimeZone(TimeZone.getTimeZone("GMT-6"));
+
+            timeAgo = jdf.format(tdate);
+
+        }
+
+        return timeAgo;
+    }
+
+
     public static Date currentDate() {
         Calendar calendar = Calendar.getInstance();
         return calendar.getTime();
@@ -205,6 +317,19 @@ public class Utils {
     private static int getTimeDistanceInMinutes(long time) {
         long timeDistance = currentDate().getTime() - time;
         return Math.round((Math.abs(timeDistance) / 1000) / 60);
+    }
+
+    public static boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
     }
 
 

@@ -12,10 +12,13 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.hardware.camera2.TotalCaptureResult;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -52,6 +55,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Calendar;
 import java.util.HashMap;
 
 
@@ -100,6 +104,16 @@ public class MainActivity extends AppCompatActivity
     private boolean showWeather = true;
 
 
+    private BottomNavigationView bottomNavigationView;
+
+    private View bottomSheet;
+    private BottomSheetBehavior bottomSheetBehavior;
+
+    private View sheetBg;
+
+    private boolean showingShadow = false;
+
+
 
     int id;
     Fragment fragment;
@@ -110,15 +124,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void resetShadow() {
 
-
-        StateListAnimator stateListAnimator = new StateListAnimator();
-        stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(findViewById(R.id.mainBar), "elevation", 16));
-        findViewById(R.id.mainBar).setStateListAnimator(stateListAnimator);
-
-
-    }
 
     public String getName() {
         return name;
@@ -169,6 +175,20 @@ public class MainActivity extends AppCompatActivity
         StateListAnimator stateListAnimator = new StateListAnimator();
         stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(findViewById(R.id.mainBar), "elevation", 0));
         findViewById(R.id.mainBar).setStateListAnimator(stateListAnimator);
+
+        showingShadow = false;
+
+
+    }
+
+    public void resetShadow() {
+
+
+        StateListAnimator stateListAnimator = new StateListAnimator();
+        stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(findViewById(R.id.mainBar), "elevation", 16));
+        findViewById(R.id.mainBar).setStateListAnimator(stateListAnimator);
+
+        showingShadow = true;
 
 
     }
@@ -242,11 +262,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
-
-
-
-
         if (session.isLoggedIn()) {
 
             // Fetching user details from sqlite
@@ -288,19 +303,7 @@ public class MainActivity extends AppCompatActivity
             logoutUser();
 
         }
-/*
-        Button btnLogout = (Button) findViewById(R.id.btnLogout);
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                logoutUser();
-
-            }
-
-        });
-        */
 
         instance = this;
 
@@ -338,7 +341,29 @@ public class MainActivity extends AppCompatActivity
         return deptInt;
     }
 
+
+
+    public void hideBottomSheet(){
+
+        sheetBg.animate().alpha(0.0f).setDuration(150);
+
+
+        if(showingShadow)
+            removeShadow();
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                sheetBg.setVisibility(View.GONE);
+            }
+        }, 150);
+    }
+
+
     public void createMainActivity() {
+
 
 
 
@@ -357,19 +382,148 @@ public class MainActivity extends AppCompatActivity
 
         headerView = navigationView.getHeaderView(0);
 
+        // bottomSheetBehavior.setState();
+
+        sheetBg = findViewById(R.id.sheet_bg);
 
 
 
+
+        sheetBg.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+               hideBottomSheet();
+            }
+        });
+
+        sheetBg.setVisibility(View.GONE);
+
+
+
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+
+
+        bottomSheet = findViewById(R.id.bottom_sheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+
+                if(newState == BottomSheetBehavior.STATE_HIDDEN || newState == BottomSheetBehavior.STATE_DRAGGING) {
+                    sheetBg.animate().alpha(0.0f).setDuration(150);
+                    sheetBg.setVisibility(View.GONE);
+
+                } else if(newState == BottomSheetBehavior.STATE_EXPANDED){
+
+                    sheetBg.animate().alpha(1.0f).setDuration(150);
+                    sheetBg.setVisibility(View.VISIBLE);
+
+
+                }
+
+
+            }
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+
+
+
+            }
+        });
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+                        switch (item.getItemId()) {
+                            case R.id.nav_menu:
+
+                                MenuGridActivity includeMenu = new MenuGridActivity(context,bottomSheet,getInstance());
+                                bottomSheet.bringToFront();
+
+                                if(showingShadow)
+                                    removeShadow();
+
+
+
+                                sheetBg.animate().alpha(1.0f);
+
+                                if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN) {
+                                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                                    sheetBg.setVisibility(View.VISIBLE);
+                                }
+                                else
+                                    hideBottomSheet();
+                                break;
+
+                            case R.id.nav_newsfeed:
+                                fragment = new StatusActivity();
+                                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+                                //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
+                                ft.replace(R.id.mainFrame, fragment,"Newsfeed");
+                                ft.addToBackStack(null);
+                                ft.commit();
+
+                                hideBottomSheet();
+                                break;
+
+                            case R.id.nav_message:
+                                fragment = new Messages();
+                                ft.setCustomAnimations(R.animator.slide_in_left,R.animator.fade_out, 0, 0);
+                                //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
+                                ft.replace(R.id.mainFrame, fragment,"Messages");
+                                ft.addToBackStack(null);
+                                ft.commit();
+
+
+                                hideBottomSheet();
+                                break;
+
+                            case R.id.nav_buysell:
+                                fragment = new BuySell();
+                                ft.setCustomAnimations(R.animator.fade_in,R.animator.fade_out, 0, 0);
+                                //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
+                                ft.replace(R.id.mainFrame, fragment,"Buy-Sell Shop");
+                                ft.addToBackStack(null);
+                                ft.commit();
+
+
+                                hideBottomSheet();
+                                break;
+
+                            case R.id.nav_home:
+                                fragment = new UserProfile();
+                                ft.setCustomAnimations(R.animator.slide_in_left,R.animator.fade_out, 0, 0);
+                                //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
+                                ft.replace(R.id.mainFrame, fragment,"Profile");
+                                ft.addToBackStack(null);
+                                ft.commit();
+
+
+                                hideBottomSheet();
+                                break;
+
+
+
+                        }
+                        return true;
+                    }
+                });
 
 
         ImageView navDp = (ImageView) headerView.findViewById(R.id.profilePicNav);
-
-
         final String imgDir = context.getFilesDir().getPath() + File.separator + "images" + File.separator + "tamim.jpg";
-
         userProfilePicture = new File(imgDir);
-
-
 
         if (picture != null && !picture.equals("0")){
 
@@ -465,7 +619,10 @@ public class MainActivity extends AppCompatActivity
         navEmail.setText(email);
 
 
+
         Intent intent = getIntent();
+
+
 
 
         // Toast.makeText(this, intent.toUri(0), Toast.LENGTH_SHORT).show();
@@ -508,6 +665,47 @@ public class MainActivity extends AppCompatActivity
                 ft.replace(R.id.mainFrame, fragments,"Schedule");
                 ft.commit();
 
+            }else if(type.equals("message"))
+            {
+
+                String senderMemID = intent.getStringExtra("senderMemID");
+                String typeExtra = intent.getStringExtra("typeExtra");
+//
+//                if(!intent.hasExtra("fromService")){
+//
+//
+//                    ChatEntity chatItem = new ChatEntity();
+//
+//
+//                    long time = Calendar.getInstance().getTimeInMillis()/1000L;
+//
+//
+//                    String typeExtra2 =  intent.getStringExtra("typeExtra2");
+//
+//
+//                    int idd = Integer.parseInt(typeExtra2);
+//
+//                    String message = intent.getStringExtra("body");
+//                    chatItem.setMsg_id(idd);
+//                    chatItem.setUser_from(senderMemID);
+//                    chatItem.setUser_to(memberID);
+//                    chatItem.setMessage(message);
+//                    chatItem.setTime(time);
+//
+//
+//                    String dbName = "chat_"+senderMemID;
+//                    ChatDatabase chatDb= Room.databaseBuilder(getApplicationContext(),
+//                            ChatDatabase.class, dbName).allowMainThreadQueries().build();
+//                    chatDb.chatDao().insertAll(chatItem);
+//
+//                }
+
+                Fragment fragments = new Messages(senderMemID,typeExtra);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+                ft.replace(R.id.mainFrame, fragments,"Newsfeed");
+                ft.commit();
+
             }
 
 
@@ -531,25 +729,13 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-
-
-
-
         isLatestVersion();
 
-
         // Custom condition: 1 days and 5 launches
-
         RateThisApp.onCreate(this);
         RateThisApp.showRateDialogIfNeeded(this);
         RateThisApp.Config config = new RateThisApp.Config(3,5);
         RateThisApp.init(config);
-
-
-
-
-
-
 
 
     }
@@ -594,10 +780,6 @@ public class MainActivity extends AppCompatActivity
 
     public void logoutUserDelete() {
 
-
-
-//                .setTitle("Confi")
-
         new AlertDialog.Builder(this,R.style.AlertDialogTheme)
                 .setMessage("Do you really want to logout?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -608,16 +790,6 @@ public class MainActivity extends AppCompatActivity
                         session.setLogin(false);
 
                         db.deleteUsers();
-
-//        NsuNoticesDatabase ndb = Room.databaseBuilder(getApplicationContext(),
-//                NsuNoticesDatabase.class, "notices").allowMainThreadQueries().build();
-//
-//        ndb.nsuNoticesDao().nukeTable();
-//
-//        ndb = Room.databaseBuilder(getApplicationContext(),
-//                NsuNoticesDatabase.class, "events").allowMainThreadQueries().build();
-//
-//        ndb.nsuNoticesDao().nukeTable();
 
 
                         CoursesDatabase cdb = Room.databaseBuilder(getApplicationContext(),
@@ -754,6 +926,15 @@ public class MainActivity extends AppCompatActivity
 //
 //        if(getFragmentManager().getBackStackEntryCount() > 0){
 //            super.onBackPressed();
+
+
+        if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
+            hideBottomSheet();
+            return;
+
+
+        }
+
 
         UserProfile test = (UserProfile) getSupportFragmentManager().findFragmentByTag("Profile");
         if (test != null && test.isVisible()) {
@@ -1043,8 +1224,10 @@ public class MainActivity extends AppCompatActivity
             float x = ev.getRawX() + v.getLeft() - scrcoords[0];
             float y = ev.getRawY() + v.getTop() - scrcoords[1];
 
-            if (x < v.getLeft() || x > v.getRight() || y < v.getTop() || y > v.getBottom())
+            if (x < v.getLeft() || x > v.getRight() || y < v.getTop() || y > v.getBottom()) {
                 hideKeyboard(this);
+                hideBottomSheet();
+            }
         }
         return super.dispatchTouchEvent(ev);
     }

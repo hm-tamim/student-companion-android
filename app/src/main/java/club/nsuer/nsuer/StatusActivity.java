@@ -387,7 +387,7 @@ public class StatusActivity extends Fragment {
                         parametters.put("course", coursez);
                         parametters.put("post",postz);
 
-                        JSONParser parser = new JSONParser("https://nsuer.club/app/newsfeed/create-post.php", "GET", parametters);
+                        JSONParser parser = new JSONParser("https://nsuer.club/app/newsfeed/create-post-2.php", "GET", parametters);
 
 
 
@@ -1023,11 +1023,6 @@ public class StatusActivity extends Fragment {
                     // Log.e("JSON", e.toString());
                 }
 
-
-
-
-
-
             }
 
             @Override
@@ -1035,13 +1030,6 @@ public class StatusActivity extends Fragment {
             }
         });
         parser.execute();
-
-
-
-
-
-
-
 
 
     }

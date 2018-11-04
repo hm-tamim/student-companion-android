@@ -34,6 +34,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
@@ -122,25 +124,23 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
         final String gender = itemList.get(listPosition).getGender();
 
+        int placeH = R.drawable.ic_male_color;
+
+        if(gender.equals("female"))
+            placeH = R.drawable.ic_female_color;
+
+        image.setImageDrawable(context.getResources().getDrawable(placeH));
+
         if(!picUrl.equals("0")) {
-            Picasso.get()
+            RequestOptions placeholderRequest = new RequestOptions();
+            placeholderRequest.placeholder(placeH);
+
+
+            Glide.with(context)
+                    .setDefaultRequestOptions(placeholderRequest)
                     .load("https://nsuer.club/images/profile_picture/" + picUrl)
-                    .fit()
-                    .transform(new CircleTransform())
-                    .centerCrop(Gravity.TOP)
+                    .apply(RequestOptions.circleCropTransform())
                     .into(image);
-
-
-            //
-        }else {
-
-            if(gender.equals("female"))
-                image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_female_user));
-            else
-                image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_male_user));
-
-
-
 
         }
 
@@ -291,9 +291,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
                                             }})
                                         .setNegativeButton(android.R.string.no, null).show();
 
-
-
-
                                 break;
 
                             case R.id.cr_action_edit:
@@ -321,6 +318,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
                                     }
                                 });
+                                break;
 
                             case R.id.cr_action_who_liked:
                                 instanse.AlertWhoLiked(String.valueOf(itemList.get(listPosition).getId()));

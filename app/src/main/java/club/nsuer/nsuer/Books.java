@@ -33,12 +33,23 @@ import java.util.HashMap;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import club.nsuer.nsuer.BooksDatabase;
+import club.nsuer.nsuer.BooksEntity;
+import club.nsuer.nsuer.BooksItem;
+import club.nsuer.nsuer.BooksListAdapter;
+import club.nsuer.nsuer.BooksListItem;
+import club.nsuer.nsuer.CoursesList;
+import club.nsuer.nsuer.JSONParser;
+import club.nsuer.nsuer.MainActivity;
+import club.nsuer.nsuer.MyNumberPicker;
+import club.nsuer.nsuer.R;
+import club.nsuer.nsuer.Utils;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Books extends Fragment implements CoursesList{
+public class Books extends Fragment implements CoursesList {
 
 
 

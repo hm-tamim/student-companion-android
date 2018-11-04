@@ -17,6 +17,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -60,7 +62,8 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition)
         {
-            Animation animation = AnimationUtils.loadAnimation(context, R.animator.up_from_bottom);
+            Animation animation = AnimationUtils.loadAnimation(context, R.animator.up_from_bottom_short);
+
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
@@ -156,10 +159,17 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
 
        // image.setText(itemList.get(listPosition).getImage());
 
-        Picasso.get()
+
+        int placeH = R.drawable.default_user_pic;
+
+        RequestOptions placeholderRequest = new RequestOptions();
+        placeholderRequest.placeholder(placeH);
+
+
+        Glide.with(context)
+                .setDefaultRequestOptions(placeholderRequest)
                 .load(imageUrl)
-                .fit()
-                .centerCrop(Gravity.TOP)
+                .apply(RequestOptions.circleCropTransform())
                 .into(image);
 
 

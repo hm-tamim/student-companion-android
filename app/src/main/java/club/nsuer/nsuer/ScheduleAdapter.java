@@ -102,16 +102,16 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
         long timestamp = (long) timeI * 1000L;
 
-        TimeZone tz = TimeZone.getTimeZone("GMT-6");
+        //TimeZone tz = TimeZone.getTimeZone("GMT-6");
 
         SimpleDateFormat dateSdf = new SimpleDateFormat("dd", Locale.ENGLISH);
-        dateSdf.setTimeZone(tz);
+        //dateSdf.setTimeZone(tz);
 
         SimpleDateFormat monthSdf = new SimpleDateFormat("MMM", Locale.ENGLISH);
-        monthSdf.setTimeZone(tz);
+        //monthSdf.setTimeZone(tz);
 
         SimpleDateFormat timeSdf = new SimpleDateFormat("EEE, hh:mm a", Locale.ENGLISH);
-        timeSdf.setTimeZone(tz);
+        //timeSdf.setTimeZone(tz);
 
 
 

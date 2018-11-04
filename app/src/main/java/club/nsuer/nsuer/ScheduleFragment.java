@@ -99,6 +99,7 @@ public class ScheduleFragment extends Fragment {
         Intent intent = new Intent(context,
                 AddSchedule.class);
         intent.putExtra("id", id);
+        intent.putExtra("uid",main.getUid());
         startActivityForResult(intent, 10001);
 
 
@@ -126,6 +127,7 @@ public class ScheduleFragment extends Fragment {
             public void onClick(View v){
                 Intent intent = new Intent(context,
                         AddSchedule.class);
+                intent.putExtra("uid",main.getUid());
                 startActivityForResult(intent, 10001);
 
             }

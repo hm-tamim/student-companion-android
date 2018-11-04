@@ -1,9 +1,11 @@
 package club.nsuer.nsuer;
 
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,7 +19,12 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
+
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -31,11 +38,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         //showNotification(remoteMessage.getNotification().getBody());
 
 
+        Context context = getApplicationContext();
+
+
+
+
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
 
 
-            Context context = getApplicationContext();
 
             // SqLite database handler
             SQLiteHandler db = new SQLiteHandler(context);
@@ -52,11 +63,44 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String type = remoteMessage.getData().get("type");
             String typeExtra = remoteMessage.getData().get("typeExtra");
 
-            // if(!senderMemID.equals(memberID))
-
-            sendNotification(body,title,type,typeExtra,"MainActivity");
+            String typeExtra2 = remoteMessage.getData().get("typeExtra2");
 
 
+
+            if(type.equals("message")){
+
+                String notifyMessageZ = remoteMessage.getData().get("typeExtra3");
+
+                int id = Integer.parseInt(typeExtra2);
+                String from = senderMemID;
+                String to = memberID;
+                String message = body;
+                long time = Long.parseLong(remoteMessage.getData().get("typeExtra4"));
+
+                ChatEntity chatItem = new ChatEntity();
+
+
+                chatItem.setMsg_id(id);
+                chatItem.setUser_from(from);
+                chatItem.setUser_to(to);
+                chatItem.setMessage(message);
+                chatItem.setTime(time);
+
+
+                String dbName = "chat_"+from;
+
+                ChatDatabase chatDb= Room.databaseBuilder(getApplicationContext(),
+                        ChatDatabase.class, dbName).allowMainThreadQueries().build();
+
+                chatDb.chatDao().insertAll(chatItem);
+
+
+            } else {
+
+                if (!senderMemID.equals(memberID))
+                    sendNotification(body, title, senderMemID, type, typeExtra,  "MainActivity");
+
+            }
 
 
         }
@@ -69,11 +113,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
 
+    public boolean foregrounded() {
+        ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
+        ActivityManager.getMyMemoryState(appProcessInfo);
+        return (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE);
+    }
 
-
-
-
-    private void sendNotification(String messageBody, String messageTitle, String type, String typeExtra, String actvityName) {
+    private void sendNotification(String messageBody, String messageTitle, String senderMemID, String type, String typeExtra, String actvityName) {
 
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -95,8 +141,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
         Intent intent = new Intent(this,MainActivity.class);
+        intent.putExtra("senderMemID",senderMemID);
         intent.putExtra("type", type);
         intent.putExtra("typeExtra", typeExtra);
+        intent.putExtra("fromService","true");
 
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);

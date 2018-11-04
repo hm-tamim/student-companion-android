@@ -2,29 +2,21 @@ package club.nsuer.nsuer;
 
 
 
-import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 
 
 public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHolder> {
@@ -71,6 +63,7 @@ public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHold
         TextView time = holder.time;
         ImageView image = holder.image;
         CardView cardView = holder.cardView;
+        TextView isSoldTextView = holder.isSold;
 
 
 
@@ -78,21 +71,39 @@ public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHold
         int id = itemList.get(listPosition).getId();
         String titleS = itemList.get(listPosition).getTitle();
         String priceS = itemList.get(listPosition).getPrice();
+
+        if(Utils.isNumeric(priceS))
+            priceS = "৳ "+priceS;
+
         long timeL = itemList.get(listPosition).getTime();
         String sellerS = itemList.get(listPosition).getSellerName();
         int sellerID = itemList.get(listPosition).getSellerID();
 
         int category = itemList.get(listPosition).getCategory();
 
+        String img = itemList.get(listPosition).getImageUrl();
 
+        String timeS = Utils.getTimeAgoShop(itemList.get(listPosition).getTime());
+
+
+        time.setText(timeS);
 
 //        Picasso.get()
 //                .cancelRequest(image);
-//
-        Picasso.get()
-                    .load("https://nsuer.club/images/profile_picture/6.jpg")
-                    .fit()
-                    .centerCrop(Gravity.TOP)
+
+
+
+        RequestOptions placeholderRequest = new RequestOptions();
+        placeholderRequest.placeholder(R.drawable.default_image);
+        placeholderRequest.centerCrop();
+
+
+
+        Glide.with(context)
+
+                    .setDefaultRequestOptions(placeholderRequest)
+                    .load("https://nsuer.club/images/shop/"+img)
+                    .apply(RequestOptions.centerCropTransform())
                     .into(image);
 
         title.setText(titleS);
@@ -106,10 +117,22 @@ public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHold
             @Override
             public void onClick(View v) {
 
-                //   instance.openActivityWithId(itemList.get(listPosition).getId());
+                  instance.loadItemDetails(listPosition);
 
             }
         });
+
+
+        int checkSold = itemList.get(listPosition).getSold();
+
+        if(checkSold != 0) {
+            isSoldTextView.setVisibility(View.VISIBLE);
+            isSoldTextView.bringToFront();
+        }
+        else {
+            isSoldTextView.setVisibility(View.GONE);
+
+        }
 
 
 
@@ -123,6 +146,7 @@ public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHold
         public TextView time;
         public ImageView image;
         public CardView cardView;
+        public TextView isSold;
 
         public View circle;
 
@@ -135,11 +159,13 @@ public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHold
             title = (TextView) itemView.findViewById(R.id.title);
             time = (TextView) itemView.findViewById(R.id.time);
             price = (TextView) itemView.findViewById(R.id.price);
-            seller = (TextView) itemView.findViewById(R.id.seller);
+            seller = (TextView) itemView.findViewById(R.id.editButton);
 
             image = (ImageView) itemView.findViewById(R.id.image);
 
             cardView = (CardView) itemView.findViewById(R.id.cardView);
+
+            isSold = (TextView) itemView.findViewById(R.id.isSold);
 
 
 

@@ -84,7 +84,7 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition)
         {
-            Animation animation = AnimationUtils.loadAnimation(MyContext, R.animator.up_from_bottom);
+            Animation animation = AnimationUtils.loadAnimation(MyContext, R.animator.up_from_bottom_short);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
@@ -291,7 +291,7 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
             }
         }, animateDelay);
 
-        animateDelay += 10;
+        animateDelay += 20;
 
 
 

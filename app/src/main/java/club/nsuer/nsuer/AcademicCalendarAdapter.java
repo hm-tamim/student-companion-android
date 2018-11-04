@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import club.nsuer.nsuer.AcademicCalendarItem;
+import club.nsuer.nsuer.R;
+
 
 public class AcademicCalendarAdapter extends RecyclerView.Adapter<AcademicCalendarAdapter.ViewHolder> {
 

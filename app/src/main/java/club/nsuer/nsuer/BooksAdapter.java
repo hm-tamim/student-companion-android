@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import club.nsuer.nsuer.BooksListItem;
+import club.nsuer.nsuer.R;
+import club.nsuer.nsuer.Utils;
+
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.SingleItemRowHolder> {
 

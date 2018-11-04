@@ -12,9 +12,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -33,16 +35,23 @@ import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.thebluealliance.spectrum.SpectrumDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import android.support.v4.app.DialogFragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 
 public class AddSchedule extends AppCompatActivity {
@@ -81,8 +90,13 @@ public class AddSchedule extends AppCompatActivity {
 
     private ScheduleDatabase db;
 
+
+    private CoursesDatabase coursesDatabase;
+
     private int id;
     private boolean editPage = false;
+
+    private String uid;
 
     private LinearLayout reminderHolder;
 
@@ -96,8 +110,17 @@ public class AddSchedule extends AppCompatActivity {
 
 
 
-        db = Room.databaseBuilder(getApplicationContext(),
+        db = Room.databaseBuilder(this,
                 ScheduleDatabase.class, "schedules").allowMainThreadQueries().build();
+
+
+        coursesDatabase = Room.databaseBuilder(this,
+                CoursesDatabase.class, "courses").allowMainThreadQueries().build();
+
+
+
+        List<CoursesEntity> list = coursesDatabase.coursesDao().getAll();
+
 
 
 
@@ -109,9 +132,21 @@ public class AddSchedule extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         final ArrayList<String> courses = new ArrayList<String>();
-        courses.add("CSE231");
-        courses.add("MAT120");
-        courses.add("EEE141");
+
+
+        for (int i=0; i < list.size(); i++) {
+
+
+            String course = list.get(i).getCourse();
+            String section = list.get(i).getSection();
+
+
+                courses.add(course + "." + section);
+
+
+        }
+
+
 
         final ArrayList<String> types = new ArrayList<String>();
         types.add("Quiz");
@@ -200,9 +235,9 @@ public class AddSchedule extends AppCompatActivity {
 
                                     Log.d("color", color+" ");
 
-                                    Toast.makeText(AddSchedule.this, "Color selected: #" + Integer.toHexString(color).toUpperCase(), Toast.LENGTH_SHORT).show();
+                                   // Toast.makeText(AddSchedule.this, "Color selected: #" + Integer.toHexString(color).toUpperCase(), Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(context, "Dialog cancelled", Toast.LENGTH_SHORT).show();
+                                   // Toast.makeText(context, "Dialog cancelled", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -453,6 +488,8 @@ public class AddSchedule extends AppCompatActivity {
 
                             db.scheduleDao().deleteById(id);
 
+                            sendDelete(id);
+
                             cancelReminder(id);
 
                             onBackPressed();
@@ -516,7 +553,7 @@ public class AddSchedule extends AppCompatActivity {
 
                                 reminderTime = temp.getTimeInMillis();
                                 break;
-                            case 6:
+                            case 5:
                                 temp = Calendar.getInstance();
                                 temp.setTimeInMillis(ScheduleTime);
                                 temp.add(Calendar.DATE, -3);
@@ -555,6 +592,11 @@ public class AddSchedule extends AppCompatActivity {
 
 
         Intent intent = getIntent();
+
+
+
+        if(intent.hasExtra("uid"))
+            uid = intent.getStringExtra("uid");
 
         if(intent.hasExtra("id")) {
 
@@ -638,7 +680,13 @@ public class AddSchedule extends AppCompatActivity {
                 if(!editPage) {
                     insertedIDlong = db.scheduleDao().insertAll(new ScheduleEntity(title, type, note, date, reminderDate, color, doRemind));
                     insertedID = (int) insertedIDlong[0];
+
+                    addSchedule(insertedID, title, type, note, date, reminderDate, color, doRemind);
+
                 }else {
+
+
+                    sendDelete(id);
 
                     db.scheduleDao().deleteById(id);
                     cancelReminder(id);
@@ -646,6 +694,9 @@ public class AddSchedule extends AppCompatActivity {
                     insertedIDlong = db.scheduleDao().insertAll(new ScheduleEntity(title, type, note, date, reminderDate, color, doRemind));
                     insertedID = (int) insertedIDlong[0];
                     id = insertedID;
+
+                    addSchedule(insertedID, title, type, note, date, reminderDate, color, doRemind);
+
                 }
 
 
@@ -678,26 +729,132 @@ public class AddSchedule extends AppCompatActivity {
 
 
 
+    public void addSchedule(int id, String title, String type, String extraNote, long date, long reminderDate, int color, boolean doReminder){
+
+
+
+                HashMap<String, String> parametters = new HashMap<String, String>();
+
+                parametters.put("scheduleID",String.valueOf(id));
+                parametters.put("uid",uid);
+
+                parametters.put("subject", title);
+                parametters.put("type", type);
+                parametters.put("extraNote", extraNote);
+                parametters.put("date", String.valueOf(date));
+                parametters.put("reminderDate", String.valueOf(reminderDate));
+                parametters.put("color", String.valueOf(color));
+                parametters.put("doReminder", String.valueOf(doReminder));
+
+
+                JSONParser parser = new JSONParser("https://nsuer.club/app/schedules/add.php", "GET", parametters);
+
+
+
+                parser.setListener(new JSONParser.ParserListener() {
+                    @Override
+                    public void onSuccess(JSONObject result) {
+
+
+                        int courseCount = 0;
+
+                        try {
+                            JSONArray obj = result.getJSONArray("dataArray");
+
+
+
+                        } catch (JSONException e) {
+
+                            Log.e("JSON", e.toString());
+                        }
+
+
+
+
+
+
+                    }
+
+                    @Override
+                    public void onFailure() {
+                    }
+                });
+                parser.execute();
+
+
+
+
+    }
+
+
+    public void sendDelete(int id){
+
+        HashMap<String, String> parametters = new HashMap<String, String>();
+
+        parametters.put("scheduleID",String.valueOf(id));
+        parametters.put("uid",uid);
+
+        JSONParser parser = new JSONParser("https://nsuer.club/app/schedules/delete.php", "GET", parametters);
+
+        parser.setListener(new JSONParser.ParserListener() {
+            @Override
+            public void onSuccess(JSONObject result) {
+
+
+                int courseCount = 0;
+
+                try {
+                    JSONArray obj = result.getJSONArray("dataArray");
+
+
+
+                } catch (JSONException e) {
+
+                    Log.e("JSON", e.toString());
+                }
+
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
+        parser.execute();
+
+
+
+
+    }
 
     public void setReminder(int idd, String reminderText) {
-        int timeInSec = 10;
 
-        Intent intent = new Intent(this, ReminderBroadcast.class);
 
-        intent.putExtra("text",reminderText);
-        intent.putExtra("id",idd);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this.getApplicationContext(), idd, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, reminderCalendar.getTimeInMillis(), pendingIntent);
+        long unixTime = System.currentTimeMillis() / 1000L;
 
-        String myFormat = "dd MMMM, yyyy 'at' hh:mm a";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        long reminderTime = reminderCalendar.getTimeInMillis()/1000L;
+        if(unixTime < reminderTime) {
 
-        String reminderTextx = sdf.format(reminderCalendar.getTime());
+            Intent intent = new Intent(this, ReminderBroadcast.class);
 
-        // Toast.makeText(this, "Reminder is set to " + reminderTextx,Toast.LENGTH_LONG).show();
+            intent.putExtra("text", reminderText);
+            intent.putExtra("id", idd);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                    this.getApplicationContext(), idd, intent, 0);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, reminderCalendar.getTimeInMillis(), pendingIntent);
+
+            String myFormat = "dd MMMM, yyyy 'at' hh:mm a";
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+            String reminderTextx = sdf.format(reminderCalendar.getTime());
+
+            Toast.makeText(this, "Reminder is set to " + reminderTextx,Toast.LENGTH_LONG).show();
+
+        }
+
+
     }
 
     public void cancelReminder(int idd){

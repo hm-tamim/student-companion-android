@@ -10,8 +10,12 @@ public class BuySellItem {
     private String imageUrl;
     private long time;
     private int category;
+    private String description;
 
-    public BuySellItem(int id, String sellerName, int sellerID, String title, String price, String imageUrl, long time, int category) {
+    private int sold;
+    private int approved;
+
+    public BuySellItem(int id, String sellerName, int sellerID, String title, String price, String imageUrl, long time, int category, String description, int sold, int approved) {
         this.id = id;
         this.sellerName = sellerName;
         this.sellerID = sellerID;
@@ -20,6 +24,33 @@ public class BuySellItem {
         this.imageUrl = imageUrl;
         this.time = time;
         this.category = category;
+        this.description = description;
+        this.sold = sold;
+        this.approved = approved;
+    }
+
+    public int getSold() {
+        return sold;
+    }
+
+    public void setSold(int sold) {
+        this.sold = sold;
+    }
+
+    public int getApproved() {
+        return approved;
+    }
+
+    public void setApproved(int approved) {
+        this.approved = approved;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getId() {

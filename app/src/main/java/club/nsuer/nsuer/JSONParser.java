@@ -61,9 +61,13 @@ public class JSONParser extends AsyncTask<Void, Void, JSONObject> {
                 if (i != 0) {
                     sbParams.append("&");
                 }
-                sbParams.append(key).append("=")
-                        .append(URLEncoder.encode(params.get(key), charset));
-
+                if ( params.get(key) != null ) {
+                    sbParams.append(key).append("=")
+                            .append(URLEncoder.encode(params.get(key), charset));
+                } else {
+                    sbParams.append(key).append("=")
+                            .append("");
+                }
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }

@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -66,12 +68,20 @@ public class ClassMatesAdapter extends RecyclerView.Adapter<ClassMatesAdapter.Vi
 
         final ImageView image = holder.image;
 
-        Picasso.get()
-                .cancelRequest(holder.image);
+        String gender = itemList.get(listPosition).getGender();
+
+//        Picasso.get()
+//                .cancelRequest(holder.image);
+
+
+        if(gender.equals("female"))
+            image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_female_color));
+        else
+            image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_male_color));
 
         ImageView chat = holder.chat;
 
-        String userName = itemList.get(listPosition).getName();
+        final String userName = itemList.get(listPosition).getName();
 
         name.setText(userName);
         course.setText(itemList.get(listPosition).getCourse());
@@ -79,9 +89,10 @@ public class ClassMatesAdapter extends RecyclerView.Adapter<ClassMatesAdapter.Vi
 
         final String picUrl = itemList.get(listPosition).getImage();
 
-        String gender = itemList.get(listPosition).getGender();
 
         final String email = itemList.get(listPosition).getEmail();
+
+        final String memID = itemList.get(listPosition).getMemID();
 
 
         int placeH = R.drawable.ic_male_color;
@@ -91,21 +102,16 @@ public class ClassMatesAdapter extends RecyclerView.Adapter<ClassMatesAdapter.Vi
 
 
         if(picUrl.contains(".")) {
-            Picasso.get()
+
+            RequestOptions placeholderRequest = new RequestOptions();
+            placeholderRequest.placeholder(placeH);
+
+
+            Glide.with(context)
+                    .setDefaultRequestOptions(placeholderRequest)
                     .load("https://nsuer.club/images/profile_picture/" + picUrl)
-                    .fit()
-                    .placeholder(placeH)
-                    .error(placeH)
-                    .transform(new CircleTransform())
-                    .centerCrop(Gravity.TOP)
+                    .apply(RequestOptions.circleCropTransform())
                     .into(image);
-
-        }else {
-
-            if(gender.equals("female"))
-                image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_female_color));
-            else
-                image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_male_color));
 
         }
 
@@ -113,9 +119,19 @@ public class ClassMatesAdapter extends RecyclerView.Adapter<ClassMatesAdapter.Vi
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto",email, null));
-                intent.putExtra(Intent.EXTRA_SUBJECT, "[NSUer App] Message from "+ myName);
+//                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+//                        "mailto",email, null));
+//                intent.putExtra(Intent.EXTRA_SUBJECT, "[NSUer App] Message from "+ myName);
+//
+//                context.startActivity(intent);
+
+
+
+
+                Intent intent = new Intent(context,ChatActivity.class);
+
+                intent.putExtra("otherMemID", memID);
+                intent.putExtra("otherMemName", userName);
 
                 context.startActivity(intent);
 

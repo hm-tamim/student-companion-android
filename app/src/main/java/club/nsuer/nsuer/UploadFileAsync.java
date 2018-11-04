@@ -134,6 +134,11 @@ public class UploadFileAsync extends AsyncTask<String, Void, String> {
                         //Toast.makeText(EditProfile.this, "Profile Picture Uploaded.", Toast.LENGTH_SHORT).show();
 
                         // recursiveDelete(mDirectory1);
+                        onPostExecute("uploaded");
+
+                    } else {
+
+                        onPostExecute("failed");
 
                     }
 
@@ -163,6 +168,8 @@ public class UploadFileAsync extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
+
+        listener.onFailure();
 
     }
 

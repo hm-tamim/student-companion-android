@@ -140,6 +140,53 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
     }
 
 
+    private void moveButtonToRight(){
+
+
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+
+                TransitionManager.beginDelayedTransition((ViewGroup) mainView.getParent());
+                final FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) addButton.getLayoutParams();
+                lp.gravity = Gravity.BOTTOM | GravityCompat.END;
+                lp.setMargins(0,0,0,55);
+                lp.setMarginEnd(250);
+
+                addButton.setLayoutParams(lp);
+            }
+
+        }, 150);
+
+
+
+
+    }
+
+    private void moveButtonToLeft(){
+
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                TransitionManager.beginDelayedTransition((ViewGroup) mainView.getParent());
+                final FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) addButton.getLayoutParams();
+                lp.gravity = Gravity.BOTTOM | GravityCompat.START;
+                lp.setMargins(0,0,0,55);
+                lp.setMarginEnd(0);
+
+
+                addButton.setLayoutParams(lp);
+
+            }
+
+        }, 100);
+
+
+
+    }
+
+
+
 
 
 
@@ -167,18 +214,92 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
 
 
 
-        coursez.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        if (instance instanceof CgpaCalculator) {
+            coursez.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                InputMethodManager in = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                    InputMethodManager in = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
+                    moveButtonToLeft();
+
+
+                }
+
+            });
+
+
+            coursez.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+
+                    if (!hasFocus)
+                        moveButtonToLeft();
+                    else
+                        moveButtonToRight();
+
+                    if (hasFocus)
+                        moveButtonToRight();
+                    else
+                        moveButtonToLeft();
+
+
+                }
+            });
+
+
+            coursez.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    moveButtonToRight();
+                }
+            });
+
+            coursez.setOnEditorActionListener(new AutoCompleteTextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        moveButtonToLeft();
+                    }
+                    return false;
+                }
+            });
+
+
+            coursez.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        moveButtonToLeft();
+                        // ((LinearLayoutManager) mainView.getLayoutManager()).scrollToPositionWithOffset(listPosition, 0);
+                    }
+                    return false;
+                }
+            });
+
+        } else {
+
+
+            coursez.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                    InputMethodManager in = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
 
 
 
-            }
+                }
 
-        });
+            });
+
+
+        }
+
+
+
+
 
 
 

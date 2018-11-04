@@ -20,6 +20,12 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
+import club.nsuer.nsuer.BooksDatabase;
+import club.nsuer.nsuer.BooksListItem;
+import club.nsuer.nsuer.EdgeDecorator;
+import club.nsuer.nsuer.MainActivity;
+import club.nsuer.nsuer.R;
+
 
 public class BooksListAdapter extends RecyclerView.Adapter<BooksListAdapter.ItemRowHolder> {
 

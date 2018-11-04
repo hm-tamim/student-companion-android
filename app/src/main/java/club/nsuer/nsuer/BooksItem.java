@@ -2,6 +2,9 @@ package club.nsuer.nsuer;
 
 import java.util.ArrayList;
 
+import club.nsuer.nsuer.BooksListItem;
+
+
 public class BooksItem {
 
     private String course;

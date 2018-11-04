@@ -572,7 +572,7 @@ public class UserProfile extends Fragment {
 
 
 
-        MenuGridActivity includeMenu = new MenuGridActivity(context,v, main);
+       // MenuGridActivity includeMenu = new MenuGridActivity(context,v, main);
 
 
 
