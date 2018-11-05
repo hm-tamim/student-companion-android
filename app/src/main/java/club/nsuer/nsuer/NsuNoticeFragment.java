@@ -40,6 +40,10 @@ public class NsuNoticeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
+        MainActivity main = (MainActivity) getActivity();
+
+        main.setActionBarTitle("NSUer");
+
         ProgressBar p = (ProgressBar) v.findViewById(R.id.progressBarOnProfile);
 
         p.setVisibility(View.GONE);

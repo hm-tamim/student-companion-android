@@ -230,7 +230,7 @@ public class MenuGridActivity{
 
                 }else if(gridViewString[+i].equals("Schedules")){
 
-                    fragment = new ScheduleFragment();
+                    fragment = new SchedulesTab();
                     ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
                     ft.replace(R.id.mainFrame, fragment, gridViewString[+i]);
                     ft.addToBackStack(null);

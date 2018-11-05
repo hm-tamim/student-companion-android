@@ -110,7 +110,6 @@ public class ScheduleFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        main.setActionBarTitle("Schedules");
 
 
 

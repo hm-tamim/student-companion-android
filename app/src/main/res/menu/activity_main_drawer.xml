@@ -12,6 +12,13 @@
             android:id="@+id/nav_newsfeed"
             android:icon="@drawable/ic_newsfeed"
             android:title="Newsfeed" />
+        <item
+            android:id="@+id/nav_message"
+            android:icon="@drawable/ic_chat_room" />
+
+        <item
+            android:id="@+id/nav_buysell"
+            android:icon="@drawable/ic_shopping_cart_white" />
 
         <item
             android:id="@+id/nav_classmates"
@@ -25,6 +32,10 @@
             android:id="@+id/nav_courses"
             android:icon="@drawable/ic_courses"
             android:title="Courses" />
+        <item
+            android:id="@+id/nav_schedules"
+            android:icon="@drawable/ic_courses"
+            android:title="Schedules" />
 
         <item
             android:id="@+id/nav_faculty"

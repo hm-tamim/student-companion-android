@@ -18,7 +18,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#f9f9f9"
-        android:minHeight="1200dp"
+        android:minHeight="500dp"
         android:orientation="vertical">
 
 

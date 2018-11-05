@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    app:cardBackgroundColor="#fff"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="1dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="135dp"
+            android:layout_height="150dp"
+            android:background="#e9eef1"
+            android:src="@drawable/nsucampus" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/image"
+            android:maxLines="1"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+            android:text="ECO103 Book By Ecoman Andolema"
+            android:textColor="#222"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/image"
+            android:text="120 TK"
+            android:textColor="#dd4b39"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/clockDark"
+            android:layout_width="15dp"
+            android:layout_height="21dp"
+            android:layout_below="@+id/title"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/price"
+            android:adjustViewBounds="false"
+            android:baselineAlignBottom="false"
+            app:srcCompat="@drawable/ic_clock_dark" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/price"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/clockDark"
+            android:text="5 hours ago"
+            android:textColor="#666"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/price"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/image"
+            android:background="@drawable/button_blue"
+            android:text="Edit"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#fff"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="72dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="false"
+            android:layout_below="@+id/price"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/editButton"
+            android:background="@drawable/button_red"
+            android:text="Delete"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#fff"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/markAsSold"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/delete"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/image"
+            android:background="@drawable/sold_button"
+            android:elevation="0dp"
+            android:text="MARK AS SOLD"
+            android:textColor="#555"
+            android:textSize="14dp" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
