@@ -126,7 +126,7 @@ public class ScheduleOthers extends Fragment {
 
         itemList = new ArrayList<ScheduleOthersItem>();
 
-        itemAdapter = new ScheduleOthersAdapter(R.layout.schedule_recycler, itemList, context, this);
+        itemAdapter = new ScheduleOthersAdapter(R.layout.schedule_others_recycler, itemList, context, this);
 
         recyclerView = (RecyclerView) v.findViewById(R.id.scheduleRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
