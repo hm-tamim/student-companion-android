@@ -11,6 +11,7 @@ package club.nsuer.nsuer;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.Button;
         import android.widget.ImageButton;
         import android.widget.ImageView;
         import android.widget.RelativeLayout;
@@ -98,6 +99,9 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
         title.setText(totalTitle);
 
 
+        holder.user.setText("By " + itemList.get(listPosition).getUser());
+
+
 
         long timeI =  itemList.get(listPosition).getDate();
 
@@ -144,10 +148,6 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
 
 
 
-
-
-
-
         isPassed = itemList.get(listPosition).isPassed();
 
         if(isPassed)
@@ -156,6 +156,13 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
             circle.setBackground(ContextCompat.getDrawable(context, R.drawable.ac_circle_ddd));
 
 
+        holder.addButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
 
     }
@@ -170,6 +177,8 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
         public ImageView alarmIcon;
         public RelativeLayout noteHolder;
         public CardView cardView;
+        public Button addButton;
+        public TextView user;
 
         public View circle;
 
@@ -186,6 +195,9 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
             note = (TextView) itemView.findViewById(R.id.note);
             noteHolder = (RelativeLayout) itemView.findViewById(R.id.noteHolder);
             alarmIcon = (ImageView) itemView.findViewById(R.id.alarmIcon);
+
+            addButton = (Button) itemView.findViewById(R.id.button);
+            user = (TextView) itemView.findViewById(R.id.user);
 
             cardView = (CardView) itemView.findViewById(R.id.cardView);
             circle = (View) itemView.findViewById(R.id.acCircle);

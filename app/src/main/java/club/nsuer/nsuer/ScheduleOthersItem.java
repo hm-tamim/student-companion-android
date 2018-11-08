@@ -6,23 +6,36 @@ public class ScheduleOthersItem {
     private String title;
     private String type;
     private String extraNote;
+    private String user;
+
     private long date;
+
     private long reminderDate;
     private int color;
     private boolean doReminder;
     private boolean passed;
 
 
-    public ScheduleOthersItem(int id, String title, String type, String extraNote, long date, long reminderDate, int color, boolean doReminder, boolean passed) {
+    public ScheduleOthersItem(int id, String title, String type, String extraNote, String user, long date, long reminderDate, int color, boolean doReminder, boolean passed) {
         this.id = id;
         this.title = title;
         this.type = type;
         this.extraNote = extraNote;
+        this.user = user;
         this.date = date;
         this.reminderDate = reminderDate;
         this.color = color;
         this.doReminder = doReminder;
         this.passed = passed;
+    }
+
+    public String getUser() {
+
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public int getId() {

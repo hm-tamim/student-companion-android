@@ -50,6 +50,8 @@ public class ScheduleOthers extends Fragment {
     private LinearLayout noSchedule;
     private int scrollID = 999999;
 
+    private String uid;
+
     public ScheduleOthers() {
         // Required empty public constructor
     }
@@ -114,6 +116,7 @@ public class ScheduleOthers extends Fragment {
 
 
 
+
         titleLinear = v.findViewById(R.id.titleLinear);
         crLine2  = v.findViewById(R.id.crLine2);
         noSchedule = v.findViewById(R.id.noSchedule);
@@ -121,6 +124,7 @@ public class ScheduleOthers extends Fragment {
 
         ft = getFragmentManager().beginTransaction();
 
+        uid = main.getUid();
 
 
 
@@ -223,6 +227,7 @@ public class ScheduleOthers extends Fragment {
                 String title = data.getString("s");
                 String type = data.getString("t");
                 String note = data.getString("en");
+                String username = data.getString("username");
                 long date = data.getLong("d");
                 long reminderDate = data.getLong("rd");
                 int color = data.getInt("c");
@@ -242,7 +247,7 @@ public class ScheduleOthers extends Fragment {
                     isPassed = true;
 
 
-                itemList.add(new ScheduleOthersItem(id, title, type, note, date, reminderDate, color, doRemind, isPassed));
+                itemList.add(new ScheduleOthersItem(id, title, type, note, username, date, reminderDate, color, doRemind, isPassed));
 
 
             }
@@ -275,5 +280,8 @@ public class ScheduleOthers extends Fragment {
 
 
     }
+
+
+
 
 }

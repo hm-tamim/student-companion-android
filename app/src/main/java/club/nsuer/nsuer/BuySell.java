@@ -631,7 +631,7 @@ public class BuySell extends Fragment {
 
         String img = itemList.get(listPosition).getImageUrl();
 
-        String timeS = Utils.getTimeAgoShop(itemList.get(listPosition).getTime());
+        String timeS = Utils.getTimeAgo((int)itemList.get(listPosition).getTime());
 
         String descriptionS = itemList.get(listPosition).getDescription();
 
