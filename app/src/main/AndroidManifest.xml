@@ -105,7 +105,10 @@
         <activity
             android:name=".ScheduleOthers"
             android:label="@string/title_activity_schedule_others"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".BloodRequest"
+            android:label="@string/title_activity_blood_request"></activity>
     </application>
 
 </manifest>

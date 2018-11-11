@@ -224,9 +224,13 @@ public class MenuGridActivity{
                     ft.addToBackStack(null);
                     ft.commit();
 
-                }else if(gridViewString[+i].equals("Weather")){
+                }else if(gridViewString[+i].equals("Blood Bank")){
 
-                    comingSoon();
+                    fragment = new BloodBank();
+                    ft.setCustomAnimations(0, 0, 0, 0);
+                    ft.replace(R.id.mainFrame, fragment, gridViewString[+i]);
+                    ft.addToBackStack(null);
+                    ft.commit();
 
                 }else if(gridViewString[+i].equals("Schedules")){
 

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9"
+    tools:context=".BloodBank">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#d60823"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="30dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="5dp">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/button"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/blood_card"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:layout_constraintDimensionRatio="H,1.4:1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/button2">
+
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/blood_grid"
+                                android:src="@drawable/ic_blood_donors"
+                                android:tint="#fff" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Find Donors"
+                                android:textColor="#fff"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/button2"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/blood_card"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:layout_constraintDimensionRatio="H,1.4:1"
+                            app:layout_constraintLeft_toRightOf="@+id/button"
+                            app:layout_constraintRight_toRightOf="parent">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/blood_grid"
+                                android:paddingBottom="3dp"
+                                android:paddingTop="2dp"
+                                android:src="@drawable/ic_blood_donor"
+                                android:tint="#fff" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Request Blood"
+                                android:textColor="#fff"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/button3"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/blood_card"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:layout_constraintDimensionRatio="H,1.4:1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/button4"
+                            app:layout_constraintTop_toBottomOf="@id/button">
+
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/blood_grid"
+                                android:src="@drawable/ic_hand_heart"
+                                android:tint="#fff" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Be a Donor"
+                                android:textColor="#fff"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/button4"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/blood_card"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:layout_constraintDimensionRatio="H,1.4:1"
+                            app:layout_constraintLeft_toRightOf="@+id/button3"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/button2">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/blood_grid"
+                                android:paddingBottom="1dp"
+                                android:paddingTop="1dp"
+                                android:src="@drawable/ic_blood_fact"
+                                android:tint="#fff" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Blood: Facts"
+                                android:textColor="#fff"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Blood Requests"
+                android:textColor="#222"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <include layout="@layout/blood_request_recycler"/>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

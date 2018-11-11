@@ -11,6 +11,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.hardware.camera2.TotalCaptureResult;
 import android.net.Uri;
@@ -35,6 +36,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -193,6 +196,22 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void setMenuBackground(boolean red){
+
+        if(red){
+
+            sheetBg.setBackgroundColor(Color.parseColor("#d3d30202"));
+
+
+        } else{
+
+            sheetBg.setBackgroundColor(Color.parseColor("#e8317e96"));
+
+        }
+
+
+
+    }
 
     public void showBackButton() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -946,7 +965,7 @@ public class MainActivity extends AppCompatActivity
 
             Fragment fragment3 = new UserProfile();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right, 0, 0);
+            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.abc_popup_exit, 0, 0);
             ft.replace(R.id.mainFrame, fragment3,"Profile");
             ft.addToBackStack(null);
             ft.commit();

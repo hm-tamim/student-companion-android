@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:background="@drawable/white_card_bg"
+    android:paddingBottom="18dp">
+
+    <TextView
+        android:id="@+id/bloodGroup"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/red_circle"
+        android:gravity="center"
+        android:text="B-"
+        android:textColor="#fff"
+        android:textSize="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/bloodGroup"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/bloodGroup"
+            android:layout_marginRight="15dp"
+            android:layout_toEndOf="@+id/bloodGroup"
+            android:text="4 Bags (B-) Blood, Emergency"
+            android:textColor="#444"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/byUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/title"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="2dp"
+            android:text="By HM Tamim, 12 mins ago"
+            android:textColor="#666"
+            android:textSize="12dp" />
+
+        <View
+            android:id="@+id/view7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:background="#f9f9f9" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="15dp"
+                android:layout_alignStart="@+id/title"
+                android:layout_below="@+id/byUser"
+                android:layout_marginLeft="-1dp"
+                android:layout_marginTop="12dp"
+                android:layout_weight="1"
+                android:tint="#444"
+                app:srcCompat="@drawable/ic_marker_white" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/byUser"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_toEndOf="@+id/locIcon"
+                android:layout_weight="1"
+                android:text="Apollo Hospital, Bashudhara"
+                android:textColor="#555"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="15dp"
+                android:layout_alignStart="@+id/title"
+                android:layout_below="@+id/byUser"
+                android:layout_marginLeft="-1dp"
+                android:layout_marginTop="12dp"
+                android:layout_weight="1"
+                android:padding="1dp"
+                android:tint="#444"
+                app:srcCompat="@drawable/ic_clock_dark" />
+
+            <TextView
+                android:id="@+id/needAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/byUser"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_toEndOf="@+id/locIcon"
+                android:layout_weight="1"
+                android:text="Need on Nov 21 at 11:20 PM"
+                android:textColor="#555"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@+id/bloodGroup"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button6"
+                style="@style/ChipButton"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:text="SHARE" />
+
+            <Button
+                android:id="@+id/button5"
+                style="@style/ChipButtonSelected"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_call_win10"
+                android:text="01751988045" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

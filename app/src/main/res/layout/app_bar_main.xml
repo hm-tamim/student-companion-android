@@ -35,7 +35,7 @@
         <View
             android:alpha="0.0"
             android:id="@+id/sheet_bg"
-            android:background="#ad000000"
+            android:background="#e8317e96"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     <FrameLayout

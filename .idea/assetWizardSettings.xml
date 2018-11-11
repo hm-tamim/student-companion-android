@@ -92,9 +92,11 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_cart_buy" />
+                            <entry key="height" value="18" />
+                            <entry key="outputName" value="ic_share_win10_2" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\HM Tamim\Desktop\cart_buy.svg" />
+                            <entry key="sourceFile" value="C:\Users\HM Tamim\Desktop\share_win10_2.svg" />
+                            <entry key="width" value="18" />
                           </map>
                         </option>
                       </PersistentState>
