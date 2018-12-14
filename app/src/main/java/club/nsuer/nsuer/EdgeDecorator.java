@@ -11,10 +11,6 @@ public class EdgeDecorator extends RecyclerView.ItemDecoration {
     private final int edgePaddingLeft;
     private final int edgePaddingRight;
 
-    /**
-     * EdgeDecorator
-     * @param edgePadding padding set on the left side of the first item and the right side of the last item
-     */
     public EdgeDecorator(int edgePaddingLeft, int edgePaddingRight) {
         this.edgePaddingLeft = edgePaddingLeft;
         this.edgePaddingRight = edgePaddingRight;

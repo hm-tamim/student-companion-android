@@ -41,9 +41,6 @@ import java.util.HashMap;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FacultiesActivity extends Fragment {
 
 
@@ -179,7 +176,7 @@ public class FacultiesActivity extends Fragment {
 
                         dialog.dismiss();
 
-                        btn.setVisibility(View.VISIBLE);
+                        btn.show();
 
 
                         try {
@@ -336,7 +333,7 @@ public class FacultiesActivity extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                btn.setVisibility(View.GONE);
+                btn.hide();
                 resetFragment();
             }
         });

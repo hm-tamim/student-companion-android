@@ -4,19 +4,15 @@ package club.nsuer.nsuer;
 import android.app.Dialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.content.Loader;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,7 +24,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -39,7 +34,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
@@ -47,44 +41,32 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
-
+@SuppressWarnings("unchecked")
 public class StatusActivity extends Fragment {
 
-
-
     private MainActivity main;
-
     private Context context;
-
     private ArrayList<StatusItem> itemList;
     private View view;
-
     private int datePassed = 0;
-
     private String jsonCache = null;
     private StatusAdapter itemAdapter;
     private RecyclerView recyclerView;
     private LinearLayout noPost;
-
     private CacheHelper acCache;
     private CoursesDatabase db;
     private List<CoursesEntity> list;
     private String postz;
     private String ownMemID;
     private MediaPlayer mp;
-
     private int notificationType = 0;
     private int openID = 0;
-
 
 
     public void likeSound(){
@@ -310,12 +292,7 @@ public class StatusActivity extends Fragment {
                 final EditText postInput = (EditText) dialog.findViewById(R.id.createPostInput);
 
 
-                //courseInput.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
-
-
-
-
-                List<String> spinnerArray =  new ArrayList<String>();
+                 ArrayList<String> spinnerArray =  new ArrayList<String>();
 
 
                 for (int i=0; i < list.size(); i++) {

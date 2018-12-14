@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {ScheduleEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {ScheduleEntity.class}, version = 2, exportSchema = false)
 public abstract class ScheduleDatabase extends RoomDatabase {
 
     private static ScheduleDatabase INSTANCE;

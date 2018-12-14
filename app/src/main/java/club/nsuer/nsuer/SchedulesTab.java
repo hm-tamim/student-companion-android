@@ -1,9 +1,12 @@
 package club.nsuer.nsuer;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +16,12 @@ import android.widget.ProgressBar;
 
 public class SchedulesTab extends Fragment {
 
-
     private View v;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private SchedulesTabAdapter viewPagerAdapter;
+    private FragmentTransaction ft;
+
 
     public SchedulesTab() {
         // Required empty public constructor
@@ -44,6 +48,9 @@ public class SchedulesTab extends Fragment {
 
         main.setActionBarTitle("Schedules");
 
+
+        ft = getFragmentManager().beginTransaction();
+
         tabLayout = (TabLayout) v.findViewById(R.id.tabLayout);
 
         viewPager = (ViewPager) v.findViewById(R.id.viewPager);
@@ -62,6 +69,15 @@ public class SchedulesTab extends Fragment {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode == 10001) && (resultCode == Activity.RESULT_OK))
+            ft.detach(SchedulesTab.this).attach(SchedulesTab.this).commit();
     }
 
 

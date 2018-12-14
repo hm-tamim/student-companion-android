@@ -1,7 +1,5 @@
 package club.nsuer.nsuer;
 
-import java.util.Date;
-
 public class ScheduleItem {
 
     private int id;

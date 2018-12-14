@@ -39,18 +39,10 @@ import club.nsuer.nsuer.R;
 
 public class ChatActivity extends AppCompatActivity {
 
-
-
-
     private RecyclerView recyclerView;
     private ArrayList<ChatItem> itemList;
     private ChatAdapter itemAdapter;
-
-
-    private SQLiteHandler db;
     private SessionManager session;
-
-
     private String name = "Username";
     private String email;
     private String gender;
@@ -87,6 +79,7 @@ public class ChatActivity extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimer2;
 
+    private boolean isVisible = true;
 
     private MediaPlayer sound1;
     private MediaPlayer sound2;
@@ -130,23 +123,20 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
+        session = new SessionManager(getApplicationContext());
 
-        db = new SQLiteHandler(getApplicationContext());
+        name = session.getName();
+        uid = session.getUid();
+        email = session.getEmail();
+        gender = session.getGender();
+        memberID = session.getMemberID();
+        picture = session.getPicture();
 
+        cgpa = session.getCgpa();
+        credit = session.getCredit();
+        semester = session.getSemester();
+        dept = session.getDepartment();
 
-        HashMap<String, String> user = db.getUserDetails();
-
-        name = user.get("name");
-        uid = user.get("uid");
-        email = user.get("email");
-        gender = user.get("gender");
-        memberID = user.get("memberID");
-        picture = user.get("picture");
-
-        cgpa = user.get("cgpa");
-        credit = user.get("credit");
-        semester = user.get("semester");
-        dept = user.get("dept");
 
 
         String dbName = "chat_"+otherMemID;
@@ -194,12 +184,12 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-        countDownTimer = new CountDownTimer(3000000, 5000) {
+        countDownTimer = new CountDownTimer(1000000, 5000) {
 
             public void onTick(long millisUntilFinished) {
                 if(Utils.isNetworkAvailable(ChatActivity.this)) {
 
-                    if(isLoaded) {
+                    if(isLoaded && isVisible) {
 
                       isLoaded = false;
                       loadJson(uid,true);
@@ -301,10 +291,39 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
+        if(intent.hasExtra("pretext")){
+
+            inputMessage.setText(intent.getStringExtra("pretext"));
+
+
+        }
+
+
+
+
 
 
     }
 
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isVisible = true;
+
+        countDownTimer.start();
+        countDownTimer2.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isVisible = false;
+        countDownTimer.cancel();
+        countDownTimer2.cancel();
+
+    }
 
 
     public void loadFromDb(){
@@ -734,6 +753,8 @@ public class ChatActivity extends AppCompatActivity {
         setResult(Activity.RESULT_OK);
 
         countDownTimer.cancel();
+        countDownTimer2.cancel();
+
         finish();
 
     }

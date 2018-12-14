@@ -1,17 +1,27 @@
 package club.nsuer.nsuer;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.provider.CalendarContract;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -19,13 +29,218 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
 
+import static android.content.Context.ALARM_SERVICE;
+
 public class Utils {
 
 
+
+    public static void syncSchedule(String memID, final Context context){
+
+
+        final ScheduleDatabase scheduleDb = Room.databaseBuilder(context,
+                ScheduleDatabase.class, "schedules").allowMainThreadQueries().build();
+
+
+        String url = "https://nsuer.club/app/schedules/my-schedules.php";
+
+
+        HashMap<String, String> parametters = new HashMap<String, String>();
+
+        parametters.put("memID", memID);
+
+        JSONParser parser = new JSONParser(url, "GET", parametters);
+
+
+        parser.setListener(new JSONParser.ParserListener() {
+            @Override
+            public void onSuccess(JSONObject result) {
+
+
+
+                try {
+
+                    JSONArray obj = result.getJSONArray("dataArray");
+
+
+                    for (int j = 0; j < obj.length(); j++) {
+
+
+                        JSONObject data = obj.getJSONObject(j);
+
+                        int id = data.getInt("id");
+
+                        String title = data.getString("s");
+                        String type = data.getString("t");
+                        String note = data.getString("en");
+                        long date = data.getLong("d");
+                        long reminderDate = data.getLong("rd");
+                        int color = data.getInt("c");
+                        int doRemindi = data.getInt("dr");
+
+
+                        Calendar reminderCalendar = Calendar.getInstance();
+
+
+                        boolean doRemind = false;
+
+                        boolean isPassed = false;
+
+
+                        if (doRemindi == 1)
+                            doRemind = true;
+
+                        long unixTime = System.currentTimeMillis() / 1000L;
+
+                        if (unixTime > date)
+                            isPassed = true;
+
+
+                        long[] insertedIDlong = scheduleDb.scheduleDao().insertAll(new ScheduleEntity(id, title, type, note, date, reminderDate, color, doRemind));
+                        int insertedID = (int) insertedIDlong[0];
+
+
+                        if (doRemind){
+                            reminderCalendar.setTimeInMillis(reminderDate*1000L);
+
+                            String reminderText = title;
+
+                            if(!type.equals(""))
+                                reminderText += " - " + type;
+
+                            Utils.setReminder(insertedID, reminderText, reminderCalendar, false, context);
+
+                        }
+
+
+
+                    }
+
+                } catch (Exception e){
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
+
+
+        parser.execute();
+
+
+    }
+
+
+
+
+
+
+    public static void syncReminders(final Context context){
+
+
+        final ScheduleDatabase scheduleDb = Room.databaseBuilder(context,
+                ScheduleDatabase.class, "schedules").allowMainThreadQueries().build();
+
+
+        List<ScheduleEntity> list = scheduleDb.scheduleDao().getAll();
+
+
+
+
+
+        for (int i=0; i < list.size(); i++) {
+
+            int id = list.get(i).getId();
+            String title = list.get(i).getTitle();
+            String type = list.get(i).getType();
+            String note = list.get(i).getExtraNote();
+            long date = list.get(i).getDate();
+            long reminderDate = list.get(i).getReminderDate();
+            int color = list.get(i).getColor();
+            boolean doRemind = list.get(i).isDoReminder();
+
+            boolean isPassed = false;
+
+            long unixTime = System.currentTimeMillis() / 1000L;
+
+            if(unixTime > date)
+                isPassed = true;
+
+            if (doRemind && !isPassed) {
+                Calendar reminderCalendar = Calendar.getInstance();
+                reminderCalendar.setTimeInMillis(reminderDate * 1000L);
+
+                String reminderText = title;
+                if (!type.equals(""))
+                    reminderText += " - " + type;
+                Utils.setReminder(id, reminderText, reminderCalendar, false, context);
+            }
+
+        }
+
+
+
+
+
+    }
+
+
+
+
+    public static void setReminder(int idd, String reminderText, Calendar reminderCalendar, boolean showToast, Context context) {
+
+
+
+        long unixTime = System.currentTimeMillis() / 1000L;
+
+        long reminderTime = reminderCalendar.getTimeInMillis()/1000L;
+        if(unixTime < reminderTime) {
+
+            Intent intent = new Intent(context, ReminderBroadcast.class);
+
+            intent.putExtra("text", reminderText);
+            intent.putExtra("id", idd);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, idd, intent, 0);
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, reminderCalendar.getTimeInMillis(), pendingIntent);
+
+            String myFormat = "dd MMMM, yyyy 'at' hh:mm a";
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+            String reminderTextx = sdf.format(reminderCalendar.getTime());
+
+            if (showToast)
+                Toast.makeText(context, "Reminder is set to " + reminderTextx,Toast.LENGTH_LONG).show();
+
+        }
+
+
+    }
+
+
+
+    public static String limitWords(int n, String str, boolean dots){
+
+            String dot = "...";
+
+            if (!dots)
+                dot = "";
+
+            return str.replaceAll("^((?:\\W*\\w+){" + n + "}).*$", "$1") + dot;
+    }
 
     // The public static function which can be called from other classes
     public static void darkenStatusBar(Activity activity, int color) {
@@ -308,6 +523,24 @@ public class Utils {
         return timeAgo;
     }
 
+
+
+
+    public static String getHumanTime(long timestamp) {
+
+
+
+            Date tdate = new Date(timestamp * 1000);
+
+            SimpleDateFormat jdf = new SimpleDateFormat("MMM dd 'at' h:mm a", Locale.ENGLISH);
+
+
+            String timeAgo = jdf.format(tdate);
+
+
+
+        return timeAgo;
+    }
 
     public static Date currentDate() {
         Calendar calendar = Calendar.getInstance();

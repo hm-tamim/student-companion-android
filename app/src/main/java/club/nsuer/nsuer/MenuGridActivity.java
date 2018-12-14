@@ -118,6 +118,14 @@ public class MenuGridActivity{
                     ft.replace(R.id.mainFrame, fragment, gridViewString[+i]);
                     ft.addToBackStack(null);
                     ft.commit();
+                } else if (gridViewString[+i].equals("Notification")){
+
+                    fragment = new NotificationFragment();
+                    ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
+                    ft.replace(R.id.mainFrame, fragment, gridViewString[+i]);
+                    ft.addToBackStack(null);
+                    ft.commit();
+
                 }
                 else if(gridViewString[+i].equals("Faculties")){
 

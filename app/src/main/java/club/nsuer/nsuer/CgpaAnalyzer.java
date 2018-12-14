@@ -87,6 +87,8 @@ public class CgpaAnalyzer extends Fragment {
 
     private static final String CGPA_ANALYZER_DATA = "CgpaAnalyzerData";
 
+    private SessionManager sessionManager;
+
     public CgpaAnalyzer() {
         // Required empty public constructor
     }
@@ -135,6 +137,7 @@ public class CgpaAnalyzer extends Fragment {
 
         main.setActionBarTitle("CGPA Analyzer");
 
+        sessionManager = new SessionManager(context);
 
 
         graphLayout = (LinearLayout) view.findViewById(R.id.analyzeGraphLayout);
@@ -180,7 +183,7 @@ public class CgpaAnalyzer extends Fragment {
         if(list.size() < 1){
 
             for (int i=0; i < 3; i++)
-                itemList.add(new CgpaRecyclerItem("","0","A"));
+                itemList.add(new CgpaRecyclerItem("","3","A"));
 
 
 
@@ -202,7 +205,7 @@ public class CgpaAnalyzer extends Fragment {
                     return;
                 }
 
-                itemArrayAdapter2.addData(new CgpaRecyclerItem("","0","A"));
+                itemArrayAdapter2.addData(new CgpaRecyclerItem("","3","A"));
 
 
 
@@ -644,6 +647,9 @@ public class CgpaAnalyzer extends Fragment {
         } else {
 
 
+            ((EditText) view.findViewById(R.id.yourCgpa)).setText(String.valueOf(sessionManager.getCgpa()), TextView.BufferType.EDITABLE);
+            ((EditText) view.findViewById(R.id.yourCredits)).setText(String.valueOf(sessionManager.getCredit()), TextView.BufferType.EDITABLE);
+
             graphLayout.setVisibility(View.GONE);
 
         }
@@ -706,7 +712,7 @@ public class CgpaAnalyzer extends Fragment {
             if(course.equals("")){
 
                 Toast.makeText(context,"You must enter course initial.",Toast.LENGTH_SHORT).show();
-                return;
+
 
             }
 

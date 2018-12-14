@@ -101,14 +101,15 @@
             android:id="@+id/statusPost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:layout_marginLeft="25dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:autoLink="all"
             android:text="post text is here"
             android:textColor="#333"
-            android:textSize="16sp"
-            android:autoLink="all"/>
+            android:textIsSelectable="true"
+            android:textSize="16sp" />
 
         <View
             android:id="@+id/view3"

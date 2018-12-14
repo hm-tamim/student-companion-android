@@ -29,9 +29,6 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class CgpaCalculator extends Fragment {
 
     private View view;
@@ -284,7 +281,7 @@ public class CgpaCalculator extends Fragment {
         if(list.size() < 1){
 
             for (int i=0; i < 3; i++)
-                itemList.add(new CgpaRecyclerItem("","0","A"));
+                itemList.add(new CgpaRecyclerItem("","3","A"));
 
 
 
@@ -303,7 +300,7 @@ public class CgpaCalculator extends Fragment {
         addCourse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                itemArrayAdapter2.addData(new CgpaRecyclerItem("","0","A"));
+                itemArrayAdapter2.addData(new CgpaRecyclerItem("","3","A"));
 
 
 

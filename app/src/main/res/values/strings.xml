@@ -132,6 +132,8 @@
     <string name="title_activity_add_schedule">Add Schedule</string>
     <string name="title_activity_schedule_others">Other\'s Schedules</string>
     <string name="title_activity_blood_request">BloodRequest</string>
+    <string name="title_activity_blood_be_donor">BloodBeDonor</string>
+    <string name="title_activity_find_donors">FindDonors</string>
 
 
 </resources>

@@ -2,8 +2,7 @@
 package club.nsuer.nsuer;
 
 
-        import android.app.TimePickerDialog;
-        import android.content.Context;
+import android.content.Context;
         import android.content.Intent;
         import android.support.v4.content.ContextCompat;
         import android.support.v7.widget.CardView;
@@ -12,17 +11,14 @@ package club.nsuer.nsuer;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.Button;
-        import android.widget.ImageButton;
         import android.widget.ImageView;
         import android.widget.RelativeLayout;
         import android.widget.TextView;
 
         import java.text.SimpleDateFormat;
         import java.util.ArrayList;
-        import java.util.Calendar;
         import java.util.Date;
         import java.util.Locale;
-        import java.util.TimeZone;
 
 
 public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAdapter.ViewHolder> {
@@ -74,16 +70,6 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
         View circle = holder.circle;
 
 
-
-        cardView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                instance.openActivityWithId(itemList.get(listPosition).getId());
-
-            }
-        });
 
         boolean isPassed = false;
 
@@ -161,6 +147,19 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
             @Override
             public void onClick(View view) {
 
+
+                Intent intent = new Intent(context,AddSchedule.class);
+
+                intent.putExtra("classmate",true);
+                intent.putExtra("title",itemList.get(listPosition).getTitle());
+                intent.putExtra("type",itemList.get(listPosition).getType());
+                intent.putExtra("note",itemList.get(listPosition).getExtraNote());
+                intent.putExtra("date",itemList.get(listPosition).getDate());
+                intent.putExtra("reminderDate",itemList.get(listPosition).getReminderDate());
+                intent.putExtra("color",itemList.get(listPosition).getColor());
+                intent.putExtra("doRemind",itemList.get(listPosition).isDoReminder());
+
+                context.startActivity(intent);
             }
         });
 
@@ -196,7 +195,7 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
             noteHolder = (RelativeLayout) itemView.findViewById(R.id.noteHolder);
             alarmIcon = (ImageView) itemView.findViewById(R.id.alarmIcon);
 
-            addButton = (Button) itemView.findViewById(R.id.button);
+            addButton = (Button) itemView.findViewById(R.id.findDonors);
             user = (TextView) itemView.findViewById(R.id.user);
 
             cardView = (CardView) itemView.findViewById(R.id.cardView);

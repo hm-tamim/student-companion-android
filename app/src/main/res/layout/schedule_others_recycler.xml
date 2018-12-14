@@ -122,10 +122,9 @@
                     android:layout_height="wrap_content"
                     android:background="#17000000"
                     android:gravity="center_vertical"
-                    android:paddingBottom="8dp"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="8dp">
+                    android:paddingTop="8dp"
+                    android:paddingRight="15dp">
 
                     <ImageView
                         android:id="@+id/infoIC"
@@ -149,9 +148,10 @@
                     android:layout_height="match_parent"
                     android:background="#17000000"
                     android:orientation="vertical"
-                    android:paddingBottom="10dp"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp">
+                    android:paddingTop="8dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="10dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -176,7 +176,7 @@
                     </RelativeLayout>
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/findDonors"
                         style="@android:style/Widget.Material.Button.Inset"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"

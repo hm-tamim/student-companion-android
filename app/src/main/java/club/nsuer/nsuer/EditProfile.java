@@ -52,11 +52,6 @@ public class EditProfile extends AppCompatActivity {
 
     private ImageView img;
     private String imgPath;
-
-
-
-
-    private SQLiteHandler db;
     private SessionManager session;
 
 
@@ -197,10 +192,6 @@ public class EditProfile extends AppCompatActivity {
 
 
 
-
-        // SqLite database handler
-        db = new SQLiteHandler(getApplicationContext());
-
         // session manager
         session = new SessionManager(getApplicationContext());
 
@@ -208,20 +199,17 @@ public class EditProfile extends AppCompatActivity {
             MainActivity.getInstance().logoutUser();
         }
 
-        // Fetching user details from sqlite
-        HashMap<String, String> user = db.getUserDetails();
+        name = session.getName();
+        uid = session.getUid();
+        email = session.getEmail();
+        gender = session.getGender();
+        memberID = session.getMemberID();
+        picture = session.getPicture();
 
-        name = user.get("name");
-        uid = user.get("uid");
-        email = user.get("email");
-        gender = user.get("gender");
-        memberID = user.get("memberID");
-        picture = user.get("picture");
-
-        cgpa = user.get("cgpa");
-        credit = user.get("credit");
-        semester = user.get("semester");
-        dept = user.get("dept");
+        cgpa = session.getCgpa();
+        credit = session.getCredit();
+        semester = session.getSemester();
+        dept = session.getDepartment();
 
 
 
@@ -365,8 +353,6 @@ public class EditProfile extends AppCompatActivity {
                 }
 
 
-                db.deleteUsers();
-
 
                 String nameNew = nameInput.getText().toString();
                 String cgpaNew = cgpaInput.getText().toString();
@@ -391,8 +377,17 @@ public class EditProfile extends AppCompatActivity {
                 creditNew = String.valueOf(creditNewInt);
 
 
-                db.addUser(nameNew, email, uid, memberID, gender, pictureNew, cgpaNew, creditNew, semesterNew, deptNew);
 
+                session.setName(nameNew);
+                session.setEmail(email);
+                session.setUid(uid);
+                session.setMemberID(memberID);
+                session.setGender(gender);
+                session.setPicture(pictureNew);
+                session.setCredit(creditNew);
+                session.setCgpa(cgpaNew);
+                session.setDepartment(deptNew);
+                session.setSemester(semesterNew);
 
 
 

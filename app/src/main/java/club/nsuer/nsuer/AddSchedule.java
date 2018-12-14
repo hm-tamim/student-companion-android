@@ -61,9 +61,6 @@ public class AddSchedule extends AppCompatActivity {
 
     private EditText datePicker;
     private EditText timePicker;
-
-
-
     private EditText reminderDatePicker;
     private EditText reminderTimePicker;
 
@@ -90,11 +87,13 @@ public class AddSchedule extends AppCompatActivity {
 
     private ScheduleDatabase db;
 
+    private SessionManager sessionManager;
 
     private CoursesDatabase coursesDatabase;
 
     private int id;
     private boolean editPage = false;
+    private boolean matesSchedules = false;
 
     private String uid;
 
@@ -104,26 +103,19 @@ public class AddSchedule extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_add_new);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-
-
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         db = Room.databaseBuilder(this,
                 ScheduleDatabase.class, "schedules").allowMainThreadQueries().build();
 
-
         coursesDatabase = Room.databaseBuilder(this,
                 CoursesDatabase.class, "courses").allowMainThreadQueries().build();
-
-
 
         List<CoursesEntity> list = coursesDatabase.coursesDao().getAll();
 
 
-
-
+        sessionManager = new SessionManager(AddSchedule.this);
 
         context = this;
 
@@ -133,20 +125,12 @@ public class AddSchedule extends AppCompatActivity {
 
         final ArrayList<String> courses = new ArrayList<String>();
 
-
         for (int i=0; i < list.size(); i++) {
-
 
             String course = list.get(i).getCourse();
             String section = list.get(i).getSection();
-
-
-                courses.add(course + "." + section);
-
-
+            courses.add(course + "." + section);
         }
-
-
 
         final ArrayList<String> types = new ArrayList<String>();
         types.add("Quiz");
@@ -164,29 +148,19 @@ public class AddSchedule extends AppCompatActivity {
         quickTime.add("Remind me at night before 2 days");
         quickTime.add("Remind me at night before 3 days");
 
-
-
-
-
         myCalendar = Calendar.getInstance();
-
-
         reminderCalendar = Calendar.getInstance();
-
         titlePicker = (EditText) findViewById(R.id.titlePicker);
         typePicker = (EditText) findViewById(R.id.typePicker);
-
-
 
         reminderDatePicker = (EditText) findViewById(R.id.reminderDate);
         reminderTimePicker = (EditText) findViewById(R.id.reminderTime);
 
-
         extraNote = findViewById(R.id.note);
         reminderPicker = findViewById(R.id.reminderPicker);
         reminderSwitch = findViewById(R.id.setReminder);
-        addButton = findViewById(R.id.addButton);
-        deleteButton = findViewById(R.id.deleteButton);
+        addButton = (FloatingActionButton)findViewById(R.id.addButton);
+        deleteButton = (FloatingActionButton)findViewById(R.id.deleteButton);
 
         reminderHolder = findViewById(R.id.reminderHolder);
 
@@ -194,8 +168,6 @@ public class AddSchedule extends AppCompatActivity {
 
         colorPickLayout = (LinearLayout) findViewById(R.id.colorPickLayout);
         colorCard = (CardView) findViewById(R.id.colorCard);
-
-
 
 
         reminderSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -207,11 +179,6 @@ public class AddSchedule extends AppCompatActivity {
                     reminderHolder.setVisibility(View.GONE);
             }
         });
-
-
-
-
-
 
 
         final android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
@@ -235,9 +202,8 @@ public class AddSchedule extends AppCompatActivity {
 
                                     Log.d("color", color+" ");
 
-                                   // Toast.makeText(AddSchedule.this, "Color selected: #" + Integer.toHexString(color).toUpperCase(), Toast.LENGTH_SHORT).show();
                                 } else {
-                                   // Toast.makeText(context, "Dialog cancelled", Toast.LENGTH_SHORT).show();
+
                                 }
                             }
                         });
@@ -369,7 +335,7 @@ public class AddSchedule extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
+                
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -382,7 +348,7 @@ public class AddSchedule extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+                
                 new DatePickerDialog(AddSchedule.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -410,7 +376,7 @@ public class AddSchedule extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+                
                 new TimePickerDialog(AddSchedule.this, time, myCalendar
                         .get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE),false).show();
             }
@@ -427,7 +393,7 @@ public class AddSchedule extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
+                
                 reminderCalendar.set(Calendar.YEAR, year);
                 reminderCalendar.set(Calendar.MONTH, monthOfYear);
                 reminderCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -440,7 +406,7 @@ public class AddSchedule extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+                
                 new DatePickerDialog(AddSchedule.this, dateReminder, reminderCalendar
                         .get(Calendar.YEAR), reminderCalendar.get(Calendar.MONTH),
                         reminderCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -471,10 +437,7 @@ public class AddSchedule extends AppCompatActivity {
             }
         });
 
-
-
-
-
+        
         deleteButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -485,17 +448,10 @@ public class AddSchedule extends AppCompatActivity {
                     .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int whichButton) {
-
                             db.scheduleDao().deleteById(id);
-
                             sendDelete(id);
-
                             cancelReminder(id);
-
                             onBackPressed();
-
-
-
                         }
                     })
                     .setNegativeButton(android.R.string.no, null).show();
@@ -585,15 +541,7 @@ public class AddSchedule extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
         Intent intent = getIntent();
-
-
 
         if(intent.hasExtra("uid"))
             uid = intent.getStringExtra("uid");
@@ -602,7 +550,7 @@ public class AddSchedule extends AppCompatActivity {
 
             editPage = true;
 
-            deleteButton.setVisibility(View.VISIBLE);
+            deleteButton.show();
 
             id = intent.getIntExtra("id", 0);
 
@@ -627,6 +575,7 @@ public class AddSchedule extends AppCompatActivity {
 
 
             int color = item.getColor();
+            selectedColor = color;
             boolean doRemind =  item.isDoReminder();
 
             titlePicker.setText(title);
@@ -647,6 +596,48 @@ public class AddSchedule extends AppCompatActivity {
 
         }
 
+
+
+        if(intent.hasExtra("classmate")) {
+
+            deleteButton.hide();
+            id = intent.getIntExtra("id", 0);
+            actionBar.setTitle("Add Schedule");
+
+            String title = intent.getStringExtra("title");
+            String type = intent.getStringExtra("type");
+            String note = intent.getStringExtra("note");
+            long dateExtra = intent.getLongExtra("date",0);
+            long reminderDate = intent.getLongExtra("reminderDate",0);
+            int color = intent.getIntExtra("color",-11566660);
+            boolean doRemind =  intent.getBooleanExtra("doRemind",false);
+
+            selectedColor = color;
+
+            if(doRemind)
+                reminderHolder.setVisibility(View.VISIBLE);
+            else
+                reminderHolder.setVisibility(View.GONE);
+
+            myCalendar.setTimeInMillis(dateExtra*1000L);
+            reminderCalendar.setTimeInMillis(reminderDate*1000L);
+
+            updateDatePicker();
+            updateTimePicker();
+            updateReminderDate();
+            updateReminderTime();
+
+            titlePicker.setText(title);
+            typePicker.setText(type);
+            extraNote.setText(note);
+            reminderSwitch.setChecked(doRemind);
+
+            colorPicker.setSelectedColor(color);
+            colorCard.setCardBackgroundColor(color);
+
+
+
+        }
 
 
 
@@ -678,10 +669,7 @@ public class AddSchedule extends AppCompatActivity {
 
 
                 if(!editPage) {
-                    insertedIDlong = db.scheduleDao().insertAll(new ScheduleEntity(title, type, note, date, reminderDate, color, doRemind));
-                    insertedID = (int) insertedIDlong[0];
-
-                    addSchedule(insertedID, title, type, note, date, reminderDate, color, doRemind);
+                    addSchedule(title, type, note, date, reminderDate, color, doRemind);
 
                 }else {
 
@@ -691,11 +679,7 @@ public class AddSchedule extends AppCompatActivity {
                     db.scheduleDao().deleteById(id);
                     cancelReminder(id);
 
-                    insertedIDlong = db.scheduleDao().insertAll(new ScheduleEntity(title, type, note, date, reminderDate, color, doRemind));
-                    insertedID = (int) insertedIDlong[0];
-                    id = insertedID;
-
-                    addSchedule(insertedID, title, type, note, date, reminderDate, color, doRemind);
+                    addSchedule(title, type, note, date, reminderDate, color, doRemind);
 
                 }
 
@@ -708,12 +692,11 @@ public class AddSchedule extends AppCompatActivity {
                     if(!type.equals(""))
                         reminderText += " - " + type;
 
-                    setReminder(insertedID,reminderText);
+                    Utils.setReminder(insertedID, reminderText, reminderCalendar, true, context);
                 } else {
                     cancelReminder(insertedID);
                 }
 
-                onBackPressed();
 
 
             }
@@ -729,50 +712,50 @@ public class AddSchedule extends AppCompatActivity {
 
 
 
-    public void addSchedule(int id, String title, String type, String extraNote, long date, long reminderDate, int color, boolean doReminder){
+    public void addSchedule(final String title, final String type, final String extraNote, final long date, final long reminderDate, final int color, final boolean doReminder){
+
+
+                Toast.makeText(context,"Submitting Schedule", Toast.LENGTH_SHORT).show();
+
+                String remind = "0";
+                if (doReminder)
+                    remind = "1";
 
 
 
                 HashMap<String, String> parametters = new HashMap<String, String>();
 
-                parametters.put("scheduleID",String.valueOf(id));
-                parametters.put("uid",uid);
-
+                parametters.put("uid",sessionManager.getUid());
                 parametters.put("subject", title);
                 parametters.put("type", type);
                 parametters.put("extraNote", extraNote);
                 parametters.put("date", String.valueOf(date));
                 parametters.put("reminderDate", String.valueOf(reminderDate));
                 parametters.put("color", String.valueOf(color));
-                parametters.put("doReminder", String.valueOf(doReminder));
-
+                parametters.put("doReminder", remind);
 
                 JSONParser parser = new JSONParser("https://nsuer.club/app/schedules/add.php", "GET", parametters);
-
-
 
                 parser.setListener(new JSONParser.ParserListener() {
                     @Override
                     public void onSuccess(JSONObject result) {
-
-
                         int courseCount = 0;
-
                         try {
-                            JSONArray obj = result.getJSONArray("dataArray");
+                            int id = result.getInt("msg");
 
+                            long[] insertedIDlong = db.scheduleDao().insertAll(new ScheduleEntity(id, title, type, extraNote, date, reminderDate, color, doReminder));
 
+                            Toast.makeText(context,"Schedule Submitted", Toast.LENGTH_SHORT).show();
+
+                            onBackPressed();
 
                         } catch (JSONException e) {
 
+
+
+
                             Log.e("JSON", e.toString());
                         }
-
-
-
-
-
-
                     }
 
                     @Override
@@ -780,9 +763,6 @@ public class AddSchedule extends AppCompatActivity {
                     }
                 });
                 parser.execute();
-
-
-
 
     }
 
@@ -792,7 +772,7 @@ public class AddSchedule extends AppCompatActivity {
         HashMap<String, String> parametters = new HashMap<String, String>();
 
         parametters.put("scheduleID",String.valueOf(id));
-        parametters.put("uid",uid);
+        parametters.put("uid",sessionManager.getUid());
 
         JSONParser parser = new JSONParser("https://nsuer.club/app/schedules/delete.php", "GET", parametters);
 
@@ -826,44 +806,6 @@ public class AddSchedule extends AppCompatActivity {
 
     }
 
-    public void setReminder(int idd, String reminderText) {
-
-
-
-        long unixTime = System.currentTimeMillis() / 1000L;
-
-        long reminderTime = reminderCalendar.getTimeInMillis()/1000L;
-        if(unixTime < reminderTime) {
-
-            Intent intent = new Intent(this, ReminderBroadcast.class);
-
-            intent.putExtra("text", reminderText);
-            intent.putExtra("id", idd);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                    this.getApplicationContext(), idd, intent, 0);
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, reminderCalendar.getTimeInMillis(), pendingIntent);
-
-            String myFormat = "dd MMMM, yyyy 'at' hh:mm a";
-            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
-            String reminderTextx = sdf.format(reminderCalendar.getTime());
-
-            Toast.makeText(this, "Reminder is set to " + reminderTextx,Toast.LENGTH_LONG).show();
-
-        }
-
-
-    }
-
-    public void cancelReminder(int idd){
-
-        Intent intent = new Intent(this, ReminderBroadcast.class);
-        PendingIntent.getBroadcast(this.getApplicationContext(), idd, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT).cancel();
-
-    }
 
     private void updateColorCard(String type){
 
@@ -892,6 +834,14 @@ public class AddSchedule extends AppCompatActivity {
         }
 
 
+
+    }
+
+    public void cancelReminder(int idd){
+
+        Intent intent = new Intent(this, ReminderBroadcast.class);
+        PendingIntent.getBroadcast(this.getApplicationContext(), idd, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT).cancel();
 
     }
 

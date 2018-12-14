@@ -1,11 +1,11 @@
 package club.nsuer.nsuer;
 
-
 import android.app.Activity;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,14 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ScheduleFragment extends Fragment {
 
     private View v;
@@ -43,6 +39,7 @@ public class ScheduleFragment extends Fragment {
     private LinearLayout crLine2;
     private LinearLayout noSchedule;
     private int scrollID = 999999;
+    private SessionManager sessionManager;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -68,8 +65,9 @@ public class ScheduleFragment extends Fragment {
 
 
         db = Room.databaseBuilder(context,
-                ScheduleDatabase.class, "schedules").allowMainThreadQueries().build();
+                ScheduleDatabase.class, "schedules").fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
+        sessionManager = new SessionManager(context);
 
 
     }
@@ -89,7 +87,7 @@ public class ScheduleFragment extends Fragment {
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if ((requestCode == 10001) && (resultCode == Activity.RESULT_OK))
+        if ((requestCode == 10001) || (resultCode == Activity.RESULT_OK))
             ft.detach(ScheduleFragment.this).attach(ScheduleFragment.this).commit();
     }
 
@@ -143,11 +141,23 @@ public class ScheduleFragment extends Fragment {
 
 
 
-        List<ScheduleEntity> list = db.scheduleDao().getAll();
+        List<ScheduleEntity>  list = db.scheduleDao().getAll();
+
+
+
 
        if(list.size() < 1) {
            titleLinear.setVisibility(View.GONE);
            crLine2.setVisibility(View.GONE);
+
+           Toast.makeText(context,"Syncing from cloud...", Toast.LENGTH_SHORT).show();
+           Utils.syncSchedule(sessionManager.getMemberID(),context);
+
+           new Handler().postDelayed(new Runnable() {
+               public void run() {
+                   ft.detach(ScheduleFragment.this).attach(ScheduleFragment.this).commit();
+               }}, 2000);
+
        } else {
            noSchedule.setVisibility(View.GONE);
        }
@@ -182,4 +192,6 @@ public class ScheduleFragment extends Fragment {
 
     }
 
-    }
+
+
+}

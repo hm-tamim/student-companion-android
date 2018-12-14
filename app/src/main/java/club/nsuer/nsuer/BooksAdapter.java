@@ -30,7 +30,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.SingleItemRo
     private View v;
 
     public BooksAdapter(ArrayList<BooksListItem> itemList, Context context) {
-       // listItemLayout = layoutId;
+
         this.itemList = itemList;
         this.context = context;
     }
@@ -41,9 +41,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.SingleItemRo
         return itemList == null ? 0 : itemList.size();
     }
 
-
-    // specify the row layout file and click for each row
-    //@Override
     public SingleItemRowHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_book_list, parent, false);

@@ -108,7 +108,7 @@ public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHold
 
         title.setText(titleS);
         price.setText(priceS);
-        seller.setText(sellerS);
+        seller.setText(Utils.limitWords(2, sellerS, false));
 
 
 

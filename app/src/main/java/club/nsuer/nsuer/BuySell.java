@@ -331,7 +331,7 @@ public class BuySell extends Fragment {
 
                         Log.e("ClassMates", e.toString());
 
-                        Toast.makeText(context,"No Class mates found.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,"No items found.", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -605,7 +605,7 @@ public class BuySell extends Fragment {
         TextView price = dialog.findViewById(R.id.price);
         TextView seller = dialog.findViewById(R.id.editButton);
         TextView description = dialog.findViewById(R.id.description);
-        FloatingActionButton button = dialog.findViewById(R.id.button);
+        FloatingActionButton button = dialog.findViewById(R.id.findDonors);
 
         ImageView image = dialog.findViewById(R.id.image);
 
@@ -621,8 +621,8 @@ public class BuySell extends Fragment {
 
 
         int id = itemList.get(listPosition).getId();
-        String titleS = itemList.get(listPosition).getTitle();
-        String priceS = itemList.get(listPosition).getPrice();
+        final String titleS = itemList.get(listPosition).getTitle();
+        String priceSs = itemList.get(listPosition).getPrice();
         long timeL = itemList.get(listPosition).getTime();
         final String sellerS = itemList.get(listPosition).getSellerName();
         final int sellerID = itemList.get(listPosition).getSellerID();
@@ -635,8 +635,13 @@ public class BuySell extends Fragment {
 
         String descriptionS = itemList.get(listPosition).getDescription();
 
-        if(Utils.isNumeric(priceS))
-            priceS = "৳ "+priceS;
+
+        final String priceS;
+
+        if(Utils.isNumeric(priceSs))
+             priceS = "৳ "+priceSs;
+        else
+             priceS = priceSs;
 
         title.setText(titleS);
         price.setText(priceS);
@@ -662,10 +667,15 @@ public class BuySell extends Fragment {
             public void onClick(View view) {
 
 
+
                 Intent intent = new Intent(context,ChatActivity.class);
 
                 intent.putExtra("otherMemID", String.valueOf(sellerID));
                 intent.putExtra("otherMemName", sellerS);
+
+                String pretext = titleS+"\nPrice: " + priceS  + "\n\nI'm interested in this item.";
+
+                intent.putExtra("pretext", pretext);
 
                 context.startActivity(intent);
 

@@ -19,6 +19,7 @@ import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,13 +27,14 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 
 public class LoginActivity extends Activity {
-    private static final String TAG = RegisterActivity.class.getSimpleName();
+    private static final String TAG = "Login";
     private Button btnLogin;
     private Button btnLinkToRegister;
     private Button btnLinkForget;
@@ -40,15 +42,16 @@ public class LoginActivity extends Activity {
     private EditText inputPassword;
     private ProgressDialog pDialog;
     private SessionManager session;
-    private SQLiteHandler db;
     private MainActivity main;
-
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+        context = getApplicationContext();
 
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
@@ -60,11 +63,9 @@ public class LoginActivity extends Activity {
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
-        // SQLite database handler
-        db = new SQLiteHandler(getApplicationContext());
 
         // Session manager
-        session = new SessionManager(getApplicationContext());
+        session = new SessionManager(context);
 
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
@@ -87,7 +88,7 @@ public class LoginActivity extends Activity {
                     checkLogin(email, password);
                 } else {
                     // Prompt user to enter credentials
-                    Toast.makeText(getApplicationContext(),
+                    Toast.makeText(context,
                             "Please enter the credentials!", Toast.LENGTH_LONG)
                             .show();
                 }
@@ -99,7 +100,7 @@ public class LoginActivity extends Activity {
         btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),
+                Intent i = new Intent(context,
                         RegisterActivity.class);
                 startActivity(i);
                 finish();
@@ -130,7 +131,7 @@ public class LoginActivity extends Activity {
 
 
         pDialog.setMessage("Logging in ...");
-        showDialog();
+       showDialog();
 
         StringRequest strReq = new StringRequest(Method.POST,
                 AppConfig.URL_LOGIN, new Response.Listener<String>() {
@@ -147,8 +148,6 @@ public class LoginActivity extends Activity {
                     // Check for error node in json
                     if (!error) {
                         // user successfully logged in
-                        // Create login session
-                        session.setLogin(true);
 
                         // Now store the user in SQLite
                         String uid = jObj.getString("uid");
@@ -171,33 +170,61 @@ public class LoginActivity extends Activity {
 
                         String dept = user.getString("dept");
 
+                        String bgroup = user.getString("bgroup");
 
+                        if(bgroup == null) {
+                            bgroup = "-1";
+                        } else {
+
+                            FirebaseMessaging.getInstance().subscribeToTopic("BLOOD." + bgroup);
+
+                        }
+
+
+
+                        String phone = user.getString("phone");
+                        String address = user.getString("address");
                         // Inserting row in users table
-                        db.addUser(name, email, uid, memberID, gender, picture, cgpa, credit, semester, dept);
+
+                        session.setName(name);
+                        session.setEmail(email);
+                        session.setUid(uid);
+                        session.setMemberID(memberID);
+                        session.setGender(gender);
+                        session.setPicture(picture);
+                        session.setCredit(credit);
+                        session.setCgpa(cgpa);
+                        session.setDepartment(dept);
+                        session.setSemester(semester);
+                        session.setBloodGroup(bgroup);
+
+                        if(phone != null)
+                            session.setPhone(phone);
+                        if (address != null)
+                            session.setAddress(address);
+
+                        // Create login session
+                        session.setLogin(true);
 
                         // Launch main activity
 
 
+                        Toast.makeText(context,"Syncing account data...", Toast.LENGTH_SHORT).show();
+
                         syncCourse(memberID, LoginActivity.this);
-
-
-
-
-
-
-
+                        Utils.syncSchedule(memberID, context);
 
 
                     } else {
                         // Error in login. Get the error message
                         String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
+                        Toast.makeText(context,
                                 errorMsg, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -206,7 +233,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Login Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
+                Toast.makeText(context,
                         error.getMessage(), Toast.LENGTH_LONG).show();
                 hideDialog();
             }
@@ -238,9 +265,12 @@ public class LoginActivity extends Activity {
             pDialog.dismiss();
     }
 
+
+
+
+
+
     private void syncCourse(String memID, final Context context){
-
-
 
 
 
@@ -249,7 +279,7 @@ public class LoginActivity extends Activity {
         parametters.put("memID", memID);
 
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/courses/get-all-courses.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/app/sync-data.php", "GET", parametters);
 
 
 
@@ -260,10 +290,16 @@ public class LoginActivity extends Activity {
                 CoursesDatabase db = Room.databaseBuilder(context,
                         CoursesDatabase.class, "courses").allowMainThreadQueries().build();
 
+                db.coursesDao().nukeTable();
+
                 BooksDatabase dbBooks = Room.databaseBuilder(context,
                         BooksDatabase.class, "books").allowMainThreadQueries().build();
+
+                dbBooks.booksDao().nukeTable();
+
                 FacultiesDatabase dbFaculties = Room.databaseBuilder(context,
                         FacultiesDatabase.class, "faculties").allowMainThreadQueries().build();
+                dbFaculties.facultiesDao().nukeTable();
 
 
 
@@ -271,118 +307,21 @@ public class LoginActivity extends Activity {
                 try {
                     JSONArray obj = result.getJSONArray("dataArray");
 
-                    String firstCourse = null;
-                    String firstSection = null;
-
 
                     for (int i = 0; i < obj.length(); i++) {
 
 
                         JSONObject data = obj.getJSONObject(i);
 
-                        // Add books
-
-                        if(i>0) {
-
-                            if (data.has("books")) {
-
-                                int id = data.getInt("id");
-                                String course = data.getString("course");
-                                String books = data.getString("books");
-
-                                BooksEntity arrData = new BooksEntity();
-
-                                arrData.setCourse(course);
-                                arrData.setBooks(books);
-                                dbBooks.booksDao().insertAll(arrData);
-
-                                continue;
-                            }
-                        }
-
-
-
-                        // Add faculties
-
-                        if(i>0) {
-
-                            if (data.has("initial")) {
-
-
-
-                                int id = data.getInt("id");
-
-
-                                String name = data.getString("name");
-                                String rank = data.getString("rank");
-
-                                String image = data.getString("image");
-
-                                String initial  = trim(data.getString("initial"));
-
-                                String course = db.coursesDao().getCourseByFaculty(initial);
-
-                                String section = db.coursesDao().getSectionByFaculty(trim(initial));
-
-                                String email = data.getString("email");
-                                String phone = data.getString("phone");
-                                String ext = data.getString("ext");
-
-                                String department = data.getString("dept");
-                                String office = data.getString("office");
-                                String url = data.getString("url");
-
-
-
-
-                                FacultiesEntity arrData = new FacultiesEntity();
-
-                                arrData.setName(name);
-                                arrData.setRank(rank);
-                                arrData.setImage(image);
-                                arrData.setInitial(initial);
-                                arrData.setCourse(course);
-                                arrData.setSection(section);
-                                arrData.setEmail(email);
-                                arrData.setPhone(phone);
-                                arrData.setExt(ext);
-                                arrData.setDepartment(department);
-                                arrData.setOffice(office);
-                                arrData.setUrl(url);
-
-                                dbFaculties.facultiesDao().insertAll(arrData);
-                                continue;
-                            }
-                        }
-
-
-
-                        int id = data.getInt("id");
                         String course = data.getString("course");
                         String section = data.getString("section");
                         String faculty = data.getString("faculty");
-
-
-                        if(i==0)
-                            firstCourse = course;
-
-                        if(i==0)
-                            firstSection = section;
-
-
                         String startTime = data.getString("startTime");
-                        startTime = timeConverter(startTime,24);
-
+                        startTime = timeConverter(startTime, 24);
                         String endTime = data.getString("endTime");
-                        endTime = timeConverter(endTime,24);
-
+                        endTime = timeConverter(endTime, 24);
                         String day = data.getString("day");
                         String room = data.getString("room");
-
-
-
-
-
 
                         CoursesEntity arrData = new CoursesEntity();
 
@@ -394,6 +333,59 @@ public class LoginActivity extends Activity {
                         arrData.setRoom(room);
                         arrData.setDay(day);
                         db.coursesDao().insertAll(arrData);
+
+
+                        // add books
+
+
+                        String books = data.getString("books");
+
+                        if (books != null && !books.isEmpty() && !books.equals("null")) {
+
+                            BooksEntity booksEntity = new BooksEntity();
+                            booksEntity.setCourse(course);
+                            booksEntity.setBooks(books);
+                            dbBooks.booksDao().insertAll(booksEntity);
+                        }
+
+                        // faculty
+
+
+
+                        String name = data.getString("name");
+
+                        if (name != null && !name.isEmpty() && !name.equals("null")) {
+                            String rank = data.getString("rank");
+                            String image = data.getString("image");
+                            String initial = trim(data.getString("initial"));
+                            String email = data.getString("email");
+                            String phone = data.getString("phone");
+                            String ext = data.getString("ext");
+                            String department = data.getString("dept");
+                            String office = data.getString("office");
+                            String url = data.getString("url");
+
+                            FacultiesEntity facultiesEntity = new FacultiesEntity();
+                            facultiesEntity.setName(name);
+                            facultiesEntity.setRank(rank);
+                            facultiesEntity.setImage(image);
+                            facultiesEntity.setInitial(initial);
+                            facultiesEntity.setCourse(course);
+                            facultiesEntity.setSection(section);
+                            facultiesEntity.setEmail(email);
+                            facultiesEntity.setPhone(phone);
+                            facultiesEntity.setExt(ext);
+                            facultiesEntity.setDepartment(department);
+                            facultiesEntity.setOffice(office);
+                            facultiesEntity.setUrl(url);
+
+                            if(dbFaculties.facultiesDao().findByInitial(initial) == null)
+                                dbFaculties.facultiesDao().insertAll(facultiesEntity);
+
+                        }
+
+
+
 
                     }
                 } catch (JSONException e) {

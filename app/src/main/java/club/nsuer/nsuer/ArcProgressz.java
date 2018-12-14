@@ -22,6 +22,10 @@ import java.text.DecimalFormat;
 
 /**
  * Created by bruce on 11/6/14.
+ * Copyright (C) 2014 Bruce Lee <bruceinpeking#gmail.com>
+ * Everyone is permitted to copy and distribute verbatim or modified copies of this license document, and changing it is allowed as long as the name is changed.
+ * 
+ * https://github.com/lzyzsd/CircleProgress
  */
 public class ArcProgressz extends View {
     private Paint paint;

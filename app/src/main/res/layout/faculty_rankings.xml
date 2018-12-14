@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".FacultyRankings">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <WebView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/faculty_rankings_webview"

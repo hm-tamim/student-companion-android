@@ -46,30 +46,19 @@ import club.nsuer.nsuer.R;
 import club.nsuer.nsuer.Utils;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class Books extends Fragment implements CoursesList {
 
 
 
     private MainActivity main;
-
-
     private AutoCompleteTextView courseInput;
     private MyNumberPicker sectionInput;
-
     private View v;
-
     private BooksDatabase dbBooks;
-
     private Button dialogButton;
-
     private ArrayList<BooksItem> itemList;
-
     private ArrayList<BooksListItem> itemListBooks;
     private LinearLayout noBook;
-
 
     public Books() {
         // Required empty public constructor
@@ -385,8 +374,6 @@ public class Books extends Fragment implements CoursesList {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 
 

@@ -14,9 +14,6 @@ import java.net.URL;
 
 public class UploadFileAsync extends AsyncTask<String, Void, String> {
 
-
-
-
     private JSONParser.ParserListener listener;
 
     public interface ParserListener {

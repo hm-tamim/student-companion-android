@@ -64,7 +64,6 @@ public class BuySellCreate extends AppCompatActivity {
 
 
 
-    private SQLiteHandler db;
     private SessionManager session;
 
 
@@ -215,8 +214,6 @@ public class BuySellCreate extends AppCompatActivity {
 
 
 
-        // SqLite database handler
-        db = new SQLiteHandler(getApplicationContext());
 
         // session manager
         session = new SessionManager(getApplicationContext());
@@ -225,13 +222,12 @@ public class BuySellCreate extends AppCompatActivity {
             MainActivity.getInstance().logoutUser();
         }
 
-        // Fetching user details from sqlite
-        HashMap<String, String> user = db.getUserDetails();
 
-        username = user.get("name");
-        uid = user.get("uid");
+        username = session.getName();
+        uid = session.getUid();
+        memberID = session.getMemberID();
 
-        memberID = user.get("memberID");
+
 
 
 

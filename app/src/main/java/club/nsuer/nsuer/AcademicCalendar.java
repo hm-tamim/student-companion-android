@@ -35,25 +35,16 @@ import java.util.Locale;
 
 public class AcademicCalendar extends Fragment {
 
-
-
     private MainActivity main;
-
     private Context context;
-
     private ArrayList<AcademicCalendarItem> itemList;
     private View view;
-
     private int datePassed = 0;
-
     private String jsonCache = null;
     private AcademicCalendarAdapter itemAdapter;
     private RecyclerView recyclerView;
-
     private SnapHelper snapHelper;
     private CacheHelper acCache;
-
-
 
     public AcademicCalendar() {
         // Required empty public constructor

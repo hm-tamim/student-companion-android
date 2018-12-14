@@ -28,7 +28,6 @@ public class AcademicCalendarAdapter extends RecyclerView.Adapter<AcademicCalend
     }
 
 
-
     @Override
     public int getItemCount() {
 
@@ -36,7 +35,6 @@ public class AcademicCalendarAdapter extends RecyclerView.Adapter<AcademicCalend
     }
 
 
-    // specify the row layout file and click for each row
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -72,37 +70,6 @@ public class AcademicCalendarAdapter extends RecyclerView.Adapter<AcademicCalend
             circle.setBackground(ContextCompat.getDrawable(context, R.drawable.ac_circle_ddd));
 
 
-
-
-
-//
-//
-//
-//        if(listPosition % 7 == 0){
-//            holder.cardView.setCardBackgroundColor(Color.parseColor("#227585"));
-//            // #2196f3 #409de0 #39afd5  #7c94b8 #72c769 #ee945d  #f95b45
-//
-//        }else if(listPosition % 7 == 1){
-//            holder.cardView.setCardBackgroundColor(Color.parseColor("#009688"));
-//
-//            // #39d2e3 #72c769
-//        }else if(listPosition % 7 == 2){
-//            //#7c94b6
-//
-//            holder.cardView.setCardBackgroundColor(Color.parseColor("#17a2b8"));
-//
-//        }else if(listPosition % 7 == 3){
-//            holder.cardView.setCardBackgroundColor(Color.parseColor("#1c7cb9"));
-//            // #ff9800
-//        }else if(listPosition % 7 == 4){
-//            holder.cardView.setCardBackgroundColor(Color.parseColor("#2d566b"));
-//        }else if(listPosition % 7 == 5){
-//            holder.cardView.setCardBackgroundColor(Color.parseColor("#05879f"));
-//        }else if(listPosition % 7 == 6){
-//            holder.cardView.setCardBackgroundColor(Color.parseColor("#f03a76"));
-//        }
-
-
     }
 
     // Static inner class to initialize the views of rows
@@ -126,19 +93,12 @@ public class AcademicCalendarAdapter extends RecyclerView.Adapter<AcademicCalend
             event = (TextView) itemView.findViewById(R.id.acEvent);
             circle = (View) itemView.findViewById(R.id.acCircle);
 
-
-
-
-
         }
-
 
         @Override
         public void onClick(View view) {
 
        }
-
-
 
     }
 }

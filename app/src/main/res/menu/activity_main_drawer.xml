@@ -14,16 +14,23 @@
             android:title="Newsfeed" />
         <item
             android:id="@+id/nav_message"
-            android:icon="@drawable/ic_chat_room" />
+            android:icon="@drawable/ic_chat_room"
+            android:title="Messages"/>
 
         <item
             android:id="@+id/nav_buysell"
-            android:icon="@drawable/ic_shopping_cart_white" />
+            android:icon="@drawable/ic_shopping_cart_white"
+            android:title="BuySell Shop"/>
 
         <item
             android:id="@+id/nav_classmates"
             android:icon="@drawable/ic_students_white"
             android:title="Classmates" />
+
+        <item
+            android:id="@+id/nav_bloodbank"
+            android:icon="@drawable/ic_drop_water"
+            android:title="Blood Bank" />
 
     </group>
 
@@ -34,7 +41,7 @@
             android:title="Courses" />
         <item
             android:id="@+id/nav_schedules"
-            android:icon="@drawable/ic_courses"
+            android:icon="@drawable/ic_schedule_dark"
             android:title="Schedules" />
 
         <item

@@ -22,9 +22,8 @@ public class About extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_about, container, false);
 
+        view = inflater.inflate(R.layout.fragment_about, container, false);
 
         main = MainActivity.getInstance();
 
@@ -37,13 +36,9 @@ public class About extends Fragment {
 
         version.setText(BuildConfig.VERSION_NAME);
 
-        lastupdate.setText("25 September, 2018");
+        lastupdate.setText("10 December, 2018");
 
         TextView email = view.findViewById(R.id.hmtamimEmail);
-
-
-
-
 
         return view;
     }

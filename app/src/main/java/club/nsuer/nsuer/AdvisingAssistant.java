@@ -15,10 +15,6 @@ import android.webkit.WebViewClient;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class AdvisingAssistant extends Fragment {
 
     private ProgressDialog progressDialog;
@@ -29,8 +25,6 @@ public class AdvisingAssistant extends Fragment {
     private View v;
 
     private String uid = "uids";
-
-
 
     public AdvisingAssistant() {
         // Required empty public constructor
@@ -128,8 +122,6 @@ public class AdvisingAssistant extends Fragment {
 
             }
         });
-
-
 
 
         startWebView(webView, "https://nsuer.club/app/advising-assistant.php?uid="+uid);

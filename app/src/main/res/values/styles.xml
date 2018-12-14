@@ -15,12 +15,14 @@
         <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="android:dialogTheme">@style/NeutralButtonStyle</item>
 
+        <item name="android:backgroundDimEnabled">true</item>
+
     </style>
 
 
     <style name="AppTheme.Red" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#f44336</item>
+        <item name="colorPrimary">@color/blood_color</item>
         <item name="colorPrimaryDark">#d32f2f</item>
         <item name="colorAccent">#222</item>
         <item name="android:actionBarStyle">@style/RedActionBar</item>
@@ -28,7 +30,7 @@
     </style>
 
     <style name="RedActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">#f44336</item>
+        <item name="android:background">@color/blood_color</item>
     </style>
 
     <style name="PauseDialog" parent="@android:style/Theme.Dialog">

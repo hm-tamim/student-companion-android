@@ -4,8 +4,9 @@
     <color name="colorPrimaryDark">#388096</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="redd">#d3d30202</color>
+    <color name="redd">#d60823</color>
 
+    <color name="blood_color">#e83c2f</color>
 
     <color name="c222">#222</color>
     <color name="c333">#333</color>

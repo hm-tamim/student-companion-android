@@ -9,7 +9,10 @@ import android.arch.persistence.room.PrimaryKey;
 public class ScheduleEntity {
 
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey (autoGenerate = true)
+    private int key;
+
+    @ColumnInfo(name = "id")
     private int id;
 
     @ColumnInfo(name = "title")
@@ -20,6 +23,7 @@ public class ScheduleEntity {
 
     @ColumnInfo(name = "extraNote")
     private String extraNote;
+
 
     @ColumnInfo(name = "date")
     private long date;
@@ -34,8 +38,8 @@ public class ScheduleEntity {
     private boolean doReminder;
 
 
-    public ScheduleEntity(String title, String type, String extraNote, long date, long reminderDate, int color, boolean doReminder) {
-
+    public ScheduleEntity(int id, String title, String type, String extraNote, long date, long reminderDate, int color, boolean doReminder) {
+        this.id = id;
         this.title = title;
         this.type = type;
         this.extraNote = extraNote;
@@ -44,6 +48,16 @@ public class ScheduleEntity {
         this.color = color;
         this.doReminder = doReminder;
     }
+
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
+    }
+
 
     public int getId() {
         return id;

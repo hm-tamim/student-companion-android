@@ -534,15 +534,11 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
         instanse.likeSound();
 
-
         setLike(likeButton, listPosition);
-
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
-
         final int msgID = itemList.get(listPosition).getId();
-
 
 
         parametters.put("msgID", String.valueOf(msgID));
@@ -555,10 +551,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         parser.setListener(new JSONParser.ParserListener() {
             @Override
             public void onSuccess(JSONObject result) {
-
-
-
-
 
                 instanse.loadJson(false);
 

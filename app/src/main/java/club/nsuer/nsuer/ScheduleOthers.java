@@ -1,6 +1,5 @@
 package club.nsuer.nsuer;
 
-
 import android.app.Activity;
 import android.arch.persistence.room.Room;
 import android.content.Context;
@@ -24,39 +23,37 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ScheduleOthers extends Fragment {
 
     private View v;
-
     private MainActivity main;
     private Context context;
     private FloatingActionButton addButton;
     private FragmentTransaction ft;
-
     private ArrayList<ScheduleOthersItem> itemList;
     private ScheduleOthersAdapter itemAdapter;
     private RecyclerView recyclerView;
     private ScheduleDatabase db;
-
     private LinearLayout titleLinear;
     private LinearLayout crLine2;
     private LinearLayout noSchedule;
     private int scrollID = 999999;
-
     private String uid;
+
+    private CoursesDatabase courseDb;
 
     public ScheduleOthers() {
         // Required empty public constructor
     }
 
 
+    private SessionManager sessionManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,11 +64,16 @@ public class ScheduleOthers extends Fragment {
         main = (MainActivity) getActivity();
 
         context = getContext();
-
+        sessionManager = new SessionManager(context);
 
 
         db = Room.databaseBuilder(context,
                 ScheduleDatabase.class, "schedules").allowMainThreadQueries().build();
+
+
+
+        courseDb = Room.databaseBuilder(context,
+                CoursesDatabase.class, "courses").allowMainThreadQueries().build();
 
 
 
@@ -158,11 +160,21 @@ public class ScheduleOthers extends Fragment {
 
         String url;
 
-
         url = "https://nsuer.club/app/schedules/find-others.php";
+
+        List<CoursesEntity> coursesList = courseDb.coursesDao().getAll();
+
+        String courses = coursesList.get(0).getCourse()+"."+coursesList.get(0).getSection();
+
+        for (int i=1; i < coursesList.size(); i++){
+            courses += "," + coursesList.get(i).getCourse()+"."+coursesList.get(i).getSection();
+        }
+
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
+        parametters.put("courses", courses);
+        parametters.put("memID", sessionManager.getMemberID());
 
         JSONParser parser = new JSONParser(url, "GET", parametters);
 
@@ -186,6 +198,9 @@ public class ScheduleOthers extends Fragment {
 
             @Override
             public void onFailure() {
+
+                titleLinear.setVisibility(View.GONE);
+                crLine2.setVisibility(View.GONE);
 
             }
         });
@@ -228,6 +243,8 @@ public class ScheduleOthers extends Fragment {
                 String type = data.getString("t");
                 String note = data.getString("en");
                 String username = data.getString("username");
+
+                String otherMemID = data.getString("mi");
                 long date = data.getLong("d");
                 long reminderDate = data.getLong("rd");
                 int color = data.getInt("c");
@@ -247,7 +264,8 @@ public class ScheduleOthers extends Fragment {
                     isPassed = true;
 
 
-                itemList.add(new ScheduleOthersItem(id, title, type, note, username, date, reminderDate, color, doRemind, isPassed));
+                if(!otherMemID.equals(sessionManager.getMemberID()))
+                    itemList.add(new ScheduleOthersItem(id, title, type, note, username, date, reminderDate, color, doRemind, isPassed));
 
 
             }

@@ -174,6 +174,7 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
 
 
 
+        Log.d("faculty",imageUrl);
 
         initial.setText(itemList.get(listPosition).getInitial());
         course.setText(itemList.get(listPosition).getCourse());

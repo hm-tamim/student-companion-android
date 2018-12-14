@@ -47,9 +47,6 @@ import java.util.Locale;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class CoursesActivity extends Fragment implements CoursesList {
 
     private MainActivity main;

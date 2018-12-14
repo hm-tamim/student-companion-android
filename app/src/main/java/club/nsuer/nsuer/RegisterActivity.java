@@ -32,7 +32,6 @@ public class RegisterActivity extends Activity {
     private Spinner inputGender;
     private ProgressDialog pDialog;
     private SessionManager session;
-    private SQLiteHandler db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,6 @@ public class RegisterActivity extends Activity {
         session = new SessionManager(getApplicationContext());
 
         // SQLite database handler
-        db = new SQLiteHandler(getApplicationContext());
 
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
@@ -141,7 +139,17 @@ public class RegisterActivity extends Activity {
                         String dept = "0";
 
                         // Inserting row in users table
-                        db.addUser(name, email, uid, memberID, gender, picture, cgpa, credit, semester,dept);
+                        session.setName(name);
+                        session.setEmail(email);
+                        session.setUid(uid);
+                        session.setMemberID(memberID);
+                        session.setGender(gender);
+                        session.setPicture(picture);
+                        session.setCredit(credit);
+                        session.setCgpa(cgpa);
+                        session.setDepartment(dept);
+                        session.setSemester(semester);
+
 
                         session.setLogin(true);
 

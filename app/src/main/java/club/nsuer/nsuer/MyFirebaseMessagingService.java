@@ -37,23 +37,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         //showNotification(remoteMessage.getNotification().getBody());
 
-
         Context context = getApplicationContext();
-
-
 
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
 
+            SessionManager user = new SessionManager(context);
 
-
-            // SqLite database handler
-            SQLiteHandler db = new SQLiteHandler(context);
-
-            HashMap<String, String> user = db.getUserDetails();
-
-            String memberID = user.get("memberID");
+            String memberID = user.getMemberID();
 
             String title = remoteMessage.getData().get("title");
             String body = remoteMessage.getData().get("body");
@@ -79,13 +71,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 ChatEntity chatItem = new ChatEntity();
 
-
                 chatItem.setMsg_id(id);
                 chatItem.setUser_from(from);
                 chatItem.setUser_to(to);
                 chatItem.setMessage(message);
                 chatItem.setTime(time);
-
 
                 String dbName = "chat_"+from;
 
@@ -97,8 +87,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             } else {
 
-                if (!senderMemID.equals(memberID))
-                    sendNotification(body, title, senderMemID, type, typeExtra,  "MainActivity");
+                if (!senderMemID.equals(memberID)) {
+                    sendNotification(body, title, senderMemID, type, typeExtra, "MainActivity");
+                    saveNotification(title, body, senderMemID, type, typeExtra, typeExtra2);
+                }
 
             }
 
@@ -113,11 +105,28 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
 
-    public boolean foregrounded() {
-        ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
-        ActivityManager.getMyMemoryState(appProcessInfo);
-        return (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE);
+    public void saveNotification(String title, String msg, String senderMemID, String type, String typeExtra, String typeExtra2){
+
+        NotificationEntity entity = new NotificationEntity();
+        entity.setTitle(title);
+        entity.setBody(msg);
+        entity.setType(type);
+        entity.setTypeExtra(typeExtra);
+        entity.setTypeExtra2(typeExtra2);
+        entity.setSenderMemID(senderMemID);
+        long time = Calendar.getInstance().getTimeInMillis()/1000L;
+
+        entity.setTime(time);
+        entity.setSeen(false);
+
+        NotificationDatabase db = Room.databaseBuilder(getApplicationContext(),
+                NotificationDatabase.class, "notifications").allowMainThreadQueries().build();
+
+        db.notificationDao().insertAll(entity);
+
+
     }
+
 
     private void sendNotification(String messageBody, String messageTitle, String senderMemID, String type, String typeExtra, String actvityName) {
 
@@ -126,7 +135,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String NOTIFICATION_CHANNEL_ID = "NSUER_NOTIFICATION";
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_MAX);
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_HIGH);
 
             // Configure the notification channel.
             notificationChannel.setDescription("Get important notifications from NSUer App");
@@ -168,37 +177,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
 
-
-
-    private void showNotification(String messageBody) {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        String NOTIFICATION_CHANNEL_ID = "NSUER_NOTIFICATION";
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_MAX);
-
-            // Configure the notification channel.
-            notificationChannel.setDescription("Get important notifications from NSUer App");
-            notificationChannel.enableLights(true);
-            notificationChannel.setLightColor(Color.RED);
-            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
-            notificationChannel.enableVibration(true);
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-
-        notificationBuilder.setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.ic_status_icon)
-                .setPriority(Notification.PRIORITY_MAX)
-                .setContentTitle("NSUer App")
-                .setContentText(messageBody);
-
-        notificationManager.notify(/*notification id*/1, notificationBuilder.build());
-    }
 
 
 }

@@ -23,10 +23,6 @@ import android.widget.CursorAdapter;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FacultyRankings extends Fragment implements CoursesList {
 
 
@@ -42,9 +38,7 @@ public class FacultyRankings extends Fragment implements CoursesList {
     public FacultyRankings() {
         // Required empty public constructor
     }
-    public FacultyRankings(String uid) {
-        this.uid = uid;
-    }
+
 
 
     @Override
@@ -54,6 +48,9 @@ public class FacultyRankings extends Fragment implements CoursesList {
 
 
         main = (MainActivity) getActivity();
+
+        uid = main.getUid();
+
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading...");
