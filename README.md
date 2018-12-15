@@ -15,9 +15,7 @@ If you want, you can download files from links below as well.
 
 Executable APK file: https://nsuer.club/IEEEMadC/NSUer_App_APK_IEEEMadC.apk
 
-App Project File: https://nsuer.club/IEEEMadC/NSUer_App_Project_File_IEEEMadC.zip
-
-PHP files (for Custom API): https://nsuer.club/IEEEMadC/NSUer_App_PHP_files.zip
+PHP files (for Custom API, removed now for security, as it's public now, request in my email please): https://nsuer.club/IEEEMadC/NSUer_App_PHP_files.zip
 
 Screenshots: https://nsuer.club/IEEEMadC/NSUer_App_Screenshots.zip
 
