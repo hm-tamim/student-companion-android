@@ -9,7 +9,8 @@ NSUer is a students companion and social media android app for the students of N
 Here's the introduction video of this app, that describes the app properly: https://www.youtube.com/watch?v=YvE1DWpwIDI
 
 
-If you want, you can get those files from links below as well.
+
+If you want, you can download files from links below as well.
 
 
 Executable APK file: https://nsuer.club/IEEEMadC/NSUer_App_APK_IEEEMadC.apk
@@ -21,6 +22,7 @@ PHP files (for Custom API): https://nsuer.club/IEEEMadC/NSUer_App_PHP_files.zip
 Screenshots: https://nsuer.club/IEEEMadC/NSUer_App_Screenshots.zip
 
 Logos: https://nsuer.club/IEEEMadC/NSUer_App_GRAPHICS.zip
+
 
 
 
