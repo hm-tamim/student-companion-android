@@ -19,8 +19,10 @@ MySQLi was used to store all the data and PHP to make custom JSON APIs for the a
 
 
 <br />
-Here's the introduction video of this app, that describes the app properly: https://www.youtube.com/watch?v=YvE1DWpwIDI
+Here's the introduction video of this app, that describes the app properly: 
+https://www.youtube.com/watch?v=YvE1DWpwIDI
 
+<br />
 <br />
 
 To test the app, please use this demo account to sign in:<br>
