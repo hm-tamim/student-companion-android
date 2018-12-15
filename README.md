@@ -5,10 +5,10 @@ Every university should have their own app for the students instead of using 5-6
 NSUer is a students companion and social media android app for the students of North South University. It has almost all featured needed to help student to become more productive, manages tasks easily, and stay connected with their university.
 
 
-
+<br />
 Here's the introduction video of this app, that describes the app properly: https://www.youtube.com/watch?v=YvE1DWpwIDI
 
-
+<br />
 
 If you want, you can download files from links below as well.
 
@@ -24,15 +24,15 @@ Screenshots: https://nsuer.club/IEEEMadC/NSUer_App_Screenshots.zip
 Logos: https://nsuer.club/IEEEMadC/NSUer_App_GRAPHICS.zip
 
 
-
+<br />
 
 This app was developed follow by the rules of Material Design. I used MySQLi to store all the data. And PHP was used to make custom JSON APIs for the app. Security was one of the main priorities. 
 
-
+<br />
 
 Database files were not provided for privacy issues, as 6000+ students are using the app already. If needed, I can provide the empty structures.
 
-
+<br />
 
 Actually I published the app after creating few main features, to get feed backs. But I didn't expected it will get that much response, it was downloaded by 90% of the android users of my university. 
 
@@ -40,7 +40,7 @@ Currently it's holding 4.9 star rating(over 1300 five stars) on Google Playstore
 
 https://play.google.com/store/apps/details?id=club.nsuer.nsuer
 
-
+<br />
 
 Screenshots(also provided separetly):
 
@@ -48,9 +48,11 @@ Screenshots(also provided separetly):
 
 ![row 2](https://github.com/hm-tamim/NSUer/raw/master/GRAPHICS/row%202.jpg)
 
-![row 3](https://github.com/hm-tamim/NSUer/raw/master/GRAPHICS/row%202.jpg)
+![row 3](https://github.com/hm-tamim/NSUer/raw/master/GRAPHICS/row%203.jpg)
 
-Here is the main features of the app:
+<br />
+
+**Here is the main features of the app:**
 
 1. Students creates a profile on the app.
 
