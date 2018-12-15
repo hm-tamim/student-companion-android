@@ -12,6 +12,13 @@ NSUer is a student companion and social media android app for the students of No
 
 
 <br />
+
+This app was developed follow by the rules of Material Design. I used MySQLi to store all the data. And PHP was used to make custom JSON APIs for the app. Security was one of the main priorities. 
+
+<br/>
+
+
+<br />
 Here's the introduction video of this app, that describes the app properly: https://www.youtube.com/watch?v=YvE1DWpwIDI
 
 <br />
@@ -37,12 +44,7 @@ https://nsuer.club/IEEEMadC/NSUer_App_Screenshots.zip
 Logos: 
 https://nsuer.club/IEEEMadC/NSUer_App_GRAPHICS.zip
 
-
-<br />
-
-This app was developed follow by the rules of Material Design. I used MySQLi to store all the data. And PHP was used to make custom JSON APIs for the app. Security was one of the main priorities. 
-
-<br/>
+<br>
 
 Screenshots(also provided separetly):
 
