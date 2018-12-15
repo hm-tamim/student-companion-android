@@ -1,3 +1,9 @@
+<h1>NSUer - Student Companion</h1>
+
+![banner logo](https://github.com/hm-tamim/NSUer/raw/master/GRAPHICS/banner.png)
+
+<br>
+
 On this era, mobile phone is replacing desktop for day-to day tasks. According to research, people spend  86%  time on an app than 16% on websites.
 
 Every university should have their own app for the students instead of using 5-6 different apps for specific task. 
