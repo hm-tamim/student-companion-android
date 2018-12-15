@@ -40,6 +40,14 @@ https://play.google.com/store/apps/details?id=club.nsuer.nsuer
 
 
 
+Screenshots(also provided separetly):
+
+![row 1](https://github.com/hm-tamim/NSUer/raw/master/GRAPHICS/row1.jpg)
+
+![row 2](https://github.com/hm-tamim/NSUer/raw/master/GRAPHICS/row%202.jpg)
+
+![row 3](https://github.com/hm-tamim/NSUer/raw/master/GRAPHICS/row%202.jpg)
+
 Here is the main features of the app:
 
 1. Students creates a profile on the app.
