@@ -82,7 +82,7 @@ Fully-functional class routine shows in a calendar.
 
 
 
-**Faculties Profiles:
+**Faculties Profiles:**
 
 Show all faculty profiles of the courses a student have taken. Profiles include important information like full name, picture, initial, rank, department, email, phone number etc.
 
