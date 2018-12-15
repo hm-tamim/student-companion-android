@@ -2,7 +2,7 @@ On this era, mobile phone is replacing desktop for day-to day tasks. According t
 
 Every university should have their own app for the students instead of using 5-6 different apps for specific task. 
 
-NSUer is a students companion and social media android app for the students of North South University. It has almost all featured needed to help student to become more productive, manages tasks easily, and stay connected with their university.
+NSUer is a student companion and social media android app for the students of North South University. It has almost all featured needed to help students to become more productive, manages tasks easily, and stay connected with their university.
 
 
 <br />
@@ -10,35 +10,33 @@ Here's the introduction video of this app, that describes the app properly: http
 
 <br />
 
+To test the app, please use this demo account to sign in:<br>
+Email: ieeemadc@gmail.com<br>
+Password: ieeemadc
+
+<br />
+<br />
+
 If you want, you can download files from links below as well.
 
 
-Executable APK file: https://nsuer.club/IEEEMadC/NSUer_App_APK_IEEEMadC.apk
+Executable APK file: 
+https://nsuer.club/IEEEMadC/NSUer_App_APK_IEEEMadC.apk
 
-PHP files (for Custom API, removed now for security, as it's public now, request in my email please): https://nsuer.club/IEEEMadC/NSUer_App_PHP_files.zip
+PHP files for Custom API (Removed now for security, as it's public now. Request in my email please if needed): https://nsuer.club/IEEEMadC/NSUer_App_PHP_files.zip
 
-Screenshots: https://nsuer.club/IEEEMadC/NSUer_App_Screenshots.zip
+Screenshots: 
+https://nsuer.club/IEEEMadC/NSUer_App_Screenshots.zip
 
-Logos: https://nsuer.club/IEEEMadC/NSUer_App_GRAPHICS.zip
+Logos: 
+https://nsuer.club/IEEEMadC/NSUer_App_GRAPHICS.zip
 
 
 <br />
 
 This app was developed follow by the rules of Material Design. I used MySQLi to store all the data. And PHP was used to make custom JSON APIs for the app. Security was one of the main priorities. 
 
-<br />
-
-Database files were not provided for privacy issues, as 6000+ students are using the app already. If needed, I can provide the empty structures.
-
-<br />
-
-Actually I published the app after creating few main features, to get feed backs. But I didn't expected it will get that much response, it was downloaded by 90% of the android users of my university. 
-
-Currently it's holding 4.9 star rating(over 1300 five stars) on Google Playstore.
-
-https://play.google.com/store/apps/details?id=club.nsuer.nsuer
-
-<br />
+<br/>
 
 Screenshots(also provided separetly):
 
