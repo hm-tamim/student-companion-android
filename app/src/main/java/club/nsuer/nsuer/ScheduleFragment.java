@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,9 @@ public class ScheduleFragment extends Fragment {
     private LinearLayout noSchedule;
     private int scrollID = 999999;
     private SessionManager sessionManager;
+    private List<ScheduleEntity>  list;
+
+    private CountDownTimer countDownTimer;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -65,7 +70,7 @@ public class ScheduleFragment extends Fragment {
 
 
         db = Room.databaseBuilder(context,
-                ScheduleDatabase.class, "schedules").fallbackToDestructiveMigration().allowMainThreadQueries().build();
+                ScheduleDatabase.class, "schedule").fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
         sessionManager = new SessionManager(context);
 
@@ -140,27 +145,69 @@ public class ScheduleFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
-
-        List<ScheduleEntity>  list = db.scheduleDao().getAll();
-
-
-
+        list = db.scheduleDao().getAll();
 
        if(list.size() < 1) {
            titleLinear.setVisibility(View.GONE);
            crLine2.setVisibility(View.GONE);
 
            Toast.makeText(context,"Syncing from cloud...", Toast.LENGTH_SHORT).show();
+
            Utils.syncSchedule(sessionManager.getMemberID(),context);
 
            new Handler().postDelayed(new Runnable() {
                public void run() {
-                   ft.detach(ScheduleFragment.this).attach(ScheduleFragment.this).commit();
-               }}, 2000);
+
+                   itemList.clear();
+                   loadRecycler();
+
+                   if(list.size()<1)
+                       Toast.makeText(context,"You haven't added any schedule.", Toast.LENGTH_SHORT).show();
+
+               }
+               }, 3000);
 
        } else {
            noSchedule.setVisibility(View.GONE);
        }
+
+
+
+        loadRecycler();
+
+        recyclerView.setAdapter(itemAdapter);
+
+
+
+        countDownTimer = new CountDownTimer(500000, 2000) {
+
+            public void onTick(long millisUntilFinished) {
+
+
+                // refresh recycler from database to make it live
+
+                itemList.clear();
+                loadRecycler();
+
+            }
+
+            public void onFinish() {
+
+            }
+        };
+
+
+        countDownTimer.start();
+
+
+
+    }
+
+
+    private void loadRecycler(){
+
+
+        list = db.scheduleDao().getAll();
 
         for (int i=0; i < list.size(); i++) {
 
@@ -186,11 +233,41 @@ public class ScheduleFragment extends Fragment {
 
         }
 
+        itemAdapter.notifyDataSetChanged();
 
-        recyclerView.setAdapter(itemAdapter);
+
+        if(list.size() < 1) {
+            noSchedule.setVisibility(View.VISIBLE);
+            titleLinear.setVisibility(View.GONE);
+            crLine2.setVisibility(View.GONE);
+
+        } else {
+            noSchedule.setVisibility(View.GONE);
+            titleLinear.setVisibility(View.VISIBLE);
+            crLine2.setVisibility(View.VISIBLE);
+        }
 
 
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        countDownTimer.start();
+
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        countDownTimer.cancel();
+
+    }
+
 
 
 

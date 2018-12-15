@@ -107,7 +107,7 @@ public class AddSchedule extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 
         db = Room.databaseBuilder(this,
-                ScheduleDatabase.class, "schedules").allowMainThreadQueries().build();
+                ScheduleDatabase.class, "schedule").fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
         coursesDatabase = Room.databaseBuilder(this,
                 CoursesDatabase.class, "courses").allowMainThreadQueries().build();

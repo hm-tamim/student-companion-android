@@ -31,7 +31,7 @@ public class BloodBeDonor extends AppCompatActivity {
     private GridLayout bloodGroups;
     private SessionManager session;
     Context context;
-    private int bloodGroup;
+    private int bloodGroup = -1;
     private EditText phoneInput;
     private EditText addressInput;
     private FloatingActionButton submitBtn;
@@ -52,8 +52,13 @@ public class BloodBeDonor extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        bloodGroup = Integer.parseInt(session.getBloodGroup());
 
+        try {
+            bloodGroup = Integer.parseInt(session.getBloodGroup());
+        } catch (Exception e){
+
+
+        }
         bloodGroups = findViewById(R.id.bloodGroups);
         phoneInput = findViewById(R.id.phone);
         addressInput = findViewById(R.id.address);

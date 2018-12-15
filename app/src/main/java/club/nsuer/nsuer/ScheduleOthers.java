@@ -68,7 +68,7 @@ public class ScheduleOthers extends Fragment {
 
 
         db = Room.databaseBuilder(context,
-                ScheduleDatabase.class, "schedules").allowMainThreadQueries().build();
+                ScheduleDatabase.class, "schedule").fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
 
 

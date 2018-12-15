@@ -674,13 +674,12 @@ public class MainActivity extends AppCompatActivity
             {
                 final Intent intentB = new Intent(context,BloodBeDonor.class);
 
-
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
                         startActivity(intentB);
 
                     }
-                }, 1000);
+                }, 1500);
 
 
 
@@ -756,7 +755,7 @@ public class MainActivity extends AppCompatActivity
 
 
                         ScheduleDatabase scdb = Room.databaseBuilder(context,
-                                ScheduleDatabase.class, "schedules").allowMainThreadQueries().build();
+                                ScheduleDatabase.class, "schedule").fallbackToDestructiveMigration().allowMainThreadQueries().build();
                         scdb.scheduleDao().nukeTable();
 
                         final String imgDirr = context.getFilesDir().getPath() + File.separator + "images" + File.separator + "tamim.jpg";

@@ -18,45 +18,52 @@ public class ReminderBoot extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
+
+        SessionManager sessionManager = new SessionManager(context);
+
+        if (sessionManager.isLoggedIn()) {
+
+            if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
 
 
-            ScheduleDatabase db = Room.databaseBuilder(context.getApplicationContext(),
-                    ScheduleDatabase.class, "schedules").allowMainThreadQueries().build();
+                ScheduleDatabase db = Room.databaseBuilder(context.getApplicationContext(),
+                        ScheduleDatabase.class, "schedule").fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
-            List<ScheduleEntity> list = db.scheduleDao().getAll();
+                List<ScheduleEntity> list = db.scheduleDao().getAll();
 
-            for (int i = 0; i < list.size(); i++) {
+                for (int i = 0; i < list.size(); i++) {
 
+                    int id = list.get(i).getId();
+                    String title = list.get(i).getTitle();
+                    String type = list.get(i).getType();
+                    String note = list.get(i).getExtraNote();
+                    long date = list.get(i).getDate();
+                    long reminderDate = list.get(i).getReminderDate();
+                    int color = list.get(i).getColor();
+                    boolean doRemind = list.get(i).isDoReminder();
 
-                int id = list.get(i).getId();
-                String title = list.get(i).getTitle();
-                String type = list.get(i).getType();
-                String note = list.get(i).getExtraNote();
-                long date = list.get(i).getDate();
-                long reminderDate = list.get(i).getReminderDate();
-                int color = list.get(i).getColor();
-                boolean doRemind = list.get(i).isDoReminder();
+                    boolean isPassed = false;
+                    long currentTime = Calendar.getInstance().getTimeInMillis();
 
+                    if (currentTime > (reminderDate * 1000L))
+                        isPassed = true;
+                    String reminderText = title;
+                    if (!type.equals(""))
+                        reminderText += " - " + type;
 
-                boolean isPassed = false;
+                    if (doRemind && !isPassed)
+                        setReminder(id, reminderText, reminderDate, context);
 
-                long currentTime = Calendar.getInstance().getTimeInMillis();
+                }
 
-                if(currentTime > (reminderDate*1000L))
-                    isPassed = true;
+                if (list.size() == 0){
 
-                String reminderText = title;
-                if (!type.equals(""))
-                    reminderText += " - " + type;
+                    Utils.syncSchedule(sessionManager.getMemberID(),context);
 
-                if(doRemind && !isPassed)
-                    setReminder(id,reminderText,reminderDate,context);
+                }
 
 
             }
-
-
         }
 
 

@@ -45,7 +45,7 @@ public class Utils {
 
 
         final ScheduleDatabase scheduleDb = Room.databaseBuilder(context,
-                ScheduleDatabase.class, "schedules").allowMainThreadQueries().build();
+                ScheduleDatabase.class, "schedule").fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
 
         String url = "https://nsuer.club/app/schedules/my-schedules.php";
@@ -151,7 +151,7 @@ public class Utils {
 
 
         final ScheduleDatabase scheduleDb = Room.databaseBuilder(context,
-                ScheduleDatabase.class, "schedules").allowMainThreadQueries().build();
+                ScheduleDatabase.class, "schedule").fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
 
         List<ScheduleEntity> list = scheduleDb.scheduleDao().getAll();
