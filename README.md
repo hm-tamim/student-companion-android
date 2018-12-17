@@ -38,13 +38,15 @@ If you want, you can download files from links below as well.
 Executable APK file: 
 https://nsuer.club/IEEEMadC/NSUer_App_APK_IEEEMadC.apk
 
+PHP files for Custom API, crawling, database management etc: 
+https://nsuer.club/IEEEMadC/move/NSUer_App_PHP_files.zip
+
 Screenshots: 
 https://nsuer.club/IEEEMadC/NSUer_App_Screenshots.zip
 
 Logos: 
 https://nsuer.club/IEEEMadC/NSUer_App_GRAPHICS.zip
 
-PHP files for Custom API (Removed now for security, as it's public now. Request in my email please if needed): https://nsuer.club/IEEEMadC/NSUer_App_PHP_files.zip
 
 <br>
 
