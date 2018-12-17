@@ -13,7 +13,7 @@ NSUer is a student companion and social media android app for the students of No
 
 <br />
 
-MySQLi was used to store all the data and PHP to make custom JSON APIs for the app. Security was one of the main priorities. It syncs data from server if a user login from another device. 
+MySQLi was used to store all the data and PHP to make custom JSON APIs for the app. Security was one of the main priorities. It syncs data from server as a user login from new device. 
 
 <br/>
 
@@ -38,15 +38,8 @@ If you want, you can download files from links below as well.
 Executable APK file: 
 https://nsuer.club/IEEEMadC/NSUer_App_APK_IEEEMadC.apk
 
-PHP files for Custom API, crawling, database management etc: 
+PHP files for Custom APIs, crawling, database management etc: 
 https://nsuer.club/IEEEMadC/move/NSUer_App_PHP_files.zip
-
-Screenshots: 
-https://nsuer.club/IEEEMadC/NSUer_App_Screenshots.zip
-
-Logos: 
-https://nsuer.club/IEEEMadC/NSUer_App_GRAPHICS.zip
-
 
 <br>
 
@@ -82,19 +75,19 @@ Easily accessible basic details of courses such as time, dates, class room, facu
 
 **Class Routine:**
 
-Fully-functional class routine shows in a calendar. 
+Fully-functional class routine shows in a calendar. Helps to make plan and find out in which date, there's no class. 
 
 
 
 **Faculties Profiles:**
 
-Show all faculty profiles of the courses a student have taken. Profiles include important information like full name, picture, initial, rank, department, email, phone number etc.
+Show all faculty profiles of the courses a student have taken. Profiles include important information like full name, picture, initial, rank, department, email, phone number etc. From here, they can easily contact with their teacher.
 
 
 
 **E-books Suggestions**
 
-Student will get eBooks suggestions for their courses.
+Student will get eBooks suggestions for their courses. 
 
 
 
@@ -106,7 +99,7 @@ Set schedules for exams, quizzes, projects or anything. It also allows student t
 
 **Classmates:**
 
-Here student ca see all the class mates of their courses. See their basic info and contact with them by chat. 
+Here student can see all the class mates of their courses. See their basic info and contact with them by chat. 
 
 
 
@@ -124,19 +117,19 @@ This feature allows students to chat with their classmates in real-time, just li
 
 **Notifications:**
 
-On this section, they can see all the notifications they got, such as who created a new post, like, comment, request and more
+On this section, students can see all the notifications they got, such as who created a new post, like, comment, requested blood and more.
 
 
 
 **BuySell Shop:**
 
-Students can sell stuffs like books, printed slides, or rent a apartment etc here.  Sell your old books, buy other books that is need. They won't have to pay for books every semester. which will save a lot of money for them.
+Students can sell their new/used stuffs like books, printed slides, or rent a apartment etc here.  Sell old books, buy other books that is needed. They won't have to pay for new books every semester, which will save a lot of money for them.
 
 
 
 **Blood Bank:**
 
-It's an advanced digital blood bank for the students. Students can request for blood, see all the donors. Browse donors by groups, search by address and more. 
+It's an advanced digital blood bank for the students. Students can request for blood, who can donate the request blood group, will get notifification instantly. There is also a fully-featured donors database, where users can browse donors by blood groups, search by address and more. 
 
 
 
@@ -194,7 +187,7 @@ Students will get push notifications of the latest updates of the university, ed
 
 
 
-Right now, it's one of the most advanced and complete of any University in Bangladesh, probably in the world(I checked 50+ universities's apps)
+Right now, it's one of the most advanced and complete of any University in Bangladesh, probably in the world (I checked 50+ universities' apps)
 
 
 
