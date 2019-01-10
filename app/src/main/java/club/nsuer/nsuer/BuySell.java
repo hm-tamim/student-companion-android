@@ -554,9 +554,9 @@ public class BuySell extends Fragment {
                 itemList.add(new BuySellItem(id, seller, sellerID, title, price, img, time, category, description, sold, approved));
 
                 if (j == 0){
-
-                    startWith = id;
                 }
+                    startWith = id;
+                
 
             }
 
