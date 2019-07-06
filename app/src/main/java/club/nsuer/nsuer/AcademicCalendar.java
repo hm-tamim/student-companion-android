@@ -150,24 +150,6 @@ public class AcademicCalendar extends Fragment {
 
 
 
-
-
-
-//
-//
-//        itemList.add(new AcademicCalendarItem("02","SEP","Friday","Last day of grade submission (Summer 2018)",""));
-//        itemList.add(new AcademicCalendarItem("03","SEP","Monday","No classes-Reading / Makeup",""));
-//        itemList.add(new AcademicCalendarItem("04","SEP","Tuesday","Final exams start",""));
-//        itemList.add(new AcademicCalendarItem("10","SEP","Monday","Final exams ends",""));
-//        itemList.add(new AcademicCalendarItem("14","SEP","Friday","Last day of grade submission (Summer 2018)",""));
-//        itemList.add(new AcademicCalendarItem("17","SEP","Monday","Online course registration for existing regular and probation students for Fall 2018 starts",""));
-//
-//        itemList.add(new AcademicCalendarItem("20","SEP","Thursday","Online course registration for existing regular and probation students for Fall 2018 ends",""));
-//        itemList.add(new AcademicCalendarItem("21","SEP","Friday","Holiday-Ashura",""));
-//        itemList.add(new AcademicCalendarItem("22","SEP","Saturday","Orientation for newly admitted undergraduate and graduatestudents for Fall 2018",""));
-
-
-
         recyclerView.setAdapter(itemAdapter);
 
 
