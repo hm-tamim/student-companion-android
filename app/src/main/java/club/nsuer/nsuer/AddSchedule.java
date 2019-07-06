@@ -734,7 +734,7 @@ public class AddSchedule extends AppCompatActivity {
                 parametters.put("color", String.valueOf(color));
                 parametters.put("doReminder", remind);
 
-                JSONParser parser = new JSONParser("https://nsuer.club/app/schedules/add.php", "GET", parametters);
+                JSONParser parser = new JSONParser("https://nsuer.club/apps/schedules/add.php", "GET", parametters);
 
                 parser.setListener(new JSONParser.ParserListener() {
                     @Override
@@ -774,7 +774,7 @@ public class AddSchedule extends AppCompatActivity {
         parametters.put("scheduleID",String.valueOf(id));
         parametters.put("uid",sessionManager.getUid());
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/schedules/delete.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/schedules/delete.php", "GET", parametters);
 
         parser.setListener(new JSONParser.ParserListener() {
             @Override

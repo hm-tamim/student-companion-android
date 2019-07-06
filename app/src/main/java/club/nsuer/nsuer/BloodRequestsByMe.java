@@ -95,7 +95,7 @@ public class BloodRequestsByMe extends AppCompatActivity {
 
         parametters.put("memID",session.getMemberID());
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/blood-bank/blood-requests.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/blood-bank/blood-requests.php", "GET", parametters);
 
         parser.setListener(new JSONParser.ParserListener() {
             @Override
@@ -207,7 +207,7 @@ public class BloodRequestsByMe extends AppCompatActivity {
         parametters.put("msgID", String.valueOf(msgID));
         parametters.put("uid", uid);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/blood-bank/delete.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/blood-bank/delete.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {
@@ -272,7 +272,7 @@ public class BloodRequestsByMe extends AppCompatActivity {
         parametters.put("uid", uid);
         parametters.put("managed",String.valueOf(setTo));
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/blood-bank/mark-managed.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/blood-bank/mark-managed.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {

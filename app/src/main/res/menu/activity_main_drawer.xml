@@ -109,7 +109,10 @@
             android:icon="@drawable/ic_advising_assistant"
             android:title="Advising Assistant" />
 
-
+        <item
+            android:id="@+id/nav_advising_archive"
+            android:icon="@drawable/ic_archive_white"
+            android:title="Advising Archive" />
 
     </group>
 

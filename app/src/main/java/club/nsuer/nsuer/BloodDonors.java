@@ -311,7 +311,7 @@ public class BloodDonors extends AppCompatActivity {
         parametters.put("loadSearch",String.valueOf(loadBySearch));
         parametters.put("query", query);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/blood-bank/donors.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/blood-bank/donors.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {

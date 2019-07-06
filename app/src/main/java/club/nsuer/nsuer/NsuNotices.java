@@ -224,9 +224,9 @@ public class NsuNotices extends Fragment {
         String url;
 
         if(type.equals("events"))
-            url = "https://nsuer.club/app/nsu-notice-events/events.json";
+            url = "https://nsuer.club/apps/nsu-notice-events/events.json";
         else
-            url = "https://nsuer.club/app/nsu-notice-events/notice.json";
+            url = "https://nsuer.club/apps/nsu-notice-events/notice.json";
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 

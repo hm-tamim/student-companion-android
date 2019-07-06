@@ -133,6 +133,7 @@
     <string name="title_activity_blood_request">BloodRequest</string>
     <string name="title_activity_blood_be_donor">BloodBeDonor</string>
     <string name="title_activity_find_donors">FindDonors</string>
+    <string name="title_activity_subscription">Subscription</string>
 
 
 </resources>

@@ -146,8 +146,9 @@ public class ScheduleOthers extends Fragment {
         recyclerView.setAdapter(itemAdapter);
 
 
-        loadJson();
-
+        try {
+            loadJson();
+        }catch (Exception e){}
 
     }
 
@@ -160,7 +161,7 @@ public class ScheduleOthers extends Fragment {
 
         String url;
 
-        url = "https://nsuer.club/app/schedules/find-others.php";
+        url = "https://nsuer.club/apps/schedules/find-others.php";
 
         List<CoursesEntity> coursesList = courseDb.coursesDao().getAll();
 

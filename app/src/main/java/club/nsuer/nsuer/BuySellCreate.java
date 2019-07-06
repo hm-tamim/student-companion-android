@@ -373,6 +373,10 @@ public class BuySellCreate extends AppCompatActivity {
                 }
 
 
+                final ProgressDialog dialog = ProgressDialog.show(BuySellCreate.this, "",
+                        "Posting ad...", true);
+                dialog.show();
+
                 String titleS = titleInput.getText().toString();
                 String descriptionS = descriptionInput.getText().toString();
                 String priceS = priceInput.getText().toString();
@@ -406,13 +410,14 @@ public class BuySellCreate extends AppCompatActivity {
 
 
 
-                JSONParser parser = new JSONParser("https://nsuer.club/app/buy-sell/create-ad.php", "GET", parametters);
+                JSONParser parser = new JSONParser("https://nsuer.club/apps/buy-sell/create-ad.php", "GET", parametters);
 
 
                 parser.setListener(new JSONParser.ParserListener() {
                     @Override
                     public void onSuccess(JSONObject result) {
 
+                        dialog.dismiss();
 
                         String timeStamp = String.valueOf(Calendar.getInstance().getTimeInMillis()/1000L);
                         try {
@@ -425,7 +430,7 @@ public class BuySellCreate extends AppCompatActivity {
                         }
 
 
-                        uploadURL = "https://nsuer.club/app/buy-sell/upload.php?uid="+ uid+"&time="+timeStamp;
+                        uploadURL = "https://nsuer.club/apps/buy-sell/upload.php?uid="+ uid+"&time="+timeStamp;
 
 
 
@@ -776,7 +781,7 @@ public class BuySellCreate extends AppCompatActivity {
     private void uploadImage(){
 
         final ProgressDialog dialog = ProgressDialog.show(BuySellCreate.this, "",
-                "Uploading photo and posting...", true);
+                "Uploading photo...", true);
 
         UploadFileAsync parser = new UploadFileAsync(compressedImageFile, imgPath, uploadURL);
 

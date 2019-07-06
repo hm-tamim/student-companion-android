@@ -186,8 +186,10 @@ public class ScheduleFragment extends Fragment {
 
                 // refresh recycler from database to make it live
 
-                itemList.clear();
-                loadRecycler();
+                if(list.size() > 0) {
+                    itemList.clear();
+                    loadRecycler();
+                }
 
             }
 

@@ -181,7 +181,7 @@ public class AcademicCalendar extends Fragment {
 
         parametters.put("type", "nsuer");
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/academic-calendar/get-json.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/academic-calendar/get-json.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {

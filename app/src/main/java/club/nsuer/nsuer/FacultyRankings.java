@@ -166,7 +166,7 @@ public class FacultyRankings extends Fragment implements CoursesList {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                startWebView(webView, "https://nsuer.club/app/faculty-rankings.php?uid="+uid+"&query=" + query);
+                startWebView(webView, "https://nsuer.club/apps/faculty-rankings.php?uid="+uid+"&query=" + query);
                 searchView.clearFocus();
                 return true;
             }
@@ -218,7 +218,7 @@ public class FacultyRankings extends Fragment implements CoursesList {
 
 
 
-        startWebView(webView, "https://nsuer.club/app/faculty-rankings.php?uid="+uid);
+        startWebView(webView, "https://nsuer.club/apps/faculty-rankings.php?uid="+uid);
 
         return v;
     }
@@ -265,7 +265,7 @@ public class FacultyRankings extends Fragment implements CoursesList {
         CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true);
 
 
-        webView.loadUrl("https://nsuer.club/app/faculty-rankings.php");
+        webView.loadUrl("https://nsuer.club/apps/faculty-rankings.php");
 
         webView.setWebViewClient(new WebViewClient() {
 

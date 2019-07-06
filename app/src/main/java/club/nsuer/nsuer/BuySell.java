@@ -481,7 +481,7 @@ public class BuySell extends Fragment {
         parametters.put("loadSearch",String.valueOf(loadBySearch));
         parametters.put("query", query);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/buy-sell/get-all.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/buy-sell/get-all.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {
@@ -554,9 +554,9 @@ public class BuySell extends Fragment {
                 itemList.add(new BuySellItem(id, seller, sellerID, title, price, img, time, category, description, sold, approved));
 
                 if (j == 0){
+                }
 
                     startWith = id;
-                }
 
             }
 
@@ -759,7 +759,7 @@ public class BuySell extends Fragment {
 
         parametters.put("uid",uid);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/buy-sell/get-by-uid.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/buy-sell/get-by-uid.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {
@@ -896,7 +896,7 @@ public class BuySell extends Fragment {
         parametters.put("msgID", String.valueOf(msgID));
         parametters.put("uid", uid);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/buy-sell/delete.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/buy-sell/delete.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {
@@ -961,7 +961,7 @@ public class BuySell extends Fragment {
         parametters.put("uid", uid);
         parametters.put("sold",String.valueOf(setTo));
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/buy-sell/sold.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/buy-sell/sold.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {

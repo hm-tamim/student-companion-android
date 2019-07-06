@@ -19,6 +19,9 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Subscription"
+            android:label="@string/title_activity_subscription"></activity>
+        <activity
             android:name=".SplashActivity"
             android:fitsSystemWindows="true"
             android:hardwareAccelerated="true"
@@ -119,15 +122,13 @@
             android:name=".BloodDonors"
             android:label="@string/title_activity_find_donors"
             android:theme="@style/AppTheme.Red" />
-
         <activity
             android:name=".BloodRequestsByMe"
-            android:theme="@style/AppTheme.Red"/>
+            android:theme="@style/AppTheme.Red" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-
     </application>
 
 </manifest>

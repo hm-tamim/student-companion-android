@@ -124,7 +124,7 @@ public class AdvisingAssistant extends Fragment {
         });
 
 
-        startWebView(webView, "https://nsuer.club/app/advising-assistant.php?uid="+uid);
+        startWebView(webView, "https://nsuer.club/apps/advising-assistant.php?uid="+uid);
 
         return v;
     }

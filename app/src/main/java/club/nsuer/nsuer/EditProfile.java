@@ -336,7 +336,7 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-        uploadURL = "https://nsuer.club/app/edit-profile/upload.php?uid="+ uid;
+        uploadURL = "https://nsuer.club/apps/edit-profile/upload.php?uid="+ uid;
 
 
 
@@ -400,7 +400,7 @@ public class EditProfile extends AppCompatActivity {
                 parametters.put("semester", semesterNew);
                 parametters.put("dept", deptNew);
 
-                JSONParser parser = new JSONParser("https://nsuer.club/app/edit-profile/edit.php", "POST", parametters);
+                JSONParser parser = new JSONParser("https://nsuer.club/apps/edit-profile/edit.php", "POST", parametters);
 
 
                 parser.setListener(new JSONParser.ParserListener() {

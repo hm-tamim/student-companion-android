@@ -383,7 +383,7 @@ public class ClassMates extends Fragment {
 
         parametters.put("course", allCourse);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/classmates/get-json-2.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/classmates/get-json-2.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {

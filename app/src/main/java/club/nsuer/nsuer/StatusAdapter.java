@@ -369,7 +369,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         parametters.put("post",post);
         parametters.put("uid", uid);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/newsfeed/edit-post.php", "POST", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/newsfeed/edit-post.php", "POST", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {
@@ -423,7 +423,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         parametters.put("msgID", String.valueOf(msgID));
         parametters.put("uid", uid);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/newsfeed/delete.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/newsfeed/delete.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {
@@ -545,7 +545,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         parametters.put("uid", uid);
         parametters.put("creatorID", creatorID);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/newsfeed/like-2.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/newsfeed/like-2.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {

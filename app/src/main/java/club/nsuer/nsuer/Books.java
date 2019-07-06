@@ -284,7 +284,7 @@ public class Books extends Fragment implements CoursesList {
                     parametters.put("course", courseInput.getText().toString());
                     parametters.put("section", "1");
 
-                    JSONParser parser = new JSONParser("https://nsuer.club/app/get-books.php", "GET", parametters);
+                    JSONParser parser = new JSONParser("https://nsuer.club/apps/get-books.php", "GET", parametters);
 
 
 

@@ -163,7 +163,7 @@ public class FacultiesActivity extends Fragment {
 
                 parametters.put("faculty", query);
 
-                JSONParser parser = new JSONParser("https://nsuer.club/app/get-faculty.php", "GET", parametters);
+                JSONParser parser = new JSONParser("https://nsuer.club/apps/get-faculty.php", "GET", parametters);
 
 
                 parser.setListener(new JSONParser.ParserListener() {

@@ -200,7 +200,7 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
                                 parametters.put("course", allCourse);
                                 parametters.put("uid", uid);
 
-                                JSONParser parser = new JSONParser("https://nsuer.club/app/courses/delete.php", "GET", parametters);
+                                JSONParser parser = new JSONParser("https://nsuer.club/apps/courses/delete.php", "GET", parametters);
 
 
                                 parser.setListener(new JSONParser.ParserListener() {

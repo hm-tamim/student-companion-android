@@ -60,6 +60,28 @@ public class SessionManager {
 
     }
 
+    public boolean isPremium() {
+        return  pref.getBoolean("premium",false);
+    }
+
+    public void setPremium(boolean premium) {
+        editor.putBoolean("premium", premium);
+        editor.commit();
+    }
+
+
+    public String getExpireDate(){
+
+        return  pref.getString("getExpireDate","0");
+    }
+    public void setExpireDate(String name) {
+
+        editor.putString("getExpireDate", name);
+        editor.commit();
+
+    }
+
+
     public String getEmail() {
 
         return  pref.getString("email","name@northsouth@edu");

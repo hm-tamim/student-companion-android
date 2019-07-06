@@ -179,7 +179,7 @@ public class BloodBeDonor extends AppCompatActivity {
         parametters.put("phone",phone);
         parametters.put("address",address);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/blood-bank/bedonor.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/blood-bank/bedonor.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {

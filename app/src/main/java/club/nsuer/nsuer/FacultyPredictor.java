@@ -224,7 +224,7 @@ public class FacultyPredictor extends Fragment implements CoursesList{
         parametters.put("section", section);
         parametters.put("faculty", faculty);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/faculty-predictor/get-json.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/faculty-predictor/get-json.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {

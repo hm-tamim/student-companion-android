@@ -445,7 +445,7 @@ public class ChatActivity extends AppCompatActivity {
         parametters.put("otherMemID",otherMemID);
         parametters.put("chatStartID",String.valueOf(chatStartID));
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/chat/message.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/chat/message.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {
@@ -669,7 +669,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/chat/send-message.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/chat/send-message.php", "GET", parametters);
 
         parser.setListener(new JSONParser.ParserListener() {
             @Override

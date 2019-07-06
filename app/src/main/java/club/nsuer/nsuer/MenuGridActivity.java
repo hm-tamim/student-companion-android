@@ -2,6 +2,7 @@ package club.nsuer.nsuer;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -46,7 +47,7 @@ public class MenuGridActivity{
             "Faculty Poll",
             "Faculty Predictor",
             "Advising Assistant",
-            "Contribute"
+            "Advising Archive"
 
 
     } ;
@@ -68,7 +69,7 @@ public class MenuGridActivity{
             R.drawable.ic_faculty_ranking,
             R.drawable.ic_faculty_predictor,
             R.drawable.ic_advising_assistant,
-            R.drawable.ic_handshake_white
+            R.drawable.ic_archive_white
 
     };
 
@@ -78,6 +79,8 @@ public class MenuGridActivity{
         this.context = contextx;
         this.view = view;
         this.main = mainx;
+
+        final SessionManager session = new SessionManager(context);
 
 //        main = (MainActivity) MainActivity.getInstance();
 //
@@ -100,6 +103,17 @@ public class MenuGridActivity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int i, long id) {
+
+
+
+                if (!session.isPremium()) {
+
+                    Intent intentz = new Intent(context, Subscription.class);
+                    context.startActivity(intentz);
+
+
+                } else{}
+
 
                 mainx.hideBottomSheet();
 
@@ -195,6 +209,13 @@ public class MenuGridActivity{
                 else if(gridViewString[+i].equals("Advising Assistant")){
 
                     fragment = new AdvisingAssistant(main.getUid());
+                    ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
+                    ft.replace(R.id.mainFrame, fragment, gridViewString[+i]);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }else if(gridViewString[+i].equals("Advising Archive")){
+
+                    fragment = new AdvisingArchive(main.getUid());
                     ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
                     ft.replace(R.id.mainFrame, fragment, gridViewString[+i]);
                     ft.addToBackStack(null);

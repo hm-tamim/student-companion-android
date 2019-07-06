@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity
     int id;
     Fragment fragment;
 
+    private boolean offlineSubs = false;
+
 
 
     public Context customContext() {
@@ -689,6 +691,22 @@ public class MainActivity extends AppCompatActivity
         }
 
 
+        if (!session.isPremium()) {
+
+
+
+            offlineSubs = true;
+
+            Intent intentz = new Intent(MainActivity.this, Subscription.class);
+            startActivity(intentz);
+
+
+
+        } else{}
+
+
+
+
     }
 
     
@@ -701,10 +719,10 @@ public class MainActivity extends AppCompatActivity
     
     
     
-    public void showUpodateAlert(){
+    public void showUpodateAlert(String msg){
 
         new AlertDialog.Builder(this, R.style.AlertDialogTheme)
-                .setMessage("\nYou are not using the latest version. Kindly update the app to run it smoothly. \n\nAnd don't forget to rate on Play Store.\n")
+                .setMessage(msg)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton("UPDATE", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
@@ -790,18 +808,68 @@ public class MainActivity extends AppCompatActivity
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
-        parametters.put("version", "0.0");
-        JSONParser parser = new JSONParser("https://nsuer.club/app/version.json", "GET", parametters);
+        parametters.put("version", BuildConfig.VERSION_NAME);
+        parametters.put("uid", session.getUid());
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/version.php", "GET", parametters);
         parser.setListener(new JSONParser.ParserListener() {
             @Override
             public void onSuccess(JSONObject result) {
 
                 String latestVersion = "1.0";
-               String currentVersion = "1.0";
+                String currentVersion = "1.0";
+                String msg = "Please update the app to latest version";
+                String closeMainActivity = "false";
+
                try{
 
                    FirebaseMessaging.getInstance().subscribeToTopic("BLOOD." + session.getBloodGroup());
-                  latestVersion = result.getString("version");
+
+
+                   latestVersion = result.getString("version");
+
+                   msg = result.getString("msg");
+
+
+                   String isPremium = result.getString("isPremium");
+                   String expire = result.getString("expire");
+
+                   closeMainActivity = result.getString("closeMainActivity");
+
+                   if(isPremium.equals("true")) {
+                       session.setPremium(true);
+                       session.setExpireDate(expire);
+                   } else {
+
+                       if (!offlineSubs) {
+
+                           if (session.isPremium()) {
+                               Intent intentz = new Intent(MainActivity.this, Subscription.class);
+                               startActivity(intentz);
+
+                               if (closeMainActivity.equals("true"))
+                                   finish();
+                           }
+
+                           if (closeMainActivity.equals("true")) {
+
+                               Intent intentz = new Intent(MainActivity.this, Subscription.class);
+                               startActivity(intentz);
+                               finish();
+                           }
+
+
+                       } else {
+
+                           if (closeMainActivity.equals("true"))
+                               finish();
+                       }
+
+                       session.setPremium(false);
+                       session.setExpireDate("0");
+
+                   }
+
+
                } catch (JSONException e) {
 
                 Log.e("JSON", e.toString());
@@ -816,7 +884,7 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 if(!latestVersion.equals(currentVersion))
-                    showUpodateAlert();
+                    showUpodateAlert(msg);
             }
             @Override
             public void onFailure() {
@@ -951,6 +1019,14 @@ public class MainActivity extends AppCompatActivity
             fragment = new AdvisingAssistant(uid);
             ft.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right, 0, 0);
             ft.replace(R.id.mainFrame, fragment,"Advising_Assistant");
+            ft.addToBackStack(null);
+            ft.commit();
+
+        }else if (id == R.id.nav_advising_archive) {
+
+            fragment = new AdvisingArchive(uid);
+            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right, 0, 0);
+            ft.replace(R.id.mainFrame, fragment,"Advising_Archive");
             ft.addToBackStack(null);
             ft.commit();
 

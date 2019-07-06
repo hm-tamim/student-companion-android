@@ -364,7 +364,7 @@ public class StatusActivity extends Fragment {
                         parametters.put("course", coursez);
                         parametters.put("post",postz);
 
-                        JSONParser parser = new JSONParser("https://nsuer.club/app/newsfeed/create-post-2.php", "GET", parametters);
+                        JSONParser parser = new JSONParser("https://nsuer.club/apps/newsfeed/create-post-2.php", "GET", parametters);
 
 
 
@@ -478,7 +478,7 @@ public class StatusActivity extends Fragment {
 
         parametters.put("course", allCourse);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/newsfeed/get-json-2.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/newsfeed/get-json-2.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {
@@ -681,7 +681,7 @@ public class StatusActivity extends Fragment {
 
 
 
-                JSONParser parser = new JSONParser("https://nsuer.club/app/newsfeed/create-comment-2.php", "GET", parametters);
+                JSONParser parser = new JSONParser("https://nsuer.club/apps/newsfeed/create-comment-2.php", "GET", parametters);
 
                 parser.setListener(new JSONParser.ParserListener() {
                     @Override
@@ -764,7 +764,7 @@ public class StatusActivity extends Fragment {
         parametters.put("msgID", msgID);
 
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/newsfeed/comment.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/newsfeed/comment.php", "GET", parametters);
 
 
         final TextView noComment = dialog.findViewById(R.id.noComments);
@@ -909,7 +909,7 @@ public class StatusActivity extends Fragment {
         parametters.put("msgID", msgID);
 
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/newsfeed/wholiked.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/newsfeed/wholiked.php", "GET", parametters);
 
 
         final TextView noLike = dialog.findViewById(R.id.noLike);

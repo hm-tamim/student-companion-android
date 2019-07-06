@@ -40,6 +40,8 @@ public class About extends Fragment {
 
         TextView email = view.findViewById(R.id.hmtamimEmail);
 
+
+
         return view;
     }
 

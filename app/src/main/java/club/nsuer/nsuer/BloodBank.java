@@ -188,7 +188,7 @@ public class BloodBank extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Utils.CustomTab("https://nsuer.club/app/blood-bank/blood-facts.html",context);
+                Utils.CustomTab("https://nsuer.club/apps/blood-bank/blood-facts.html",context);
 
             }
         });
@@ -233,7 +233,7 @@ public class BloodBank extends Fragment {
 
         parametters.put("memID","");
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/blood-bank/blood-requests.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/blood-bank/blood-requests.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {

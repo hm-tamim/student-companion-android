@@ -48,7 +48,7 @@ public class Utils {
                 ScheduleDatabase.class, "schedule").fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
 
-        String url = "https://nsuer.club/app/schedules/my-schedules.php";
+        String url = "https://nsuer.club/apps/schedules/my-schedules.php";
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();

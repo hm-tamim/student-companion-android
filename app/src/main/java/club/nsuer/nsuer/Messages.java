@@ -321,7 +321,7 @@ public class Messages extends Fragment {
 
         parametters.put("uid", uid);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/chat/chat-list.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/chat/chat-list.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {

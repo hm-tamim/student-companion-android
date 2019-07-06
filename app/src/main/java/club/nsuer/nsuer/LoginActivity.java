@@ -172,6 +172,22 @@ public class LoginActivity extends Activity {
 
                         String bgroup = user.getString("bgroup");
 
+
+
+                        String type = user.getString("type");
+                        String expire = user.getString("expire");
+
+
+                        if(type == null || type.equals("")) {
+                            session.setPremium(false);
+                            session.setExpireDate("0");
+                        } else {
+                            session.setPremium(true);
+                            session.setExpireDate(expire);
+
+                        }
+
+
                         if(bgroup == null) {
                             bgroup = "-1";
                         } else {
@@ -279,7 +295,7 @@ public class LoginActivity extends Activity {
         parametters.put("memID", memID);
 
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/sync-data.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/sync-data.php", "GET", parametters);
 
 
 

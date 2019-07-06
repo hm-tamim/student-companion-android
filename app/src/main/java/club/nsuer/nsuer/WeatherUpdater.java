@@ -155,7 +155,7 @@ public class WeatherUpdater {
         parametters.put("memID", memID);
 
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/courses/get-all-courses.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/courses/get-all-courses.php", "GET", parametters);
 
 
 
@@ -383,7 +383,7 @@ public class WeatherUpdater {
 
         parametters.put("user", "nsuer_app");
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/weather/weather.json", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/weather/weather.json", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {

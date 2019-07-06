@@ -294,7 +294,7 @@ public class BloodRequest extends AppCompatActivity {
         parametters.put("isEdit",isEdit);
         parametters.put("msgID",msgID);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/blood-bank/request-blood.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/blood-bank/request-blood.php", "GET", parametters);
 
         parser.setListener(new JSONParser.ParserListener() {
             @Override

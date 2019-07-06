@@ -284,7 +284,7 @@ public class CoursesActivity extends Fragment implements CoursesList {
 
 
 
-                    JSONParser parser = new JSONParser("https://nsuer.club/app/get-course-info.php", "GET", parametters);
+                    JSONParser parser = new JSONParser("https://nsuer.club/apps/get-course-info.php", "GET", parametters);
 
 
 

@@ -199,7 +199,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         parametters.put("msgID", String.valueOf(msgID));
         parametters.put("uid", uid);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/newsfeed/comment-delete.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/newsfeed/comment-delete.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {
@@ -257,7 +257,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         parametters.put("msgID", commentId);
         parametters.put("uid", uid);
 
-        JSONParser parser = new JSONParser("https://nsuer.club/app/newsfeed/delete-comment.php", "GET", parametters);
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/newsfeed/delete-comment.php", "GET", parametters);
 
 
         parser.setListener(new JSONParser.ParserListener() {
