@@ -305,8 +305,20 @@ public class BuySell extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                SessionManager session = new SessionManager(context);
+
+
                 Intent intent = new Intent(context,BuySellCreate.class);
                 startActivityForResult(intent, 10001);
+
+
+                if (!session.isPremium()) {
+
+                    Intent intentz = new Intent(context, Subscription.class);
+                    context.startActivity(intentz);
+
+
+                } else{}
 
             }
         });

@@ -18,7 +18,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private SessionManager session;
     private boolean showCgpa;
-    private boolean showWeather;
+    private boolean showWeather, showAdvisingTools;
     private String fromActivity;
 
     @Override
@@ -83,7 +83,21 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        Switch advisingToolsSwitch = findViewById(R.id.advisingTools);
 
+        showAdvisingTools = session.showAdvisingTools();
+
+        advisingToolsSwitch.setChecked(showAdvisingTools);
+
+        advisingToolsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked)
+                    session.setAdvisingTools(true);
+                else
+                    session.setAdvisingTools(false);
+            }
+        });
 
 
         FloatingActionButton btn = findViewById(R.id.editProfileButton);

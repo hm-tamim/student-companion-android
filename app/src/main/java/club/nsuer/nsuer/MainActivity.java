@@ -107,7 +107,9 @@ public class MainActivity extends AppCompatActivity
 
     private boolean offlineSubs = false;
 
+    private boolean advisingTools = false;
 
+    MenuGridActivity includeMenu;
 
     public Context customContext() {
 
@@ -363,7 +365,7 @@ public class MainActivity extends AppCompatActivity
                         switch (item.getItemId()) {
                             case R.id.nav_menu:
 
-                                MenuGridActivity includeMenu = new MenuGridActivity(context,bottomSheet,getInstance());
+                                includeMenu = new MenuGridActivity(context,bottomSheet,getInstance(), advisingTools);
                                 bottomSheet.bringToFront();
 
                                 if(showingShadow)
@@ -697,9 +699,9 @@ public class MainActivity extends AppCompatActivity
 
             offlineSubs = true;
 
-            Intent intentz = new Intent(MainActivity.this, Subscription.class);
-            startActivity(intentz);
-
+//            Intent intentz = new Intent(MainActivity.this, Subscription.class);
+//            startActivity(intentz);
+//
 
 
         } else{}
@@ -802,7 +804,7 @@ public class MainActivity extends AppCompatActivity
 
     public void isLatestVersion(){
 
-
+        Log.d("called", "called" + advisingTools);
 
         if(Utils.isNetworkAvailable(this)){
 
@@ -814,6 +816,9 @@ public class MainActivity extends AppCompatActivity
         parser.setListener(new JSONParser.ParserListener() {
             @Override
             public void onSuccess(JSONObject result) {
+
+
+                Log.d("called", result.toString());
 
                 String latestVersion = "1.0";
                 String currentVersion = "1.0";
@@ -835,39 +840,57 @@ public class MainActivity extends AppCompatActivity
 
                    closeMainActivity = result.getString("closeMainActivity");
 
+                   advisingTools = result.getBoolean("advisingTools");
+
+
+
+
                    if(isPremium.equals("true")) {
                        session.setPremium(true);
                        session.setExpireDate(expire);
                    } else {
 
-                       if (!offlineSubs) {
+                       session.setPremium(false);
+                       session.setExpireDate("0");
 
-                           if (session.isPremium()) {
-                               Intent intentz = new Intent(MainActivity.this, Subscription.class);
-                               startActivity(intentz);
+
+                       if (result.getBoolean("showMembershipDialog")) {
+
+                           if (!offlineSubs) {
+
+                               if (session.isPremium()) {
+                                   Intent intentz = new Intent(MainActivity.this, Subscription.class);
+                                   startActivity(intentz);
+
+                                   if (closeMainActivity.equals("true"))
+                                       finish();
+                               }
+
+                               if (closeMainActivity.equals("true")) {
+
+                                   Intent intentz = new Intent(MainActivity.this, Subscription.class);
+                                   startActivity(intentz);
+                                   finish();
+                               }
+
+
+                           } else {
 
                                if (closeMainActivity.equals("true"))
                                    finish();
                            }
 
-                           if (closeMainActivity.equals("true")) {
-
-                               Intent intentz = new Intent(MainActivity.this, Subscription.class);
-                               startActivity(intentz);
-                               finish();
-                           }
 
 
-                       } else {
-
-                           if (closeMainActivity.equals("true"))
-                               finish();
                        }
-
-                       session.setPremium(false);
-                       session.setExpireDate("0");
-
                    }
+
+
+
+
+
+                   Log.d("called", "called" + advisingTools);
+
 
 
                } catch (JSONException e) {
@@ -992,17 +1015,7 @@ public class MainActivity extends AppCompatActivity
             ft.addToBackStack(null);
             ft.commit();
         }
-        else if (id == R.id.nav_faculty_rankings) {
-
-
-            fragment = new FacultyRankings();
-            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right, 0, 0);
-            ft.replace(R.id.mainFrame, fragment,"Faculty_Rankings");
-            ft.addToBackStack(null);
-            ft.commit();
-
-
-        } else if (id == R.id.nav_user_profile) {
+         else if (id == R.id.nav_user_profile) {
 
 
             fragment = new UserProfile();
@@ -1013,22 +1026,6 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
 
 
-
-        } else if (id == R.id.nav_advising_assistant) {
-
-            fragment = new AdvisingAssistant(uid);
-            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right, 0, 0);
-            ft.replace(R.id.mainFrame, fragment,"Advising_Assistant");
-            ft.addToBackStack(null);
-            ft.commit();
-
-        }else if (id == R.id.nav_advising_archive) {
-
-            fragment = new AdvisingArchive(uid);
-            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right, 0, 0);
-            ft.replace(R.id.mainFrame, fragment,"Advising_Archive");
-            ft.addToBackStack(null);
-            ft.commit();
 
         } else if (id == R.id.nav_books) {
 
@@ -1129,17 +1126,53 @@ public class MainActivity extends AppCompatActivity
             ft.addToBackStack(null);
             ft.commit();
 
-        }else if (id == R.id.nav_faculty_predictor) {
+        }
 
-            fragment = new FacultyPredictor();
-            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+//        else if (id == R.id.nav_faculty_predictor) {
+//
+//            fragment = new FacultyPredictor();
+//            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+//
+//            //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
+//            ft.replace(R.id.mainFrame, fragment,"Faculty Predictor");
+//            ft.addToBackStack(null);
+//            ft.commit();
+//
+//        }
+//        else if (id == R.id.nav_faculty_rankings) {
+//
+//
+//            fragment = new FacultyRankings();
+//            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right, 0, 0);
+//            ft.replace(R.id.mainFrame, fragment,"Faculty_Rankings");
+//            ft.addToBackStack(null);
+//            ft.commit();
+//
+//
+//        }
+//        else if (id == R.id.nav_advising_archive) {
+//
+//            fragment = new AdvisingArchive(uid);
+//            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right, 0, 0);
+//            ft.replace(R.id.mainFrame, fragment,"Advising_Archive");
+//            ft.addToBackStack(null);
+//            ft.commit();
+//
+//        }
+//
 
-            //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-            ft.replace(R.id.mainFrame, fragment,"Faculty Predictor");
+        else if (id == R.id.nav_advising_assistant) {
+
+            fragment = new AdvisingAssistant(uid);
+            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right, 0, 0);
+            ft.replace(R.id.mainFrame, fragment,"Advising_Assistant");
             ft.addToBackStack(null);
             ft.commit();
 
-        }else if (id == R.id.nav_contribute) {
+        }
+
+
+        else if (id == R.id.nav_contribute) {
 
             fragment = new Contribute();
             ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);

@@ -4,6 +4,7 @@ package club.nsuer.nsuer;
 import android.app.Dialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -278,6 +279,17 @@ public class StatusActivity extends Fragment {
                     return;
 
                 }
+
+
+                SessionManager session = new SessionManager(context);
+
+                if (!session.isPremium()) {
+
+                    Intent intentz = new Intent(context, Subscription.class);
+                    context.startActivity(intentz);
+
+
+                } else{}
 
 
                 final Dialog dialog = new Dialog(getContext(), R.style.WideDialog);

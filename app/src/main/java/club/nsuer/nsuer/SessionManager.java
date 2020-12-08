@@ -61,6 +61,7 @@ public class SessionManager {
     }
 
     public boolean isPremium() {
+
         return  pref.getBoolean("premium",false);
     }
 
@@ -69,6 +70,16 @@ public class SessionManager {
         editor.commit();
     }
 
+
+    public boolean showAdvisingTools() {
+
+        return  pref.getBoolean("AdvisingTools",false);
+    }
+
+    public void setAdvisingTools(boolean premium) {
+        editor.putBoolean("AdvisingTools", premium);
+        editor.commit();
+    }
 
     public String getExpireDate(){
 

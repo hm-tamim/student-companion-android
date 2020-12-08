@@ -63,6 +63,14 @@
                     android:text="Show CGPA on Profile" />
 
                 <Switch
+                    android:id="@+id/advisingTools"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp"
+                    android:layout_weight="0"
+                    android:text="Show Advising Tools" />
+
+                <Switch
                     android:id="@+id/weatherCardSwitch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

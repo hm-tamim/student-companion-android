@@ -36,7 +36,7 @@ public class About extends Fragment {
 
         version.setText(BuildConfig.VERSION_NAME);
 
-        lastupdate.setText("10 December, 2018");
+        lastupdate.setText("27 July, 2019");
 
         TextView email = view.findViewById(R.id.hmtamimEmail);
 
