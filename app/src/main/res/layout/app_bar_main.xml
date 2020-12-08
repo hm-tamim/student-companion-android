@@ -10,8 +10,7 @@
         android:id="@+id/mainBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="0dp"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:elevation="0dp">
 
         <!--app:elevation="0dp"-->
 
@@ -19,8 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:background="@color/white" />
 
 
     </android.support.design.widget.AppBarLayout>
