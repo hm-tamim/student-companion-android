@@ -6,8 +6,6 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.StrictMode;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -38,8 +36,6 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -96,11 +92,9 @@ public class CoursesActivity extends Fragment implements CoursesList {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
 
 
         v = inflater.inflate(R.layout.activity_courses, container, false);
@@ -108,7 +102,6 @@ public class CoursesActivity extends Fragment implements CoursesList {
         // Inflate the layout for this fragment
         return v;
     }
-
 
 
     @Override
@@ -149,19 +142,19 @@ public class CoursesActivity extends Fragment implements CoursesList {
 
         //((TextView) v.findViewById(R.id.tttt)).setText(hmm);
 
-        if(list.size() > 0)
+        if (list.size() > 0)
             noCourse.setVisibility(View.GONE);
 
-        for (int i=0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
 
 
             String course = list.get(i).getCourse();
             String section = list.get(i).getSection();
             String startTime = list.get(i).getStartTime();
-            startTime = timeConverter(startTime,12);
+            startTime = timeConverter(startTime, 12);
 
             String endTime = list.get(i).getEndTime();
-            endTime = timeConverter(endTime,12);
+            endTime = timeConverter(endTime, 12);
 
             String day = list.get(i).getDay();
             String faculty = list.get(i).getFaculty();
@@ -173,34 +166,26 @@ public class CoursesActivity extends Fragment implements CoursesList {
         }
 
 
-
-
-
         recyclerView2.setAdapter(itemArrayAdapter2);
-
 
 
     }
 
 
-
-
-
-        public String timeConverter(String time, int type){
+    public String timeConverter(String time, int type) {
 
         try {
             SimpleDateFormat date12Format = new SimpleDateFormat("hh:mm a", Locale.ENGLISH);
 
             SimpleDateFormat date24Format = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
 
-        if(type == 24) {
-            String t24 = date24Format.format(date12Format.parse(time));
-            return t24;
-        }
-        else {
-            String t12 = date12Format.format(date24Format.parse(time));
-            return t12;
-        }
+            if (type == 24) {
+                String t24 = date24Format.format(date12Format.parse(time));
+                return t24;
+            } else {
+                String t12 = date12Format.format(date24Format.parse(time));
+                return t12;
+            }
         } catch (final ParseException e) {
             e.printStackTrace();
 
@@ -210,14 +195,13 @@ public class CoursesActivity extends Fragment implements CoursesList {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.addButton) {
 
-            if(!Utils.isNetworkAvailable(getContext())) {
+            if (!Utils.isNetworkAvailable(getContext())) {
                 Toast.makeText(getContext(), "Internet connection required.", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -237,9 +221,8 @@ public class CoursesActivity extends Fragment implements CoursesList {
             sectionInput = (MyNumberPicker) dialog.findViewById(R.id.numberPickerAlert);
 
 
-
             ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                    (context,R.layout.suggestion_adapter_textview, SUGGESTIONS);
+                    (context, R.layout.suggestion_adapter_textview, SUGGESTIONS);
 
             courseInput.setThreshold(2);
 
@@ -251,10 +234,6 @@ public class CoursesActivity extends Fragment implements CoursesList {
             ImageView closeButton = (ImageView) dialog.findViewById(R.id.aaCloseButton);
 
 
-
-
-
-
             dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
             // if button is clicked, close the custom dialog
             dialogButton.setOnClickListener(new View.OnClickListener() {
@@ -264,208 +243,187 @@ public class CoursesActivity extends Fragment implements CoursesList {
                 public void onClick(View v) {
 
 
-
-
-
-                   // dialogButton.setBackgroundColor(Color.RED);
+                    // dialogButton.setBackgroundColor(Color.RED);
 
                     CircularProgressButton btn = (CircularProgressButton) dialog.findViewById(R.id.dialogButtonOK);
 
                     btn.startAnimation();
 
 
-                            HashMap<String, String> parametters = new HashMap<String, String>();
+                    HashMap<String, String> parametters = new HashMap<String, String>();
 
-                            parametters.put("course", courseInput.getText().toString());
-                            parametters.put("section", Integer.toString(sectionInput.getValue()));
-                            parametters.put("uid", main.getUid());
-
-
-
+                    parametters.put("course", courseInput.getText().toString());
+                    parametters.put("section", Integer.toString(sectionInput.getValue()));
+                    parametters.put("uid", main.getUid());
 
 
                     JSONParser parser = new JSONParser("https://nsuer.club/apps/get-course-info.php", "GET", parametters);
 
 
-
-                            parser.setListener(new JSONParser.ParserListener() {
-                                @Override
-                                public void onSuccess(JSONObject result) {
-
-
-                                    int courseCount = 0;
-
-                                    try {
-                                        JSONArray obj = result.getJSONArray("dataArray");
-
-                                        String firstCourse = null;
-                                        String firstSection = null;
+                    parser.setListener(new JSONParser.ParserListener() {
+                        @Override
+                        public void onSuccess(JSONObject result) {
 
 
-                                        for (int i = 0; i < obj.length(); i++) {
+                            int courseCount = 0;
+
+                            try {
+                                JSONArray obj = result.getJSONArray("dataArray");
+
+                                String firstCourse = null;
+                                String firstSection = null;
 
 
-                                            JSONObject data = obj.getJSONObject(i);
-
-                                            // Add books
-
-                                            if(i>0) {
-
-                                                if (data.has("books")) {
-
-                                                    int id = data.getInt("id");
-                                                    String course = data.getString("course");
-                                                    String books = data.getString("books");
-
-                                                    BooksEntity arrData = new BooksEntity();
-
-                                                    arrData.setCourse(firstCourse);
-                                                    arrData.setBooks(books);
-                                                    dbBooks.booksDao().insertAll(arrData);
-
-                                                    continue;
-                                                }
-                                            }
+                                for (int i = 0; i < obj.length(); i++) {
 
 
+                                    JSONObject data = obj.getJSONObject(i);
 
-                                            // Add faculties
+                                    // Add books
 
-                                            if(i>0) {
+                                    if (i > 0) {
 
-                                                if (data.has("initial")) {
-
-                                                    int id = data.getInt("id");
-
-
-                                                    String name = data.getString("name");
-                                                    String rank = data.getString("rank");
-
-                                                    String image = data.getString("image");
-
-                                                    String initial  = data.getString("initial");
-
-                                                    String course = firstCourse;
-
-                                                    String section = firstSection;
-
-                                                    String email = data.getString("email");
-                                                    String phone = data.getString("phone");
-                                                    String ext = data.getString("ext");
-
-                                                    String department = data.getString("dept");
-                                                    String office = data.getString("office");
-                                                    String url = data.getString("url");
-
-
-
-
-                                                    FacultiesEntity arrData = new FacultiesEntity();
-
-                                                    arrData.setName(name);
-                                                    arrData.setRank(rank);
-                                                    arrData.setImage(image);
-                                                    arrData.setInitial(initial);
-                                                    arrData.setCourse(course);
-                                                    arrData.setSection(section);
-                                                    arrData.setEmail(email);
-                                                    arrData.setPhone(phone);
-                                                    arrData.setExt(ext);
-                                                    arrData.setDepartment(department);
-                                                    arrData.setOffice(office);
-                                                    arrData.setUrl(url);
-
-                                                    dbFaculties.facultiesDao().insertAll(arrData);
-                                                    continue;
-                                                }
-                                            }
-
-
+                                        if (data.has("books")) {
 
                                             int id = data.getInt("id");
                                             String course = data.getString("course");
-                                            String section = data.getString("section");
-                                            String faculty = data.getString("faculty");
+                                            String books = data.getString("books");
 
+                                            BooksEntity arrData = new BooksEntity();
 
+                                            arrData.setCourse(firstCourse);
+                                            arrData.setBooks(books);
+                                            dbBooks.booksDao().insertAll(arrData);
 
-                                            FirebaseMessaging.getInstance().subscribeToTopic(course+"."+section);
-
-
-
-                                            if(i==0)
-                                                firstCourse = course;
-
-                                            if(i==0)
-                                                firstSection = section;
-
-
-                                            String startTime = data.getString("startTime");
-                                            startTime = timeConverter(startTime,24);
-
-                                            String endTime = data.getString("endTime");
-                                            endTime = timeConverter(endTime,24);
-
-                                            String day = data.getString("day");
-                                            String room = data.getString("room");
-
-
-
-
-
-
-                                            CoursesEntity arrData = new CoursesEntity();
-
-                                            arrData.setCourse(course);
-                                            arrData.setFaculty(faculty);
-                                            arrData.setSection(section);
-                                            arrData.setStartTime(startTime);
-                                            arrData.setEndTime(endTime);
-                                            arrData.setRoom(room);
-                                            arrData.setDay(day);
-                                            db.coursesDao().insertAll(arrData);
-
-                                            courseCount++;
-
-                                            // itemList2.add(new CoursesListItem(course, section, startTime, endTime, room, faculty, day));
+                                            continue;
                                         }
-                                    } catch (JSONException e) {
-
-                                        Log.e("JSON", e.toString());
                                     }
 
 
-                                    dialog.dismiss();
+                                    // Add faculties
+
+                                    if (i > 0) {
+
+                                        if (data.has("initial")) {
+
+                                            int id = data.getInt("id");
 
 
-                                    if(courseCount < 1)
-                                        Toast.makeText(context,"Can't find this course in database.",Toast.LENGTH_LONG).show();
+                                            String name = data.getString("name");
+                                            String rank = data.getString("rank");
 
-                                    new Handler().postDelayed(new Runnable()
-                                    {
-                                        @Override
-                                        public void run()
-                                        {
+                                            String image = data.getString("image");
+
+                                            String initial = data.getString("initial");
+
+                                            String course = firstCourse;
+
+                                            String section = firstSection;
+
+                                            String email = data.getString("email");
+                                            String phone = data.getString("phone");
+                                            String ext = data.getString("ext");
+
+                                            String department = data.getString("dept");
+                                            String office = data.getString("office");
+                                            String url = data.getString("url");
+
+
+                                            FacultiesEntity arrData = new FacultiesEntity();
+
+                                            arrData.setName(name);
+                                            arrData.setRank(rank);
+                                            arrData.setImage(image);
+                                            arrData.setInitial(initial);
+                                            arrData.setCourse(course);
+                                            arrData.setSection(section);
+                                            arrData.setEmail(email);
+                                            arrData.setPhone(phone);
+                                            arrData.setExt(ext);
+                                            arrData.setDepartment(department);
+                                            arrData.setOffice(office);
+                                            arrData.setUrl(url);
+
+                                            dbFaculties.facultiesDao().insertAll(arrData);
+                                            continue;
+                                        }
+                                    }
+
+
+                                    int id = data.getInt("id");
+                                    String course = data.getString("course");
+                                    String section = data.getString("section");
+                                    String faculty = data.getString("faculty");
+
+
+                                    FirebaseMessaging.getInstance().subscribeToTopic(course + "." + section);
+
+
+                                    if (i == 0)
+                                        firstCourse = course;
+
+                                    if (i == 0)
+                                        firstSection = section;
+
+
+                                    String startTime = data.getString("startTime");
+                                    startTime = timeConverter(startTime, 24);
+
+                                    String endTime = data.getString("endTime");
+                                    endTime = timeConverter(endTime, 24);
+
+                                    String day = data.getString("day");
+                                    String room = data.getString("room");
+
+
+                                    CoursesEntity arrData = new CoursesEntity();
+
+                                    arrData.setCourse(course);
+                                    arrData.setFaculty(faculty);
+                                    arrData.setSection(section);
+                                    arrData.setStartTime(startTime);
+                                    arrData.setEndTime(endTime);
+                                    arrData.setRoom(room);
+                                    arrData.setDay(day);
+                                    db.coursesDao().insertAll(arrData);
+
+                                    courseCount++;
+
+                                    // itemList2.add(new CoursesListItem(course, section, startTime, endTime, room, faculty, day));
+                                }
+                            } catch (JSONException e) {
+
+                                Log.e("JSON", e.toString());
+                            }
+
+
+                            dialog.dismiss();
+
+
+                            if (courseCount < 1)
+                                Toast.makeText(context, "Can't find this course in database.", Toast.LENGTH_LONG).show();
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
                                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                                     ft.detach(CoursesActivity.this).attach(CoursesActivity.this).commit();
-                                        }
-                                    }, 100);
-
                                 }
+                            }, 100);
 
-                                @Override
-                                public void onFailure() {
-                                    dialog.dismiss();
-                                }
-                            });
-                            parser.execute();
+                        }
 
-                    }
+                        @Override
+                        public void onFailure() {
+                            dialog.dismiss();
+                        }
+                    });
+                    parser.execute();
 
+                }
 
 
             });
-
 
 
             closeButton.setOnClickListener(new View.OnClickListener() {
@@ -480,11 +438,6 @@ public class CoursesActivity extends Fragment implements CoursesList {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
-
 
 
 }

@@ -3,14 +3,10 @@ package club.nsuer.nsuer;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -21,14 +17,11 @@ public class FacultyPredictorAdapter extends RecyclerView.Adapter<FacultyPredict
     private ArrayList<FacultyPredictorItem> itemList;
     private Context context;
 
-
     public FacultyPredictorAdapter(int layoutId, ArrayList<FacultyPredictorItem> itemList, Context context) {
         listItemLayout = layoutId;
         this.itemList = itemList;
         this.context = context;
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -63,7 +56,6 @@ public class FacultyPredictorAdapter extends RecyclerView.Adapter<FacultyPredict
 
         time.setText(itemList.get(listPosition).getTime());
         previousSections.setText(Html.fromHtml(itemList.get(listPosition).getPreviousSections()));
-
 
 
 //        if(listPosition % 7 == 0){
@@ -143,7 +135,6 @@ public class FacultyPredictorAdapter extends RecyclerView.Adapter<FacultyPredict
 //
 //            Log.d("onclick", "onClick " + getLayoutPosition() + " " + url.getText());
         }
-
 
 
     }

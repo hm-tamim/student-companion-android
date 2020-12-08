@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import club.nsuer.nsuer.AcademicCalendarItem;
-import club.nsuer.nsuer.R;
-
 
 public class AcademicCalendarAdapter extends RecyclerView.Adapter<AcademicCalendarAdapter.ViewHolder> {
 
@@ -21,7 +18,7 @@ public class AcademicCalendarAdapter extends RecyclerView.Adapter<AcademicCalend
     private Context context;
 
 
-    public AcademicCalendarAdapter(int layoutId, ArrayList<AcademicCalendarItem> itemList,Context context) {
+    public AcademicCalendarAdapter(int layoutId, ArrayList<AcademicCalendarItem> itemList, Context context) {
         listItemLayout = layoutId;
         this.itemList = itemList;
         this.context = context;
@@ -64,7 +61,7 @@ public class AcademicCalendarAdapter extends RecyclerView.Adapter<AcademicCalend
 
         isPassed = itemList.get(listPosition).isPassed();
 
-        if(isPassed)
+        if (isPassed)
             circle.setBackground(ContextCompat.getDrawable(context, R.drawable.ac_circle_filled_ddd));
         else
             circle.setBackground(ContextCompat.getDrawable(context, R.drawable.ac_circle_ddd));
@@ -98,7 +95,7 @@ public class AcademicCalendarAdapter extends RecyclerView.Adapter<AcademicCalend
         @Override
         public void onClick(View view) {
 
-       }
+        }
 
     }
 }

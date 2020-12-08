@@ -7,10 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -24,7 +22,6 @@ public class ReminderBoot extends BroadcastReceiver {
         if (sessionManager.isLoggedIn()) {
 
             if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
-
 
                 ScheduleDatabase db = Room.databaseBuilder(context.getApplicationContext(),
                         ScheduleDatabase.class, "schedule").fallbackToDestructiveMigration().allowMainThreadQueries().build();
@@ -56,9 +53,9 @@ public class ReminderBoot extends BroadcastReceiver {
 
                 }
 
-                if (list.size() == 0){
+                if (list.size() == 0) {
 
-                    Utils.syncSchedule(sessionManager.getMemberID(),context);
+                    Utils.syncSchedule(sessionManager.getMemberID(), context);
 
                 }
 
@@ -70,15 +67,13 @@ public class ReminderBoot extends BroadcastReceiver {
     }
 
 
-
-
     public void setReminder(int idd, String reminderText, long time, Context context) {
         int timeInSec = 10;
 
         Intent intent = new Intent(context, ReminderBroadcast.class);
 
-        intent.putExtra("text",reminderText);
-        intent.putExtra("id",idd);
+        intent.putExtra("text", reminderText);
+        intent.putExtra("id", idd);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context.getApplicationContext(), idd, intent, 0);

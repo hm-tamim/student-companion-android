@@ -4,50 +4,36 @@ package club.nsuer.nsuer;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 
 public class ClassMates extends Fragment {
-
 
 
     private MainActivity main;
@@ -77,7 +63,7 @@ public class ClassMates extends Fragment {
     private CardView cardView;
     private LinearLayout parent;
 
-    private float x1,x2;
+    private float x1, x2;
     static final int MIN_DISTANCE = 150;
 
     int currentBtn = 0;
@@ -99,13 +85,10 @@ public class ClassMates extends Fragment {
         main = (MainActivity) getActivity();
 
 
-
         context = getContext();
 
 
     }
-
-
 
 
     @Override
@@ -113,8 +96,6 @@ public class ClassMates extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.class_mates, container, false);
-
-
 
 
         return view;
@@ -127,6 +108,7 @@ public class ClassMates extends Fragment {
         inflater.inflate(R.menu.reload_button, menu);
 
     }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -135,13 +117,11 @@ public class ClassMates extends Fragment {
         main.setActionBarTitle("Classmates");
 
 
-
         db = Room.databaseBuilder(context,
                 CoursesDatabase.class, "courses").allowMainThreadQueries().build();
 
 
         list = db.coursesDao().getAll();
-
 
 
         myID = main.getMemberID();
@@ -181,9 +161,9 @@ public class ClassMates extends Fragment {
             try {
 
 
-            loadRecylcer(jsonCache, "All");
+                loadRecylcer(jsonCache, "All");
 
-            } catch (Exception e){
+            } catch (Exception e) {
                 Log.e("Classmate", e.toString());
 
 
@@ -194,14 +174,14 @@ public class ClassMates extends Fragment {
 
         }
 
-        if(!acCache.isExists() || timeDiff > 10 && Utils.isNetworkAvailable(context) && list.size() > 0) {
+        if (!acCache.isExists() || timeDiff > 10 && Utils.isNetworkAvailable(context) && list.size() > 0) {
 
 
             try {
 
                 loadJson();
 
-            } catch (Exception e){
+            } catch (Exception e) {
                 Log.e("Classmate", e.toString());
             }
 
@@ -210,7 +190,6 @@ public class ClassMates extends Fragment {
 
 
         recyclerView.setAdapter(itemAdapter);
-
 
 
         tabLayout = (LinearLayout) view.findViewById(R.id.tabLinearClassmates);
@@ -245,25 +224,23 @@ public class ClassMates extends Fragment {
 //        });
 
 
-
-        View.OnClickListener btnclick = new View.OnClickListener(){
+        View.OnClickListener btnclick = new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
 
 
-                if (view instanceof Button){
+                if (view instanceof Button) {
 
                     int id = view.getId();
 
                     try {
                         loadByBtn(id);
-                    } catch (Exception e){
+                    } catch (Exception e) {
 
                         Log.e("ClassMates", e.toString());
 
-                        Toast.makeText(context,"No Class mates found.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "No Class mates found.", Toast.LENGTH_SHORT).show();
                     }
-
 
 
                 }
@@ -271,9 +248,9 @@ public class ClassMates extends Fragment {
         };
 
 
-        for(int i = -1; i < list.size(); i++){
+        for (int i = -1; i < list.size(); i++) {
 
-            if(i<0) {
+            if (i < 0) {
 
                 int buttonStyle = R.style.ChipButtonSelected;
                 Button btnTag = new Button(new ContextThemeWrapper(context, buttonStyle), null, buttonStyle);
@@ -304,7 +281,7 @@ public class ClassMates extends Fragment {
                 String lastLetter = courseName.substring(courseName.length() - 1);
 
 
-                if(!lastLetter.equals("L")) {
+                if (!lastLetter.equals("L")) {
                     tabLayout.addView(btnTag);
                     numOfButton++;
                 }
@@ -312,15 +289,9 @@ public class ClassMates extends Fragment {
         }
 
 
-
-
-
-
-
-
     }
 
-    private void loadByBtn(int id){
+    private void loadByBtn(int id) {
 
         Button teButton = tabLayout.findViewById(id);
 
@@ -337,12 +308,12 @@ public class ClassMates extends Fragment {
         // Toast.makeText(context,btnText,Toast.LENGTH_SHORT).show();
 
 
-        for(int i = -1; i < numOfButton; i++){
+        for (int i = -1; i < numOfButton; i++) {
 
-            Button tempBtn =  tabLayout.findViewById(i+1);
+            Button tempBtn = tabLayout.findViewById(i + 1);
             String tempText = tempBtn.getText().toString();
 
-            if(!tempText.equals(btnText)) {
+            if (!tempText.equals(btnText)) {
                 tempBtn.setBackground(context.getDrawable(R.drawable.chips_background));
                 tempBtn.setTextAppearance(context, R.style.ChipButton);
             }
@@ -352,12 +323,12 @@ public class ClassMates extends Fragment {
     }
 
 
-    private void loadJson(){
+    private void loadJson() {
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
-        if(list.size()<1)
+        if (list.size() < 1)
             return;
 
 
@@ -367,7 +338,7 @@ public class ClassMates extends Fragment {
         String allCourse = course0 + "." + section0;
 
 
-        for (int i=1; i < list.size(); i++) {
+        for (int i = 1; i < list.size(); i++) {
 
 
             String course = list.get(i).getCourse();
@@ -375,8 +346,8 @@ public class ClassMates extends Fragment {
 
             String lastLetter = course.substring(course.length() - 1);
 
-            if(!lastLetter.equals("L"))
-                allCourse += ","+course + "." + section;
+            if (!lastLetter.equals("L"))
+                allCourse += "," + course + "." + section;
 
 
         }
@@ -400,7 +371,6 @@ public class ClassMates extends Fragment {
                 //Toast.makeText(getContext(),"Updated!",Toast.LENGTH_SHORT).show();
 
 
-
             }
 
             @Override
@@ -413,14 +383,12 @@ public class ClassMates extends Fragment {
         parser.execute();
 
 
-
     }
 
 
+    private void loadRecylcer(String string, String tabChips) {
 
-    private void loadRecylcer(String string, String tabChips){
-
-      //  ProgressBar p = (ProgressBar) view.findViewById(R.id.acProgressBar);
+        //  ProgressBar p = (ProgressBar) view.findViewById(R.id.acProgressBar);
 
 //        p.setVisibility(View.GONE);
 
@@ -430,7 +398,6 @@ public class ClassMates extends Fragment {
             JSONObject result = new JSONObject(string);
 
             JSONArray obj = result.getJSONArray("dataArray");
-
 
 
             for (int j = 0; j < obj.length(); j++) {
@@ -445,11 +412,10 @@ public class ClassMates extends Fragment {
                 String email = data.getString("email");
 
 
-                if(!memID.equals(myID)) {
-                    if(tabChips.equals("All")) {
+                if (!memID.equals(myID)) {
+                    if (tabChips.equals("All")) {
                         itemList.add(new ClassMatesItem(name, course, memID, image, gender, email));
-                    } else if(course.contains(tabChips))
-                    {
+                    } else if (course.contains(tabChips)) {
 
                         String dept = data.getString("dept");
 
@@ -463,7 +429,7 @@ public class ClassMates extends Fragment {
                 }
             }
 
-            if(itemList.size() > 1)
+            if (itemList.size() > 1)
                 noClassmates.setVisibility(View.GONE);
 
         } catch (JSONException e) {
@@ -472,12 +438,10 @@ public class ClassMates extends Fragment {
         }
 
 
-
         itemAdapter.notifyDataSetChanged();
         recyclerView.smoothScrollToPosition(0);
 
     }
-
 
 
     @Override
@@ -485,7 +449,7 @@ public class ClassMates extends Fragment {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.navReloadButton:
-                if(Utils.isNetworkAvailable(context)) {
+                if (Utils.isNetworkAvailable(context)) {
                     loadJson();
                     loadByBtn(0);
 
@@ -496,7 +460,6 @@ public class ClassMates extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
 
 }

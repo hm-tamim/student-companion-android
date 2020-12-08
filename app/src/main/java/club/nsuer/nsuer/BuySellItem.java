@@ -11,7 +11,6 @@ public class BuySellItem {
     private long time;
     private int category;
     private String description;
-
     private int sold;
     private int approved;
 

@@ -25,6 +25,7 @@ public class JSONParser extends AsyncTask<Void, Void, JSONObject> {
 
     public interface ParserListener {
         void onSuccess(JSONObject result);
+
         void onFailure();
     }
 
@@ -61,7 +62,7 @@ public class JSONParser extends AsyncTask<Void, Void, JSONObject> {
                 if (i != 0) {
                     sbParams.append("&");
                 }
-                if ( params.get(key) != null ) {
+                if (params.get(key) != null) {
                     sbParams.append(key).append("=")
                             .append(URLEncoder.encode(params.get(key), charset));
                 } else {
@@ -98,7 +99,7 @@ public class JSONParser extends AsyncTask<Void, Void, JSONObject> {
                 url += "?" + sbParams.toString();
             }
 
-            Log.d("URL",url);
+            Log.d("URL", url);
             try {
                 urlObj = new URL(url);
                 conn = (HttpURLConnection) urlObj.openConnection();

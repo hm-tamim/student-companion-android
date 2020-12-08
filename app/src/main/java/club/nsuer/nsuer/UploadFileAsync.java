@@ -18,6 +18,7 @@ public class UploadFileAsync extends AsyncTask<String, Void, String> {
 
     public interface ParserListener {
         void onSuccess(JSONObject result);
+
         void onFailure();
     }
 
@@ -75,14 +76,11 @@ public class UploadFileAsync extends AsyncTask<String, Void, String> {
                     conn.setRequestProperty("bill", sourceFileUri);
 
 
-
-
-
                     dos = new DataOutputStream(conn.getOutputStream());
 
                     dos.writeBytes(twoHyphens + boundary + lineEnd);
                     dos.writeBytes("Content-Disposition: form-data; name=\"bill\";filename=\""
-                            + sourceFileUri + "\""  + lineEnd);
+                            + sourceFileUri + "\"" + lineEnd);
 
                     dos.writeBytes(lineEnd);
 
@@ -122,7 +120,6 @@ public class UploadFileAsync extends AsyncTask<String, Void, String> {
 
 
                     Log.d("TTTTA", sourceFileUri);
-
 
 
                     if (serverResponseCode == 200) {
@@ -177,8 +174,6 @@ public class UploadFileAsync extends AsyncTask<String, Void, String> {
     @Override
     protected void onProgressUpdate(Void... values) {
     }
-
-
 
 
 }

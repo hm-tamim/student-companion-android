@@ -2,20 +2,16 @@ package club.nsuer.nsuer;
 
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,8 +33,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Messages extends Fragment {
 
@@ -47,9 +41,6 @@ public class Messages extends Fragment {
 
     private MainActivity main;
     private Context context;
-
-
-
     private LinearLayout noItem;
 
     private ImageView noItemIcon;
@@ -75,7 +66,7 @@ public class Messages extends Fragment {
 
     private ArrayList<MessageEntity> DbItem;
 
-    private int dbLength=0;
+    private int dbLength = 0;
 
 
     public Messages(String from_notification_id, String from_notification_name) {
@@ -125,7 +116,7 @@ public class Messages extends Fragment {
         setHasOptionsMenu(true);
 
         main = (MainActivity) getActivity();
-        context =getContext();
+        context = getContext();
 
 
     }
@@ -151,15 +142,11 @@ public class Messages extends Fragment {
         memID = main.getMemberID();
 
 
-
         db = Room.databaseBuilder(context,
                 MessageDatabase.class, "inbox").allowMainThreadQueries().build();
 
 
-
         dbLength = db.messageDao().count();
-
-
 
 
         ft = main.getSupportFragmentManager().beginTransaction();
@@ -169,8 +156,6 @@ public class Messages extends Fragment {
         noItemIcon = view.findViewById(R.id.noItemIcon);
         noItemText = view.findViewById(R.id.noItemText);
         progressBar = view.findViewById(R.id.progressBar);
-
-
 
 
         itemList = new ArrayList<MessageListItem>();
@@ -190,13 +175,12 @@ public class Messages extends Fragment {
         recyclerView.setAdapter(itemAdapter);
 
 
-        if(dbLength > 0)
+        if (dbLength > 0)
             loadFromDb();
 
 
-        if(Utils.isNetworkAvailable(context))
-                loadJson(uid);
-
+        if (Utils.isNetworkAvailable(context))
+            loadJson(uid);
 
 
 //
@@ -213,19 +197,17 @@ public class Messages extends Fragment {
 //        }.start();
 
 
-
-
         new Handler().postDelayed(new Runnable() {
             public void run() {
 
-                if(from_notification){
+                if (from_notification) {
 
-                    Intent intent = new Intent(context,ChatActivity.class);
+                    Intent intent = new Intent(context, ChatActivity.class);
                     intent.putExtra("otherMemID", from_notification_id);
                     intent.putExtra("otherMemName", from_notification_name);
                     startActivityForResult(intent, 10001);
 
-                    from_notification =false;
+                    from_notification = false;
 
                 }
 
@@ -233,14 +215,11 @@ public class Messages extends Fragment {
         }, 100);
 
 
-
-
     }
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if ((requestCode == 10001) && (resultCode == Activity.RESULT_OK)) {
@@ -252,15 +231,14 @@ public class Messages extends Fragment {
     }
 
 
-
-    public void loadFromDb(){
+    public void loadFromDb() {
 
 
         List<MessageEntity> list = db.messageDao().getAllByTime();
 
 
         itemList.clear();
-        for (int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
 
 
             int id = list.get(i).getMsg_id();
@@ -273,7 +251,6 @@ public class Messages extends Fragment {
             long time = list.get(i).getTime();
 
 
-
             String name = list.get(i).getUser_name();
             String picture = list.get(i).getUser_picture();
             String gender = list.get(i).getUser_gender();
@@ -281,13 +258,10 @@ public class Messages extends Fragment {
             itemList.add(new MessageListItem(id, to, from, message, time, 0, name, gender, picture));
 
 
-
-
         }
 
 
-
-        if(itemList.size() > 0)
+        if (itemList.size() > 0)
             noItem.setVisibility(View.GONE);
         else {
 
@@ -301,15 +275,13 @@ public class Messages extends Fragment {
         itemAdapter.notifyDataSetChanged();
 
 
-
-
     }
 
 
-    public void loadJson(final String uid){
+    public void loadJson(final String uid) {
 
 
-        if(dbLength < 1) {
+        if (dbLength < 1) {
 
             noItem.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
@@ -335,7 +307,6 @@ public class Messages extends Fragment {
                     JSONArray obj = result.getJSONArray("dataArray");
 
 
-
                     for (int j = 0; j < obj.length(); j++) {
 
                         JSONObject data = obj.getJSONObject(j);
@@ -356,7 +327,6 @@ public class Messages extends Fragment {
                         String gender = data.getString("g");
 
 
-
                         MessageEntity dbItem = new MessageEntity();
 
                         dbItem.setChat_id(chat_id);
@@ -373,19 +343,15 @@ public class Messages extends Fragment {
                         db.messageDao().insertAll(dbItem);
 
 
-
                         //itemList.add(new MessageListItem(id, to, from, message, time, 0, name, gender, picture));
 
 
                     }
 
 
-
-
                     dbLength = db.messageDao().count();
 
                     loadFromDb();
-
 
 
                 } catch (JSONException e) {
@@ -399,7 +365,6 @@ public class Messages extends Fragment {
 
 
                 //loadRecylcer(result.toString());
-
 
 
             }
@@ -417,9 +382,7 @@ public class Messages extends Fragment {
     }
 
 
-
-
-    private void loadRecylcer(String string){
+    private void loadRecylcer(String string) {
 
 
         try {
@@ -428,7 +391,6 @@ public class Messages extends Fragment {
             JSONObject result = new JSONObject(string);
 
             JSONArray obj = result.getJSONArray("dataArray");
-
 
 
             for (int j = 0; j < obj.length(); j++) {
@@ -451,13 +413,10 @@ public class Messages extends Fragment {
                 String gender = data.getString("g");
 
 
-
-
-               itemList.add(new MessageListItem(id, to, from, message, time, 0, name, gender, picture));
+                itemList.add(new MessageListItem(id, to, from, message, time, 0, name, gender, picture));
 
 
             }
-
 
 
         } catch (JSONException e) {
@@ -466,9 +425,7 @@ public class Messages extends Fragment {
         }
 
 
-
-
-        if(itemList.size() > 0)
+        if (itemList.size() > 0)
             noItem.setVisibility(View.GONE);
         else {
 
@@ -481,7 +438,6 @@ public class Messages extends Fragment {
 
 
     }
-
 
 
 }

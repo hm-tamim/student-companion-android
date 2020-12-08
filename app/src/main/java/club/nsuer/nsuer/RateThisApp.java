@@ -1,9 +1,5 @@
 package club.nsuer.nsuer;
 
-import java.lang.ref.WeakReference;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -20,13 +16,16 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.ViewGroup;
+
+import java.lang.ref.WeakReference;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * RateThisApp<br>
  * A library to show the app rate dialog
- * @author Keisuke Kobayashi (k.kobayashi.122@gmail.com)
  *
+ * @author Keisuke Kobayashi (k.kobayashi.122@gmail.com)
  */
 public class RateThisApp {
 
@@ -55,6 +54,7 @@ public class RateThisApp {
 
     /**
      * Initialize RateThisApp configuration.
+     *
      * @param config Configuration object.
      */
     public static void init(Config config) {
@@ -64,6 +64,7 @@ public class RateThisApp {
     /**
      * Set callback instance.
      * The callback will receive yes/no/later events.
+     *
      * @param callback
      */
     public static void setCallback(Callback callback) {
@@ -73,6 +74,7 @@ public class RateThisApp {
     /**
      * Call this API when the launcher activity is launched.<br>
      * It is better to call this API in onCreate() of the launcher activity.
+     *
      * @param context Context
      */
     public static void onCreate(Context context) {
@@ -101,6 +103,7 @@ public class RateThisApp {
     /**
      * This API is deprecated.
      * You should call onCreate instead of this API in Activity's onCreate().
+     *
      * @param context
      */
     @Deprecated
@@ -110,6 +113,7 @@ public class RateThisApp {
 
     /**
      * Show the rate dialog if the criteria is satisfied.
+     *
      * @param context Context
      * @return true if shown, false otherwise.
      */
@@ -124,6 +128,7 @@ public class RateThisApp {
 
     /**
      * Show the rate dialog if the criteria is satisfied.
+     *
      * @param context Context
      * @param themeId Theme ID
      * @return true if shown, false otherwise.
@@ -141,6 +146,7 @@ public class RateThisApp {
      * Check whether the rate dialog should be shown or not.
      * Developers may call this method directly if they want to show their own view instead of
      * dialog provided by this library.
+     *
      * @return
      */
     public static boolean shouldShowRateDialog() {
@@ -161,6 +167,7 @@ public class RateThisApp {
 
     /**
      * Show the rate dialog
+     *
      * @param context
      */
     public static void showRateDialog(final Context context) {
@@ -171,6 +178,7 @@ public class RateThisApp {
 
     /**
      * Show the rate dialog
+     *
      * @param context
      * @param themeId
      */
@@ -178,23 +186,24 @@ public class RateThisApp {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, themeId);
 
 
-
         showRateDialog(context, builder);
     }
 
     /**
      * Stop showing the rate dialog
+     *
      * @param context
      */
-    public static void stopRateDialog(final Context context){
+    public static void stopRateDialog(final Context context) {
         setOptOut(context, true);
     }
 
     /**
      * Get count number of the rate dialog launches
+     *
      * @return
      */
-    public static int getLaunchCount(final Context context){
+    public static int getLaunchCount(final Context context) {
         SharedPreferences pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return pref.getInt(KEY_LAUNCH_TIMES, 0);
     }
@@ -294,6 +303,7 @@ public class RateThisApp {
     /**
      * Clear data in shared preferences.<br>
      * This API is called when the "Later" is pressed or canceled.
+     *
      * @param context
      */
     private static void clearSharedPreferences(Context context) {
@@ -308,6 +318,7 @@ public class RateThisApp {
      * Set opt out flag.
      * If it is true, the rate dialog will never shown unless app data is cleared.
      * This method is called when Yes or No is pressed.
+     *
      * @param context
      * @param optOut
      */
@@ -322,6 +333,7 @@ public class RateThisApp {
     /**
      * Store install date.
      * Install date is retrieved from package manager if possible.
+     *
      * @param context
      * @param editor
      */
@@ -342,6 +354,7 @@ public class RateThisApp {
 
     /**
      * Store the date the user asked for being asked again later.
+     *
      * @param context
      */
     private static void storeAskLaterDate(final Context context) {
@@ -353,6 +366,7 @@ public class RateThisApp {
 
     /**
      * Print values in SharedPreferences (used for debug)
+     *
      * @param context
      */
     private static void printStatus(final Context context) {
@@ -365,6 +379,7 @@ public class RateThisApp {
 
     /**
      * Print log if enabled
+     *
      * @param message
      */
     private static void log(String message) {
@@ -378,8 +393,8 @@ public class RateThisApp {
      */
     public static class Config {
         public static final int CANCEL_MODE_BACK_KEY_OR_TOUCH_OUTSIDE = 0;
-        public static final int CANCEL_MODE_BACK_KEY                  = 1;
-        public static final int CANCEL_MODE_NONE                      = 2;
+        public static final int CANCEL_MODE_BACK_KEY = 1;
+        public static final int CANCEL_MODE_NONE = 2;
 
         private String mUrl = null;
         private int mCriteriaInstallDays;
@@ -400,6 +415,7 @@ public class RateThisApp {
 
         /**
          * Constructor.
+         *
          * @param criteriaInstallDays
          * @param criteriaLaunchTimes
          */
@@ -410,6 +426,7 @@ public class RateThisApp {
 
         /**
          * Set title string ID.
+         *
          * @param stringId
          */
         public void setTitle(@StringRes int stringId) {
@@ -418,6 +435,7 @@ public class RateThisApp {
 
         /**
          * Set message string ID.
+         *
          * @param stringId
          */
         public void setMessage(@StringRes int stringId) {
@@ -426,6 +444,7 @@ public class RateThisApp {
 
         /**
          * Set rate now string ID.
+         *
          * @param stringId
          */
         public void setYesButtonText(@StringRes int stringId) {
@@ -434,6 +453,7 @@ public class RateThisApp {
 
         /**
          * Set no thanks string ID.
+         *
          * @param stringId
          */
         public void setNoButtonText(@StringRes int stringId) {
@@ -442,6 +462,7 @@ public class RateThisApp {
 
         /**
          * Set cancel string ID.
+         *
          * @param stringId
          */
         public void setCancelButtonText(@StringRes int stringId) {
@@ -451,6 +472,7 @@ public class RateThisApp {
         /**
          * Set navigation url when user clicks rate button.
          * Typically, url will be https://play.google.com/store/apps/details?id=PACKAGE_NAME for Google Play.
+         *
          * @param url
          */
         public void setUrl(String url) {
@@ -459,6 +481,7 @@ public class RateThisApp {
 
         /**
          * Set the cancel mode; namely, which ways the user can cancel the dialog.
+         *
          * @param cancelMode
          */
         public void setCancelMode(int cancelMode) {

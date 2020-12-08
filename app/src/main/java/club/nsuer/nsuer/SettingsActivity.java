@@ -1,18 +1,13 @@
 package club.nsuer.nsuer;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
-
-import org.json.JSONObject;
-
-import java.util.HashMap;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -34,7 +29,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         String fromActivityIntent = getIntent().getStringExtra("FROM_ACTIVITY");
 
-        if(fromActivityIntent != null || !fromActivityIntent.equals("")){
+        if (fromActivityIntent != null || !fromActivityIntent.equals("")) {
 
             fromActivity = fromActivityIntent;
 
@@ -42,8 +37,6 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         session = new SessionManager(this);
-
-
 
 
         Switch cgpaSwitch = findViewById(R.id.cgpaSwitch);
@@ -56,14 +49,12 @@ public class SettingsActivity extends AppCompatActivity {
         cgpaSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if(isChecked)
+                if (isChecked)
                     session.setShowCgpa(true);
                 else
                     session.setShowCgpa(false);
             }
         });
-
-
 
 
         Switch weatherSwitch = findViewById(R.id.weatherCardSwitch);
@@ -76,7 +67,7 @@ public class SettingsActivity extends AppCompatActivity {
         weatherSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if(isChecked)
+                if (isChecked)
                     session.setShowWeather(true);
                 else
                     session.setShowWeather(false);
@@ -92,7 +83,7 @@ public class SettingsActivity extends AppCompatActivity {
         advisingToolsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if(isChecked)
+                if (isChecked)
                     session.setAdvisingTools(true);
                 else
                     session.setAdvisingTools(false);
@@ -111,25 +102,21 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
         finishNow();
 
     }
 
 
-    private void finishNow(){
+    private void finishNow() {
 
         Intent intent;
 
-        if(fromActivity.equals("EDIT_PROFILE")) {
+        if (fromActivity.equals("EDIT_PROFILE")) {
             intent = new Intent(SettingsActivity.this,
                     EditProfile.class);
             finish();

@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.LinearGradient;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,13 +15,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -34,7 +31,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class BloodBank extends Fragment {
@@ -80,14 +76,13 @@ public class BloodBank extends Fragment {
 
         try {
             makeRed();
-        } catch (Exception e){
-
+        } catch (Exception e) {
 
 
         }
     }
 
-    private void makeRed(){
+    private void makeRed() {
 
         bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blood_color)));
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -109,7 +104,6 @@ public class BloodBank extends Fragment {
     }
 
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -119,7 +113,7 @@ public class BloodBank extends Fragment {
 
         beDonor = v.findViewById(R.id.beDonor);
         beDonorText = v.findViewById(R.id.beDonorText);
-        if (main.getBloodGroup() >= 0){
+        if (main.getBloodGroup() >= 0) {
             beDonorText.setText("My Profile");
         }
 
@@ -135,7 +129,7 @@ public class BloodBank extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(context,BloodRequestsByMe.class);
+                Intent intent = new Intent(context, BloodRequestsByMe.class);
 
 
                 startActivityForResult(intent, 10001);
@@ -150,7 +144,7 @@ public class BloodBank extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(context,BloodBeDonor.class);
+                Intent intent = new Intent(context, BloodBeDonor.class);
 
                 startActivity(intent);
 
@@ -163,7 +157,7 @@ public class BloodBank extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(context,BloodDonors.class);
+                Intent intent = new Intent(context, BloodDonors.class);
 
                 startActivity(intent);
 
@@ -176,7 +170,7 @@ public class BloodBank extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(context,BloodRequest.class);
+                Intent intent = new Intent(context, BloodRequest.class);
 
                 startActivityForResult(intent, 10001);
                 makeRed();
@@ -188,7 +182,7 @@ public class BloodBank extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Utils.CustomTab("https://nsuer.club/apps/blood-bank/blood-facts.html",context);
+                Utils.CustomTab("https://nsuer.club/apps/blood-bank/blood-facts.html", context);
 
             }
         });
@@ -214,14 +208,10 @@ public class BloodBank extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-
-
-
     }
 
 
-    public void loadJson(){
-
+    public void loadJson() {
 
 
         noItem.setVisibility(View.VISIBLE);
@@ -231,7 +221,7 @@ public class BloodBank extends Fragment {
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
-        parametters.put("memID","");
+        parametters.put("memID", "");
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/blood-bank/blood-requests.php", "GET", parametters);
 
@@ -244,7 +234,6 @@ public class BloodBank extends Fragment {
 
 
                     JSONArray obj = result.getJSONArray("dataArray");
-
 
 
                     for (int j = 0; j < obj.length(); j++) {
@@ -272,11 +261,11 @@ public class BloodBank extends Fragment {
                         String isMan = data.getString("isManaged");
                         boolean isManaged = false;
 
-                        if(isMan.equals("1"))
+                        if (isMan.equals("1"))
                             isManaged = true;
 
 
-                        itemList.add(new BloodRequestItem(id, memID,name,postedOn,bgroup,bags,whenDate,phone,address,note,isManaged));
+                        itemList.add(new BloodRequestItem(id, memID, name, postedOn, bgroup, bags, whenDate, phone, address, note, isManaged));
 
                     }
 
@@ -287,9 +276,7 @@ public class BloodBank extends Fragment {
                 }
 
 
-
-
-                if(itemList.size() > 0)
+                if (itemList.size() > 0)
                     noItem.setVisibility(View.GONE);
                 else {
 
@@ -315,10 +302,6 @@ public class BloodBank extends Fragment {
     }
 
 
-
-
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -335,8 +318,7 @@ public class BloodBank extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -346,8 +328,7 @@ public class BloodBank extends Fragment {
     }
 
 
-
-    public void onDestroyView(){
+    public void onDestroyView() {
         super.onDestroyView();
         ActionBar bar = main.getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4196af")));

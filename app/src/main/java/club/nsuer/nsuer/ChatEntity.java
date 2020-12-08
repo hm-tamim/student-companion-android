@@ -35,7 +35,7 @@ public class ChatEntity {
     @ColumnInfo(name = "user_to")
     private String user_to;
 
-    
+
     @ColumnInfo(name = "message")
     private String message;
 
@@ -45,8 +45,6 @@ public class ChatEntity {
 
     @ColumnInfo(name = "from_json")
     private int from_json;
-
-
 
 
     public int getFrom_json() {
@@ -101,7 +99,6 @@ public class ChatEntity {
 }
 
 
-
 @Dao
 interface ChatDao {
 
@@ -110,7 +107,6 @@ interface ChatDao {
 
     @Query("SELECT * FROM chatEntity")
     List<ChatEntity> getAll();
-
 
 
     @Query("SELECT * FROM chatEntity ORDER BY time ASC")
@@ -124,8 +120,6 @@ interface ChatDao {
     List<ChatEntity> getAfterStart(int after);
 
 
-
-
     @Query("SELECT msg_id FROM chatEntity LIMIT 1")
     int checkEmpty();
 
@@ -135,7 +129,6 @@ interface ChatDao {
 
     @Query("SELECT msg_id FROM chatEntity WHERE from_json = 1 ORDER BY msg_id DESC LIMIT 1")
     int getLastIDJson();
-
 
 
     @Query("SELECT COUNT(msg_id) from chatEntity")
@@ -150,8 +143,6 @@ interface ChatDao {
     @Query("DELETE FROM chatEntity")
     public void nukeTable();
 }
-
-
 
 
 @Database(entities = {ChatEntity.class}, version = 2, exportSchema = false)

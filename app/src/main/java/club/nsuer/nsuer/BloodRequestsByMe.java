@@ -3,18 +3,15 @@ package club.nsuer.nsuer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentTransaction;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -84,7 +81,7 @@ public class BloodRequestsByMe extends AppCompatActivity {
     }
 
 
-    public void loadJson(){
+    public void loadJson() {
 
         noItem.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
@@ -93,7 +90,7 @@ public class BloodRequestsByMe extends AppCompatActivity {
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
-        parametters.put("memID",session.getMemberID());
+        parametters.put("memID", session.getMemberID());
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/blood-bank/blood-requests.php", "GET", parametters);
 
@@ -105,7 +102,6 @@ public class BloodRequestsByMe extends AppCompatActivity {
 
 
                     JSONArray obj = result.getJSONArray("dataArray");
-
 
 
                     for (int j = 0; j < obj.length(); j++) {
@@ -133,11 +129,11 @@ public class BloodRequestsByMe extends AppCompatActivity {
                         String isMan = data.getString("isManaged");
                         boolean isManaged = false;
 
-                        if(isMan.equals("1"))
+                        if (isMan.equals("1"))
                             isManaged = true;
 
 
-                        itemList.add(new BloodRequestItem(id,memID,name,postedOn,bgroup,bags,whenDate,phone,address,note,isManaged));
+                        itemList.add(new BloodRequestItem(id, memID, name, postedOn, bgroup, bags, whenDate, phone, address, note, isManaged));
 
                     }
 
@@ -148,9 +144,7 @@ public class BloodRequestsByMe extends AppCompatActivity {
                 }
 
 
-
-
-                if(itemList.size() > 0)
+                if (itemList.size() > 0)
                     noItem.setVisibility(View.GONE);
                 else {
 
@@ -176,26 +170,19 @@ public class BloodRequestsByMe extends AppCompatActivity {
     }
 
 
+    public void sendDelete(int listPosition) {
 
 
-
-
-    public void sendDelete(int listPosition){
-
-
-
-        if(!Utils.isNetworkAvailable(context)) {
+        if (!Utils.isNetworkAvailable(context)) {
             Toast.makeText(context, "Internet connection required.", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
 
         final int msgID = itemList.get(listPosition).getId();
-
 
 
         itemList.remove(listPosition);
@@ -215,11 +202,9 @@ public class BloodRequestsByMe extends AppCompatActivity {
             public void onSuccess(JSONObject result) {
 
 
+                Toast.makeText(context, "You blood request is deleted.", Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(context,"You blood request is deleted.", Toast.LENGTH_SHORT).show();
-
-              //  loadJson();
-
+                //  loadJson();
 
 
             }
@@ -236,16 +221,13 @@ public class BloodRequestsByMe extends AppCompatActivity {
     }
 
 
-
-    public void sendManaged(int listPosition){
-
+    public void sendManaged(int listPosition) {
 
 
-        if(!Utils.isNetworkAvailable(context)) {
+        if (!Utils.isNetworkAvailable(context)) {
             Toast.makeText(context, "Internet connection required.", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
@@ -257,12 +239,10 @@ public class BloodRequestsByMe extends AppCompatActivity {
         final boolean isManaged = itemList.get(listPosition).isManaged();
         int setTo;
 
-        if(isManaged)
+        if (isManaged)
             setTo = 0;
         else
             setTo = 1;
-
-
 
 
         itemList.get(listPosition).setManaged((!isManaged));
@@ -270,7 +250,7 @@ public class BloodRequestsByMe extends AppCompatActivity {
 
         parametters.put("msgID", String.valueOf(msgID));
         parametters.put("uid", uid);
-        parametters.put("managed",String.valueOf(setTo));
+        parametters.put("managed", String.valueOf(setTo));
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/blood-bank/mark-managed.php", "GET", parametters);
 
@@ -280,15 +260,13 @@ public class BloodRequestsByMe extends AppCompatActivity {
             public void onSuccess(JSONObject result) {
 
 
-
-                if(!isManaged)
-                    Toast.makeText(context,"Marked as managed", Toast.LENGTH_SHORT).show();
+                if (!isManaged)
+                    Toast.makeText(context, "Marked as managed", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(context,"Marked as not managed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Marked as not managed", Toast.LENGTH_SHORT).show();
 
 
-               // loadJson();
-
+                // loadJson();
 
 
             }
@@ -303,8 +281,6 @@ public class BloodRequestsByMe extends AppCompatActivity {
         parser.execute();
 
     }
-
-
 
 
     @Override
@@ -328,12 +304,11 @@ public class BloodRequestsByMe extends AppCompatActivity {
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        if(resultCode==RESULT_OK){
+        if (resultCode == RESULT_OK) {
             Intent refresh = new Intent(this, BloodRequestsByMe.class);
             startActivity(refresh);
             this.finish();

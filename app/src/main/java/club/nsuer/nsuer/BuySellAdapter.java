@@ -1,11 +1,9 @@
 package club.nsuer.nsuer;
 
 
-
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -27,13 +24,12 @@ public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHold
     private BuySell instance;
 
 
-    public BuySellAdapter(int layoutId, ArrayList<BuySellItem> itemList,Context context, BuySell instance) {
+    public BuySellAdapter(int layoutId, ArrayList<BuySellItem> itemList, Context context, BuySell instance) {
         listItemLayout = layoutId;
         this.itemList = itemList;
         this.context = context;
         this.instance = instance;
     }
-
 
 
     @Override
@@ -66,14 +62,12 @@ public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHold
         TextView isSoldTextView = holder.isSold;
 
 
-
-
         int id = itemList.get(listPosition).getId();
         String titleS = itemList.get(listPosition).getTitle();
         String priceS = itemList.get(listPosition).getPrice();
 
-        if(Utils.isNumeric(priceS))
-            priceS = "৳ "+priceS;
+        if (Utils.isNumeric(priceS))
+            priceS = "৳ " + priceS;
 
         long timeL = itemList.get(listPosition).getTime();
         String sellerS = itemList.get(listPosition).getSellerName();
@@ -92,24 +86,21 @@ public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHold
 //                .cancelRequest(image);
 
 
-
         RequestOptions placeholderRequest = new RequestOptions();
         placeholderRequest.placeholder(R.drawable.default_image);
         placeholderRequest.centerCrop();
 
 
-
         Glide.with(context)
 
-                    .setDefaultRequestOptions(placeholderRequest)
-                    .load("https://nsuer.club/images/shop/"+img)
-                    .apply(RequestOptions.centerCropTransform())
-                    .into(image);
+                .setDefaultRequestOptions(placeholderRequest)
+                .load("https://nsuer.club/images/shop/" + img)
+                .apply(RequestOptions.centerCropTransform())
+                .into(image);
 
         title.setText(titleS);
         price.setText(priceS);
         seller.setText(Utils.limitWords(2, sellerS, false));
-
 
 
         cardView.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +108,7 @@ public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHold
             @Override
             public void onClick(View v) {
 
-                  instance.loadItemDetails(listPosition);
+                instance.loadItemDetails(listPosition);
 
             }
         });
@@ -125,15 +116,13 @@ public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHold
 
         int checkSold = itemList.get(listPosition).getSold();
 
-        if(checkSold != 0) {
+        if (checkSold != 0) {
             isSoldTextView.setVisibility(View.VISIBLE);
             isSoldTextView.bringToFront();
-        }
-        else {
+        } else {
             isSoldTextView.setVisibility(View.GONE);
 
         }
-
 
 
     }
@@ -168,9 +157,6 @@ public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHold
             isSold = (TextView) itemView.findViewById(R.id.isSold);
 
 
-
-
-
         }
 
 
@@ -178,7 +164,6 @@ public class BuySellAdapter extends RecyclerView.Adapter<BuySellAdapter.ViewHold
         public void onClick(View view) {
 
         }
-
 
 
     }

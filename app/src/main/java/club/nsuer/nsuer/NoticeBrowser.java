@@ -19,16 +19,12 @@ public class NoticeBrowser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-
-
         setContentView(R.layout.activity_notice_browser);
-
-
         String url = getIntent().getStringExtra("URL");
         String type = getIntent().getStringExtra("TYPE");
 
 
-        String title  = type.substring(0, 1).toUpperCase() + type.substring(1);
+        String title = type.substring(0, 1).toUpperCase() + type.substring(1);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarNotice);
@@ -38,12 +34,7 @@ public class NoticeBrowser extends AppCompatActivity {
         final WebView webView = (WebView) findViewById(R.id.webView);
 
 
-
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
-
-
-
 
 
         setTitle(title);
@@ -56,7 +47,7 @@ public class NoticeBrowser extends AppCompatActivity {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if(url.contains("pdf")) {
+                if (url.contains("pdf")) {
                     Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(i);
                     onBackPressed();
@@ -71,7 +62,8 @@ public class NoticeBrowser extends AppCompatActivity {
 //                                         webView.setVisibility(View.INVISIBLE);
 //                                     }
 
-            @Override public void onPageCommitVisible(WebView view, String url) {
+            @Override
+            public void onPageCommitVisible(WebView view, String url) {
                 super.onPageCommitVisible(view, url);
                 progressBar.setVisibility(ProgressBar.GONE);
                 webView.setVisibility(View.VISIBLE);
@@ -80,7 +72,7 @@ public class NoticeBrowser extends AppCompatActivity {
 
                 StringBuilder extraStyles = new StringBuilder();
                 extraStyles.append("javascript:(function extra(){");
-                if(1==1){
+                if (1 == 1) {
                     extraStyles.append(
                             "document.getElementsByClassName('header-middle')[0].innerHTML = '';document.getElementsByClassName('footer')[0].outerHTML = ''"
                     );
@@ -88,7 +80,6 @@ public class NoticeBrowser extends AppCompatActivity {
                 extraStyles.append("})();");
 
                 webView.loadUrl(extraStyles.toString());
-
 
 
             }
@@ -107,20 +98,10 @@ public class NoticeBrowser extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
         webView.loadUrl(url);
 
 
-
-
-
         // webView.setHorizontalScrollBarEnabled(false);
-
 
 
 //        Button btnLogin;
@@ -143,9 +124,9 @@ public class NoticeBrowser extends AppCompatActivity {
 
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
-            finish();
+        finish();
 
     }
 
@@ -174,22 +155,16 @@ public class NoticeBrowser extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        } else if (id == R.id.action_logout){
+        } else if (id == R.id.action_logout) {
 
-            MainActivity  main = MainActivity.getInstance();
+            MainActivity main = MainActivity.getInstance();
 
-                    main.logoutUser();
+            main.logoutUser();
         }
 
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
-
-
 
 
 }

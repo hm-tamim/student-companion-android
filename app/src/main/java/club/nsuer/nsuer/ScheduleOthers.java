@@ -16,18 +16,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class ScheduleOthers extends Fragment {
 
@@ -71,10 +67,8 @@ public class ScheduleOthers extends Fragment {
                 ScheduleDatabase.class, "schedule").fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
 
-
         courseDb = Room.databaseBuilder(context,
                 CoursesDatabase.class, "courses").allowMainThreadQueries().build();
-
 
 
     }
@@ -90,8 +84,7 @@ public class ScheduleOthers extends Fragment {
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if ((requestCode == 10001) && (resultCode == Activity.RESULT_OK))
@@ -99,12 +92,12 @@ public class ScheduleOthers extends Fragment {
     }
 
 
-    public void openActivityWithId(int id){
+    public void openActivityWithId(int id) {
 
         Intent intent = new Intent(context,
                 AddSchedule.class);
         intent.putExtra("id", id);
-        intent.putExtra("uid",main.getUid());
+        intent.putExtra("uid", main.getUid());
         startActivityForResult(intent, 10001);
 
 
@@ -116,18 +109,14 @@ public class ScheduleOthers extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-
-
-
         titleLinear = v.findViewById(R.id.titleLinear);
-        crLine2  = v.findViewById(R.id.crLine2);
+        crLine2 = v.findViewById(R.id.crLine2);
         noSchedule = v.findViewById(R.id.noSchedule);
 
 
         ft = getFragmentManager().beginTransaction();
 
         uid = main.getUid();
-
 
 
         itemList = new ArrayList<ScheduleOthersItem>();
@@ -139,7 +128,6 @@ public class ScheduleOthers extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
-
         List<ScheduleEntity> list = db.scheduleDao().getAll();
 
 
@@ -148,16 +136,13 @@ public class ScheduleOthers extends Fragment {
 
         try {
             loadJson();
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
 
     }
 
 
-
-
-
-
-    private void loadJson(){
+    private void loadJson() {
 
         String url;
 
@@ -165,10 +150,10 @@ public class ScheduleOthers extends Fragment {
 
         List<CoursesEntity> coursesList = courseDb.coursesDao().getAll();
 
-        String courses = coursesList.get(0).getCourse()+"."+coursesList.get(0).getSection();
+        String courses = coursesList.get(0).getCourse() + "." + coursesList.get(0).getSection();
 
-        for (int i=1; i < coursesList.size(); i++){
-            courses += "," + coursesList.get(i).getCourse()+"."+coursesList.get(i).getSection();
+        for (int i = 1; i < coursesList.size(); i++) {
+            courses += "," + coursesList.get(i).getCourse() + "." + coursesList.get(i).getSection();
         }
 
 
@@ -184,7 +169,7 @@ public class ScheduleOthers extends Fragment {
             @Override
             public void onSuccess(JSONObject result) {
 
-              //  p.setVisibility(View.GONE);
+                //  p.setVisibility(View.GONE);
 
                 //acCache.save(result.toString());
 
@@ -192,7 +177,6 @@ public class ScheduleOthers extends Fragment {
 
                 loadRecylcer(result.toString());
                 // Toast.makeText(context,"Updated!",Toast.LENGTH_SHORT).show();
-
 
 
             }
@@ -213,8 +197,7 @@ public class ScheduleOthers extends Fragment {
     }
 
 
-
-    private void loadRecylcer(String string){
+    private void loadRecylcer(String string) {
 
         //ProgressBar p = (ProgressBar) v.findViewById(R.id.acProgressBar);
 
@@ -230,13 +213,10 @@ public class ScheduleOthers extends Fragment {
             JSONArray obj = result.getJSONArray("dataArray");
 
 
-
             for (int j = 0; j < obj.length(); j++) {
 
 
-
                 JSONObject data = obj.getJSONObject(j);
-
 
 
                 int id = data.getInt("id");
@@ -256,30 +236,28 @@ public class ScheduleOthers extends Fragment {
                 boolean isPassed = false;
 
 
-                if(doRemindi == 1)
+                if (doRemindi == 1)
                     doRemind = true;
 
                 long unixTime = System.currentTimeMillis() / 1000L;
 
-                if(unixTime > date)
+                if (unixTime > date)
                     isPassed = true;
 
 
-                if(!otherMemID.equals(sessionManager.getMemberID()))
+                if (!otherMemID.equals(sessionManager.getMemberID()))
                     itemList.add(new ScheduleOthersItem(id, title, type, note, username, date, reminderDate, color, doRemind, isPassed));
 
 
             }
 
 
-
-            if(obj.length() < 1) {
+            if (obj.length() < 1) {
                 titleLinear.setVisibility(View.GONE);
                 crLine2.setVisibility(View.GONE);
             } else {
                 noSchedule.setVisibility(View.GONE);
             }
-
 
 
         } catch (JSONException e) {
@@ -291,16 +269,10 @@ public class ScheduleOthers extends Fragment {
         }
 
 
-
         itemAdapter.notifyDataSetChanged();
 
 
-
-
-
     }
-
-
 
 
 }

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/AlertBookAdd"
     android:layout_width="match_parent"
     android:layout_height="250dp"
 
-    android:layout_centerHorizontal="false"
     android:layout_centerInParent="false"
+    android:layout_centerHorizontal="false"
     android:layout_centerVertical="false"
     android:padding="25dp"
     android:paddingBottom="20dp">
@@ -19,7 +18,7 @@
         android:layout_centerInParent="true"
         android:ems="10"
         android:hint="Course Initial"
-        android:inputType="textCapCharacters|textNoSuggestions"/>
+        android:inputType="textCapCharacters|textNoSuggestions" />
 
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
@@ -42,12 +41,12 @@
         android:id="@+id/aabCloseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/aabBookInitial"
         android:layout_alignTop="@+id/AddBookSection"
-        android:paddingBottom="20dp"
+        android:layout_alignEnd="@+id/aabBookInitial"
         android:paddingLeft="20dp"
-        android:paddingRight="10dp"
         android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="20dp"
         app:srcCompat="@drawable/ic_close_dark" />
 
     <TextView

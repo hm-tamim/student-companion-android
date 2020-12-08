@@ -57,12 +57,11 @@ public class CgpaCalculator extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    private void updateGraph(float credit, float cgpa){
+    private void updateGraph(float credit, float cgpa) {
 
-        arc = (ArcProgressz)view.findViewById(R.id.calculator_arc_cgpa);
+        arc = (ArcProgressz) view.findViewById(R.id.calculator_arc_cgpa);
 
         arc.setMax(4);
-
 
 
         final ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(arc, "progress", 0.0f, cgpa);
@@ -70,15 +69,12 @@ public class CgpaCalculator extends Fragment {
         objectAnimator.setInterpolator(new DecelerateInterpolator());
 
 
-
         objectAnimator.start();
-
 
 
         arc_credit = (ArcProgressz) view.findViewById(R.id.calculator_arc_credits);
 
         arc_credit.setMax(120);
-
 
 
         final ObjectAnimator objectAnimators = ObjectAnimator.ofFloat(arc_credit, "progress", 0.0f, credit);
@@ -87,9 +83,6 @@ public class CgpaCalculator extends Fragment {
 
 
         objectAnimators.start();
-
-
-
 
 
     }
@@ -101,12 +94,10 @@ public class CgpaCalculator extends Fragment {
         editor.putFloat("cgpa", cgpa);
 
 
-
         updateGraph(credit, cgpa);
         editor.apply();
 
     }
-
 
 
     private void updateManualCreditCgpa(float credit, float gpa) {
@@ -119,23 +110,22 @@ public class CgpaCalculator extends Fragment {
 
     }
 
-    public void updateManualCreditGpaInput(){
+    public void updateManualCreditGpaInput() {
 
 
         SharedPreferences prefss = main.getApplicationContext().getSharedPreferences(CGPA_CALCULATOR_DATA, MODE_PRIVATE);
 
 
+        if (prefss.contains("manualCredit")) {
 
-        if(prefss.contains("manualCredit")) {
 
-
-            float credits = prefss.getFloat("manualCredit",0.0f);
-            float gpa = prefss.getFloat("manualGpa",0.0f);
+            float credits = prefss.getFloat("manualCredit", 0.0f);
+            float gpa = prefss.getFloat("manualGpa", 0.0f);
 
 
             String creditz;
 
-            if((credits-(int)credits)!=0)
+            if ((credits - (int) credits) != 0)
                 creditz = String.valueOf(new DecimalFormat("#.##").format(credits));
             else
                 creditz = String.valueOf(new DecimalFormat("#").format(credits));
@@ -147,10 +137,6 @@ public class CgpaCalculator extends Fragment {
         }
 
     }
-
-
-
-
 
 
     public double getGpaPoint(String grade) {
@@ -186,18 +172,12 @@ public class CgpaCalculator extends Fragment {
     }
 
 
-
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.cgpa_calculator, container, false);
-
-
 
 
         main = (MainActivity) getActivity();
@@ -221,38 +201,32 @@ public class CgpaCalculator extends Fragment {
         scroller.setFocusableInTouchMode(true);
 
 
-
-
-
         final SharedPreferences prefs = main.getApplicationContext().getSharedPreferences(CGPA_CALCULATOR_DATA, MODE_PRIVATE);
 
 
-        if(!prefs.contains("credit")) {
+        if (!prefs.contains("credit")) {
 
-            updateCreditCgpa(0.f,0.00f);
+            updateCreditCgpa(0.f, 0.00f);
 
 
         } else {
 
             updateManualCreditGpaInput();
 
-            float spCredit = prefs.getFloat("credit",0.0f);
-            float spCgpa = prefs.getFloat("cgpa",0.00f);
+            float spCredit = prefs.getFloat("credit", 0.0f);
+            float spCgpa = prefs.getFloat("cgpa", 0.00f);
 
-            updateCreditCgpa(spCredit,spCgpa);
-
+            updateCreditCgpa(spCredit, spCgpa);
 
 
         }
 
 
-
-
-            // db.coursesDao().nukeTable();
+        // db.coursesDao().nukeTable();
 
         itemList = new ArrayList<CgpaRecyclerItem>();
 
-        itemArrayAdapter2 = new CgpaRecyclerAdapter(R.layout.cgpa_recycler, itemList, getContext(),view, this);
+        itemArrayAdapter2 = new CgpaRecyclerAdapter(R.layout.cgpa_recycler, itemList, getContext(), view, this);
         recyclerView2 = (RecyclerView) view.findViewById(R.id.cgpaCalculatorRecycler);
 
         recyclerView2.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -263,7 +237,7 @@ public class CgpaCalculator extends Fragment {
 
         //((TextView) v.findViewById(R.id.tttt)).setText(hmm);
 
-        for (int i=0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
 
 
             String course = list.get(i).getCourse();
@@ -271,25 +245,22 @@ public class CgpaCalculator extends Fragment {
             String grade = list.get(i).getGrade();
 
 
-            itemList.add(new CgpaRecyclerItem(course,credit,grade));
+            itemList.add(new CgpaRecyclerItem(course, credit, grade));
 
 
         }
 
 
+        if (list.size() < 1) {
 
-        if(list.size() < 1){
-
-            for (int i=0; i < 3; i++)
-                itemList.add(new CgpaRecyclerItem("","3","A"));
-
+            for (int i = 0; i < 3; i++)
+                itemList.add(new CgpaRecyclerItem("", "3", "A"));
 
 
         }
 
 
         recyclerView2.setAdapter(itemArrayAdapter2);
-
 
 
         FloatingActionButton addCourse = (FloatingActionButton) view.findViewById(R.id.cgpaAddCourseBtn);
@@ -300,16 +271,13 @@ public class CgpaCalculator extends Fragment {
         addCourse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                itemArrayAdapter2.addData(new CgpaRecyclerItem("","3","A"));
-
-
+                itemArrayAdapter2.addData(new CgpaRecyclerItem("", "3", "A"));
 
 
                 scroller.fullScroll(ScrollView.FOCUS_DOWN);
 
 
                 scroller.clearFocus();
-
 
 
                 //scroller.scrollTo(0, scroller.getBottom()+200);
@@ -330,17 +298,11 @@ public class CgpaCalculator extends Fragment {
         });
 
 
-
-
-
-
-
-
-                return view;
+        return view;
     }
 
 
-    public void calculateCgpa(){
+    public void calculateCgpa() {
 
 
         int totalItems = recyclerView2.getAdapter().getItemCount();
@@ -358,8 +320,7 @@ public class CgpaCalculator extends Fragment {
         String manualGpa = ((EditText) view.findViewById(R.id.cgpaManualGpa)).getText().toString();
 
 
-        for(int i=0; i < totalItems; i++) {
-
+        for (int i = 0; i < totalItems; i++) {
 
 
             View rv = recyclerView2.findViewHolderForAdapterPosition(i).itemView;
@@ -369,7 +330,7 @@ public class CgpaCalculator extends Fragment {
             String grade = ((Spinner) rv.findViewById(R.id.cgpaGrade)).getSelectedItem().toString();
 
 
-            if(course != null && !course.isEmpty()) {
+            if (course != null && !course.isEmpty()) {
 
                 CgpaEntity arrData = new CgpaEntity();
 
@@ -384,10 +345,10 @@ public class CgpaCalculator extends Fragment {
 
                 totalCredit += Double.valueOf(credit);
 
-                totalPoint += getGpaPoint(grade)*Double.valueOf(credit);
+                totalPoint += getGpaPoint(grade) * Double.valueOf(credit);
 
 
-            } else if(course.equals("") && credit.equals("0")){
+            } else if (course.equals("") && credit.equals("0")) {
 
                 itemArrayAdapter2.removeAt(i);
                 i--;
@@ -395,7 +356,7 @@ public class CgpaCalculator extends Fragment {
 
             } else {
 
-                Toast.makeText(getContext(),"Enter course initial.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Enter course initial.", Toast.LENGTH_LONG).show();
 
 
             }
@@ -406,26 +367,19 @@ public class CgpaCalculator extends Fragment {
         try {
 
 
-
-            if(manualCredit != null && !manualCredit.isEmpty() || manualGpa != null && !manualGpa.isEmpty()){
-
-
-            double mgc =  Double.valueOf(manualGpa) * Double.valueOf(manualCredit);
-            totalPoint += mgc;
-            totalCredit += Double.valueOf(manualCredit);
+            if (manualCredit != null && !manualCredit.isEmpty() || manualGpa != null && !manualGpa.isEmpty()) {
 
 
-            updateManualCreditCgpa(Float.valueOf(manualCredit), Float.valueOf(manualGpa));
-            updateManualCreditGpaInput();
+                double mgc = Double.valueOf(manualGpa) * Double.valueOf(manualCredit);
+                totalPoint += mgc;
+                totalCredit += Double.valueOf(manualCredit);
 
 
+                updateManualCreditCgpa(Float.valueOf(manualCredit), Float.valueOf(manualGpa));
+                updateManualCreditGpaInput();
 
 
-        }
-
-
-
-
+            }
 
 
             cgpaAfter = totalPoint / totalCredit;
@@ -440,12 +394,10 @@ public class CgpaCalculator extends Fragment {
 
 
             scroller.fullScroll(ScrollView.FOCUS_UP);
-        } catch (Exception e){
-
+        } catch (Exception e) {
 
 
         }
-
 
 
     }
@@ -457,12 +409,7 @@ public class CgpaCalculator extends Fragment {
         inflater.inflate(R.menu.help_button, menu);
 
 
-
     }
-
-
-
-
 
 
 }

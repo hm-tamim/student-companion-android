@@ -20,12 +20,6 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
-import club.nsuer.nsuer.BooksDatabase;
-import club.nsuer.nsuer.BooksListItem;
-import club.nsuer.nsuer.EdgeDecorator;
-import club.nsuer.nsuer.MainActivity;
-import club.nsuer.nsuer.R;
-
 
 public class BooksListAdapter extends RecyclerView.Adapter<BooksListAdapter.ItemRowHolder> {
 
@@ -61,8 +55,6 @@ public class BooksListAdapter extends RecyclerView.Adapter<BooksListAdapter.Item
     }
 
 
-
-
     // load data in each row element
     @Override
     public void onBindViewHolder(final ItemRowHolder holder, final int listPosition) {
@@ -78,7 +70,7 @@ public class BooksListAdapter extends RecyclerView.Adapter<BooksListAdapter.Item
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.recyclerView.setAdapter(adapter);
 
-        EdgeDecorator leftRightPadding = new EdgeDecorator(10,30);
+        EdgeDecorator leftRightPadding = new EdgeDecorator(10, 30);
         holder.recyclerView.addItemDecoration(leftRightPadding);
 
         holder.recyclerView.setRecycledViewPool(recycledViewPool);
@@ -119,10 +111,6 @@ public class BooksListAdapter extends RecyclerView.Adapter<BooksListAdapter.Item
 
             }
         });
-        
-        
-
-
 
 
     }
@@ -150,7 +138,6 @@ public class BooksListAdapter extends RecyclerView.Adapter<BooksListAdapter.Item
         public void onClick(View view) {
             Log.d("onclick", "onClick " + getLayoutPosition() + " " + course.getText());
         }
-
 
 
     }

@@ -141,7 +141,6 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:id="@+id/noteHolder"
             android:layout_width="match_parent"

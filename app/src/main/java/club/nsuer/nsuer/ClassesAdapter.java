@@ -19,12 +19,11 @@ public class ClassesAdapter extends RecyclerView.Adapter<ClassesAdapter.ViewHold
     private Context context;
 
 
-    public ClassesAdapter(int layoutId, ArrayList<ClassesItem> itemList,Context context) {
+    public ClassesAdapter(int layoutId, ArrayList<ClassesItem> itemList, Context context) {
         listItemLayout = layoutId;
         this.itemList = itemList;
         this.context = context;
     }
-
 
 
     @Override
@@ -60,16 +59,12 @@ public class ClassesAdapter extends RecyclerView.Adapter<ClassesAdapter.ViewHold
         event.setText(itemList.get(listPosition).getEvent());
 
 
-
         isPassed = itemList.get(listPosition).getColor();
 
-        if(isPassed.equals("passed"))
+        if (isPassed.equals("passed"))
             circle.setBackground(ContextCompat.getDrawable(context, R.drawable.ac_circle_filled_ddd));
         else
             circle.setBackground(ContextCompat.getDrawable(context, R.drawable.ac_circle_ddd));
-
-
-
 
 
     }
@@ -92,9 +87,6 @@ public class ClassesAdapter extends RecyclerView.Adapter<ClassesAdapter.ViewHold
             circle = (View) itemView.findViewById(R.id.crCircle);
 
 
-
-
-
         }
 
 
@@ -102,7 +94,6 @@ public class ClassesAdapter extends RecyclerView.Adapter<ClassesAdapter.ViewHold
         public void onClick(View view) {
 
         }
-
 
 
     }

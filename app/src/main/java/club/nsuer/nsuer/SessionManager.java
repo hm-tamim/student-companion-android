@@ -36,13 +36,10 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
-    public boolean isLoggedIn(){
+    public boolean isLoggedIn() {
 
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
-
-
-
 
 
     // user info
@@ -50,7 +47,7 @@ public class SessionManager {
 
     public String getName() {
 
-        return  pref.getString("name","0.0");
+        return pref.getString("name", "0.0");
     }
 
     public void setName(String name) {
@@ -62,7 +59,7 @@ public class SessionManager {
 
     public boolean isPremium() {
 
-        return  pref.getBoolean("premium",false);
+        return pref.getBoolean("premium", false);
     }
 
     public void setPremium(boolean premium) {
@@ -73,7 +70,7 @@ public class SessionManager {
 
     public boolean showAdvisingTools() {
 
-        return  pref.getBoolean("AdvisingTools",false);
+        return pref.getBoolean("AdvisingTools", false);
     }
 
     public void setAdvisingTools(boolean premium) {
@@ -81,10 +78,11 @@ public class SessionManager {
         editor.commit();
     }
 
-    public String getExpireDate(){
+    public String getExpireDate() {
 
-        return  pref.getString("getExpireDate","0");
+        return pref.getString("getExpireDate", "0");
     }
+
     public void setExpireDate(String name) {
 
         editor.putString("getExpireDate", name);
@@ -95,7 +93,7 @@ public class SessionManager {
 
     public String getEmail() {
 
-        return  pref.getString("email","name@northsouth@edu");
+        return pref.getString("email", "name@northsouth@edu");
     }
 
     public void setEmail(String name) {
@@ -108,7 +106,7 @@ public class SessionManager {
 
     public String getMemberID() {
 
-        return  pref.getString("memberID","0.0");
+        return pref.getString("memberID", "0.0");
     }
 
     public void setMemberID(String name) {
@@ -120,7 +118,7 @@ public class SessionManager {
 
     public String getUid() {
 
-        return  pref.getString("uid","0.0");
+        return pref.getString("uid", "0.0");
     }
 
     public void setUid(String name) {
@@ -132,7 +130,7 @@ public class SessionManager {
 
     public String getPicture() {
 
-        return  pref.getString("picture","0");
+        return pref.getString("picture", "0");
     }
 
     public void setPicture(String name) {
@@ -144,7 +142,7 @@ public class SessionManager {
 
     public String getGender() {
 
-        return  pref.getString("gender","male");
+        return pref.getString("gender", "male");
     }
 
     public void setGender(String gender) {
@@ -156,7 +154,7 @@ public class SessionManager {
 
     public String getCgpa() {
 
-        return  pref.getString("cgpa","0.0");
+        return pref.getString("cgpa", "0.0");
 
     }
 
@@ -167,7 +165,7 @@ public class SessionManager {
 
     public String getCredit() {
 
-        return  pref.getString("credit","0.0");
+        return pref.getString("credit", "0.0");
     }
 
     public void setCredit(String credit) {
@@ -178,7 +176,7 @@ public class SessionManager {
 
     public String getDepartment() {
 
-        return  pref.getString("department","0");
+        return pref.getString("department", "0");
     }
 
     public void setDepartment(String department) {
@@ -189,7 +187,7 @@ public class SessionManager {
 
     public String getSemester() {
 
-        return  pref.getString("semester","1");
+        return pref.getString("semester", "1");
     }
 
     public void setSemester(String semester) {
@@ -200,7 +198,7 @@ public class SessionManager {
 
     public String getPhone() {
 
-        return  pref.getString("phone","");
+        return pref.getString("phone", "");
     }
 
     public void setPhone(String phone) {
@@ -211,7 +209,7 @@ public class SessionManager {
 
     public String getAddress() {
 
-        return  pref.getString("address","");
+        return pref.getString("address", "");
     }
 
     public void setAddress(String address) {
@@ -222,7 +220,7 @@ public class SessionManager {
 
     public String getBloodGroup() {
 
-        return  pref.getString("bloodgroup","-1");
+        return pref.getString("bloodgroup", "-1");
     }
 
     public void setBloodGroup(String bloodgroup) {
@@ -230,15 +228,6 @@ public class SessionManager {
         editor.putString("bloodgroup", bloodgroup);
         editor.commit();
     }
-
-
-
-
-
-
-
-
-
 
 
     // settings
@@ -251,7 +240,7 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
-    public boolean willShowCgpa(){
+    public boolean willShowCgpa() {
 
         return pref.getBoolean(KEY_IS_CGPA, true);
     }
@@ -264,7 +253,7 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
-    public boolean willShowWeather(){
+    public boolean willShowWeather() {
 
         return pref.getBoolean("willShowWeather", true);
     }

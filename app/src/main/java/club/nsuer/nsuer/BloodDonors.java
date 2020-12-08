@@ -1,10 +1,9 @@
 package club.nsuer.nsuer;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -12,7 +11,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -106,53 +104,43 @@ public class BloodDonors extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
 
-
-        loadJson(false, true,"0", 0, false,"");
+        loadJson(false, true, "0", 0, false, "");
 
 
         recyclerView.setAdapter(adapter);
 
 
-
-
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
-        {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                if(dy > 0) //check for scroll down
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) //check for scroll down
                 {
                     visibleItemCount = mLayoutManager.getChildCount();
                     totalItemCount = mLayoutManager.getItemCount();
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
 
-                    if (loading)
-                    {
-                        if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
-                        {
+                    if (loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
 
                             loadingBar.setVisibility(View.VISIBLE);
 
 
-                            if(currentBtn >= 0) {
+                            if (currentBtn >= 0) {
 
 
-                                loadJson(true, false, String.valueOf(currentBtn), startWith, false,"");
+                                loadJson(true, false, String.valueOf(currentBtn), startWith, false, "");
 
-                            } else if(!searchQuery.equals("")){
+                            } else if (!searchQuery.equals("")) {
 
                                 loadJson(false, false, "00", startWith, true, searchQuery);
 
 
-
-                            }else{
+                            } else {
 
                                 loadJson(false, false, "0", startWith, false, "");
 
                             }
-
 
 
                         }
@@ -162,30 +150,26 @@ public class BloodDonors extends AppCompatActivity {
         });
 
 
-
-
-
         ft = getSupportFragmentManager().beginTransaction();
 
 
-        View.OnClickListener btnclick = new View.OnClickListener(){
+        View.OnClickListener btnclick = new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
 
 
-                if (view instanceof Button){
+                if (view instanceof Button) {
 
                     int id = view.getId();
 
                     try {
                         loadByBtn(id);
-                    } catch (Exception e){
+                    } catch (Exception e) {
 
                         Log.e("ClassMates", e.toString());
 
-                        Toast.makeText(context,"No items found.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "No items found.", Toast.LENGTH_SHORT).show();
                     }
-
 
 
                 }
@@ -195,11 +179,10 @@ public class BloodDonors extends AppCompatActivity {
         tabLayout = findViewById(R.id.tab);
 
 
-
         String[] categories = getResources().getStringArray(R.array.bloodGroups);
 
 
-        for(int i = 0; i < categories.length; i++){
+        for (int i = 0; i < categories.length; i++) {
 
 
             int buttonStyle = R.style.ChipButtonShop;
@@ -222,14 +205,10 @@ public class BloodDonors extends AppCompatActivity {
         }
 
 
-
     }
 
 
-
-    private void loadByBtn(int id){
-
-
+    private void loadByBtn(int id) {
 
 
         searchView.onActionViewCollapsed();
@@ -242,19 +221,19 @@ public class BloodDonors extends AppCompatActivity {
 
         String btnText = teButton.getText().toString();
 
-        if(currentBtn == id){
+        if (currentBtn == id) {
 
             itemList.clear();
             adapter.notifyDataSetChanged();
 
-            loadJson(false, true, String.valueOf(id), 0, false,"");
+            loadJson(false, true, String.valueOf(id), 0, false, "");
 
-            Button tempBtn =  tabLayout.findViewById(id);
+            Button tempBtn = tabLayout.findViewById(id);
             String tempText = tempBtn.getText().toString();
             tempBtn.setBackground(context.getDrawable(R.drawable.chip_background_shop));
             tempBtn.setTextColor(Color.WHITE);
 
-            currentBtn= -1;
+            currentBtn = -1;
 
             return;
         }
@@ -266,23 +245,18 @@ public class BloodDonors extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
 
-
-
         teButton.setBackground(this.getDrawable(R.drawable.chip_background_shop_selected));
         teButton.setTextAppearance(this, R.style.ChipButtonShopSelected);
 
 
+        loadJson(true, true, String.valueOf(id), 0, false, "");
 
+        for (int i = 0; i < numOfButton; i++) {
 
-
-        loadJson(true,true, String.valueOf(id), 0, false,"");
-
-        for(int i = 0; i < numOfButton; i++){
-
-            Button tempBtn =  tabLayout.findViewById(i);
+            Button tempBtn = tabLayout.findViewById(i);
             String tempText = tempBtn.getText().toString();
 
-            if(!tempText.equals(btnText)) {
+            if (!tempText.equals(btnText)) {
                 tempBtn.setBackground(context.getDrawable(R.drawable.chip_background_shop));
                 tempBtn.setTextAppearance(context, R.style.ChipButtonShop);
                 // tempBtn.setTextColor(Color.WHITE);
@@ -293,9 +267,7 @@ public class BloodDonors extends AppCompatActivity {
     }
 
 
-
-    public void loadJson(final boolean loadByCat, final boolean clearItem, final String cat, final int start, final boolean loadBySearch, final String query){
-
+    public void loadJson(final boolean loadByCat, final boolean clearItem, final String cat, final int start, final boolean loadBySearch, final String query) {
 
 
         noItem.setVisibility(View.VISIBLE);
@@ -305,10 +277,10 @@ public class BloodDonors extends AppCompatActivity {
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
-        parametters.put("loadCat",String.valueOf(loadByCat));
+        parametters.put("loadCat", String.valueOf(loadByCat));
         parametters.put("cat", cat);
         parametters.put("start", String.valueOf(start));
-        parametters.put("loadSearch",String.valueOf(loadBySearch));
+        parametters.put("loadSearch", String.valueOf(loadBySearch));
         parametters.put("query", query);
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/blood-bank/donors.php", "GET", parametters);
@@ -319,7 +291,7 @@ public class BloodDonors extends AppCompatActivity {
             public void onSuccess(JSONObject result) {
 
 
-                if(clearItem) {
+                if (clearItem) {
                     itemList.clear();
 
                     startWith = 0;
@@ -329,7 +301,6 @@ public class BloodDonors extends AppCompatActivity {
                 loadRecylcer(result.toString());
                 loading = true;
                 loadingBar.setVisibility(View.GONE);
-
 
 
             }
@@ -347,8 +318,7 @@ public class BloodDonors extends AppCompatActivity {
     }
 
 
-
-    private void loadRecylcer(String string){
+    private void loadRecylcer(String string) {
 
 
         try {
@@ -357,7 +327,6 @@ public class BloodDonors extends AppCompatActivity {
             JSONObject result = new JSONObject(string);
 
             JSONArray obj = result.getJSONArray("dataArray");
-
 
 
             for (int j = 0; j < obj.length(); j++) {
@@ -378,13 +347,12 @@ public class BloodDonors extends AppCompatActivity {
                     address = "Dhaka";
 
 
-                itemList.add(new BloodDonorItem(name,memID,image,gender,bgroup,address,phone));
+                itemList.add(new BloodDonorItem(name, memID, image, gender, bgroup, address, phone));
 
-                    startWith = id;
+                startWith = id;
 
 
             }
-
 
 
         } catch (JSONException e) {
@@ -393,9 +361,7 @@ public class BloodDonors extends AppCompatActivity {
         }
 
 
-
-
-        if(itemList.size() > 0)
+        if (itemList.size() > 0)
             noItem.setVisibility(View.GONE);
         else {
 
@@ -418,7 +384,6 @@ public class BloodDonors extends AppCompatActivity {
         inflater.inflate(R.menu.search_button, menu);
 
 
-
         menuItem = menu.findItem(R.id.menuSearch);
         searchView = (SearchView) menuItem.getActionView();
 
@@ -431,14 +396,14 @@ public class BloodDonors extends AppCompatActivity {
                 startWith = 0;
 
 
-                if(currentBtn >= 0) {
+                if (currentBtn >= 0) {
                     Button tempBtn = tabLayout.findViewById(currentBtn);
                     String tempText = tempBtn.getText().toString();
                     tempBtn.setBackground(context.getDrawable(R.drawable.chip_background_shop));
                     tempBtn.setTextColor(Color.WHITE);
 
                 }
-                currentBtn= -1;
+                currentBtn = -1;
 
 
                 currentBtn = -1;
@@ -457,7 +422,6 @@ public class BloodDonors extends AppCompatActivity {
                 return false;
 
             }
-
 
 
         });
@@ -479,9 +443,7 @@ public class BloodDonors extends AppCompatActivity {
         });
 
 
-
         return true;
-
 
 
     }
@@ -499,7 +461,6 @@ public class BloodDonors extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onBackPressed() {
         //Execute your code here
@@ -509,8 +470,6 @@ public class BloodDonors extends AppCompatActivity {
         finish();
 
     }
-
-
 
 
 }

@@ -2,20 +2,16 @@ package club.nsuer.nsuer;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -36,7 +32,6 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
         this.instance = instance;
         this.memID = memID;
     }
-
 
 
     @Override
@@ -66,8 +61,6 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
         RelativeLayout relativeLayout = holder.relativeLayout;
 
 
-
-
         int id = itemList.get(listPosition).getId();
         final String name = itemList.get(listPosition).getName();
         String message = itemList.get(listPosition).getMessage();
@@ -76,25 +69,23 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
         final String img = itemList.get(listPosition).getPicture();
 
 
-
         final String gender = itemList.get(listPosition).getGender();
 
         long time = itemList.get(listPosition).getTime();
 
 
-
         int placeH = R.drawable.ic_male_color;
 
-        if(gender.equals("female"))
+        if (gender.equals("female"))
             placeH = R.drawable.ic_female_color;
 
-        if(gender.equals("female"))
+        if (gender.equals("female"))
             imageView.setImageDrawable(context.getResources().getDrawable(placeH));
         else
             imageView.setImageDrawable(context.getResources().getDrawable(placeH));
 
 
-        if(img.contains(".")) {
+        if (img.contains(".")) {
             RequestOptions placeholderRequest = new RequestOptions();
             placeholderRequest.placeholder(placeH);
 
@@ -126,16 +117,15 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
 
                 String to = itemList.get(listPosition).getUserTo();
 
-                if(memID.equals(to))
+                if (memID.equals(to))
                     openID = from;
                 else
                     openID = to;
 
 
+                Intent intent = new Intent(context, ChatActivity.class);
 
-                Intent intent = new Intent(context,ChatActivity.class);
-
-                intent.putExtra("otherMemID",openID);
+                intent.putExtra("otherMemID", openID);
                 intent.putExtra("otherMemName", name);
                 intent.putExtra("otherMemGender", gender);
 
@@ -144,10 +134,6 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
 
             }
         });
-
-
-
-
 
 
     }
@@ -181,7 +167,6 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
         public void onClick(View view) {
 
         }
-
 
 
     }

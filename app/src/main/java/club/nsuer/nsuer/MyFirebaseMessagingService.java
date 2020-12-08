@@ -1,6 +1,5 @@
 package club.nsuer.nsuer;
 
-import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,7 +8,6 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -20,11 +18,6 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-
-import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
-import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -58,8 +51,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String typeExtra2 = remoteMessage.getData().get("typeExtra2");
 
 
-
-            if(type.equals("message")){
+            if (type.equals("message")) {
 
                 String notifyMessageZ = remoteMessage.getData().get("typeExtra3");
 
@@ -77,9 +69,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 chatItem.setMessage(message);
                 chatItem.setTime(time);
 
-                String dbName = "chat_"+from;
+                String dbName = "chat_" + from;
 
-                ChatDatabase chatDb= Room.databaseBuilder(getApplicationContext(),
+                ChatDatabase chatDb = Room.databaseBuilder(getApplicationContext(),
                         ChatDatabase.class, dbName).allowMainThreadQueries().build();
 
                 chatDb.chatDao().insertAll(chatItem);
@@ -104,8 +96,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
 
-
-    public void saveNotification(String title, String msg, String senderMemID, String type, String typeExtra, String typeExtra2){
+    public void saveNotification(String title, String msg, String senderMemID, String type, String typeExtra, String typeExtra2) {
 
         NotificationEntity entity = new NotificationEntity();
         entity.setTitle(title);
@@ -114,7 +105,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         entity.setTypeExtra(typeExtra);
         entity.setTypeExtra2(typeExtra2);
         entity.setSenderMemID(senderMemID);
-        long time = Calendar.getInstance().getTimeInMillis()/1000L;
+        long time = Calendar.getInstance().getTimeInMillis() / 1000L;
 
         entity.setTime(time);
         entity.setSeen(false);
@@ -147,20 +138,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
 
-
-
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.putExtra("senderMemID",senderMemID);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("senderMemID", senderMemID);
         intent.putExtra("type", type);
         intent.putExtra("typeExtra", typeExtra);
-        intent.putExtra("fromService","true");
+        intent.putExtra("fromService", "true");
 
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
 
-
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
         notificationBuilder.setSmallIcon(R.drawable.ic_status_icon)
                 .setContentTitle(messageTitle)
@@ -173,10 +161,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         notificationManager.notify(1, notificationBuilder.build());
     }
-
-
-
-
 
 
 }

@@ -3,7 +3,6 @@ package club.nsuer.nsuer;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -42,7 +41,7 @@ public class WeatherUpdater {
     private int todayIcons;
 
 
-    WeatherUpdater(Context context, View view){
+    WeatherUpdater(Context context, View view) {
 
         this.context = context;
 
@@ -58,18 +57,18 @@ public class WeatherUpdater {
         SharedPreferences prefs = context.getSharedPreferences(WEATHER_DATA, MODE_PRIVATE);
 
 
-        if(!prefs.contains("lastUpdate")) {
+        if (!prefs.contains("lastUpdate")) {
 
-            if(Utils.isNetworkAvailable(context)) {
+            if (Utils.isNetworkAvailable(context)) {
 
                 try {
                     updateWeaterNow();
-                }catch (Exception e){
+                } catch (Exception e) {
                     Log.e("Weather", e.toString());
                 }
             }
 
-        } else if(prefs.contains("lastUpdate")){
+        } else if (prefs.contains("lastUpdate")) {
 
             updateWeatherOnCard();
 
@@ -84,15 +83,14 @@ public class WeatherUpdater {
 
             if (duration >= MAX_DURATION) {
 
-                if(Utils.isNetworkAvailable(context)) {
+                if (Utils.isNetworkAvailable(context)) {
 
                     try {
                         updateWeaterNow();
-                       // syncCourse(MainActivity.getInstance().getMemberID(), finalContext);
-                    }catch (Exception e){
+                        // syncCourse(MainActivity.getInstance().getMemberID(), finalContext);
+                    } catch (Exception e) {
                         Log.e("Weather", e.toString());
                     }
-
 
 
                 }
@@ -109,14 +107,12 @@ public class WeatherUpdater {
 
 
         button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                if(Utils.isNetworkAvailable(finalContext)) {
+                if (Utils.isNetworkAvailable(finalContext)) {
                     updateWeaterNow();
-                  //  syncCourse(MainActivity.getInstance().getMemberID(), finalContext);
-                }
-                else {
+                    //  syncCourse(MainActivity.getInstance().getMemberID(), finalContext);
+                } else {
                     Toast.makeText(finalContext, "Internet connection required.", Toast.LENGTH_SHORT).show();
                     button.setAnimation(null);
                 }
@@ -129,11 +125,7 @@ public class WeatherUpdater {
     }
 
 
-
-
-    private void syncCourse(String memID, final Context context){
-
-
+    private void syncCourse(String memID, final Context context) {
 
 
         try {
@@ -147,7 +139,8 @@ public class WeatherUpdater {
             if (cal1.before(cal2)) {
                 return;
             }
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
@@ -156,7 +149,6 @@ public class WeatherUpdater {
 
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/courses/get-all-courses.php", "GET", parametters);
-
 
 
         parser.setListener(new JSONParser.ParserListener() {
@@ -175,8 +167,6 @@ public class WeatherUpdater {
                 dbFaculties.facultiesDao().nukeTable();
 
 
-
-
                 try {
                     JSONArray obj = result.getJSONArray("dataArray");
 
@@ -191,7 +181,7 @@ public class WeatherUpdater {
 
                         // Add books
 
-                        if(i>0) {
+                        if (i > 0) {
 
                             if (data.has("books")) {
 
@@ -210,13 +200,11 @@ public class WeatherUpdater {
                         }
 
 
-
                         // Add faculties
 
-                        if(i>0) {
+                        if (i > 0) {
 
                             if (data.has("initial")) {
-
 
 
                                 int id = data.getInt("id");
@@ -227,7 +215,7 @@ public class WeatherUpdater {
 
                                 String image = data.getString("image");
 
-                                String initial  = trim(data.getString("initial"));
+                                String initial = trim(data.getString("initial"));
 
                                 String course = db.coursesDao().getCourseByFaculty(initial);
 
@@ -240,8 +228,6 @@ public class WeatherUpdater {
                                 String department = data.getString("dept");
                                 String office = data.getString("office");
                                 String url = data.getString("url");
-
-
 
 
                                 FacultiesEntity arrData = new FacultiesEntity();
@@ -265,32 +251,27 @@ public class WeatherUpdater {
                         }
 
 
-
                         int id = data.getInt("id");
                         String course = data.getString("course");
                         String section = data.getString("section");
                         String faculty = data.getString("faculty");
 
 
-                        if(i==0)
+                        if (i == 0)
                             firstCourse = course;
 
-                        if(i==0)
+                        if (i == 0)
                             firstSection = section;
 
 
                         String startTime = data.getString("startTime");
-                        startTime = timeConverter(startTime,24);
+                        startTime = timeConverter(startTime, 24);
 
                         String endTime = data.getString("endTime");
-                        endTime = timeConverter(endTime,24);
+                        endTime = timeConverter(endTime, 24);
 
                         String day = data.getString("day");
                         String room = data.getString("room");
-
-
-
-
 
 
                         CoursesEntity arrData = new CoursesEntity();
@@ -316,17 +297,12 @@ public class WeatherUpdater {
             public void onFailure() {
 
 
-
-
             }
         });
         parser.execute();
 
 
-
-
     }
-
 
 
     public String trim(String str) {
@@ -342,19 +318,17 @@ public class WeatherUpdater {
     }
 
 
-
-    public String timeConverter(String time, int type){
+    public String timeConverter(String time, int type) {
 
         try {
             SimpleDateFormat date12Format = new SimpleDateFormat("hh:mm a", Locale.ENGLISH);
 
             SimpleDateFormat date24Format = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
 
-            if(type == 24) {
+            if (type == 24) {
                 String t24 = date24Format.format(date12Format.parse(time));
                 return t24;
-            }
-            else {
+            } else {
                 String t12 = date12Format.format(date24Format.parse(time));
                 return t12;
             }
@@ -367,8 +341,7 @@ public class WeatherUpdater {
     }
 
 
-
-    private void updateWeaterNow(){
+    private void updateWeaterNow() {
 
         final ImageView loader = view.findViewById(R.id.weatherReloadButton);
 
@@ -393,7 +366,6 @@ public class WeatherUpdater {
 
                 try {
                     JSONArray obj = result.getJSONArray("current");
-
 
 
                     JSONObject data = obj.getJSONObject(0);
@@ -465,19 +437,13 @@ public class WeatherUpdater {
         parser.execute();
 
 
-
     }
 
 
     private void updateWeatherOnCard() {
 
 
-
         SharedPreferences prefs = context.getSharedPreferences(WEATHER_DATA, MODE_PRIVATE);
-
-
-
-
 
 
         String restoredText = prefs.getString("todayTitle", null);
@@ -493,8 +459,6 @@ public class WeatherUpdater {
         }
 
 
-
-
         TextView todayTitleView = view.findViewById(R.id.weatherTitle);
         TextView todayDateView = view.findViewById(R.id.weatherDate);
         TextView todayFeelView = view.findViewById(R.id.weatherFeels);
@@ -508,15 +472,11 @@ public class WeatherUpdater {
         todayTempView.setText(todayTemp);
 
 
-
-
-
-
         // forecast
 
         try {
 
-            JSONArray obj =  new JSONArray(forecast);
+            JSONArray obj = new JSONArray(forecast);
 
 
             JSONObject data;
@@ -542,11 +502,6 @@ public class WeatherUpdater {
             day1HighLow.setText(low + "/" + high + "°");
 
 
-
-
-
-
-
             data = obj.getJSONObject(1);
 
             date = data.getString("date");
@@ -563,8 +518,6 @@ public class WeatherUpdater {
             day2HighLow.setText(low + "/" + high + "°");
 
 
-
-
             data = obj.getJSONObject(2);
 
             date = data.getString("date");
@@ -579,7 +532,6 @@ public class WeatherUpdater {
             day3Day.setText(getDay(date));
             day3Icon.setImageDrawable(context.getResources().getDrawable(getIconUrl(icon)));
             day3HighLow.setText(low + "/" + high + "°");
-
 
 
             data = obj.getJSONObject(3);
@@ -604,13 +556,10 @@ public class WeatherUpdater {
         }
 
 
-
-
     }
 
 
-
-    private int getIconUrl(int n){
+    private int getIconUrl(int n) {
 
         switch (n) {
 
@@ -695,19 +644,14 @@ public class WeatherUpdater {
         }
 
 
-
-
-
-
-
     }
 
 
-    private String getDay(String date){
+    private String getDay(String date) {
 
         String reformattedStr = null;
 
-         try {
+        try {
             SimpleDateFormat fromUser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
             SimpleDateFormat myFormat = new SimpleDateFormat("EEE", Locale.ENGLISH);
 
@@ -718,17 +662,10 @@ public class WeatherUpdater {
             e.printStackTrace();
         }
 
-            return reformattedStr;
+        return reformattedStr;
 
 
     }
-
-
-
-
-
-
-
 
 
 }

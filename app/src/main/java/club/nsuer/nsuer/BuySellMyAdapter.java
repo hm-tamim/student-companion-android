@@ -1,35 +1,24 @@
 package club.nsuer.nsuer;
 
 
-
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 
 
 public class BuySellMyAdapter extends RecyclerView.Adapter<BuySellMyAdapter.ViewHolder> {
@@ -40,16 +29,13 @@ public class BuySellMyAdapter extends RecyclerView.Adapter<BuySellMyAdapter.View
     private BuySell instance;
     private Dialog dialog;
 
-
-    public BuySellMyAdapter(int layoutId, ArrayList<BuySellItem> itemList,Context context, BuySell instance, Dialog dialog) {
+    public BuySellMyAdapter(int layoutId, ArrayList<BuySellItem> itemList, Context context, BuySell instance, Dialog dialog) {
         listItemLayout = layoutId;
         this.itemList = itemList;
         this.context = context;
         this.instance = instance;
         this.dialog = dialog;
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -82,17 +68,15 @@ public class BuySellMyAdapter extends RecyclerView.Adapter<BuySellMyAdapter.View
         Button markAsSold = holder.markAsSold;
 
 
-
-
         final int id = itemList.get(listPosition).getId();
         final String titleS = itemList.get(listPosition).getTitle();
         String priceS = itemList.get(listPosition).getPrice();
 
-        if(Utils.isNumeric(priceS))
-            priceS = "৳ "+priceS;
+        if (Utils.isNumeric(priceS))
+            priceS = "৳ " + priceS;
 
         final long timeL = itemList.get(listPosition).getTime();
-       // String sellerS = itemList.get(listPosition).getSellerName();
+        // String sellerS = itemList.get(listPosition).getSellerName();
         int sellerID = itemList.get(listPosition).getSellerID();
 
         final int category = itemList.get(listPosition).getCategory();
@@ -108,7 +92,7 @@ public class BuySellMyAdapter extends RecyclerView.Adapter<BuySellMyAdapter.View
                 .cancelRequest(image);
 
         Picasso.get()
-                .load("https://nsuer.club/images/shop/"+img)
+                .load("https://nsuer.club/images/shop/" + img)
                 .fit()
                 .placeholder(R.drawable.default_image)
                 .centerCrop(Gravity.TOP)
@@ -118,13 +102,12 @@ public class BuySellMyAdapter extends RecyclerView.Adapter<BuySellMyAdapter.View
         price.setText(priceS);
 
 
-
         delete.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                new AlertDialog.Builder(context,R.style.AlertDialogTheme)
+                new AlertDialog.Builder(context, R.style.AlertDialogTheme)
                         .setMessage("Do you really want to delete?")
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -133,7 +116,8 @@ public class BuySellMyAdapter extends RecyclerView.Adapter<BuySellMyAdapter.View
 
                                 instance.sendDelete(listPosition);
 
-                            }})
+                            }
+                        })
                         .setNegativeButton(android.R.string.no, null).show();
 
 
@@ -152,11 +136,11 @@ public class BuySellMyAdapter extends RecyclerView.Adapter<BuySellMyAdapter.View
 
                 String alertSold = "sold?";
 
-                if(checkSold == 1)
+                if (checkSold == 1)
                     alertSold = "unsold?";
 
-                new AlertDialog.Builder(context,R.style.AlertDialogTheme)
-                        .setMessage("Do you really want to mark this item as "+alertSold)
+                new AlertDialog.Builder(context, R.style.AlertDialogTheme)
+                        .setMessage("Do you really want to mark this item as " + alertSold)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -164,13 +148,13 @@ public class BuySellMyAdapter extends RecyclerView.Adapter<BuySellMyAdapter.View
 
                                 instance.sendSold(listPosition);
 
-                            }})
+                            }
+                        })
                         .setNegativeButton(android.R.string.no, null).show();
 
 
             }
         });
-
 
 
         final String description = itemList.get(listPosition).getDescription();
@@ -182,15 +166,14 @@ public class BuySellMyAdapter extends RecyclerView.Adapter<BuySellMyAdapter.View
             public void onClick(View v) {
 
 
-
-                Intent intent = new Intent(context,BuySellCreate.class);
+                Intent intent = new Intent(context, BuySellCreate.class);
                 intent.putExtra("title", titleS);
                 intent.putExtra("category", category);
                 intent.putExtra("price", prices);
                 intent.putExtra("description", description);
-                intent.putExtra("image","https://nsuer.club/images/shop/"+img);
-                intent.putExtra("timestamp",String.valueOf(timeL));
-                intent.putExtra("msgID",String.valueOf(id));
+                intent.putExtra("image", "https://nsuer.club/images/shop/" + img);
+                intent.putExtra("timestamp", String.valueOf(timeL));
+                intent.putExtra("msgID", String.valueOf(id));
 
                 dialog.dismiss();
 
@@ -201,23 +184,17 @@ public class BuySellMyAdapter extends RecyclerView.Adapter<BuySellMyAdapter.View
         });
 
 
-
-
-
-        if(checkSold == 1) {
+        if (checkSold == 1) {
             markAsSold.setText("SOLD");
             markAsSold.setBackground(context.getDrawable(R.drawable.sold_button_eee));
             markAsSold.setTextColor(Color.parseColor("#397550"));
-        } else{
+        } else {
 
 
             markAsSold.setText("MARK AS SOLD");
             markAsSold.setBackground(context.getDrawable(R.drawable.sold_button));
             markAsSold.setTextColor(Color.parseColor("#333333"));
         }
-
-
-
 
 
     }
@@ -254,9 +231,6 @@ public class BuySellMyAdapter extends RecyclerView.Adapter<BuySellMyAdapter.View
             markAsSold = (Button) itemView.findViewById(R.id.markAsSold);
 
 
-
-
-
         }
 
 
@@ -264,7 +238,6 @@ public class BuySellMyAdapter extends RecyclerView.Adapter<BuySellMyAdapter.View
         public void onClick(View view) {
 
         }
-
 
 
     }

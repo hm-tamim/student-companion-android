@@ -1,8 +1,6 @@
 package club.nsuer.nsuer;
 
 
-import android.app.Fragment;
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -32,7 +30,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapter.ViewHolder> implements CoursesList{
+public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapter.ViewHolder> implements CoursesList {
 
     private int listCgpaRecyclerItemLayout;
     private ArrayList<CgpaRecyclerItem> CgpaRecyclerItemList;
@@ -55,7 +53,6 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
     private FloatingActionButton calculateButton;
 
 
-
     public CgpaRecyclerAdapter(int layoutId, ArrayList<CgpaRecyclerItem> CgpaRecyclerItemList, Context context, View mainView, Object instance) {
         listCgpaRecyclerItemLayout = layoutId;
         this.CgpaRecyclerItemList = CgpaRecyclerItemList;
@@ -67,7 +64,6 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
         this.addButton = mainView.findViewById(R.id.cgpaAddCourseBtn);
 
         this.calculateButton = mainView.findViewById(R.id.cgpaCalculateBtn);
-
 
 
         this.instance = instance;
@@ -92,11 +88,9 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
     }
 
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
+    private void setAnimation(View viewToAnimate, int position) {
 
-        if (position > lastPosition)
-        {
+        if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(context, R.animator.up_from_bottom);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
@@ -104,11 +98,10 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
     }
 
 
-
     //private method of your class
-    private int getIndex(Spinner spinner, String myString){
-        for (int i=0;i<spinner.getCount();i++){
-            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+    private int getIndex(Spinner spinner, String myString) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)) {
                 return i;
             }
         }
@@ -121,7 +114,7 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
         Log.d("notifyData ", CgpaRecyclerItemList.size() + "");
         this.CgpaRecyclerItemList.add(cgpaItem);
 
-        int size = CgpaRecyclerItemList.size()-1;
+        int size = CgpaRecyclerItemList.size() - 1;
 
 
         notifyItemInserted(size);
@@ -132,7 +125,7 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
 
     }
 
-    public int getSize(){
+    public int getSize() {
 
         return CgpaRecyclerItemList.size();
 
@@ -140,8 +133,7 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
     }
 
 
-    private void moveButtonToRight(){
-
+    private void moveButtonToRight() {
 
 
         new Handler().postDelayed(new Runnable() {
@@ -150,7 +142,7 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
                 TransitionManager.beginDelayedTransition((ViewGroup) mainView.getParent());
                 final FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) addButton.getLayoutParams();
                 lp.gravity = Gravity.BOTTOM | GravityCompat.END;
-                lp.setMargins(0,0,0,55);
+                lp.setMargins(0, 0, 0, 55);
                 lp.setMarginEnd(250);
 
                 addButton.setLayoutParams(lp);
@@ -159,11 +151,9 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
         }, 150);
 
 
-
-
     }
 
-    private void moveButtonToLeft(){
+    private void moveButtonToLeft() {
 
 
         new Handler().postDelayed(new Runnable() {
@@ -171,7 +161,7 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
                 TransitionManager.beginDelayedTransition((ViewGroup) mainView.getParent());
                 final FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) addButton.getLayoutParams();
                 lp.gravity = Gravity.BOTTOM | GravityCompat.START;
-                lp.setMargins(0,0,0,55);
+                lp.setMargins(0, 0, 0, 55);
                 lp.setMarginEnd(0);
 
 
@@ -182,13 +172,7 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
         }, 100);
 
 
-
     }
-
-
-
-
-
 
 
     // load data in each row element
@@ -200,18 +184,14 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
         Spinner grade = holder.grade;
 
 
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (context,R.layout.suggestion_adapter_textview, SUGGESTIONS);
+                (context, R.layout.suggestion_adapter_textview, SUGGESTIONS);
 
         coursez.setThreshold(2);
 
         coursez.setDropDownVerticalOffset(0);
 
         coursez.setAdapter(adapter);
-
-
-
 
 
         if (instance instanceof CgpaCalculator) {
@@ -289,7 +269,6 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
                     in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
 
 
-
                 }
 
             });
@@ -298,21 +277,12 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
         }
 
 
-
-
-
-
-
-
         ImageView buttonViewOption = holder.closeBtn;
 
         main = MainActivity.getInstance();
 
 
-
-
         coursez.setText(CgpaRecyclerItemList.get(listPosition).getCourse());
-
 
 
         String dCredit = CgpaRecyclerItemList.get(listPosition).getCredit();
@@ -323,16 +293,14 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
         grade.setSelection(getIndex(grade, dGrade));
 
 
-
-
         grade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 String cc = coursez.getText().toString();
 
-               // if(cc != null && !cc.isEmpty())
-                 //   instance.calculateCgpa();
+                // if(cc != null && !cc.isEmpty())
+                //   instance.calculateCgpa();
             }
 
             @Override
@@ -341,8 +309,6 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
             }
 
         });
-
-
 
 
         buttonViewOption.setOnClickListener(new View.OnClickListener() {
@@ -378,12 +344,7 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
         });
 
 
-
-
-                setAnimation(holder.itemView, listPosition);
-
-
-
+        setAnimation(holder.itemView, listPosition);
 
 
     }
@@ -396,7 +357,6 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
     }
 
 
-
     // Static inner class to initialize the views of rows
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -406,11 +366,9 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
         public ImageView closeBtn;
 
 
-
         public ViewHolder(View CgpaRecyclerItemView) {
 
             super(CgpaRecyclerItemView);
-
 
 
             CgpaRecyclerItemView.setOnClickListener(this);
@@ -434,7 +392,6 @@ public class CgpaRecyclerAdapter extends RecyclerView.Adapter<CgpaRecyclerAdapte
         public void onClick(View view) {
             // Log.d("onclick", "onClick " + getLayoutPosition() + " " + CgpaRecyclerItem.getText());
         }
-
 
 
     }

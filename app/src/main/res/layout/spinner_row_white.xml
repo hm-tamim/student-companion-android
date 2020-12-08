@@ -8,4 +8,4 @@
     android:paddingLeft="20dp"
     android:textColor="@android:color/white"
     android:textIsSelectable="false"
-    android:textSize="16sp" />
+    android:textSize="16sp"  />

@@ -7,7 +7,6 @@ public class StatusItem {
     private String section;
     private String time;
     private String memID;
-
     private String post;
     private String gender;
     private String picture;
@@ -15,7 +14,6 @@ public class StatusItem {
     private boolean liked;
     private int likes;
     private int comments;
-
 
     public int getId() {
         return id;

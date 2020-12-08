@@ -42,7 +42,6 @@ public class ClassesActivity extends Fragment {
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,23 +54,20 @@ public class ClassesActivity extends Fragment {
                 CoursesDatabase.class, "courses").allowMainThreadQueries().build();
 
 
-
-
     }
 
 
-    public String timeConverter(String time, int type){
+    public String timeConverter(String time, int type) {
 
         try {
             SimpleDateFormat date12Format = new SimpleDateFormat("hh:mm a", Locale.ENGLISH);
 
             SimpleDateFormat date24Format = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
 
-            if(type == 24) {
+            if (type == 24) {
                 String t24 = date24Format.format(date12Format.parse(time));
                 return t24;
-            }
-            else {
+            } else {
                 String t12 = date12Format.format(date24Format.parse(time));
                 return t12;
             }
@@ -119,7 +115,6 @@ public class ClassesActivity extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
-
         Calendar calendar = Calendar.getInstance();
         Date today = calendar.getTime();
 
@@ -135,7 +130,7 @@ public class ClassesActivity extends Fragment {
         recyclerView.setAdapter(itemAdapter);
 
 
-        CalendarView calendarView=(CalendarView) v.findViewById(R.id.crCalendarView);
+        CalendarView calendarView = (CalendarView) v.findViewById(R.id.crCalendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
             @Override
@@ -158,12 +153,10 @@ public class ClassesActivity extends Fragment {
         });
 
 
-
-
     }
 
 
-    private void populateRecycler(String day){
+    private void populateRecycler(String day) {
 
 
         itemList.clear();
@@ -171,40 +164,37 @@ public class ClassesActivity extends Fragment {
 
         String dayFirstLetter = day.substring(0, 1);
 
-        if(day.contains("Thursday"))
+        if (day.contains("Thursday"))
             dayFirstLetter = "R";
-        if(day.contains("Saturday"))
+        if (day.contains("Saturday"))
             dayFirstLetter = "A";
-
 
 
         List<CoursesEntity> list = db.coursesDao().getAllByTime();
 
 
+        int todayCount = 0;
+        int tomorrowCount = 0;
 
-        int todayCount=0;
-        int tomorrowCount=0;
-
-        for (int i=0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
 
 
             String course = list.get(i).getCourse();
             String section = list.get(i).getSection();
 
             String startTime24 = list.get(i).getStartTime();
-            String startTime = timeConverter(startTime24,12);
+            String startTime = timeConverter(startTime24, 12);
 
 
             String endTime24 = list.get(i).getEndTime();
-            String endTime = timeConverter(endTime24,12);
+            String endTime = timeConverter(endTime24, 12);
 
             String dayz = list.get(i).getDay();
             String faculty = list.get(i).getFaculty();
             String room = list.get(i).getRoom();
 
-            if(dayz.contains(dayFirstLetter)) {
-                itemList.add(new ClassesItem(startTime + " - " + endTime, course,"notPassed"));
-
+            if (dayz.contains(dayFirstLetter)) {
+                itemList.add(new ClassesItem(startTime + " - " + endTime, course, "notPassed"));
 
 
                 todayCount++;
@@ -212,12 +202,9 @@ public class ClassesActivity extends Fragment {
         }
 
 
-
-
-
         itemAdapter.notifyDataSetChanged();
 
-        if(todayCount > 0){
+        if (todayCount > 0) {
 
             noClass.setVisibility(View.GONE);
             line1.setVisibility(View.VISIBLE);
@@ -233,10 +220,7 @@ public class ClassesActivity extends Fragment {
         }
 
 
-
-
     }
-
 
 
 }

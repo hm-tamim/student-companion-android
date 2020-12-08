@@ -11,8 +11,6 @@ public class ClassMatesItem {
     private String email;
 
 
-
-
     public ClassMatesItem(String name, String course, String memID, String image, String gender, String email) {
         this.name = name;
         this.course = course;
@@ -39,6 +37,7 @@ public class ClassMatesItem {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
     public String getName() {
 
         return name;

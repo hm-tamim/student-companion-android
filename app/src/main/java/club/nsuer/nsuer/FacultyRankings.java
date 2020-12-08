@@ -51,10 +51,8 @@ public class FacultyRankings extends Fragment implements CoursesList {
 
         uid = main.getUid();
 
-
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading...");
-
 
         final String[] from = new String[]{"courseName"};
         final int[] to = new int[]{android.R.id.text1};

@@ -1,41 +1,24 @@
 package club.nsuer.nsuer;
 
 
-import android.app.Dialog;
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
-import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.TimeZone;
@@ -51,7 +34,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private StatusActivity instanse;
 
 
-
     public CommentAdapter(int layoutId, ArrayList<CommentItem> itemList, Context context, String memID, String uid, StatusActivity instance) {
         listItemLayout = layoutId;
         this.itemList = itemList;
@@ -62,7 +44,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     }
 
 
-
     @Override
     public int getItemCount() {
 
@@ -70,7 +51,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     }
 
 
-    public void addComment(CommentItem commentItem){
+    public void addComment(CommentItem commentItem) {
         this.itemList.add(getItemCount(), commentItem);
         notifyItemInserted(getItemCount());
     }
@@ -109,19 +90,19 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         final int commentID = itemList.get(listPosition).getCommentID();
 
 
-        if(commentMemID.equals(memID))
+        if (commentMemID.equals(memID))
             delete.setVisibility(View.VISIBLE);
         else
             delete.setVisibility(View.GONE);
 
         int placeH = R.drawable.ic_male_color;
 
-        if(gender.equals("female"))
+        if (gender.equals("female"))
             placeH = R.drawable.ic_female_color;
 
         image.setImageDrawable(context.getResources().getDrawable(placeH));
 
-        if(!picUrl.equals("0")) {
+        if (!picUrl.equals("0")) {
             RequestOptions placeholderRequest = new RequestOptions();
             placeholderRequest.placeholder(placeH);
 
@@ -135,7 +116,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         }
 
 
-
         String date = Utils.getTimeAgo(Integer.parseInt(itemList.get(listPosition).getTime()));
         time.setText(date);
 
@@ -145,8 +125,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             public void onClick(View view) {
 
 
-
-                new AlertDialog.Builder(context,R.style.AlertDialogTheme)
+                new AlertDialog.Builder(context, R.style.AlertDialogTheme)
                         .setMessage("Do you really want to delete?")
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -155,39 +134,31 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
                                 sendDelete(listPosition);
 
-                            }})
+                            }
+                        })
                         .setNegativeButton(android.R.string.no, null).show();
-
-
-
-
 
 
             }
         });
 
 
-
     }
 
 
-
-    private void sendReport(int listPosition){
-
+    private void sendReport(int listPosition) {
 
 
-        if(!Utils.isNetworkAvailable(context)) {
+        if (!Utils.isNetworkAvailable(context)) {
             Toast.makeText(context, "Internet connection required.", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
 
         final int msgID = itemList.get(listPosition).getCommentID();
-
 
 
         itemList.remove(listPosition);
@@ -209,8 +180,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
                 instanse.loadJson(true);
 
-                Toast.makeText(context,"Deleted", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -227,15 +197,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     }
 
 
-    private void sendDelete(int listPosition){
+    private void sendDelete(int listPosition) {
 
 
-
-        if(!Utils.isNetworkAvailable(context)) {
+        if (!Utils.isNetworkAvailable(context)) {
             Toast.makeText(context, "Internet connection required.", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
@@ -244,14 +212,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         final int msgID = itemList.get(listPosition).getCommentID();
 
 
-
         String commentId = String.valueOf(itemList.get(listPosition).getCommentID());
 
         itemList.remove(listPosition);
         notifyItemRemoved(listPosition);
         notifyItemChanged(listPosition);
         notifyItemRangeChanged(listPosition, itemList.size());
-
 
 
         parametters.put("msgID", commentId);
@@ -265,8 +231,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             public void onSuccess(JSONObject result) {
 
 
-                Toast.makeText(context,"Comment Deleted", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(context, "Comment Deleted", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -283,8 +248,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     }
 
 
-
-    private String convertTime(String time){
+    private String convertTime(String time) {
 
 
         try {
@@ -301,15 +265,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             return java_date;
 
 
-        } catch (Exception e){
+        } catch (Exception e) {
 
             return null;
 
         }
 
     }
-
-
 
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -365,7 +327,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 //
 //            Log.d("onclick", "onClick " + getLayoutPosition() + " " + url.getText());
         }
-
 
 
     }

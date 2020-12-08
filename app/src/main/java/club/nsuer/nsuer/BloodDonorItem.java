@@ -10,7 +10,6 @@ public class BloodDonorItem {
     private String address;
     private String phone;
 
-
     public BloodDonorItem(String name, String memID, String image, String gender, String bloodGroup, String address, String phone) {
         this.name = name;
         this.memID = memID;

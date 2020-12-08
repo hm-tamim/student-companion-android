@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -58,7 +57,7 @@ public class BloodDonorsAdapter extends RecyclerView.Adapter<BloodDonorsAdapter.
         String gender = itemList.get(listPosition).getGender();
 
 
-        if(gender.equals("female"))
+        if (gender.equals("female"))
             image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_female_color));
         else
             image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_male_color));
@@ -86,11 +85,11 @@ public class BloodDonorsAdapter extends RecyclerView.Adapter<BloodDonorsAdapter.
 
         int placeH = R.drawable.ic_male_color;
 
-        if(gender.equals("female"))
+        if (gender.equals("female"))
             placeH = R.drawable.ic_female_color;
 
 
-        if(picUrl.contains(".")) {
+        if (picUrl.contains(".")) {
 
             RequestOptions placeholderRequest = new RequestOptions();
             placeholderRequest.placeholder(placeH);
@@ -108,7 +107,7 @@ public class BloodDonorsAdapter extends RecyclerView.Adapter<BloodDonorsAdapter.
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(context,ChatActivity.class);
+                Intent intent = new Intent(context, ChatActivity.class);
 
                 intent.putExtra("otherMemID", memID);
                 intent.putExtra("otherMemName", userName);
@@ -119,10 +118,9 @@ public class BloodDonorsAdapter extends RecyclerView.Adapter<BloodDonorsAdapter.
         });
 
 
-
         final String phoneNo = itemList.get(listPosition).getPhone();
 
-        if(!phoneNo.equals("null") && !phoneNo.equals("")){
+        if (!phoneNo.equals("null") && !phoneNo.equals("")) {
 
             phoneInput.setVisibility(View.VISIBLE);
 
@@ -131,9 +129,8 @@ public class BloodDonorsAdapter extends RecyclerView.Adapter<BloodDonorsAdapter.
                 public void onClick(View view) {
 
 
-
                     Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                    callIntent.setData(Uri.parse("tel:"+phoneNo));
+                    callIntent.setData(Uri.parse("tel:" + phoneNo));
                     callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(callIntent);
 
@@ -181,7 +178,6 @@ public class BloodDonorsAdapter extends RecyclerView.Adapter<BloodDonorsAdapter.
         public void onClick(View view) {
 
         }
-
 
 
     }

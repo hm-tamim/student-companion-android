@@ -39,7 +39,7 @@ public class BooksListItem {
         this.author = author;
     }
 
-    public BooksListItem(String bookName, String edition, String author,String url) {
+    public BooksListItem(String bookName, String edition, String author, String url) {
 
         this.bookName = bookName;
         this.edition = edition;

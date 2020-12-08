@@ -127,7 +127,6 @@ public class NotificationEntity {
 }
 
 
-
 @Dao
 interface NotificationDao {
 
@@ -172,8 +171,6 @@ interface NotificationDao {
     @Query("DELETE FROM NotificationEntity")
     public void nukeTable();
 }
-
-
 
 
 @Database(entities = {NotificationEntity.class}, version = 2, exportSchema = false)

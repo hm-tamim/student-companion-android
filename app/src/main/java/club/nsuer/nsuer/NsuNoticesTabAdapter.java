@@ -12,12 +12,11 @@ public class NsuNoticesTabAdapter extends FragmentPagerAdapter {
 
     private int mCurrentPosition = -1;
 
-
     //Constructor to the class
     public NsuNoticesTabAdapter(FragmentManager fm, int tabCount) {
         super(fm);
 //Initializing tab count
-        this.tabCount= tabCount;
+        this.tabCount = tabCount;
     }
 
     //Overriding method getItem
@@ -43,9 +42,6 @@ public class NsuNoticesTabAdapter extends FragmentPagerAdapter {
     }
 
 
-
-
-
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         super.setPrimaryItem(container, position, object);
@@ -60,9 +56,6 @@ public class NsuNoticesTabAdapter extends FragmentPagerAdapter {
             }
         }
     }
-
-
-
 
 
 }

@@ -5,8 +5,6 @@ public class CommentItem {
     private String name;
     private String gender;
     private String picture;
-
-
     private int commentID;
     private String memID;
     private String text;

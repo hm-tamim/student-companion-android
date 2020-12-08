@@ -15,7 +15,6 @@ public class FacultyPredictorItem {
     }
 
     public String getFaculty() {
-
         return faculty;
     }
 

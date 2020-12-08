@@ -39,16 +39,11 @@ public class BloodRequestAdapter extends RecyclerView.Adapter<BloodRequestAdapte
         this.context = context;
     }
 
-
-
     @Override
     public int getItemCount() {
 
         return itemList == null ? 0 : itemList.size();
     }
-
-
-
 
     // specify the row layout file and click for each row
     @Override

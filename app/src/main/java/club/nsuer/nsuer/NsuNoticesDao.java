@@ -27,11 +27,8 @@ public interface NsuNoticesDao {
     void deleteByTitle(String name);
 
 
-
     @Query("SELECT title FROM nsuNoticesEntity LIMIT 1")
     String checkEmpty();
-
-
 
 
     @Query("SELECT COUNT(uid) from nsuNoticesEntity")

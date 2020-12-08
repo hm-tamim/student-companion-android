@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:context=".Messages">
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -15,7 +14,6 @@
         android:clipToPadding="false"
         android:paddingTop="3dp"
         android:paddingBottom="15dp" />
-
 
     <LinearLayout
         android:id="@+id/noItem"

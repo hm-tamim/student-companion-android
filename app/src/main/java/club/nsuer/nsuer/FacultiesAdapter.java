@@ -8,7 +8,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -29,11 +27,10 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
     private int listItemLayout;
     private ArrayList<FacultiesItem> itemList;
     private Context context;
-
     private int lastPosition = -1;
     private int animateDelay = 30;
 
-    public FacultiesAdapter(int layoutId, ArrayList<FacultiesItem> itemList,Context context) {
+    public FacultiesAdapter(int layoutId, ArrayList<FacultiesItem> itemList, Context context) {
         listItemLayout = layoutId;
         this.itemList = itemList;
         this.context = context;
@@ -57,18 +54,15 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
         return myViewHolder;
     }
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition)
-        {
+        if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(context, R.animator.up_from_bottom_short);
 
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
     }
-
 
 
     // load data in each row element
@@ -94,56 +88,68 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
 
         String dept2 = null;
 
-        switch (dept1){
+        switch (dept1) {
 
-            case "1": dept2 = "Department Of Accounting & Finance";
+            case "1":
+                dept2 = "Department Of Accounting & Finance";
                 break;
-            case "2": dept2 = "Department Of Economics";
+            case "2":
+                dept2 = "Department Of Economics";
                 break;
-            case "3": dept2 = "Department Of Management";
+            case "3":
+                dept2 = "Department Of Management";
                 break;
-            case "4": dept2 = "Dept Of Marketing & International Business";
+            case "4":
+                dept2 = "Dept Of Marketing & International Business";
                 break;
-            case "5": dept2 = "Department Of Architecture";
+            case "5":
+                dept2 = "Department Of Architecture";
                 break;
-            case "6": dept2 = "Dept Of Civil and Environmental Engineering";
+            case "6":
+                dept2 = "Dept Of Civil and Environmental Engineering";
                 break;
-            case "7": dept2 = "Department Of Mathematics & Physics";
+            case "7":
+                dept2 = "Department Of Mathematics & Physics";
                 break;
-            case "8": dept2 = "Department Of English & Modern Languages";
+            case "8":
+                dept2 = "Department Of English & Modern Languages";
                 break;
-            case "9": dept2 = "Department Of Political Science & Sociology";
+            case "9":
+                dept2 = "Department Of Political Science & Sociology";
                 break;
-            case "10": dept2 = "Department Of Law";
+            case "10":
+                dept2 = "Department Of Law";
                 break;
-            case "11": dept2 = "Department Of History & Philosophy";
+            case "11":
+                dept2 = "Department Of History & Philosophy";
                 break;
-            case "12": dept2 = "Department Of Biochemistry & Microbiology";
+            case "12":
+                dept2 = "Department Of Biochemistry & Microbiology";
                 break;
-            case "13": dept2 = "Dept Of Environmental Science & Management";
+            case "13":
+                dept2 = "Dept Of Environmental Science & Management";
                 break;
-            case "14": dept2 = "Department Of Pharmaceutical Sciences";
+            case "14":
+                dept2 = "Department Of Pharmaceutical Sciences";
                 break;
-            case "15": dept2 = "Department Of Public Health";
+            case "15":
+                dept2 = "Department Of Public Health";
                 break;
-            case "16": dept2 = "Dept Of Electrical & Computer Engineering";
+            case "16":
+                dept2 = "Dept Of Electrical & Computer Engineering";
                 break;
 
         }
 
 
-
         String imageUrl = null;
-
-
 
 
         cardView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
 
-
-                Utils.CustomTab(getUrlFac(dept1)+itemList.get(listPosition).getUrl(),context);
+                Utils.CustomTab(getUrlFac(dept1) + itemList.get(listPosition).getUrl(), context);
 
 
             }
@@ -153,11 +159,10 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
         imageUrl = getUrl(dept1) + itemList.get(listPosition).getImage();
 
 
-
         name.setText(itemList.get(listPosition).getName());
         rank.setText(itemList.get(listPosition).getRank());
 
-       // image.setText(itemList.get(listPosition).getImage());
+        // image.setText(itemList.get(listPosition).getImage());
 
 
         int placeH = R.drawable.default_user_pic;
@@ -173,8 +178,7 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
                 .into(image);
 
 
-
-        Log.d("faculty",imageUrl);
+        Log.d("faculty", imageUrl);
 
         initial.setText(itemList.get(listPosition).getInitial());
         course.setText(itemList.get(listPosition).getCourse());
@@ -185,18 +189,16 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
         String sExt = itemList.get(listPosition).getExt();
 
 
-
         phone.setAutoLinkMask(Linkify.PHONE_NUMBERS);
 
 
-        if(sPhone != null && !sPhone.isEmpty()) {
+        if (sPhone != null && !sPhone.isEmpty()) {
 
             phone.setText(sPhone);
         }
 
-        if(sExt != null && !sExt.isEmpty())
-            ext.setText("Ext - "+sExt);
-
+        if (sExt != null && !sExt.isEmpty())
+            ext.setText("Ext - " + sExt);
 
 
         department.setText(dept2);
@@ -204,7 +206,7 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
 
         String sOffice = itemList.get(listPosition).getOffice();
 
-        if(sOffice.equals("")) {
+        if (sOffice.equals("")) {
 
             office.setText("Office Room");
         } else {
@@ -216,43 +218,33 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
         }
 
 
-
-
-
-
-
-
-
-
-        if(listPosition % 7 == 0){
+        if (listPosition % 7 == 0) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#227585"));
             // #2196f3 #409de0 #39afd5  #7c94b8 #72c769 #ee945d  #f95b45
 
-        }else if(listPosition % 7 == 1){
+        } else if (listPosition % 7 == 1) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#009688"));
 
             // #39d2e3 #72c769
-        }else if(listPosition % 7 == 2){
+        } else if (listPosition % 7 == 2) {
             //#7c94b6
 
             holder.cardView.setCardBackgroundColor(Color.parseColor("#17a2b8"));
 
-        }else if(listPosition % 7 == 3){
+        } else if (listPosition % 7 == 3) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#1c7cb9"));
             // #ff9800
-        }else if(listPosition % 7 == 4){
+        } else if (listPosition % 7 == 4) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#2d566b"));
-        }else if(listPosition % 7 == 5){
+        } else if (listPosition % 7 == 5) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#05879f"));
-        }else if(listPosition % 7 == 6){
+        } else if (listPosition % 7 == 6) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#03a9f4"));
         }
 
-        new Handler().postDelayed(new Runnable()
-        {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 setAnimation(holder.itemView, listPosition);
             }
         }, animateDelay);
@@ -262,9 +254,7 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
     }
 
 
-
-
-    private String getUrl(String dept1){
+    private String getUrl(String dept1) {
 
         String imageUrlz = null;
 
@@ -285,8 +275,7 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
     }
 
 
-
-    private String getUrlFac(String dept1){
+    private String getUrlFac(String dept1) {
 
         String imageUrlz = null;
 
@@ -352,9 +341,7 @@ public class FacultiesAdapter extends RecyclerView.Adapter<FacultiesAdapter.View
             Log.d("onclick", "onClick " + getLayoutPosition() + " " + initial.getText());
 
 
-
         }
-
 
 
     }

@@ -46,13 +46,10 @@ public class AdvisingAssistant extends Fragment {
     }
 
 
-
-
     private void startWebView(WebView webView, String url) {
 
 
         // progressDialog.show();
-
 
 
         webView.setWebViewClient(new WebViewClient() {
@@ -80,7 +77,7 @@ public class AdvisingAssistant extends Fragment {
 
                 try {
                     main.findViewById(R.id.advisingProgressBar).setVisibility(View.GONE);
-                } catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
@@ -97,7 +94,6 @@ public class AdvisingAssistant extends Fragment {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.detach(this).attach(this).commit();
     }
-
 
 
     @Override
@@ -124,7 +120,7 @@ public class AdvisingAssistant extends Fragment {
         });
 
 
-        startWebView(webView, "https://nsuer.club/apps/advising-assistant.php?uid="+uid);
+        startWebView(webView, "https://nsuer.club/apps/advising-assistant.php?uid=" + uid);
 
         return v;
     }

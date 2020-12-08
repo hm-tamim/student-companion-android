@@ -60,7 +60,6 @@ public class BuySell extends Fragment {
     private RecyclerView recyclerViewMy;
 
 
-
     private FloatingActionButton addButton;
     private LinearLayout tabLayout;
     private int currentBtn = -1;
@@ -78,8 +77,6 @@ public class BuySell extends Fragment {
 
     private SearchView searchView;
     private MenuItem menuItem;
-
-
 
 
     private boolean loading = true;
@@ -103,7 +100,7 @@ public class BuySell extends Fragment {
         setHasOptionsMenu(true);
 
         main = (MainActivity) getActivity();
-        context =getContext();
+        context = getContext();
 
 
     }
@@ -111,12 +108,11 @@ public class BuySell extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
-       // inflater.inflate(R.menu.main, menu);
+        // inflater.inflate(R.menu.main, menu);
 
 
         inflater.inflate(R.menu.sell_button, menu);
         inflater.inflate(R.menu.search_button, menu);
-
 
 
         menuItem = menu.findItem(R.id.menuSearch);
@@ -131,14 +127,14 @@ public class BuySell extends Fragment {
                 startWith = 0;
 
 
-                if(currentBtn >= 0) {
+                if (currentBtn >= 0) {
                     Button tempBtn = tabLayout.findViewById(currentBtn);
                     String tempText = tempBtn.getText().toString();
                     tempBtn.setBackground(context.getDrawable(R.drawable.chip_background_shop));
                     tempBtn.setTextColor(Color.WHITE);
 
                 }
-                currentBtn= -1;
+                currentBtn = -1;
 
 
                 currentBtn = -1;
@@ -159,7 +155,6 @@ public class BuySell extends Fragment {
             }
 
 
-
         });
 
 
@@ -177,10 +172,6 @@ public class BuySell extends Fragment {
                 return false;
             }
         });
-
-
-
-
 
 
     }
@@ -237,53 +228,43 @@ public class BuySell extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
 
 
-
-        loadJson(false, true,"0", 0, false,"");
+        loadJson(false, true, "0", 0, false, "");
 
 
         recyclerView.setAdapter(itemAdapter);
 
 
-
-
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
-        {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                if(dy > 0) //check for scroll down
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) //check for scroll down
                 {
                     visibleItemCount = mLayoutManager.getChildCount();
                     totalItemCount = mLayoutManager.getItemCount();
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
 
-                    if (loading)
-                    {
-                        if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
-                        {
+                    if (loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
 
                             loadingBar.setVisibility(View.VISIBLE);
 
 
-                            if(currentBtn >= 0) {
+                            if (currentBtn >= 0) {
 
 
-                                loadJson(true, false, String.valueOf(currentBtn), startWith, false,"");
+                                loadJson(true, false, String.valueOf(currentBtn), startWith, false, "");
 
-                            } else if(!searchQuery.equals("")){
+                            } else if (!searchQuery.equals("")) {
 
                                 loadJson(false, false, "00", startWith, true, searchQuery);
 
 
-
-                            }else{
+                            } else {
 
                                 loadJson(false, false, "0", startWith, false, "");
 
                             }
-
 
 
                         }
@@ -293,13 +274,7 @@ public class BuySell extends Fragment {
         });
 
 
-
-
-
-
-
         addButton = view.findViewById(R.id.addButton);
-
 
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -308,7 +283,7 @@ public class BuySell extends Fragment {
                 SessionManager session = new SessionManager(context);
 
 
-                Intent intent = new Intent(context,BuySellCreate.class);
+                Intent intent = new Intent(context, BuySellCreate.class);
                 startActivityForResult(intent, 10001);
 
 
@@ -318,34 +293,33 @@ public class BuySell extends Fragment {
                     context.startActivity(intentz);
 
 
-                } else{}
+                } else {
+                }
 
             }
         });
 
 
-
         ft = main.getSupportFragmentManager().beginTransaction();
 
 
-        View.OnClickListener btnclick = new View.OnClickListener(){
+        View.OnClickListener btnclick = new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
 
 
-                if (view instanceof Button){
+                if (view instanceof Button) {
 
                     int id = view.getId();
 
                     try {
                         loadByBtn(id);
-                    } catch (Exception e){
+                    } catch (Exception e) {
 
                         Log.e("ClassMates", e.toString());
 
-                        Toast.makeText(context,"No items found.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "No items found.", Toast.LENGTH_SHORT).show();
                     }
-
 
 
                 }
@@ -355,44 +329,36 @@ public class BuySell extends Fragment {
         tabLayout = view.findViewById(R.id.tab);
 
 
-
         String[] categories = getResources().getStringArray(R.array.shopCat);
 
 
-        for(int i = 0; i < categories.length; i++){
+        for (int i = 0; i < categories.length; i++) {
 
 
-                int buttonStyle = R.style.ChipButtonShop;
-                Button btnTag = new Button(new ContextThemeWrapper(context, buttonStyle), null, buttonStyle);
-                btnTag.setOnClickListener(btnclick);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 80);
-                lp.setMarginStart(20);
-                btnTag.setLayoutParams(lp);
+            int buttonStyle = R.style.ChipButtonShop;
+            Button btnTag = new Button(new ContextThemeWrapper(context, buttonStyle), null, buttonStyle);
+            btnTag.setOnClickListener(btnclick);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 80);
+            lp.setMarginStart(20);
+            btnTag.setLayoutParams(lp);
 
-                btnTag.setTextAppearance(context, R.style.ChipButtonShop);
+            btnTag.setTextAppearance(context, R.style.ChipButtonShop);
 
 
-                String courseName = categories[i];
-                btnTag.setText(courseName);
-                btnTag.setTag(courseName);
-                btnTag.setId(numOfButton++);
+            String courseName = categories[i];
+            btnTag.setText(courseName);
+            btnTag.setTag(courseName);
+            btnTag.setId(numOfButton++);
 
             tabLayout.addView(btnTag);
 
         }
 
 
-
-
-
-
     }
 
 
-
-    private void loadByBtn(int id){
-
-
+    private void loadByBtn(int id) {
 
 
         searchView.onActionViewCollapsed();
@@ -405,19 +371,19 @@ public class BuySell extends Fragment {
 
         String btnText = teButton.getText().toString();
 
-        if(currentBtn == id){
+        if (currentBtn == id) {
 
             itemList.clear();
             itemAdapter.notifyDataSetChanged();
 
-            loadJson(false, true, String.valueOf(id), 0, false,"");
+            loadJson(false, true, String.valueOf(id), 0, false, "");
 
-            Button tempBtn =  tabLayout.findViewById(id);
+            Button tempBtn = tabLayout.findViewById(id);
             String tempText = tempBtn.getText().toString();
             tempBtn.setBackground(context.getDrawable(R.drawable.chip_background_shop));
             tempBtn.setTextColor(Color.WHITE);
 
-            currentBtn= -1;
+            currentBtn = -1;
 
             return;
         }
@@ -429,26 +395,21 @@ public class BuySell extends Fragment {
         itemAdapter.notifyDataSetChanged();
 
 
-
-
         teButton.setBackground(context.getDrawable(R.drawable.chip_background_shop_selected));
         teButton.setTextAppearance(context, R.style.ChipButtonShopSelected);
 
 
+        loadJson(true, true, String.valueOf(id), 0, false, "");
 
+        for (int i = 0; i < numOfButton; i++) {
 
-
-        loadJson(true,true, String.valueOf(id), 0, false,"");
-
-        for(int i = 0; i < numOfButton; i++){
-
-            Button tempBtn =  tabLayout.findViewById(i);
+            Button tempBtn = tabLayout.findViewById(i);
             String tempText = tempBtn.getText().toString();
 
-            if(!tempText.equals(btnText)) {
+            if (!tempText.equals(btnText)) {
                 tempBtn.setBackground(context.getDrawable(R.drawable.chip_background_shop));
-               tempBtn.setTextAppearance(context, R.style.ChipButtonShop);
-               // tempBtn.setTextColor(Color.WHITE);
+                tempBtn.setTextAppearance(context, R.style.ChipButtonShop);
+                // tempBtn.setTextColor(Color.WHITE);
             }
 
         }
@@ -457,8 +418,7 @@ public class BuySell extends Fragment {
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if ((requestCode == 10001) && (resultCode == Activity.RESULT_OK)) {
@@ -474,10 +434,7 @@ public class BuySell extends Fragment {
     }
 
 
-
-
-    public void loadJson(final boolean loadByCat, final boolean clearItem, final String cat, final int start, final boolean loadBySearch, final String query){
-
+    public void loadJson(final boolean loadByCat, final boolean clearItem, final String cat, final int start, final boolean loadBySearch, final String query) {
 
 
         noItem.setVisibility(View.VISIBLE);
@@ -487,10 +444,10 @@ public class BuySell extends Fragment {
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
-        parametters.put("loadCat",String.valueOf(loadByCat));
+        parametters.put("loadCat", String.valueOf(loadByCat));
         parametters.put("cat", cat);
         parametters.put("start", String.valueOf(start));
-        parametters.put("loadSearch",String.valueOf(loadBySearch));
+        parametters.put("loadSearch", String.valueOf(loadBySearch));
         parametters.put("query", query);
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/buy-sell/get-all.php", "GET", parametters);
@@ -501,7 +458,7 @@ public class BuySell extends Fragment {
             public void onSuccess(JSONObject result) {
 
 
-                if(clearItem) {
+                if (clearItem) {
                     itemList.clear();
 
                     startWith = 0;
@@ -511,7 +468,6 @@ public class BuySell extends Fragment {
                 loadRecylcer(result.toString());
                 loading = true;
                 loadingBar.setVisibility(View.GONE);
-
 
 
             }
@@ -529,8 +485,7 @@ public class BuySell extends Fragment {
     }
 
 
-
-    private void loadRecylcer(String string){
+    private void loadRecylcer(String string) {
 
 
         try {
@@ -539,7 +494,6 @@ public class BuySell extends Fragment {
             JSONObject result = new JSONObject(string);
 
             JSONArray obj = result.getJSONArray("dataArray");
-
 
 
             for (int j = 0; j < obj.length(); j++) {
@@ -565,13 +519,12 @@ public class BuySell extends Fragment {
 
                 itemList.add(new BuySellItem(id, seller, sellerID, title, price, img, time, category, description, sold, approved));
 
-                if (j == 0){
+                if (j == 0) {
                 }
 
-                    startWith = id;
+                startWith = id;
 
             }
-
 
 
         } catch (JSONException e) {
@@ -580,9 +533,7 @@ public class BuySell extends Fragment {
         }
 
 
-
-
-        if(itemList.size() > 0)
+        if (itemList.size() > 0)
             noItem.setVisibility(View.GONE);
         else {
 
@@ -597,15 +548,12 @@ public class BuySell extends Fragment {
     }
 
 
-
-    public void loadItemDetails(int listPosition){
-
+    public void loadItemDetails(int listPosition) {
 
 
-        final Dialog dialog=new Dialog(context,android.R.style.Theme_Black_NoTitleBar);
+        final Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar);
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         dialog.getWindow().setStatusBarColor(context.getResources().getColor(R.color.colorPrimaryDark));
-
 
 
         dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
@@ -624,12 +572,9 @@ public class BuySell extends Fragment {
         TextView cat = dialog.findViewById(R.id.category);
 
 
-
-
         ImageView back = dialog.findViewById(R.id.back);
 
         back.bringToFront();
-
 
 
         int id = itemList.get(listPosition).getId();
@@ -643,17 +588,17 @@ public class BuySell extends Fragment {
 
         String img = itemList.get(listPosition).getImageUrl();
 
-        String timeS = Utils.getTimeAgo((int)itemList.get(listPosition).getTime());
+        String timeS = Utils.getTimeAgo((int) itemList.get(listPosition).getTime());
 
         String descriptionS = itemList.get(listPosition).getDescription();
 
 
         final String priceS;
 
-        if(Utils.isNumeric(priceSs))
-             priceS = "৳ "+priceSs;
+        if (Utils.isNumeric(priceSs))
+            priceS = "৳ " + priceSs;
         else
-             priceS = priceSs;
+            priceS = priceSs;
 
         title.setText(titleS);
         price.setText(priceS);
@@ -662,10 +607,9 @@ public class BuySell extends Fragment {
         time.setText(timeS);
 
         Picasso.get()
-                .load("https://nsuer.club/images/shop/"+img)
+                .load("https://nsuer.club/images/shop/" + img)
                 .placeholder(R.drawable.default_image)
                 .into(image);
-
 
 
         String catName = getResources().getStringArray(R.array.shopCat)[category];
@@ -679,13 +623,12 @@ public class BuySell extends Fragment {
             public void onClick(View view) {
 
 
-
-                Intent intent = new Intent(context,ChatActivity.class);
+                Intent intent = new Intent(context, ChatActivity.class);
 
                 intent.putExtra("otherMemID", String.valueOf(sellerID));
                 intent.putExtra("otherMemName", sellerS);
 
-                String pretext = titleS+"\nPrice: " + priceS  + "\n\nI'm interested in this item.";
+                String pretext = titleS + "\nPrice: " + priceS + "\n\nI'm interested in this item.";
 
                 intent.putExtra("pretext", pretext);
 
@@ -707,57 +650,37 @@ public class BuySell extends Fragment {
         dialog.show();
 
 
-
-
-
-
-
     }
 
 
+    public void loadMyAds(String uid) {
 
 
-    public void loadMyAds(String uid){
-
-
-
-        final Dialog dialog=new Dialog(context,android.R.style.Theme_Black_NoTitleBar);
+        final Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar);
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         dialog.getWindow().setStatusBarColor(context.getResources().getColor(R.color.colorPrimaryDark));
-
 
 
         dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
         dialog.setContentView(R.layout.buy_sell_my_ads);
 
 
-
         itemListMy = new ArrayList<BuySellItem>();
         itemAdapterMy = new BuySellMyAdapter(R.layout.buy_sell_my_ads_recycler, itemListMy, context, this, dialog);
         recyclerViewMy = (RecyclerView) dialog.findViewById(R.id.recyclerView);
-        recyclerViewMy.setLayoutManager(new GridLayoutManager(this.getContext(),1));
+        recyclerViewMy.setLayoutManager(new GridLayoutManager(this.getContext(), 1));
         recyclerViewMy.setItemAnimator(new DefaultItemAnimator());
 
         TextView titlebar = dialog.findViewById(R.id.title);
 
 
-
         recyclerViewMy.setAdapter(itemAdapterMy);
-
-
-
-
-
 
 
         final LinearLayout noItem = dialog.findViewById(R.id.noItem);
         final ProgressBar progressBar = dialog.findViewById(R.id.progressBar);
         final ImageView noCartIcon = dialog.findViewById(R.id.noCart);
         final TextView noItemText = dialog.findViewById(R.id.noItemText);
-
-
-
-
 
 
         noItemText.setVisibility(View.GONE);
@@ -769,7 +692,7 @@ public class BuySell extends Fragment {
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
-        parametters.put("uid",uid);
+        parametters.put("uid", uid);
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/buy-sell/get-by-uid.php", "GET", parametters);
 
@@ -783,9 +706,7 @@ public class BuySell extends Fragment {
                     JSONArray obj = result.getJSONArray("dataArray");
 
 
-
                     for (int j = 0; j < obj.length(); j++) {
-
 
 
                         boolean liked = false;
@@ -808,9 +729,9 @@ public class BuySell extends Fragment {
 
                         int approved = data.getInt("a");
 
-                        String img = time+".jpg";
+                        String img = time + ".jpg";
 
-                        itemListMy.add(new BuySellItem(id,seller,sellerID,title,price,img,time,category,description, sold, approved));
+                        itemListMy.add(new BuySellItem(id, seller, sellerID, title, price, img, time, category, description, sold, approved));
 
 
                     }
@@ -818,7 +739,7 @@ public class BuySell extends Fragment {
 
                     itemAdapterMy.notifyDataSetChanged();
 
-                    if(itemListMy.size() > 0)
+                    if (itemListMy.size() > 0)
                         noItem.setVisibility(View.GONE);
                     else {
 
@@ -827,7 +748,6 @@ public class BuySell extends Fragment {
                         noCartIcon.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                     }
-
 
 
                 } catch (JSONException e) {
@@ -856,11 +776,7 @@ public class BuySell extends Fragment {
         parser.execute();
 
 
-
-
-
         dialog.show();
-
 
 
         titlebar.setOnClickListener(new View.OnClickListener() {
@@ -873,30 +789,22 @@ public class BuySell extends Fragment {
         });
 
 
-
-
     }
 
 
+    public void sendDelete(int listPosition) {
 
 
-
-    public void sendDelete(int listPosition){
-
-
-
-        if(!Utils.isNetworkAvailable(context)) {
+        if (!Utils.isNetworkAvailable(context)) {
             Toast.makeText(context, "Internet connection required.", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
 
         final int msgID = itemListMy.get(listPosition).getId();
-
 
 
         itemListMy.remove(listPosition);
@@ -916,11 +824,9 @@ public class BuySell extends Fragment {
             public void onSuccess(JSONObject result) {
 
 
+                Toast.makeText(context, "Your item is deleted", Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(context,"Your item is deleted", Toast.LENGTH_SHORT).show();
-
-                loadJson(false,true,"0", 0, false,"");
-
+                loadJson(false, true, "0", 0, false, "");
 
 
             }
@@ -937,16 +843,13 @@ public class BuySell extends Fragment {
     }
 
 
-
-    public void sendSold(int listPosition){
-
+    public void sendSold(int listPosition) {
 
 
-        if(!Utils.isNetworkAvailable(context)) {
+        if (!Utils.isNetworkAvailable(context)) {
             Toast.makeText(context, "Internet connection required.", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
@@ -958,12 +861,10 @@ public class BuySell extends Fragment {
         final int checkSold = itemListMy.get(listPosition).getSold();
         int setTo;
 
-        if(checkSold == 0)
+        if (checkSold == 0)
             setTo = 1;
         else
             setTo = 0;
-
-
 
 
         itemListMy.get(listPosition).setSold(setTo);
@@ -971,7 +872,7 @@ public class BuySell extends Fragment {
 
         parametters.put("msgID", String.valueOf(msgID));
         parametters.put("uid", uid);
-        parametters.put("sold",String.valueOf(setTo));
+        parametters.put("sold", String.valueOf(setTo));
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/buy-sell/sold.php", "GET", parametters);
 
@@ -981,15 +882,13 @@ public class BuySell extends Fragment {
             public void onSuccess(JSONObject result) {
 
 
-
-                if(checkSold == 0)
-                    Toast.makeText(context,"Your item is marked as sold", Toast.LENGTH_SHORT).show();
+                if (checkSold == 0)
+                    Toast.makeText(context, "Your item is marked as sold", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(context,"Your item is marked as unsold", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Your item is marked as unsold", Toast.LENGTH_SHORT).show();
 
 
-                loadJson(false,true,"0", 0, false,"");
-
+                loadJson(false, true, "0", 0, false, "");
 
 
             }
@@ -1004,12 +903,6 @@ public class BuySell extends Fragment {
         parser.execute();
 
     }
-
-
-
-
-
-
 
 
 }

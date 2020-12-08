@@ -26,9 +26,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -46,7 +44,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
@@ -60,13 +57,7 @@ public class BuySellCreate extends AppCompatActivity {
 
     private ImageView img;
     private String imgPath;
-
-
-
-
     private SessionManager session;
-
-
     private String username;
     private String titlez;
     private String uid;
@@ -77,34 +68,23 @@ public class BuySellCreate extends AppCompatActivity {
     private String descriptionz;
     private String imgURLz;
     private String timeStampz;
-
     private String msgID = "0";
-
-
-
     private String pictureNew = "0";
-
     private String uploadURL = "";
-
     final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 8888;
-
     private EditText titleInput;
     private EditText priceInput;
     private EditText descriptionInput;
     private Spinner categorySpinner;
     private Context context;
     private int currentRadio = -1;
-
     private File compressedImageFile;
-
     private Boolean isImageSelected = false;
-
     private boolean isEdit = false;
     private boolean isEditImageSelected = false;
 
 
-    private void openImage(){
-
+    private void openImage() {
 
 
         if (ContextCompat.checkSelfPermission(BuySellCreate.this,
@@ -136,16 +116,13 @@ public class BuySellCreate extends AppCompatActivity {
             openSelector();
 
 
-
         }
-
 
 
     }
 
 
-
-    private void openSelector(){
+    private void openSelector() {
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
@@ -174,7 +151,6 @@ public class BuySellCreate extends AppCompatActivity {
                 return;
 
 
-
             } else {
                 // User refused to grant permission.
             }
@@ -196,23 +172,17 @@ public class BuySellCreate extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
         StateListAnimator stateListAnimator = new StateListAnimator();
         stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(findViewById(R.id.mainBar), "elevation", 0));
         findViewById(R.id.mainBar).setStateListAnimator(stateListAnimator);
 
 
         String url = getIntent().getStringExtra("URL");
-        String title  = "Create an ad";
+        String title = "Create an ad";
         setTitle(title);
 
 
-
-
         ImageView dp = (ImageView) findViewById(R.id.profilePicEdit);
-
-
-
 
 
         // session manager
@@ -226,10 +196,6 @@ public class BuySellCreate extends AppCompatActivity {
         username = session.getName();
         uid = session.getUid();
         memberID = session.getMemberID();
-
-
-
-
 
 
         String destinationPaths = getFilesDir().getPath() + File.separator + "images";
@@ -249,8 +215,7 @@ public class BuySellCreate extends AppCompatActivity {
         categorySpinner = findViewById(R.id.category);
 
 
-
-        final RadioGroup group= (RadioGroup) findViewById(R.id.radioGroup);
+        final RadioGroup group = (RadioGroup) findViewById(R.id.radioGroup);
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -258,9 +223,9 @@ public class BuySellCreate extends AppCompatActivity {
                 int index = radioGroup.indexOfChild(radioButton);
 
 
-                if(index == 0)
+                if (index == 0)
                     priceInput.setText("FREE");
-                else if(index == 1)
+                else if (index == 1)
                     priceInput.setText("EXCHANGE");
 
             }
@@ -281,7 +246,6 @@ public class BuySellCreate extends AppCompatActivity {
                 openImage();
 
 
-
             }
         });
 
@@ -295,22 +259,17 @@ public class BuySellCreate extends AppCompatActivity {
         });
 
 
-
-
-
         Intent intent = getIntent();
 
 
-
-
-        if(intent.hasExtra("title")) {
+        if (intent.hasExtra("title")) {
 
             isEdit = true;
 
 
             titlez = intent.getStringExtra("title");
             pricez = intent.getStringExtra("price");
-            categoryz = intent.getIntExtra("category",0);
+            categoryz = intent.getIntExtra("category", 0);
             descriptionz = intent.getStringExtra("description");
             imgURLz = intent.getStringExtra("image");
             timeStampz = intent.getStringExtra("timestamp");
@@ -324,7 +283,6 @@ public class BuySellCreate extends AppCompatActivity {
             categorySpinner.setSelection(categoryz);
 
 
-
             Picasso.get()
                     .load(imgURLz)
                     .fit()
@@ -332,14 +290,7 @@ public class BuySellCreate extends AppCompatActivity {
                     .into(img);
 
 
-
-
         }
-
-
-
-
-
 
 
         final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this
@@ -352,20 +303,20 @@ public class BuySellCreate extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                if(!Utils.isNetworkAvailable(BuySellCreate.this)) {
+                if (!Utils.isNetworkAvailable(BuySellCreate.this)) {
                     Toast.makeText(BuySellCreate.this, "Internet connection required.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
 
-                if(!checkFieldsRequired(viewGroup)){
+                if (!checkFieldsRequired(viewGroup)) {
 
                     return;
 
                 }
 
 
-                if(!isEdit) {
+                if (!isEdit) {
                     if (!isImageSelected) {
                         Toast.makeText(BuySellCreate.this, "Select an image for the ad", Toast.LENGTH_SHORT).show();
                         return;
@@ -392,22 +343,17 @@ public class BuySellCreate extends AppCompatActivity {
                 parametters.put("category", categoryS);
                 parametters.put("msgID", msgID);
 
-                if(isEdit) {
+                if (isEdit) {
                     parametters.put("doUpdate", "1");
 
-                }
-                else
-                    parametters.put("doUpdate","0");
+                } else
+                    parametters.put("doUpdate", "0");
 
-                if(isEditImageSelected) {
+                if (isEditImageSelected) {
                     parametters.put("doUpdateImage", "1");
 
-                }
-                else
-                    parametters.put("doUpdateImage","0");
-
-
-
+                } else
+                    parametters.put("doUpdateImage", "0");
 
 
                 JSONParser parser = new JSONParser("https://nsuer.club/apps/buy-sell/create-ad.php", "GET", parametters);
@@ -419,32 +365,30 @@ public class BuySellCreate extends AppCompatActivity {
 
                         dialog.dismiss();
 
-                        String timeStamp = String.valueOf(Calendar.getInstance().getTimeInMillis()/1000L);
+                        String timeStamp = String.valueOf(Calendar.getInstance().getTimeInMillis() / 1000L);
                         try {
 
                             timeStamp = result.getString("msg");
-                        } catch (Exception e){
+                        } catch (Exception e) {
 
                             Log.e("JSON", e.toString());
 
                         }
 
 
-                        uploadURL = "https://nsuer.club/apps/buy-sell/upload.php?uid="+ uid+"&time="+timeStamp;
+                        uploadURL = "https://nsuer.club/apps/buy-sell/upload.php?uid=" + uid + "&time=" + timeStamp;
 
 
-
-                        if(!isEdit)
+                        if (!isEdit)
                             uploadImage();
-                        else if(isEdit && isEditImageSelected) {
+                        else if (isEdit && isEditImageSelected) {
 
                             uploadImage();
-                        } else{
+                        } else {
 
                             onBackPressed();
 
                         }
-
 
 
                         //Toast.makeText(context,"Profile updated!",Toast.LENGTH_LONG).show();
@@ -462,21 +406,16 @@ public class BuySellCreate extends AppCompatActivity {
                 parser.execute();
 
 
-
-              //  finishNow();
+                //  finishNow();
 
             }
         });
 
 
-
-
-
-
     }
 
 
-    public boolean checkFieldsRequired(ViewGroup viewGroup){
+    public boolean checkFieldsRequired(ViewGroup viewGroup) {
 
 
         boolean bool = true;
@@ -500,13 +439,13 @@ public class BuySellCreate extends AppCompatActivity {
 
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         setResult(Activity.RESULT_OK);
         finish();
     }
 
 
-    private void finishNow(){
+    private void finishNow() {
 
         Intent intent = new Intent(BuySellCreate.this,
                 MainActivity.class);
@@ -540,9 +479,9 @@ public class BuySellCreate extends AppCompatActivity {
             Intent intent = new Intent(BuySellCreate.this, SettingsActivity.class);
             intent.putExtra("FROM_ACTIVITY", "EDIT_PROFILE");
             startActivity(intent);
-        } else if (id == R.id.action_logout){
+        } else if (id == R.id.action_logout) {
 
-            MainActivity  main = MainActivity.getInstance();
+            MainActivity main = MainActivity.getInstance();
 
             main.logoutUser();
         }
@@ -550,16 +489,6 @@ public class BuySellCreate extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
-
-
-
-
-
-
 
 
     @TargetApi(19)
@@ -577,77 +506,59 @@ public class BuySellCreate extends AppCompatActivity {
 
                     if ("primary".equalsIgnoreCase(type)) {
                         imgPath = Environment.getExternalStorageDirectory() + "/" + split[1];
-                    }
-                    else {
+                    } else {
                         Pattern DIR_SEPORATOR = Pattern.compile("/");
                         Set<String> rv = new HashSet<>();
                         String rawExternalStorage = System.getenv("EXTERNAL_STORAGE");
                         String rawSecondaryStoragesStr = System.getenv("SECONDARY_STORAGE");
                         String rawEmulatedStorageTarget = System.getenv("EMULATED_STORAGE_TARGET");
-                        if(TextUtils.isEmpty(rawEmulatedStorageTarget))
-                        {
-                            if(TextUtils.isEmpty(rawExternalStorage))
-                            {
+                        if (TextUtils.isEmpty(rawEmulatedStorageTarget)) {
+                            if (TextUtils.isEmpty(rawExternalStorage)) {
                                 rv.add("/storage/sdcard0");
-                            }
-                            else
-                            {
+                            } else {
                                 rv.add(rawExternalStorage);
                             }
-                        }
-                        else
-                        {
+                        } else {
                             String rawUserId;
-                            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1)
-                            {
+                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
                                 rawUserId = "";
-                            }
-                            else
-                            {
+                            } else {
                                 String path = Environment.getExternalStorageDirectory().getAbsolutePath();
                                 String[] folders = DIR_SEPORATOR.split(path);
                                 String lastFolder = folders[folders.length - 1];
                                 boolean isDigit = false;
-                                try
-                                {
+                                try {
                                     Integer.valueOf(lastFolder);
                                     isDigit = true;
-                                }
-                                catch(NumberFormatException ignored)
-                                {
+                                } catch (NumberFormatException ignored) {
                                 }
                                 rawUserId = isDigit ? lastFolder : "";
                             }
-                            if(TextUtils.isEmpty(rawUserId))
-                            {
+                            if (TextUtils.isEmpty(rawUserId)) {
                                 rv.add(rawEmulatedStorageTarget);
-                            }
-                            else
-                            {
+                            } else {
                                 rv.add(rawEmulatedStorageTarget + File.separator + rawUserId);
                             }
                         }
-                        if(!TextUtils.isEmpty(rawSecondaryStoragesStr))
-                        {
+                        if (!TextUtils.isEmpty(rawSecondaryStoragesStr)) {
                             String[] rawSecondaryStorages = rawSecondaryStoragesStr.split(File.pathSeparator);
                             Collections.addAll(rv, rawSecondaryStorages);
                         }
                         String[] temp = rv.toArray(new String[rv.size()]);
-                        for (int i = 0; i < temp.length; i++)   {
+                        for (int i = 0; i < temp.length; i++) {
                             File tempf = new File(temp[i] + "/" + split[1]);
-                            if(tempf.exists()) {
+                            if (tempf.exists()) {
                                 imgPath = temp[i] + "/" + split[1];
                             }
                         }
                     }
-                }
-                else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
                     String id = DocumentsContract.getDocumentId(uri);
-                    Uri contentUri = ContentUris.withAppendedId( Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                    Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
 
                     Cursor cursor = null;
                     String column = "_data";
-                    String[] projection = { column };
+                    String[] projection = {column};
                     try {
                         cursor = this.getContentResolver().query(contentUri, projection, null, null,
                                 null);
@@ -659,8 +570,7 @@ public class BuySellCreate extends AppCompatActivity {
                         if (cursor != null)
                             cursor.close();
                     }
-                }
-                else if("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                } else if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
                     String docId = DocumentsContract.getDocumentId(uri);
                     String[] split = docId.split(":");
                     String type = split[0];
@@ -675,11 +585,11 @@ public class BuySellCreate extends AppCompatActivity {
                     }
 
                     String selection = "_id=?";
-                    String[] selectionArgs = new String[]{ split[1] };
+                    String[] selectionArgs = new String[]{split[1]};
 
                     Cursor cursor = null;
                     String column = "_data";
-                    String[] projection = { column };
+                    String[] projection = {column};
 
                     try {
                         cursor = this.getContentResolver().query(contentUri, projection, selection, selectionArgs, null);
@@ -691,15 +601,13 @@ public class BuySellCreate extends AppCompatActivity {
                         if (cursor != null)
                             cursor.close();
                     }
-                }
-                else if("com.google.android.apps.docs.storage".equals(uri.getAuthority()))   {
+                } else if ("com.google.android.apps.docs.storage".equals(uri.getAuthority())) {
                     isImageFromGoogleDrive = true;
                 }
-            }
-            else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            } else if ("content".equalsIgnoreCase(uri.getScheme())) {
                 Cursor cursor = null;
                 String column = "_data";
-                String[] projection = { column };
+                String[] projection = {column};
 
                 try {
                     cursor = this.getContentResolver().query(uri, projection, null, null, null);
@@ -707,35 +615,30 @@ public class BuySellCreate extends AppCompatActivity {
                         int column_index = cursor.getColumnIndexOrThrow(column);
                         imgPath = cursor.getString(column_index);
                     }
-                }
-                finally {
+                } finally {
                     if (cursor != null)
                         cursor.close();
                 }
-            }
-            else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            } else if ("file".equalsIgnoreCase(uri.getScheme())) {
                 imgPath = uri.getPath();
             }
 
-            if(isImageFromGoogleDrive)  {
+            if (isImageFromGoogleDrive) {
                 try {
                     Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
 
 
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            else    {
-
-
+            } else {
 
 
                 File f = new File(imgPath);
 
 
-                Bitmap gbit =  BitmapFactory.decodeResource(getResources(), R.drawable.default_user_pic);;
+                Bitmap gbit = BitmapFactory.decodeResource(getResources(), R.drawable.default_user_pic);
+                ;
 
 
                 Compressor compressor = new Compressor(context);
@@ -751,12 +654,9 @@ public class BuySellCreate extends AppCompatActivity {
 
                     gbit = compressor.compressToBitmap(f);
 
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
-
-
-
 
 
                 isImageSelected = true;
@@ -771,14 +671,12 @@ public class BuySellCreate extends AppCompatActivity {
                         .into(img);
 
 
-
-
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void uploadImage(){
+    private void uploadImage() {
 
         final ProgressDialog dialog = ProgressDialog.show(BuySellCreate.this, "",
                 "Uploading photo...", true);
@@ -788,10 +686,6 @@ public class BuySellCreate extends AppCompatActivity {
         parser.setListener(new JSONParser.ParserListener() {
             @Override
             public void onSuccess(JSONObject result) {
-
-
-
-
 
 
             }
@@ -804,7 +698,7 @@ public class BuySellCreate extends AppCompatActivity {
 
                 onBackPressed();
 
-                Toast.makeText(context,"You ad is posted, it might take few hours to get approved", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "You ad is posted, it might take few hours to get approved", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -813,12 +707,6 @@ public class BuySellCreate extends AppCompatActivity {
         parser.execute();
 
     }
-
-
-
-
-
-
 
 
 }

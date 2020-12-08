@@ -13,7 +13,6 @@ public class CgpaRecyclerItem {
     }
 
     public String getCourse() {
-
         return course;
     }
 

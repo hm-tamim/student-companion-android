@@ -2,9 +2,7 @@ package club.nsuer.nsuer;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,10 +14,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import club.nsuer.nsuer.BooksListItem;
-import club.nsuer.nsuer.R;
-import club.nsuer.nsuer.Utils;
 
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.SingleItemRowHolder> {
@@ -53,8 +47,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.SingleItemRo
     }
 
 
-
-
     // load data in each row element
     //@Override
     public void onBindViewHolder(final SingleItemRowHolder holder, final int listPosition) {
@@ -65,8 +57,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.SingleItemRo
 
 
         String bookTitle = itemList.get(listPosition).getBookName();
-
-
 
 
         int textLength = bookTitle.length();
@@ -87,7 +77,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.SingleItemRo
 
         List<String> colors;
 
-        colors=new ArrayList<String>();
+        colors = new ArrayList<String>();
 
         colors.add("#0fa1e4");
         colors.add("#377697");
@@ -103,11 +93,11 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.SingleItemRo
         colors.add("#29996a");
         colors.add("#4f81bc");
         colors.add("#db843d");
-       // colors.add("#007fff");
-       // colors.add("#009688");
+        // colors.add("#007fff");
+        // colors.add("#009688");
 
         Random r = new Random();
-        int i1 = r.nextInt(colors.size()- 0) + 0;
+        int i1 = r.nextInt(colors.size() - 0) + 0;
 
         holder.cardView.setCardBackgroundColor(Color.parseColor(colors.get(i1)));
 
@@ -124,14 +114,12 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.SingleItemRo
                 String url = "https://nsuer.club/books/download/" + itemList.get(listPosition).getUrl();
 
 
-                Utils.CustomTab(url,context);
+                Utils.CustomTab(url, context);
 
 
             }
 
         });
-
-
 
 
     }
@@ -159,12 +147,10 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.SingleItemRo
         }
 
 
-
         @Override
         public void onClick(View view) {
             Log.d("onclick", "onClick " + getLayoutPosition() + " " + title.getText());
         }
-
 
 
     }

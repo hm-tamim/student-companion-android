@@ -13,10 +13,8 @@ public abstract class ScheduleDatabase extends RoomDatabase {
     public abstract ScheduleDao scheduleDao();
 
     public static ScheduleDatabase getInMemoryDatabase(Context context) {
-
         if (INSTANCE == null)
             INSTANCE = Room.inMemoryDatabaseBuilder(context.getApplicationContext(), ScheduleDatabase.class).allowMainThreadQueries().build();
-
         return INSTANCE;
     }
 

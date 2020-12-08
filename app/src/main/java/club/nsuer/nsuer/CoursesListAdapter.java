@@ -43,7 +43,6 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
     private String uid;
 
 
-
     public CoursesListAdapter(int layoutId, ArrayList<CoursesListItem> CoursesListItemList, Context context, String uid) {
         listCoursesListItemLayout = layoutId;
         this.CoursesListItemList = CoursesListItemList;
@@ -70,8 +69,7 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
     }
 
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
+    private void setAnimation(View viewToAnimate, int position) {
 
 
 //        Animation animation = AnimationUtils.loadAnimation(MyContext,
@@ -82,8 +80,7 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
 
 
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition)
-        {
+        if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(MyContext, R.animator.up_from_bottom_short);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
@@ -109,7 +106,6 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
         SpannableStringBuilder mSSBuilder = new SpannableStringBuilder(sec);
 
         SuperscriptSpan superscriptSpan = new SuperscriptSpan();
-
 
 
         // Apply the SuperscriptSpan
@@ -148,12 +144,9 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
         //section.setText();
 
 
-
         holder.buttonViewOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
 
 
                 PopupMenu popup = new PopupMenu(MyContext, holder.buttonViewOption);
@@ -167,11 +160,10 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
                             case R.id.cr_action_remove:
 
 
-                                if(!Utils.isNetworkAvailable(MyContext)) {
+                                if (!Utils.isNetworkAvailable(MyContext)) {
                                     Toast.makeText(MyContext, "Internet connection required.", Toast.LENGTH_SHORT).show();
                                     break;
                                 }
-
 
 
                                 HashMap<String, String> parametters = new HashMap<String, String>();
@@ -179,10 +171,6 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
 
                                 final String course = CoursesListItemList.get(listPosition).getName();
                                 final String section = CoursesListItemList.get(listPosition).getSection();
-
-
-
-
 
 
                                 CoursesListItemList.remove(listPosition);
@@ -208,7 +196,6 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
                                     public void onSuccess(JSONObject result) {
 
 
-
                                         CoursesDatabase db = Room.databaseBuilder(MyContext,
                                                 CoursesDatabase.class, "courses").allowMainThreadQueries().build();
                                         db.coursesDao().deleteByCourseName(course);
@@ -222,10 +209,6 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
                                                 FacultiesDatabase.class, "faculties").allowMainThreadQueries().build();
 
                                         dbFaculties.facultiesDao().deleteByCourse(course);
-
-
-
-
 
 
                                     }
@@ -255,38 +238,34 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
         });
 
 
-
-        if(listPosition % 7 == 0){
+        if (listPosition % 7 == 0) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#0fa1e4"));
             // #2196f3 #409de0 #39afd5  #7c94b8 #72c769 #ee945d #2d566b
 
-        }else if(listPosition % 7 == 1){
+        } else if (listPosition % 7 == 1) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#227585"));
 
             // #39d2e3 #72c769
-        }else if(listPosition % 7 == 2){
+        } else if (listPosition % 7 == 2) {
             //#7c94b6
 
             holder.cardView.setCardBackgroundColor(Color.parseColor("#009688"));
 
-        }else if(listPosition % 7 == 3){
+        } else if (listPosition % 7 == 3) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#00bbd4"));
             // #ff9800
-        }else if(listPosition % 7 == 4){
+        } else if (listPosition % 7 == 4) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#1c7cb9"));
-        }else if(listPosition % 7 == 5){
+        } else if (listPosition % 7 == 5) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#2d566b"));
-        }else if(listPosition % 7 == 6){
+        } else if (listPosition % 7 == 6) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#2196f3"));
         }
 
 
-
-        new Handler().postDelayed(new Runnable()
-        {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 setAnimation(holder.itemView, listPosition);
             }
         }, animateDelay);
@@ -294,11 +273,7 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
         animateDelay += 20;
 
 
-
-
     }
-
-
 
 
     // Static inner class to initialize the views of rows
@@ -314,7 +289,6 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
 
         public CardView cardView;
         public ImageView buttonViewOption;
-
 
 
         public ViewHolder(View CoursesListItemView) {
@@ -340,7 +314,6 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
         public void onClick(View view) {
             Log.d("onclick", "onClick " + getLayoutPosition() + " " + CoursesListItem.getText());
         }
-
 
 
     }

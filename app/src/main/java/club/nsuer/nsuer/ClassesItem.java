@@ -13,7 +13,6 @@ public class ClassesItem {
     }
 
     public String getTime() {
-
         return time;
     }
 

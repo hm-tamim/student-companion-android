@@ -1,13 +1,9 @@
 package club.nsuer.nsuer;
 
-import android.app.Activity;
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,15 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class NotificationFragment extends Fragment {
-
 
 
     private MainActivity main;
@@ -53,7 +46,6 @@ public class NotificationFragment extends Fragment {
         notificationDao = db.notificationDao();
 
 
-
     }
 
 
@@ -66,7 +58,6 @@ public class NotificationFragment extends Fragment {
 
         return v;
     }
-
 
 
     @Override
@@ -88,20 +79,18 @@ public class NotificationFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
-
         List<NotificationEntity> list = db.notificationDao().getAllByLimit();
 
 
-        Log.d("noti", list.size()+"");
+        Log.d("noti", list.size() + "");
 
-        if(list.size() < 1) {
+        if (list.size() < 1) {
             noItem.setVisibility(View.VISIBLE);
         } else {
             noItem.setVisibility(View.GONE);
         }
 
-        for (int i=0; i < list.size(); i++) {
-
+        for (int i = 0; i < list.size(); i++) {
 
 
             itemList.add(new NotificationItem(list.get(i).getTitle(), list.get(i).getBody(), list.get(i).getType(), list.get(i).getTypeExtra(), list.get(i).getTypeExtra2(), list.get(i).getSenderMemID(), list.get(i).getTime(), list.get(i).isSeen()));
@@ -116,15 +105,7 @@ public class NotificationFragment extends Fragment {
         recyclerView.setAdapter(itemAdapter);
 
 
-
-
-
-
-
-
     }
-
-
 
 
 }

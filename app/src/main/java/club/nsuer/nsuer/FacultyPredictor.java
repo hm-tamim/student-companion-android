@@ -1,8 +1,6 @@
 package club.nsuer.nsuer;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -10,7 +8,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,31 +27,22 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
-public class FacultyPredictor extends Fragment implements CoursesList{
+public class FacultyPredictor extends Fragment implements CoursesList {
 
 
     private MainActivity main;
     private Context context;
     private View view;
     private Spinner section;
-
-
-
-
     private ArrayList<FacultyPredictorItem> itemList;
-
     private int datePassed = 0;
-
     private String jsonCache = null;
     private FacultyPredictorAdapter itemAdapter;
     private RecyclerView recyclerView;
-
     private LinearLayout noPost;
     private LinearLayout predictLoading;
-
     private LinearLayout noPredict;
     private ImageView predictorSearchIcon;
     private TextView predictorText;
@@ -100,7 +88,7 @@ public class FacultyPredictor extends Fragment implements CoursesList{
         ArrayAdapter adapter = ArrayAdapter.createFromResource(context,
                 R.array.numbers, R.layout.spinner_row_white);
 
-       // adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        // adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 //        section.setPopupBackgroundResource(R.color.colorPrimary);
         section.setAdapter(adapter);
 
@@ -134,7 +122,7 @@ public class FacultyPredictor extends Fragment implements CoursesList{
         final Spinner courseSection = view.findViewById(R.id.predictorSection);
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>
-                (context,R.layout.suggestion_adapter_textview, SUGGESTIONS);
+                (context, R.layout.suggestion_adapter_textview, SUGGESTIONS);
 
         couseInitalSection.setThreshold(2);
         couseInitalSection.setDropDownVerticalOffset(0);
@@ -149,14 +137,10 @@ public class FacultyPredictor extends Fragment implements CoursesList{
         couseInitalFaculty.setAdapter(adapter2);
 
 
-
-
         Button button = (Button) view.findViewById(R.id.predictorButtonSection);
 
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
                 String c = couseInitalSection.getText().toString();
                 String s = courseSection.getSelectedItem().toString();
@@ -164,7 +148,7 @@ public class FacultyPredictor extends Fragment implements CoursesList{
                 couseInitalFaculty.setText("");
                 facultyInitial.setText("");
 
-                loadJson(c,s,"");
+                loadJson(c, s, "");
 
 
             }
@@ -173,10 +157,8 @@ public class FacultyPredictor extends Fragment implements CoursesList{
 
         Button button2 = (Button) view.findViewById(R.id.predictorButtonFaculty);
 
-        button2.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        button2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
                 String c = couseInitalFaculty.getText().toString();
                 String f = facultyInitial.getText().toString();
@@ -184,24 +166,19 @@ public class FacultyPredictor extends Fragment implements CoursesList{
                 couseInitalSection.setText("");
                 courseSection.setSelection(0);
 
-                loadJson(c,"",f);
+                loadJson(c, "", f);
 
             }
         });
 
 
-
-
     }
 
 
+    private void loadJson(String course, String section, String faculty) {
 
 
-    private void loadJson(String course, String section, String faculty){
-
-
-
-        if(!Utils.isNetworkAvailable(context)) {
+        if (!Utils.isNetworkAvailable(context)) {
             Toast.makeText(context, "Internet connection required!", Toast.LENGTH_SHORT).show();
 
             return;
@@ -217,7 +194,6 @@ public class FacultyPredictor extends Fragment implements CoursesList{
         predictLoading.setVisibility(View.VISIBLE);
 
         HashMap<String, String> parametters = new HashMap<String, String>();
-
 
 
         parametters.put("course", course);
@@ -241,7 +217,6 @@ public class FacultyPredictor extends Fragment implements CoursesList{
                 //Toast.makeText(getContext(),"Updated!",Toast.LENGTH_SHORT).show();
 
 
-
             }
 
             @Override
@@ -254,7 +229,7 @@ public class FacultyPredictor extends Fragment implements CoursesList{
 
                 try {
                     predictorSearchIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_nothing_found));
-                }catch (Exception e){
+                } catch (Exception e) {
 
                     Log.e("Facutlty Predictor", e.toString());
                 }
@@ -267,15 +242,10 @@ public class FacultyPredictor extends Fragment implements CoursesList{
         parser.execute();
 
 
-
     }
 
 
-
-
-
-    private void loadRecylcer(String string){
-
+    private void loadRecylcer(String string) {
 
 
         predictLoading.setVisibility(View.GONE);
@@ -288,9 +258,7 @@ public class FacultyPredictor extends Fragment implements CoursesList{
             JSONArray obj = result.getJSONArray("dataArray");
 
 
-
             for (int j = 0; j < obj.length(); j++) {
-
 
 
                 JSONObject data = obj.getJSONObject(j);
@@ -301,16 +269,14 @@ public class FacultyPredictor extends Fragment implements CoursesList{
                 String time = data.getString("time");
                 String previousSection = data.getString("previousSections");
 
-                itemList.add(new FacultyPredictorItem(faculty,section,time,previousSection));
-
-
+                itemList.add(new FacultyPredictorItem(faculty, section, time, previousSection));
 
 
             }
 
-            if(itemList.size() > 0)
+            if (itemList.size() > 0)
                 noPredict.setVisibility(View.GONE);
-            else{
+            else {
 
                 noPredict.setVisibility(View.VISIBLE);
                 predictorText.setText("Unable to predict!");
@@ -323,14 +289,10 @@ public class FacultyPredictor extends Fragment implements CoursesList{
         }
 
 
-
         itemAdapter.notifyDataSetChanged();
 
 
-
-
     }
-
 
 
 }

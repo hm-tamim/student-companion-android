@@ -3,7 +3,6 @@ package club.nsuer.nsuer;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +26,7 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
@@ -40,15 +40,12 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
-import com.github.mikephil.charting.data.BarDataSet;
-import java.net.URLEncoder;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class CgpaAnalyzer extends Fragment {
@@ -109,12 +106,11 @@ public class CgpaAnalyzer extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.cgpa_analyzer_activity, container, false);
+        view = inflater.inflate(R.layout.cgpa_analyzer_activity, container, false);
 
         return view;
     }
@@ -124,7 +120,6 @@ public class CgpaAnalyzer extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.main, menu);
         inflater.inflate(R.menu.help_button, menu);
-
 
 
     }
@@ -152,11 +147,9 @@ public class CgpaAnalyzer extends Fragment {
         scroller.setFocusableInTouchMode(true);
 
 
-
-
         itemList = new ArrayList<CgpaRecyclerItem>();
 
-        itemArrayAdapter2 = new CgpaRecyclerAdapter(R.layout.cgpa_recycler, itemList, getContext(),view, this);
+        itemArrayAdapter2 = new CgpaRecyclerAdapter(R.layout.cgpa_recycler, itemList, getContext(), view, this);
         recyclerView2 = (RecyclerView) view.findViewById(R.id.cgpaCalculatorRecycler);
 
         recyclerView2.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -165,7 +158,7 @@ public class CgpaAnalyzer extends Fragment {
         list = db.cgpaDao().getAll();
 
 
-        for (int i=0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
 
 
             String course = list.get(i).getCourse();
@@ -173,18 +166,16 @@ public class CgpaAnalyzer extends Fragment {
             String grade = list.get(i).getGrade();
 
 
-            itemList.add(new CgpaRecyclerItem(course,credit,grade));
+            itemList.add(new CgpaRecyclerItem(course, credit, grade));
 
 
         }
 
 
+        if (list.size() < 1) {
 
-        if(list.size() < 1){
-
-            for (int i=0; i < 3; i++)
-                itemList.add(new CgpaRecyclerItem("","3","A"));
-
+            for (int i = 0; i < 3; i++)
+                itemList.add(new CgpaRecyclerItem("", "3", "A"));
 
 
         }
@@ -200,13 +191,12 @@ public class CgpaAnalyzer extends Fragment {
             public void onClick(View v) {
 
 
-                if(itemArrayAdapter2.getSize() >= 10) {
-                    Toast.makeText(context,"Can't add more than 10 courses", Toast.LENGTH_SHORT).show();
+                if (itemArrayAdapter2.getSize() >= 10) {
+                    Toast.makeText(context, "Can't add more than 10 courses", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                itemArrayAdapter2.addData(new CgpaRecyclerItem("","3","A"));
-
+                itemArrayAdapter2.addData(new CgpaRecyclerItem("", "3", "A"));
 
 
                 scroller.post(new Runnable() {
@@ -222,8 +212,7 @@ public class CgpaAnalyzer extends Fragment {
                 //scroller.clearFocus();
 
 
-
-                scroller.scrollTo(0, scroller.getBottom()+500);
+                scroller.scrollTo(0, scroller.getBottom() + 500);
 
 
             }
@@ -236,11 +225,9 @@ public class CgpaAnalyzer extends Fragment {
                 analyzeCgpa();
 
 
-                new Handler().postDelayed(new Runnable()
-                {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         ft.detach(CgpaAnalyzer.this).attach(CgpaAnalyzer.this).commit();
 
@@ -249,17 +236,12 @@ public class CgpaAnalyzer extends Fragment {
                 }, 100);
 
 
-
-
-
                 scroller.fullScroll(ScrollView.FOCUS_UP);
 
 
-                new Handler().postDelayed(new Runnable()
-                {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
 
 
                         //scroller.fullScroll(ScrollView.FOCUS_UP);
@@ -269,10 +251,6 @@ public class CgpaAnalyzer extends Fragment {
             }
 
         });
-
-
-
-
 
 
         chart = (BarChart) view.findViewById(R.id.cgpaBarChart);
@@ -303,11 +281,11 @@ public class CgpaAnalyzer extends Fragment {
         leftAxis.setGranularity(0.2f);
         leftAxis.setGranularityEnabled(true);
 
-        xAxis.setValueFormatter(new IAxisValueFormatter(){
-        @Override
-        public String getFormattedValue(float value, AxisBase axis) {
-            return labels.get((int) value);
-        }
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return labels.get((int) value);
+            }
         });
 
 
@@ -336,9 +314,6 @@ public class CgpaAnalyzer extends Fragment {
         BarDataSet set = new BarDataSet(entries, "");
 
 
-
-
-
         BarData data = new BarData(set);
 
         data.setValueFormatter(new IValueFormatter() {
@@ -350,11 +325,10 @@ public class CgpaAnalyzer extends Fragment {
         });
 
 
-
         data.setBarWidth(0.8f); // set custom bar width
         set.setValueTextSize(14f);
 
-        set.setColors(new int[] { R.color.barColor1, R.color.barColor2, R.color.barColor3, R.color.barColor4 }, context);
+        set.setColors(new int[]{R.color.barColor1, R.color.barColor2, R.color.barColor3, R.color.barColor4}, context);
 
         whiteColor = ContextCompat.getColor(context, R.color.white);
         set.setValueTextColor(whiteColor);
@@ -377,25 +351,13 @@ public class CgpaAnalyzer extends Fragment {
         chart.invalidate(); // refresh
 
 
-
-
         courses = new ArrayList<>();
 
 
         labelsSub = new ArrayList<>();
 
 
-
         // update bar data
-
-
-
-
-
-
-
-
-
 
 
         chartSubject = (HorizontalBarChart) view.findViewById(R.id.subjectBarChart);
@@ -409,9 +371,8 @@ public class CgpaAnalyzer extends Fragment {
         xAxisSub.setYOffset(0.1f);
         xAxisSub.setPosition(XAxis.XAxisPosition.BOTTOM);
 
-        YAxis leftAxisSub= chartSubject.getAxisLeft();
+        YAxis leftAxisSub = chartSubject.getAxisLeft();
         leftAxisSub.setEnabled(false);
-
 
 
         chartSubject.getAxisLeft().setAxisMinimum(0.0f);
@@ -437,7 +398,6 @@ public class CgpaAnalyzer extends Fragment {
         xAxisx = chartSubject.getXAxis();
 
 
-
         targetGrade = new ArrayList<>();
         expectedGrade = new ArrayList<>();
 
@@ -449,15 +409,12 @@ public class CgpaAnalyzer extends Fragment {
         setSub2.setValueFormatter(new GradeValueChart());
 
 
-
-        int reqColor  = ContextCompat.getColor(context, R.color.barColor6);
+        int reqColor = ContextCompat.getColor(context, R.color.barColor6);
         int exColor = ContextCompat.getColor(context, R.color.barColor7);
 
 
         setSub2.setColor(reqColor);
         setSub.setColor(exColor);
-
-
 
 
         setSub.setValueTextColor(whiteColor);
@@ -467,11 +424,8 @@ public class CgpaAnalyzer extends Fragment {
         setSub.setDrawValues(true);
 
 
-
-
         dataSub.addDataSet(setSub);
         dataSub.addDataSet(setSub2);
-
 
 
         YAxis axisRightSub = chartSubject.getAxisRight();
@@ -482,16 +436,9 @@ public class CgpaAnalyzer extends Fragment {
         pp.setTextSize(17f);
 
 
-
-
-
-
-
-
         dataSub.setBarWidth(0.9f); // set custom bar width
         setSub.setValueTextSize(14f);
         setSub2.setValueTextSize(14f);
-
 
 
         dataSub.setBarWidth(0.50f);
@@ -499,24 +446,16 @@ public class CgpaAnalyzer extends Fragment {
         chartSubject.getXAxis().setAxisMinimum(0);
 
 
-
-
-
-
         updateManualCreditGpaInput();
-
-
-
 
 
     }
 
 
+    private void updateGradeComp(final String course, float requiredPoints, float actualPoints) {
 
-    private void updateGradeComp(final String course, float requiredPoints, float actualPoints){
 
-
-        if(requiredPoints >= 4) {
+        if (requiredPoints >= 4) {
 
             requiredPoints = 4.0f;
 
@@ -534,9 +473,7 @@ public class CgpaAnalyzer extends Fragment {
         courses.add(course);
 
 
-
-
-        xAxisx.setValueFormatter(new IAxisValueFormatter(){
+        xAxisx.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
 
@@ -565,8 +502,6 @@ public class CgpaAnalyzer extends Fragment {
     }
 
 
-
-
     private void updateManualCreditCgpa(float credit, float cgpa, float target, float expected, float requiredPoints) {
 
         SharedPreferences.Editor editor = context.getSharedPreferences(CGPA_ANALYZER_DATA, MODE_PRIVATE).edit();
@@ -584,10 +519,10 @@ public class CgpaAnalyzer extends Fragment {
     }
 
 
-    private void updateBarGraph(float cgpa, float target, float expected){
+    private void updateBarGraph(float cgpa, float target, float expected) {
 
 
-        if(entries.size() > 0)
+        if (entries.size() > 0)
             entries.clear();
 
         entries.add(new BarEntry(0f, 4.0f));
@@ -602,26 +537,25 @@ public class CgpaAnalyzer extends Fragment {
     }
 
 
-    public void updateManualCreditGpaInput(){
+    public void updateManualCreditGpaInput() {
 
 
         SharedPreferences prefss = context.getSharedPreferences(CGPA_ANALYZER_DATA, MODE_PRIVATE);
 
 
+        if (prefss.contains("yourTarget")) {
 
-        if(prefss.contains("yourTarget")) {
 
-
-            float credits = prefss.getFloat("yourCredit",0.0f);
-            float gpa = prefss.getFloat("yourCgpa",0.0f);
-            float targetCgpa = prefss.getFloat("yourTarget",0.0f);
-            float expected = prefss.getFloat("expectedCgpa",0.0f);
+            float credits = prefss.getFloat("yourCredit", 0.0f);
+            float gpa = prefss.getFloat("yourCgpa", 0.0f);
+            float targetCgpa = prefss.getFloat("yourTarget", 0.0f);
+            float expected = prefss.getFloat("expectedCgpa", 0.0f);
             float requiredPoints = prefss.getFloat("requiredPoints", 0.0f);
 
 
             String creditz;
 
-            if((credits-(int)credits)!=0)
+            if ((credits - (int) credits) != 0)
                 creditz = String.valueOf(new DecimalFormat("#.##").format(credits));
             else
                 creditz = String.valueOf(new DecimalFormat("#").format(credits));
@@ -633,10 +567,10 @@ public class CgpaAnalyzer extends Fragment {
 
             String reqText;
 
-            if(requiredPoints > 4)
-                 reqText = "You will need another semester to achieve your targeted CGPA. You will need <b>"+ requiredPoints +"</b> points per course in this semester, which is not possible.";
-             else
-                 reqText = "You will need to get <b>"+Utils.getGpaGrade(requiredPoints)+ "</b> grade(<b>"+ requiredPoints +"</b> points) per course to achieve your targeted CGPA.";
+            if (requiredPoints > 4)
+                reqText = "You will need another semester to achieve your targeted CGPA. You will need <b>" + requiredPoints + "</b> points per course in this semester, which is not possible.";
+            else
+                reqText = "You will need to get <b>" + Utils.getGpaGrade(requiredPoints) + "</b> grade(<b>" + requiredPoints + "</b> points) per course to achieve your targeted CGPA.";
 
             analyzerRequiredText.setText(Html.fromHtml(reqText));
 
@@ -657,14 +591,7 @@ public class CgpaAnalyzer extends Fragment {
     }
 
 
-
-
-
-
-
-
-
-    public void analyzeCgpa(){
+    public void analyzeCgpa() {
 
 
         int totalItems = recyclerView2.getAdapter().getItemCount();
@@ -687,19 +614,16 @@ public class CgpaAnalyzer extends Fragment {
         if (targetCgpa.equals("")) {
             Toast.makeText(context, "Enter target CGPA", Toast.LENGTH_SHORT).show();
             return;
-        }
-        else if (manualGpa.equals("")) {
+        } else if (manualGpa.equals("")) {
             Toast.makeText(context, "Enter your CGPA", Toast.LENGTH_SHORT).show();
             return;
-        }
-        else if (manualCredit.equals("")) {
+        } else if (manualCredit.equals("")) {
             Toast.makeText(context, "Enter your credits", Toast.LENGTH_SHORT).show();
             return;
         }
 
 
-        for(int i=0; i < totalItems; i++) {
-
+        for (int i = 0; i < totalItems; i++) {
 
 
             View rv = recyclerView2.findViewHolderForAdapterPosition(i).itemView;
@@ -709,14 +633,14 @@ public class CgpaAnalyzer extends Fragment {
             String grade = ((Spinner) rv.findViewById(R.id.cgpaGrade)).getSelectedItem().toString();
 
 
-            if(course.equals("")){
+            if (course.equals("")) {
 
-                Toast.makeText(context,"You must enter course initial.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "You must enter course initial.", Toast.LENGTH_SHORT).show();
 
 
             }
 
-            if(course != null && !course.isEmpty()) {
+            if (course != null && !course.isEmpty()) {
 
                 CgpaEntity arrData = new CgpaEntity();
 
@@ -727,7 +651,7 @@ public class CgpaAnalyzer extends Fragment {
 
                 totalCredit += Double.valueOf(credit);
 
-                totalPoint += getGpaPoint(grade)*Double.valueOf(credit);
+                totalPoint += getGpaPoint(grade) * Double.valueOf(credit);
 
                 currentSemCredit += Double.valueOf(credit);
 
@@ -743,62 +667,49 @@ public class CgpaAnalyzer extends Fragment {
         }
 
 
-        if(totalCredit < 1){
+        if (totalCredit < 1) {
 
-            Toast.makeText(context,"Credits can't be 0",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Credits can't be 0", Toast.LENGTH_SHORT).show();
             return;
 
         }
 
 
-
-            double mgc =  Double.valueOf(manualGpa) * Double.valueOf(manualCredit);
-            totalPoint += mgc;
-            totalCredit += Double.valueOf(manualCredit);
-
+        double mgc = Double.valueOf(manualGpa) * Double.valueOf(manualCredit);
+        totalPoint += mgc;
+        totalCredit += Double.valueOf(manualCredit);
 
 
-
-        cgpaAfter = totalPoint/totalCredit;
+        cgpaAfter = totalPoint / totalCredit;
 
 
         float expectedCgpa = Float.valueOf(new DecimalFormat("#.##").format(cgpaAfter));
         float creditf = Float.valueOf(new DecimalFormat("#.##").format(totalCredit));
 
 
+        double achiveCgpa1 = Double.valueOf(targetCgpa) * totalCredit;
 
+        double achiveCgpa2 = Double.valueOf(manualGpa) * Double.valueOf(manualCredit);
 
-        double achiveCgpa1 = Double.valueOf(targetCgpa)*totalCredit;
+        double pointDifference = achiveCgpa1 - achiveCgpa2;
 
-        double achiveCgpa2 = Double.valueOf(manualGpa)*Double.valueOf(manualCredit);
-
-        double pointDifference = achiveCgpa1-achiveCgpa2;
-
-        double requiredPoints = pointDifference/currentSemCredit;
-
+        double requiredPoints = pointDifference / currentSemCredit;
 
 
         DecimalFormat mFormat = new DecimalFormat("###,###,##0.00");
-        String reqqPoints =  mFormat.format(requiredPoints);
+        String reqqPoints = mFormat.format(requiredPoints);
 
 
-
-        updateManualCreditCgpa(Float.valueOf(manualCredit), Float.valueOf(manualGpa),  Float.valueOf(targetCgpa), expectedCgpa, Float.valueOf(reqqPoints));
+        updateManualCreditCgpa(Float.valueOf(manualCredit), Float.valueOf(manualGpa), Float.valueOf(targetCgpa), expectedCgpa, Float.valueOf(reqqPoints));
         updateManualCreditGpaInput();
 
         graphLayout.setVisibility(View.VISIBLE);
 
 
-
-
-
-
     }
 
 
-
-
-    private void addCourseFromDB(){
+    private void addCourseFromDB() {
 
 
         courses.clear();
@@ -810,10 +721,10 @@ public class CgpaAnalyzer extends Fragment {
 
         float requiredPoints;
 
-        if(prefss.contains("yourTarget")) {
+        if (prefss.contains("yourTarget")) {
 
             requiredPoints = prefss.getFloat("requiredPoints", 0.0f);
-        } else  {
+        } else {
 
             requiredPoints = 2.6f;
 
@@ -821,7 +732,7 @@ public class CgpaAnalyzer extends Fragment {
         }
 
 
-        for (int i= list.size()-1; i >= 0 ; i--) {
+        for (int i = list.size() - 1; i >= 0; i--) {
 
 
             String course = list.get(i).getCourse();
@@ -836,13 +747,7 @@ public class CgpaAnalyzer extends Fragment {
     }
 
 
-
-
-
-
-
     public double getGpaPoint(String grade) {
-
 
 
         Log.d("Plus sign", grade);
@@ -877,8 +782,6 @@ public class CgpaAnalyzer extends Fragment {
 
         return point;
     }
-
-
 
 
 }

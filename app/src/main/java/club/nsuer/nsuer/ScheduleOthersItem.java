@@ -7,9 +7,7 @@ public class ScheduleOthersItem {
     private String type;
     private String extraNote;
     private String user;
-
     private long date;
-
     private long reminderDate;
     private int color;
     private boolean doReminder;
@@ -109,9 +107,6 @@ public class ScheduleOthersItem {
     public void setPassed(boolean passed) {
         this.passed = passed;
     }
-
-
-
 
 
 }

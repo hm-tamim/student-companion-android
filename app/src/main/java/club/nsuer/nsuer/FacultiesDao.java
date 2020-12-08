@@ -26,18 +26,14 @@ public interface FacultiesDao {
     @Query("DELETE FROM facultiesEntity WHERE initial LIKE :name")
     void deleteByInitial(String name);
 
-
     @Query("SELECT course FROM facultiesEntity where initial LIKE :initial")
     String getCourseByFaculty(String initial);
 
     @Query("SELECT section FROM facultiesEntity where course LIKE :course")
     String getSectionByCourse(String course);
 
-
-
     @Query("DELETE FROM facultiesEntity WHERE course LIKE :name")
     void deleteByCourse(String name);
-
 
     @Query("SELECT COUNT(uid) from facultiesEntity")
     int countFaculties();

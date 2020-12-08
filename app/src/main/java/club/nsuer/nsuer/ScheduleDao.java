@@ -18,7 +18,6 @@ public interface ScheduleDao {
     @RawQuery
     List<ScheduleEntity> getViaQuery(SupportSQLiteQuery query);
 
-
     @Query("SELECT * FROM scheduleEntity ORDER BY date ASC")
     List<ScheduleEntity> getAll();
 

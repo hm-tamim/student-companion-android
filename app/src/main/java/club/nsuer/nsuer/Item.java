@@ -8,10 +8,6 @@ public class Item {
     private String room;
     private String date;
 
-
-
-
-
     public Item(String n, String s, String e, String r, String d) {
 
         name = n;
@@ -25,6 +21,7 @@ public class Item {
     public String getDate() {
         return date;
     }
+
     public void setDate(String date) {
         this.date = date;
     }
@@ -33,14 +30,17 @@ public class Item {
 
         return name;
     }
+
     public String getStart() {
 
         return start;
     }
+
     public String getEnd() {
 
         return end;
     }
+
     public String getRoom() {
 
         return room;

@@ -50,4 +50,5 @@
             android:textStyle="normal"
             android:typeface="normal" />
     </LinearLayout>
+
 </LinearLayout>

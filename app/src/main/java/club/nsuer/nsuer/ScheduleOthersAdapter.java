@@ -3,22 +3,22 @@ package club.nsuer.nsuer;
 
 
 import android.content.Context;
-        import android.content.Intent;
-        import android.support.v4.content.ContextCompat;
-        import android.support.v7.widget.CardView;
-        import android.support.v7.widget.RecyclerView;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.Button;
-        import android.widget.ImageView;
-        import android.widget.RelativeLayout;
-        import android.widget.TextView;
+import android.content.Intent;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-        import java.text.SimpleDateFormat;
-        import java.util.ArrayList;
-        import java.util.Date;
-        import java.util.Locale;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAdapter.ViewHolder> {
@@ -28,14 +28,12 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
     private Context context;
     private ScheduleOthers instance;
 
-
-    public ScheduleOthersAdapter(int layoutId, ArrayList<ScheduleOthersItem> itemList,Context context, ScheduleOthers instance) {
+    public ScheduleOthersAdapter(int layoutId, ArrayList<ScheduleOthersItem> itemList, Context context, ScheduleOthers instance) {
         listItemLayout = layoutId;
         this.itemList = itemList;
         this.context = context;
         this.instance = instance;
     }
-
 
 
     @Override
@@ -70,7 +68,6 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
         View circle = holder.circle;
 
 
-
         boolean isPassed = false;
 
 
@@ -79,7 +76,7 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
 
         String totalTitle = titleS;
 
-        if(!typeS.equals(""))
+        if (!typeS.equals(""))
             totalTitle += " - " + typeS;
 
         title.setText(totalTitle);
@@ -88,8 +85,7 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
         holder.user.setText("By " + itemList.get(listPosition).getUser());
 
 
-
-        long timeI =  itemList.get(listPosition).getDate();
+        long timeI = itemList.get(listPosition).getDate();
 
         long timestamp = (long) timeI * 1000L;
 
@@ -105,7 +101,6 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
         //timeSdf.setTimeZone(tz);
 
 
-
         String dateS = dateSdf.format(new Date(timestamp));
         String monthS = monthSdf.format(new Date(timestamp));
         String timeS = timeSdf.format(new Date(timestamp));
@@ -117,11 +112,9 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
         cardView.setCardBackgroundColor(itemList.get(listPosition).getColor());
 
 
-
-
         String noteS = itemList.get(listPosition).getExtraNote();
 
-        if(noteS.equals(""))
+        if (noteS.equals(""))
             noteHolder.setVisibility(View.GONE);
         else
             note.setText(noteS);
@@ -129,14 +122,13 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
 
         boolean doReminder = itemList.get(listPosition).isDoReminder();
 
-        if(!doReminder)
+        if (!doReminder)
             alarmIcon.setVisibility(View.GONE);
-
 
 
         isPassed = itemList.get(listPosition).isPassed();
 
-        if(isPassed)
+        if (isPassed)
             circle.setBackground(ContextCompat.getDrawable(context, R.drawable.ac_circle_filled_ddd));
         else
             circle.setBackground(ContextCompat.getDrawable(context, R.drawable.ac_circle_ddd));
@@ -148,16 +140,16 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
             public void onClick(View view) {
 
 
-                Intent intent = new Intent(context,AddSchedule.class);
+                Intent intent = new Intent(context, AddSchedule.class);
 
-                intent.putExtra("classmate",true);
-                intent.putExtra("title",itemList.get(listPosition).getTitle());
-                intent.putExtra("type",itemList.get(listPosition).getType());
-                intent.putExtra("note",itemList.get(listPosition).getExtraNote());
-                intent.putExtra("date",itemList.get(listPosition).getDate());
-                intent.putExtra("reminderDate",itemList.get(listPosition).getReminderDate());
-                intent.putExtra("color",itemList.get(listPosition).getColor());
-                intent.putExtra("doRemind",itemList.get(listPosition).isDoReminder());
+                intent.putExtra("classmate", true);
+                intent.putExtra("title", itemList.get(listPosition).getTitle());
+                intent.putExtra("type", itemList.get(listPosition).getType());
+                intent.putExtra("note", itemList.get(listPosition).getExtraNote());
+                intent.putExtra("date", itemList.get(listPosition).getDate());
+                intent.putExtra("reminderDate", itemList.get(listPosition).getReminderDate());
+                intent.putExtra("color", itemList.get(listPosition).getColor());
+                intent.putExtra("doRemind", itemList.get(listPosition).isDoReminder());
 
                 context.startActivity(intent);
             }
@@ -202,9 +194,6 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
             circle = (View) itemView.findViewById(R.id.acCircle);
 
 
-
-
-
         }
 
 
@@ -212,7 +201,6 @@ public class ScheduleOthersAdapter extends RecyclerView.Adapter<ScheduleOthersAd
         public void onClick(View view) {
 
         }
-
 
 
     }

@@ -130,7 +130,6 @@ public class MessageEntity {
 }
 
 
-
 @Dao
 interface MessageDao {
 
@@ -141,13 +140,11 @@ interface MessageDao {
     List<MessageEntity> getAll();
 
 
-
     @Query("SELECT * FROM messageEntity ORDER BY time DESC")
     List<MessageEntity> getAllByTime();
 
     @Query("SELECT chat_id FROM messageEntity LIMIT 1")
     int checkEmpty();
-
 
 
     @Query("SELECT COUNT(chat_id) from messageEntity")
@@ -162,8 +159,6 @@ interface MessageDao {
     @Query("DELETE FROM messageEntity")
     public void nukeTable();
 }
-
-
 
 
 @Database(entities = {MessageEntity.class}, version = 1, exportSchema = false)

@@ -14,7 +14,6 @@ public class NsuNoticesItem {
     }
 
     public String getTitle() {
-
         return title;
     }
 

@@ -69,9 +69,7 @@ public class CgpaEntity {
     }
 
 
-
 }
-
 
 
 @Dao
@@ -102,8 +100,6 @@ interface CgpaDao {
     @Query("DELETE FROM cgpaEntity")
     public void nukeTable();
 }
-
-
 
 
 @Database(entities = {CgpaEntity.class}, version = 1, exportSchema = false)

@@ -1,9 +1,7 @@
 package club.nsuer.nsuer;
 
 import android.app.ProgressDialog;
-import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,19 +24,13 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 public class NsuNotices extends Fragment {
@@ -74,7 +66,6 @@ public class NsuNotices extends Fragment {
     private CacheHelper acCache;
 
 
-
     public NsuNotices() {
         // Required empty public constructor
     }
@@ -104,12 +95,13 @@ public class NsuNotices extends Fragment {
         inflater.inflate(R.menu.reload_button, menu);
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.navReloadButton:
-                if(Utils.isNetworkAvailable(context)) {
+                if (Utils.isNetworkAvailable(context)) {
                     loadJson(type);
 
                 }
@@ -121,13 +113,12 @@ public class NsuNotices extends Fragment {
     }
 
 
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             // load data here
-        }else{
+        } else {
             // fragment is no longer visible
         }
     }
@@ -135,8 +126,6 @@ public class NsuNotices extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
 
 
         main.removeShadow();
@@ -148,14 +137,11 @@ public class NsuNotices extends Fragment {
         p = (ProgressBar) v.findViewById(R.id.progressBarNotice);
 
 
-
-
         // db.coursesDao().nukeTable();
 
         itemList = new ArrayList<NsuNoticesItem>();
 
         itemArrayAdapter2 = new NsuNoticesAdapter(R.layout.notice_events_recycler, itemList, context, type);
-
 
 
         recyclerView2 = (RecyclerView) v.findViewById(R.id.noticeEventRecycler);
@@ -166,14 +152,11 @@ public class NsuNotices extends Fragment {
         recyclerView2.setItemAnimator(new DefaultItemAnimator());
 
 
-
         DividerItemDecoration itemDecorator = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
         itemDecorator.setDrawable(ContextCompat.getDrawable(context, R.drawable.recycler_devider));
 
 
         recyclerView2.addItemDecoration(itemDecorator);
-
-
 
 
         final String key = type;
@@ -184,7 +167,7 @@ public class NsuNotices extends Fragment {
 
         int timeDiff = 9999;
 
-        if (acCache.isExists()){
+        if (acCache.isExists()) {
 
             jsonCache = acCache.retrieve();
 
@@ -195,19 +178,15 @@ public class NsuNotices extends Fragment {
             timeDiff = acCache.getTimeDiffMin();
 
 
-
         }
 
-        if(!acCache.isExists() || timeDiff > 20 && Utils.isNetworkAvailable(getContext())) {
+        if (!acCache.isExists() || timeDiff > 20 && Utils.isNetworkAvailable(getContext())) {
 
 
             loadJson(type);
 
 
         }
-
-
-
 
 
         recyclerView2.setAdapter(itemArrayAdapter2);
@@ -218,12 +197,11 @@ public class NsuNotices extends Fragment {
     }
 
 
-
-    private void loadJson(String type){
+    private void loadJson(String type) {
 
         String url;
 
-        if(type.equals("events"))
+        if (type.equals("events"))
             url = "https://nsuer.club/apps/nsu-notice-events/events.json";
         else
             url = "https://nsuer.club/apps/nsu-notice-events/notice.json";
@@ -246,8 +224,7 @@ public class NsuNotices extends Fragment {
                 itemList.clear();
 
                 loadRecylcer(result.toString());
-               // Toast.makeText(context,"Updated!",Toast.LENGTH_SHORT).show();
-
+                // Toast.makeText(context,"Updated!",Toast.LENGTH_SHORT).show();
 
 
             }
@@ -265,8 +242,7 @@ public class NsuNotices extends Fragment {
     }
 
 
-
-    private void loadRecylcer(String string){
+    private void loadRecylcer(String string) {
 
         //ProgressBar p = (ProgressBar) v.findViewById(R.id.acProgressBar);
 
@@ -282,9 +258,7 @@ public class NsuNotices extends Fragment {
             JSONArray obj = result.getJSONArray("dataArray");
 
 
-
             for (int j = 0; j < obj.length(); j++) {
-
 
 
                 JSONObject data = obj.getJSONObject(j);
@@ -294,8 +268,8 @@ public class NsuNotices extends Fragment {
                 String url = data.getString("url");
                 String date = data.getString("date");
 
-                if(j<15)
-                    itemList.add(new NsuNoticesItem(title,date,url));
+                if (j < 15)
+                    itemList.add(new NsuNoticesItem(title, date, url));
 
 
             }
@@ -305,16 +279,10 @@ public class NsuNotices extends Fragment {
         }
 
 
-
         itemArrayAdapter2.notifyDataSetChanged();
 
 
-
-
-
     }
-
-
 
 
     private int getRandomMaterialColor(String typeColor) {
@@ -328,10 +296,6 @@ public class NsuNotices extends Fragment {
         }
         return returnColor;
     }
-
-
-
-
 
 
 }

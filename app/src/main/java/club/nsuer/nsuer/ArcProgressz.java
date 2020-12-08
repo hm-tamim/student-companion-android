@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.Utils;
 
@@ -24,7 +23,7 @@ import java.text.DecimalFormat;
  * Created by bruce on 11/6/14.
  * Copyright (C) 2014 Bruce Lee <bruceinpeking#gmail.com>
  * Everyone is permitted to copy and distribute verbatim or modified copies of this license document, and changing it is allowed as long as the name is changed.
- * 
+ * <p>
  * https://github.com/lzyzsd/CircleProgress
  */
 public class ArcProgressz extends View {
@@ -199,7 +198,7 @@ public class ArcProgressz extends View {
 
 
             invalidate();
-        } catch (Exception e){
+        } catch (Exception e) {
 
 
             Log.e("ArcProgress", e.toString());
@@ -232,7 +231,6 @@ public class ArcProgressz extends View {
         this.progressBack = progressBack;
         this.invalidate();
     }
-
 
 
     public float getTextSize() {
@@ -324,7 +322,7 @@ public class ArcProgressz extends View {
         float startAngle = 270 - arcAngle / 2f;
         float finishedSweepAngle = progress / (float) getMax() * arcAngle;
         float finishedStartAngle = startAngle;
-        if(progress == 0) finishedStartAngle = 0.01f;
+        if (progress == 0) finishedStartAngle = 0.01f;
         paint.setColor(unfinishedStrokeColor);
         canvas.drawArc(rectF, startAngle, arcAngle, false, paint);
         paint.setColor(finishedStrokeColor);
@@ -334,7 +332,7 @@ public class ArcProgressz extends View {
 
         // Removing decimal if progress number is an integer by H.M. Tamim
 
-        if(getProgress() - (int) getProgress() != 0)
+        if (getProgress() - (int) getProgress() != 0)
             text = String.valueOf(getProgress());
         else
             text = String.valueOf((int) getProgress());
@@ -348,10 +346,10 @@ public class ArcProgressz extends View {
             canvas.drawText(text, (getWidth() - textPaint.measureText(text)) / 2.0f, textBaseline, textPaint);
             textPaint.setTextSize(suffixTextSize);
             float suffixHeight = textPaint.descent() + textPaint.ascent();
-            canvas.drawText(suffixText, getWidth() / 2.0f  + textPaint.measureText(text) + suffixTextPadding, textBaseline + textHeight - suffixHeight, textPaint);
+            canvas.drawText(suffixText, getWidth() / 2.0f + textPaint.measureText(text) + suffixTextPadding, textBaseline + textHeight - suffixHeight, textPaint);
         }
 
-        if(arcBottomHeight == 0) {
+        if (arcBottomHeight == 0) {
             float radius = getWidth() / 2f;
             float angle = (360 - arcAngle) / 2f;
             arcBottomHeight = radius * (float) (1 - Math.cos(angle / 180 * Math.PI));
@@ -386,7 +384,7 @@ public class ArcProgressz extends View {
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
-        if(state instanceof Bundle) {
+        if (state instanceof Bundle) {
             final Bundle bundle = (Bundle) state;
             strokeWidth = bundle.getFloat(INSTANCE_STROKE_WIDTH);
             suffixTextSize = bundle.getFloat(INSTANCE_SUFFIX_TEXT_SIZE);

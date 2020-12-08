@@ -28,4 +28,5 @@ class ForegroundCheckTask extends AsyncTask<Context, Void, Boolean> {
         }
         return false;
     }
+
 }

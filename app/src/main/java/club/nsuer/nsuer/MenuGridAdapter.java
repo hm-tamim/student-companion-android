@@ -13,7 +13,6 @@ public class MenuGridAdapter extends BaseAdapter {
     private Context mContext;
     private final String[] gridViewString;
     private final int[] gridViewImageId;
-
     private View view;
 
     public MenuGridAdapter(Context context, View view, String[] gridViewString, int[] gridViewImageId) {
@@ -48,9 +47,9 @@ public class MenuGridAdapter extends BaseAdapter {
         }
 
         TextView textViewAndroid = (TextView) convertView.findViewById(R.id.android_gridview_text);
-            ImageView imageViewAndroid = (ImageView) convertView.findViewById(R.id.android_gridview_image);
-            textViewAndroid.setText(gridViewString[i]);
-            imageViewAndroid.setImageResource(gridViewImageId[i]);
+        ImageView imageViewAndroid = (ImageView) convertView.findViewById(R.id.android_gridview_image);
+        textViewAndroid.setText(gridViewString[i]);
+        imageViewAndroid.setImageResource(gridViewImageId[i]);
 
         return convertView;
     }

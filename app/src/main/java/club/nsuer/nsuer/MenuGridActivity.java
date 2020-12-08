@@ -12,18 +12,11 @@ import android.widget.Toast;
 public class MenuGridActivity {
 
     private GridView androidGridView;
-
     private final Context context;
-
     private View view;
-
-
     private Fragment fragment;
-
     private FragmentTransaction ft;
-
     public MainActivity main;
-
 
     private String[] gridViewString = {
             "Courses",

@@ -3,20 +3,14 @@ package club.nsuer.nsuer;
 
 import android.animation.ObjectAnimator;
 import android.animation.StateListAnimator;
-import android.app.Activity;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -32,19 +26,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -72,8 +62,7 @@ public class UserProfile extends Fragment {
     private ImageView dp;
 
 
-    public UserProfile(){
-
+    public UserProfile() {
 
 
     }
@@ -98,21 +87,17 @@ public class UserProfile extends Fragment {
     private MenuItem item;
 
 
-
-
-
-    public String timeConverter(String time, int type){
+    public String timeConverter(String time, int type) {
 
         try {
             SimpleDateFormat date12Format = new SimpleDateFormat("hh:mm a", Locale.US);
 
             SimpleDateFormat date24Format = new SimpleDateFormat("HH:mm", Locale.US);
 
-            if(type == 24) {
+            if (type == 24) {
                 String t24 = date24Format.format(date12Format.parse(time));
                 return t24;
-            }
-            else {
+            } else {
                 String t12 = date12Format.format(date24Format.parse(time));
                 return t12;
             }
@@ -147,7 +132,7 @@ public class UserProfile extends Fragment {
         try {
             this.cgpa = Double.parseDouble(main.getCgpa());
             this.credit = Integer.parseInt(main.getCredit());
-        } catch (Exception e){
+        } catch (Exception e) {
 
             Log.e("cgpa", e.toString());
         }
@@ -167,8 +152,6 @@ public class UserProfile extends Fragment {
 
 
         //item = menu.findItem(R.id.editButton);
-
-
 
 
     }
@@ -209,8 +192,6 @@ public class UserProfile extends Fragment {
     }
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -227,8 +208,6 @@ public class UserProfile extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-
-
         main.setActionBarTitle("NSUer");
 
 
@@ -239,17 +218,14 @@ public class UserProfile extends Fragment {
         dp = (ImageView) v.findViewById(R.id.userProfilePicture);
 
 
-
-
         final String imgDir = context.getFilesDir().getPath() + File.separator + "images" + File.separator + "tamim.jpg";
 
         File dpp = new File(imgDir);
 
 
+        if (!picture.equals("0")) {
 
-        if (!picture.equals("0")){
-
-            if(!dpp.exists()) {
+            if (!dpp.exists()) {
 
 
                 Picasso.get()
@@ -258,8 +234,7 @@ public class UserProfile extends Fragment {
                         .transform(new CircleTransform())
                         .centerCrop(Gravity.TOP)
                         .into(dp);
-            }
-            else {
+            } else {
                 Picasso.get()
                         .load(dpp)
                         .fit()
@@ -268,7 +243,6 @@ public class UserProfile extends Fragment {
                         .into(dp);
             }
         }
-
 
 
         dp.setOnClickListener(new View.OnClickListener() {
@@ -283,8 +257,7 @@ public class UserProfile extends Fragment {
         });
 
 
-
-        final ArcProgressz arc = (ArcProgressz)v.findViewById(R.id.arc_cgpa);
+        final ArcProgressz arc = (ArcProgressz) v.findViewById(R.id.arc_cgpa);
 
         TextView rdsBtn = v.findViewById(R.id.editProfileButton);
 
@@ -301,7 +274,6 @@ public class UserProfile extends Fragment {
                 main.finish();
 
 
-
             }
         });
 
@@ -312,12 +284,11 @@ public class UserProfile extends Fragment {
         showHideCgpa.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Utils.CustomTab("https://rds3.northsouth.edu/index.php/welcome/enter_login",context);
+                Utils.CustomTab("https://rds3.northsouth.edu/index.php/welcome/enter_login", context);
 
 
             }
         });
-
 
 
         TextView userDept = v.findViewById(R.id.userProfileDept);
@@ -326,19 +297,14 @@ public class UserProfile extends Fragment {
         userDept.setText(deptArray[dept]);
 
 
-
         StateListAnimator stateListAnimator = new StateListAnimator();
         stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(main.findViewById(R.id.mainBar), "elevation", 0));
         main.findViewById(R.id.mainBar).setStateListAnimator(stateListAnimator);
 
 
-
 //        String upperStringName = name.substring(0,1).toUpperCase() + name.substring(1);
 
-        ((TextView)v.findViewById(R.id.userName)).setText(name);
-
-
-
+        ((TextView) v.findViewById(R.id.userName)).setText(name);
 
 
 //
@@ -352,14 +318,13 @@ public class UserProfile extends Fragment {
 //            }
 
 
-
         arc.setMax(4);
 
 
         float cgpaf;
 
 
-        if(main.willShowCgpa()) {
+        if (main.willShowCgpa()) {
 
             cgpaf = (float) cgpa;
             arc.setProgress(cgpaf);
@@ -368,14 +333,11 @@ public class UserProfile extends Fragment {
             objectAnimator.setInterpolator(new DecelerateInterpolator());
             objectAnimator.start();
 
-        } else
-        {
+        } else {
 
             arc.setProgress(0f);
 
         }
-
-
 
 
         ArcProgress arc_credit = (ArcProgress) v.findViewById(R.id.arc_credits);
@@ -391,23 +353,16 @@ public class UserProfile extends Fragment {
         objectAnimators.start();
 
 
-
-
         ArcProgress arc_semester = (ArcProgress) v.findViewById(R.id.arc_semester);
 
         arc_semester.setMax(15);
 
-        ObjectAnimator objectAnimator1 = ObjectAnimator.ofInt(arc_semester, "progress", semester+1);
+        ObjectAnimator objectAnimator1 = ObjectAnimator.ofInt(arc_semester, "progress", semester + 1);
         objectAnimator1.setDuration(1200);
         objectAnimator1.setInterpolator(new DecelerateInterpolator());
         objectAnimator1.start();
 
         arc_semester.setProgress(5);
-
-
-
-
-
 
 
         FirebaseMessaging.getInstance().subscribeToTopic("nsuer")
@@ -424,14 +379,9 @@ public class UserProfile extends Fragment {
                 });
 
 
-        String userID = "USER."+memberID;
+        String userID = "USER." + memberID;
 
         FirebaseMessaging.getInstance().subscribeToTopic(userID);
-
-
-
-
-
 
 
         Calendar calendar = Calendar.getInstance();
@@ -455,28 +405,22 @@ public class UserProfile extends Fragment {
         String todayFirstLetter = todayDay.substring(0, 1);
         String tomorrowFirstLetter = tomorrowDay.substring(0, 1);
 
-        if(todayDay.contains("Thursday"))
+        if (todayDay.contains("Thursday"))
             todayFirstLetter = "R";
-        if(todayDay.contains("Saturday"))
+        if (todayDay.contains("Saturday"))
             todayFirstLetter = "A";
 
-        if(tomorrowDay.contains("Thursday"))
+        if (tomorrowDay.contains("Thursday"))
             tomorrowFirstLetter = "R";
-        if(tomorrowDay.contains("Saturday"))
+        if (tomorrowDay.contains("Saturday"))
             tomorrowFirstLetter = "A";
-
-
-
-
 
 
         ((TextView) v.findViewById(R.id.todayDate)).setText(todayAsString);
         ((TextView) v.findViewById(R.id.tomorrowDate)).setText(tomorrowAsString);
 
 
-
-
-        ArrayList <Item> itemListToday = new ArrayList<Item>();
+        ArrayList<Item> itemListToday = new ArrayList<Item>();
 
         CoursesAdapter itemArrayAdapterToday = new CoursesAdapter(R.layout.list_item, itemListToday);
 
@@ -484,13 +428,12 @@ public class UserProfile extends Fragment {
         recyclerViewToday.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerViewToday.setItemAnimator(new DefaultItemAnimator());
 
-        ArrayList <Item> itemListTomorrow = new ArrayList<Item>();
+        ArrayList<Item> itemListTomorrow = new ArrayList<Item>();
 
         CoursesAdapter itemArrayAdapterTomorrow = new CoursesAdapter(R.layout.list_item, itemListTomorrow);
         RecyclerView recyclerViewTomorrow = (RecyclerView) v.findViewById(R.id.tomorrowRecyclerView);
         recyclerViewTomorrow.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerViewTomorrow.setItemAnimator(new DefaultItemAnimator());
-
 
 
         //SimpleSQLiteQuery query = new SimpleSQLiteQuery("SELECT * FROM coursesEntity ORDER BY strftime(\"%H:%M\",startTime) desc");
@@ -500,38 +443,37 @@ public class UserProfile extends Fragment {
         List<CoursesEntity> list = db.coursesDao().getAllByTime();
 
 
+        int todayCount = 0;
+        int tomorrowCount = 0;
 
-        int todayCount=0;
-        int tomorrowCount=0;
-
-        for (int i=0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
 
 
             String course = list.get(i).getCourse();
             String section = list.get(i).getSection();
 
-            String courseSection = course+"."+section;
+            String courseSection = course + "." + section;
 
             FirebaseMessaging.getInstance().subscribeToTopic(courseSection);
 
 
             String startTime24 = list.get(i).getStartTime();
-            String startTime = timeConverter(startTime24,12);
+            String startTime = timeConverter(startTime24, 12);
 
 
             String endTime24 = list.get(i).getEndTime();
-            String endTime = timeConverter(endTime24,12);
+            String endTime = timeConverter(endTime24, 12);
 
             String day = list.get(i).getDay();
             String faculty = list.get(i).getFaculty();
             String room = list.get(i).getRoom();
 
-            if(day.contains(todayFirstLetter)) {
+            if (day.contains(todayFirstLetter)) {
                 itemListToday.add(new Item(course, startTime24, endTime24, room, "today"));
                 todayCount++;
             }
 
-            if(day.contains(tomorrowFirstLetter)) {
+            if (day.contains(tomorrowFirstLetter)) {
                 itemListTomorrow.add(new Item(course, startTime24, endTime24, room, "tomorrow"));
                 tomorrowCount++;
             }
@@ -541,22 +483,19 @@ public class UserProfile extends Fragment {
         recyclerViewToday.setAdapter(itemArrayAdapterToday);
         recyclerViewTomorrow.setAdapter(itemArrayAdapterTomorrow);
 
-        if(todayCount > 0)
+        if (todayCount > 0)
             ((CardView) v.findViewById(R.id.noClassToday)).setVisibility(View.GONE);
-        if(tomorrowCount > 0)
+        if (tomorrowCount > 0)
             ((CardView) v.findViewById(R.id.noClassTomorrow)).setVisibility(View.GONE);
-
 
 
         WeatherUpdater updateWeather;
         View weatherCardHolder = v.findViewById(R.id.weatherCardIncluder);
 
-        if(main.willShowWeather())
-            updateWeather = new WeatherUpdater(context,v);
+        if (main.willShowWeather())
+            updateWeather = new WeatherUpdater(context, v);
         else
             weatherCardHolder.setVisibility(View.GONE);
-
-
 
 
 //
@@ -569,18 +508,10 @@ public class UserProfile extends Fragment {
 //
 
 
-
-       // MenuGridActivity includeMenu = new MenuGridActivity(context,v, main);
-
-
-
-
+        // MenuGridActivity includeMenu = new MenuGridActivity(context,v, main);
 
 
     }
-
-
-
 
 
 }

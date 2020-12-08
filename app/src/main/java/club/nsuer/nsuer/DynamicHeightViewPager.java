@@ -39,7 +39,6 @@ public class DynamicHeightViewPager extends ViewPager {
     }
 
 
-
     public void measureCurrentView(View currentView) {
         mCurrentView = currentView;
         requestLayout();

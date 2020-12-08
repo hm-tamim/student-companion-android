@@ -5,33 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.Uri;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import static android.support.v7.widget.helper.ItemTouchHelper.Callback.makeMovementFlags;
 
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
@@ -50,13 +34,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
 
-
     @Override
     public int getItemCount() {
 
         return itemList == null ? 0 : itemList.size();
     }
-
 
 
     @Override
@@ -79,11 +61,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         String type = itemList.get(listPosition).getType();
 
-        if(type.equals("like"))
+        if (type.equals("like"))
             image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_heart_outline));
-        else if(type.equals("comment"))
+        else if (type.equals("comment"))
             image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_comments_outline));
-        else if(type.equals("reminder"))
+        else if (type.equals("reminder"))
             image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_alarm_clock_white));
         else
             image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notification));
@@ -99,12 +81,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(context,MainActivity.class);
-                intent.putExtra("senderMemID",itemList.get(listPosition).getSenderMemID());
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.putExtra("senderMemID", itemList.get(listPosition).getSenderMemID());
                 intent.putExtra("type", itemList.get(listPosition).getType());
                 intent.putExtra("typeExtra", itemList.get(listPosition).getTypeExtra());
-                intent.putExtra("typeExtra2",itemList.get(listPosition).getTypeExtra2());
-                intent.putExtra("fromService","true");
+                intent.putExtra("typeExtra2", itemList.get(listPosition).getTypeExtra2());
+                intent.putExtra("fromService", "true");
 
                 mainActivity.finish();
 
@@ -114,23 +96,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             }
         });
 
-        if(itemList.get(listPosition).isSeen()) {
+        if (itemList.get(listPosition).isSeen()) {
             holder.layout.setBackgroundColor(Color.parseColor("#ffffff"));
             holder.title.setTypeface(null, Typeface.NORMAL);
-        }
-        else {
+        } else {
             holder.layout.setBackgroundColor(Color.parseColor("#f9f9f9"));
             holder.title.setTypeface(null, Typeface.BOLD);
         }
 
 
-
-
         holder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
 
 
                 PopupMenu popup = new PopupMenu(context, holder.menu);
@@ -142,7 +119,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.cr_action_remove:
-
 
 
                                 NotificationDatabase db = Room.databaseBuilder(context,
@@ -192,7 +168,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             layout = (LinearLayout) itemView.findViewById(R.id.holder);
 
 
-
         }
 
 
@@ -200,7 +175,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         public void onClick(View view) {
 
         }
-
 
 
     }

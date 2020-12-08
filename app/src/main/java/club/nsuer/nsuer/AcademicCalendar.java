@@ -32,7 +32,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 
-
 public class AcademicCalendar extends Fragment {
 
     private MainActivity main;
@@ -67,7 +66,8 @@ public class AcademicCalendar extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.academic_calendar, container, false);;
+        view = inflater.inflate(R.layout.academic_calendar, container, false);
+        ;
 
         return view;
     }
@@ -79,12 +79,13 @@ public class AcademicCalendar extends Fragment {
         inflater.inflate(R.menu.reload_button, menu);
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.navReloadButton:
-                if(Utils.isNetworkAvailable(context))
+                if (Utils.isNetworkAvailable(context))
                     loadJson();
 
                 return true;
@@ -92,7 +93,6 @@ public class AcademicCalendar extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
 
     @Override
@@ -124,7 +124,7 @@ public class AcademicCalendar extends Fragment {
 
         int timeDiff = 9999;
 
-        if (acCache.isExists()){
+        if (acCache.isExists()) {
 
             jsonCache = acCache.retrieve();
 
@@ -139,7 +139,7 @@ public class AcademicCalendar extends Fragment {
 
         }
 
-        if(!acCache.isExists() || timeDiff > 40 && Utils.isNetworkAvailable(context)) {
+        if (!acCache.isExists() || timeDiff > 40 && Utils.isNetworkAvailable(context)) {
 
 
             loadJson();
@@ -148,15 +148,12 @@ public class AcademicCalendar extends Fragment {
         }
 
 
-
-
         recyclerView.setAdapter(itemAdapter);
-
 
 
     }
 
-    private void loadJson(){
+    private void loadJson() {
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
@@ -181,13 +178,12 @@ public class AcademicCalendar extends Fragment {
                 //Toast.makeText(getContext(),"Updated!",Toast.LENGTH_SHORT).show();
 
 
-
             }
 
             @Override
             public void onFailure() {
 
-                Toast.makeText(getContext(),"Error occurred!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error occurred!", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -199,8 +195,7 @@ public class AcademicCalendar extends Fragment {
     }
 
 
-
-    private void loadRecylcer(String string){
+    private void loadRecylcer(String string) {
 
         ProgressBar p = (ProgressBar) view.findViewById(R.id.acProgressBar);
 
@@ -214,12 +209,10 @@ public class AcademicCalendar extends Fragment {
             JSONArray obj = result.getJSONArray("calendar");
 
 
-
             for (int j = 0; j < obj.length(); j++) {
 
 
-
-                boolean  isPassed = false;
+                boolean isPassed = false;
 
                 JSONObject data = obj.getJSONObject(j);
 
@@ -231,18 +224,19 @@ public class AcademicCalendar extends Fragment {
 
                 try {
 
-                    if (new SimpleDateFormat("dd/MMM/yyyy", Locale.US).parse(sDate+"/"+sMonth + "/"+sYear).before(new Date())) {
+                    if (new SimpleDateFormat("dd/MMM/yyyy", Locale.US).parse(sDate + "/" + sMonth + "/" + sYear).before(new Date())) {
                         datePassed = j;
                         isPassed = true;
                     }
 
-                }catch(Exception e) {}
+                } catch (Exception e) {
+                }
 
 
                 //String sColor = data.getString("date");
 
 
-                itemList.add(new AcademicCalendarItem(sDate,sMonth,sDay,sEvent,"",isPassed));
+                itemList.add(new AcademicCalendarItem(sDate, sMonth, sDay, sEvent, "", isPassed));
 
             }
         } catch (JSONException e) {
@@ -251,14 +245,11 @@ public class AcademicCalendar extends Fragment {
         }
 
 
-
         itemAdapter.notifyDataSetChanged();
 
         recyclerView.scrollToPosition(datePassed);
 
 
-
-
     }
 
-    }
+}

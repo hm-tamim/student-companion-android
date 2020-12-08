@@ -17,19 +17,13 @@ public class CacheHelper {
     private Context context;
     private String key;
     private String cacheDir;
-    
 
-
-    public CacheHelper(Context context,String key){
+    public CacheHelper(Context context, String key) {
 
         this.context = context;
         this.key = key;
         this.cacheDir = context.getFilesDir().getPath();
-
     }
-
-
-
 
 
     public void save(String value) {
@@ -50,8 +44,7 @@ public class CacheHelper {
     }
 
 
-
-    public boolean isExists(){
+    public boolean isExists() {
 
         File cache = new File(cacheDir + "/" + key + ".srl");
 
@@ -62,7 +55,7 @@ public class CacheHelper {
 
     }
 
-    public void clear(){
+    public void clear() {
 
 
         File cache = new File(cacheDir + "/" + key + ".srl");
@@ -72,7 +65,7 @@ public class CacheHelper {
 
     }
 
-    public int getTimeDiffMin(){
+    public int getTimeDiffMin() {
 
         File cache = new File(cacheDir + "/" + key + ".srl");
 
@@ -94,29 +87,28 @@ public class CacheHelper {
         }
 
 
-
     }
 
-    public int getTimeDiffHours(){
+    public int getTimeDiffHours() {
 
-            File cache = new File(cacheDir + "/" + key + ".srl");
+        File cache = new File(cacheDir + "/" + key + ".srl");
 
-            if (cache.exists()) {
+        if (cache.exists()) {
 
-                Date lastModDate = new Date(cache.lastModified());
-                Date now = new Date();
+            Date lastModDate = new Date(cache.lastModified());
+            Date now = new Date();
 
-                long diffInMillisec = now.getTime() - lastModDate.getTime();
-                long diffInHours = TimeUnit.MILLISECONDS.toHours(diffInMillisec);
+            long diffInMillisec = now.getTime() - lastModDate.getTime();
+            long diffInHours = TimeUnit.MILLISECONDS.toHours(diffInMillisec);
 
-                int ndiffInHours = (int) diffInHours;
+            int ndiffInHours = (int) diffInHours;
 
-                return ndiffInHours;
-            } else {
+            return ndiffInHours;
+        } else {
 
-                return 99999;
+            return 99999;
 
-            }
+        }
 
     }
 

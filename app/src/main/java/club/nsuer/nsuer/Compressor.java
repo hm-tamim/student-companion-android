@@ -21,6 +21,7 @@ public class Compressor {
     private int quality = 65;
     private String destinationDirectoryPath;
 
+
     public Compressor(Context context) {
         destinationDirectoryPath = context.getCacheDir().getPath() + File.separator + "images";
     }

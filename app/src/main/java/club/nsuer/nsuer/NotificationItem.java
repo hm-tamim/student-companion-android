@@ -11,7 +11,6 @@ public class NotificationItem {
     private long time;
     private boolean seen;
 
-
     public NotificationItem(String title, String body, String type, String typeExtra, String typeExtra2, String senderMemID, long time, boolean seen) {
         this.title = title;
         this.body = body;

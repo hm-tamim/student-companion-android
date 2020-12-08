@@ -102,7 +102,6 @@ public class FacultiesActivity extends Fragment {
     }
 
 
-
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
@@ -142,7 +141,7 @@ public class FacultiesActivity extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-                if(!Utils.isNetworkAvailable(getContext())) {
+                if (!Utils.isNetworkAvailable(getContext())) {
                     Toast.makeText(getContext(), "Internet connection required to search.", Toast.LENGTH_SHORT).show();
                     return false;
                 }
@@ -150,13 +149,12 @@ public class FacultiesActivity extends Fragment {
 
                 main.setActionBarTitle("Search: " + query);
 
-                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE); imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
 
 
                 final ProgressDialog dialog = ProgressDialog.show(getContext(), "",
                         "Fetching faculty's data...", true);
-
-
 
 
                 HashMap<String, String> parametters = new HashMap<String, String>();
@@ -169,7 +167,6 @@ public class FacultiesActivity extends Fragment {
                 parser.setListener(new JSONParser.ParserListener() {
                     @Override
                     public void onSuccess(JSONObject result) {
-
 
 
                         itemList.clear();
@@ -185,7 +182,7 @@ public class FacultiesActivity extends Fragment {
 
                             int oSize = obj.length();
 
-                            if(oSize < 1){
+                            if (oSize < 1) {
                                 noFaculty.setVisibility(View.VISIBLE);
                                 noFacultyText.setText("No Faculties Found!");
                             } else {
@@ -205,7 +202,7 @@ public class FacultiesActivity extends Fragment {
 
                                 String image = data.getString("image");
 
-                                String initial  = data.getString("initial");
+                                String initial = data.getString("initial");
 
                                 String course = "COURSE";
 
@@ -218,8 +215,6 @@ public class FacultiesActivity extends Fragment {
                                 String department = data.getString("dept");
                                 String office = data.getString("office");
                                 String url = data.getString("url");
-
-
 
 
                                 FacultiesItem arrData = new FacultiesItem();
@@ -241,25 +236,16 @@ public class FacultiesActivity extends Fragment {
                                 itemList.add(arrData);
 
 
-
-
                             }
 
 
                             itemArrayAdapter2.notifyDataSetChanged();
 
 
-
-
-
-
                         } catch (JSONException e) {
 
                             Log.e("JSON", e.toString());
                         }
-
-
-
 
 
                     }
@@ -272,10 +258,6 @@ public class FacultiesActivity extends Fragment {
 
 
                 parser.execute();
-
-
-
-
 
 
                 return true;
@@ -312,7 +294,6 @@ public class FacultiesActivity extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -339,16 +320,12 @@ public class FacultiesActivity extends Fragment {
         });
 
 
-
-
         db = Room.databaseBuilder(main.getApplicationContext(),
                 FacultiesDatabase.class, "faculties").allowMainThreadQueries().build();
 
 
-
         dbCourses = Room.databaseBuilder(main.getApplicationContext(),
                 CoursesDatabase.class, "courses").allowMainThreadQueries().build();
-
 
 
         // db.coursesDao().nukeTable();
@@ -365,7 +342,7 @@ public class FacultiesActivity extends Fragment {
 
         int aSize = list.size();
 
-        if(aSize > 0){
+        if (aSize > 0) {
 
             noFaculty.setVisibility(View.GONE);
         } else {
@@ -375,14 +352,14 @@ public class FacultiesActivity extends Fragment {
 
         }
 
-        for (int i=0; i < aSize; i++) {
+        for (int i = 0; i < aSize; i++) {
 
 
             String name = list.get(i).getName();
             String rank = list.get(i).getRank();
             String image = list.get(i).getImage();
 
-            String initial  = list.get(i).getInitial();
+            String initial = list.get(i).getInitial();
             String course = list.get(i).getCourse();
             String section = list.get(i).getSection();
             String email = list.get(i).getEmail();
@@ -393,18 +370,13 @@ public class FacultiesActivity extends Fragment {
             String url = list.get(i).getUrl();
 
 
-            itemList.add(new FacultiesItem(name,rank,image,initial,course,section,email,phone,ext,department,office,url));
+            itemList.add(new FacultiesItem(name, rank, image, initial, course, section, email, phone, ext, department, office, url));
 
 
         }
 
 
-
-
-
         recyclerView2.setAdapter(itemArrayAdapter2);
-
-
 
 
         return v;

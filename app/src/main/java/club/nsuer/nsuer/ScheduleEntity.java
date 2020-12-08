@@ -9,7 +9,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class ScheduleEntity {
 
 
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     private int key;
 
     @ColumnInfo(name = "id")
@@ -122,10 +122,6 @@ public class ScheduleEntity {
     public void setDoReminder(boolean doReminder) {
         this.doReminder = doReminder;
     }
-
-
-
-
 
 
 }

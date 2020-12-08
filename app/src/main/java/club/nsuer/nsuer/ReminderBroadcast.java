@@ -13,10 +13,10 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-import android.widget.Toast;
 
 public class ReminderBroadcast extends BroadcastReceiver {
     MediaPlayer mp;
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -29,13 +29,10 @@ public class ReminderBroadcast extends BroadcastReceiver {
 
         String reminderText = intent.getStringExtra("text");
 
-        int reminderId = intent.getIntExtra("id",0);
+        int reminderId = intent.getIntExtra("id", 0);
 
 
-       // Toast.makeText(context, reminderText, Toast.LENGTH_LONG).show();
-
-
-
+        // Toast.makeText(context, reminderText, Toast.LENGTH_LONG).show();
 
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -52,8 +49,6 @@ public class ReminderBroadcast extends BroadcastReceiver {
         }
 
 
-
-
         Intent intent2 = new Intent(context, MainActivity.class);
         intent2.putExtra("type", "reminder");
         intent2.putExtra("typeExtra", reminderId);
@@ -61,7 +56,7 @@ public class ReminderBroadcast extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, intent2,
                 PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
         notificationBuilder.setSmallIcon(R.drawable.ic_status_icon)
                 .setContentTitle("NSUer Reminder")
@@ -73,7 +68,6 @@ public class ReminderBroadcast extends BroadcastReceiver {
                 .setContentIntent(pendingIntent);
 
         notificationManager.notify(1, notificationBuilder.build());
-
 
 
     }

@@ -7,12 +7,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayout;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +17,6 @@ import android.widget.Toast;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -55,7 +51,7 @@ public class BloodBeDonor extends AppCompatActivity {
 
         try {
             bloodGroup = Integer.parseInt(session.getBloodGroup());
-        } catch (Exception e){
+        } catch (Exception e) {
 
 
         }
@@ -65,7 +61,7 @@ public class BloodBeDonor extends AppCompatActivity {
         submitBtn = findViewById(R.id.submitBtn);
 
 
-        if(bloodGroup < 0)
+        if (bloodGroup < 0)
             setTitle("Become a donor");
         else {
             setTitle("Edit Donor Profile");
@@ -92,13 +88,12 @@ public class BloodBeDonor extends AppCompatActivity {
         addressInput.setText(addressString);
 
 
-
-        View.OnClickListener btnclick = new View.OnClickListener(){
+        View.OnClickListener btnclick = new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
 
 
-                if (view instanceof TextView){
+                if (view instanceof TextView) {
 
                     int id = view.getId();
 
@@ -108,12 +103,11 @@ public class BloodBeDonor extends AppCompatActivity {
                         selectBlood(id);
 
 
-                    } catch (Exception e){
+                    } catch (Exception e) {
 
                         Log.e("BloodRequest", e.toString());
 
                     }
-
 
 
                 }
@@ -121,7 +115,7 @@ public class BloodBeDonor extends AppCompatActivity {
         };
 
 
-        for(int i = 0; i < 8; i++){
+        for (int i = 0; i < 8; i++) {
 
             String buttonID = "b" + i;
 
@@ -131,7 +125,6 @@ public class BloodBeDonor extends AppCompatActivity {
             btnTag.setOnClickListener(btnclick);
 
         }
-
 
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
@@ -145,39 +138,34 @@ public class BloodBeDonor extends AppCompatActivity {
         });
 
 
-
-
-
     }
 
-    private void makeBeDonor(){
-
+    private void makeBeDonor() {
 
 
         final String phone = phoneInput.getText().toString();
         final String address = addressInput.getText().toString();
 
-        if(!Utils.isNetworkAvailable(context)) {
+        if (!Utils.isNetworkAvailable(context)) {
             Toast.makeText(context, "Internet connection required.", Toast.LENGTH_SHORT).show();
             return;
-        } else if (bloodGroup < 0){
-            Toast.makeText(context,"Select blood group",Toast.LENGTH_SHORT).show();
+        } else if (bloodGroup < 0) {
+            Toast.makeText(context, "Select blood group", Toast.LENGTH_SHORT).show();
             return;
-        }else if (address.equals("")){
-            Toast.makeText(context,"Enter the area you live in.",Toast.LENGTH_SHORT).show();
+        } else if (address.equals("")) {
+            Toast.makeText(context, "Enter the area you live in.", Toast.LENGTH_SHORT).show();
             addressInput.setError("Required");
             return;
         }
-
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
 
         parametters.put("uid", uid);
-        parametters.put("bgroup",String.valueOf(bloodGroup));
-        parametters.put("phone",phone);
-        parametters.put("address",address);
+        parametters.put("bgroup", String.valueOf(bloodGroup));
+        parametters.put("phone", phone);
+        parametters.put("address", address);
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/blood-bank/bedonor.php", "GET", parametters);
 
@@ -190,14 +178,13 @@ public class BloodBeDonor extends AppCompatActivity {
                 session.setBloodGroup(String.valueOf(bloodGroup));
 
 
-
                 FirebaseMessaging.getInstance().subscribeToTopic("BLOOD." + bloodGroup);
 
                 session.setPhone(phone);
 
                 session.setAddress(address);
 
-                Toast.makeText(context,"Information updated.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Information updated.", Toast.LENGTH_SHORT).show();
                 finish();
 
             }
@@ -214,10 +201,10 @@ public class BloodBeDonor extends AppCompatActivity {
 
     }
 
-    private void selectBlood(int id){
+    private void selectBlood(int id) {
 
 
-        for(int i = 0; i < 8; i++){
+        for (int i = 0; i < 8; i++) {
 
             String buttonID = "b" + i;
 
@@ -225,7 +212,7 @@ public class BloodBeDonor extends AppCompatActivity {
 
             TextView btnTag = bloodGroups.findViewById(resID);
 
-            if(resID != id){
+            if (resID != id) {
 
                 btnTag.setBackground(getResources().getDrawable(R.drawable.blood_group));
             } else {
@@ -241,7 +228,6 @@ public class BloodBeDonor extends AppCompatActivity {
 
 
     }
-
 
 
     @Override

@@ -14,6 +14,7 @@ public class About extends Fragment {
 
     private View view;
     private MainActivity main;
+
     public About() {
         // Required empty public constructor
     }
@@ -39,7 +40,6 @@ public class About extends Fragment {
         lastupdate.setText("27 July, 2019");
 
         TextView email = view.findViewById(R.id.hmtamimEmail);
-
 
 
         return view;

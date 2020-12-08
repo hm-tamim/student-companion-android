@@ -100,9 +100,9 @@ public class RegisterActivity extends Activity {
     /**
      * Function to store user in MySQL database will post params(tag, name,
      * email, password) to register url
-     * */
+     */
     private void registerUser(final String name, final String email,
-                              final String password, final  String gender) {
+                              final String password, final String gender) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -214,7 +214,7 @@ public class RegisterActivity extends Activity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
         finish();
 

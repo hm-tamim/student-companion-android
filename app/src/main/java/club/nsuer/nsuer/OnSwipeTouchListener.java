@@ -30,16 +30,14 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
         }
 
 
-
-
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             boolean result = false;
             float diffY = 1.5f;
 
-            try{
+            try {
                 diffY = e2.getY() - e1.getY();
-            } catch (Exception e){
+            } catch (Exception e) {
 
                 Log.e("Swipe", e.toString());
             }

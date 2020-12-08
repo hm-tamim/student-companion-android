@@ -10,22 +10,18 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.hardware.camera2.TotalCaptureResult;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -39,19 +35,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -61,10 +49,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity
@@ -84,7 +69,7 @@ public class MainActivity extends AppCompatActivity
     private String credit = "0";
     private String semester = "0";
     private String dept = "0";
-    private double cgpaDouble= 0.0;
+    private double cgpaDouble = 0.0;
     private int creditInt = 0;
     private int semesterInt = 0;
     private int deptInt = 0;
@@ -120,34 +105,46 @@ public class MainActivity extends AppCompatActivity
     public String getName() {
         return name;
     }
+
     public String getEmail() {
         return email;
     }
+
     public String getGender() {
         return gender;
     }
+
     public String getMemberID() {
         return memberID;
     }
+
     public String getPicture() {
         return picture;
     }
+
     public String getCgpa() {
         return cgpa;
     }
+
     public String getCredit() {
         return credit;
     }
+
     public String getSemester() {
         return semester;
     }
+
     public String getDept() {
         return dept;
     }
-    public int  getBloodGroup() {
+
+    public int getBloodGroup() {
         return bloodGroup;
     }
-    public String getUid(){ return uid; }
+
+    public String getUid() {
+        return uid;
+    }
 
     public void removeShadow() {
         StateListAnimator stateListAnimator = new StateListAnimator();
@@ -163,17 +160,18 @@ public class MainActivity extends AppCompatActivity
         showingShadow = true;
     }
 
-    public void setMenuBackground(boolean red){
-        if(red){
-           // sheetBg.setBackgroundColor(Color.parseColor("#d3d30202"));
-        } else{
-           // sheetBg.setBackgroundColor(Color.parseColor("#e8317e96"));
+    public void setMenuBackground(boolean red) {
+        if (red) {
+            // sheetBg.setBackgroundColor(Color.parseColor("#d3d30202"));
+        } else {
+            // sheetBg.setBackgroundColor(Color.parseColor("#e8317e96"));
         }
     }
 
     private void setStatusBarDim(boolean dim) {
         BloodBank bloodBank = (BloodBank) getSupportFragmentManager().findFragmentByTag("Blood Bank");
-        if (bloodBank != null && bloodBank.isVisible()){} else {
+        if (bloodBank != null && bloodBank.isVisible()) {
+        } else {
             getWindow().setStatusBarColor(isBottomSheetOpen ? Color.parseColor("#b1000000") : Color.parseColor("#388096"));
         }
 
@@ -191,7 +189,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-         // before onCreate in MainActivity
+        // before onCreate in MainActivity
 
         try {
 
@@ -202,7 +200,7 @@ public class MainActivity extends AppCompatActivity
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
 
-            if(metrics.scaledDensity > 2.7f) {
+            if (metrics.scaledDensity > 2.7f) {
                 Configuration configuration = getResources().getConfiguration();
                 configuration.fontScale = (float) 1.05; //0.85 small size, 1 normal size, 1,15 big etc
                 // metrics.scaledDensity = configuration.fontScale * metrics.density;
@@ -214,7 +212,7 @@ public class MainActivity extends AppCompatActivity
 
             Log.d("Display", metrics.toString());
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
             Log.e("Scaling", e.toString());
 
@@ -247,7 +245,7 @@ public class MainActivity extends AppCompatActivity
                 creditInt = Integer.parseInt(credit);
                 semesterInt = Integer.parseInt(semester);
                 deptInt = Integer.parseInt(dept);
-            } catch (Exception e){
+            } catch (Exception e) {
 
                 Log.e("e", e.toString());
 
@@ -261,25 +259,36 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public boolean willShowCgpa(){ return showCgpa; }
+    public boolean willShowCgpa() {
+        return showCgpa;
+    }
 
-    public boolean willShowWeather(){ return showWeather; }
+    public boolean willShowWeather() {
+        return showWeather;
+    }
 
-    public void setShowCgpa(boolean bool){
+    public void setShowCgpa(boolean bool) {
         session.setShowCgpa(bool);
         showCgpa = bool;
     }
-    public static MainActivity getInstance() {        return instance; }
+
+    public static MainActivity getInstance() {
+        return instance;
+    }
 
 
-    public int getSemesterInt() { return semesterInt; }
+    public int getSemesterInt() {
+        return semesterInt;
+    }
 
-    public int getDeptInt() { return deptInt; }
+    public int getDeptInt() {
+        return deptInt;
+    }
 
-    public void hideBottomSheet(){
+    public void hideBottomSheet() {
         isBottomSheetOpen = false;
         sheetBg.animate().alpha(0.0f).setDuration(150);
-        if(showingShadow)
+        if (showingShadow)
             removeShadow();
 
         new Handler().postDelayed(new Runnable() {
@@ -320,7 +329,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onClick(View v) {
-               hideBottomSheet();
+                hideBottomSheet();
             }
         });
 
@@ -336,12 +345,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
 
-                if(newState == BottomSheetBehavior.STATE_HIDDEN || newState == BottomSheetBehavior.STATE_DRAGGING) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN || newState == BottomSheetBehavior.STATE_DRAGGING) {
                     sheetBg.animate().alpha(0.0f).setDuration(150);
                     sheetBg.setVisibility(View.GONE);
                     isBottomSheetOpen = false;
                     setStatusBarDim(true);
-                } else if(newState == BottomSheetBehavior.STATE_EXPANDED){
+                } else if (newState == BottomSheetBehavior.STATE_EXPANDED) {
 
                     sheetBg.animate().alpha(1.0f).setDuration(150);
                     sheetBg.setVisibility(View.VISIBLE);
@@ -350,6 +359,7 @@ public class MainActivity extends AppCompatActivity
 
                 }
             }
+
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
 
@@ -365,29 +375,28 @@ public class MainActivity extends AppCompatActivity
                         switch (item.getItemId()) {
                             case R.id.nav_menu:
 
-                                includeMenu = new MenuGridActivity(context,bottomSheet,getInstance(), advisingTools);
+                                includeMenu = new MenuGridActivity(context, bottomSheet, getInstance(), advisingTools);
                                 bottomSheet.bringToFront();
 
-                                if(showingShadow)
+                                if (showingShadow)
                                     removeShadow();
 
                                 sheetBg.animate().alpha(1.0f);
 
-                                if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN) {
+                                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN) {
                                     isBottomSheetOpen = true;
                                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                                     sheetBg.setVisibility(View.VISIBLE);
                                     setStatusBarDim(true);
-                                }
-                                else
+                                } else
                                     hideBottomSheet();
                                 break;
 
                             case R.id.nav_newsfeed:
                                 fragment = new StatusActivity();
-                                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+                                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
                                 //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-                                ft.replace(R.id.mainFrame, fragment,"Newsfeed");
+                                ft.replace(R.id.mainFrame, fragment, "Newsfeed");
                                 ft.addToBackStack(null);
                                 ft.commit();
 
@@ -396,9 +405,9 @@ public class MainActivity extends AppCompatActivity
 
                             case R.id.nav_message:
                                 fragment = new Messages();
-                                ft.setCustomAnimations(R.animator.slide_in_left,R.animator.fade_out, 0, 0);
+                                ft.setCustomAnimations(R.animator.slide_in_left, R.animator.fade_out, 0, 0);
                                 //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-                                ft.replace(R.id.mainFrame, fragment,"Messages");
+                                ft.replace(R.id.mainFrame, fragment, "Messages");
                                 ft.addToBackStack(null);
                                 ft.commit();
 
@@ -408,9 +417,9 @@ public class MainActivity extends AppCompatActivity
 
                             case R.id.nav_buysell:
                                 fragment = new BuySell();
-                                ft.setCustomAnimations(R.animator.fade_in,R.animator.fade_out, 0, 0);
+                                ft.setCustomAnimations(R.animator.fade_in, R.animator.fade_out, 0, 0);
                                 //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-                                ft.replace(R.id.mainFrame, fragment,"Buy-Sell Shop");
+                                ft.replace(R.id.mainFrame, fragment, "Buy-Sell Shop");
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 hideBottomSheet();
@@ -418,9 +427,9 @@ public class MainActivity extends AppCompatActivity
 
                             case R.id.nav_home:
                                 fragment = new UserProfile();
-                                ft.setCustomAnimations(R.animator.slide_in_left,R.animator.fade_out, 0, 0);
+                                ft.setCustomAnimations(R.animator.slide_in_left, R.animator.fade_out, 0, 0);
                                 //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-                                ft.replace(R.id.mainFrame, fragment,"Profile");
+                                ft.replace(R.id.mainFrame, fragment, "Profile");
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 hideBottomSheet();
@@ -435,9 +444,9 @@ public class MainActivity extends AppCompatActivity
         final String imgDir = context.getFilesDir().getPath() + File.separator + "images" + File.separator + "tamim.jpg";
         userProfilePicture = new File(imgDir);
 
-        if (picture != null && !picture.equals("0")){
+        if (picture != null && !picture.equals("0")) {
 
-            if(!userProfilePicture.exists()) {
+            if (!userProfilePicture.exists()) {
 
                 Picasso.get()
                         .load("https://nsuer.club/images/profile_picture/" + picture)
@@ -475,10 +484,14 @@ public class MainActivity extends AppCompatActivity
                                           e.printStackTrace();
                                       }
                                   }
+
                                   @Override
-                                  public void onBitmapFailed(Exception e, Drawable errorDrawable){                                  }
+                                  public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                                  }
+
                                   @Override
-                                  public void onPrepareLoad(Drawable placeHolderDrawable){                                  }
+                                  public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                  }
                               }
                         );
             } else {
@@ -492,58 +505,47 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-
-
-
-
         TextView navName = (TextView) headerView.findViewById(R.id.userNameNavHeader);
         navName.setText(name);
         TextView navEmail = (TextView) headerView.findViewById(R.id.emailNavHeader);
         navEmail.setText(email);
         final Intent intent = getIntent();
 
-        if(intent.hasExtra("type")) {
+        if (intent.hasExtra("type")) {
 
             String type = intent.getStringExtra("type");
 
-            if(type.equals("like"))
-            {
+            if (type.equals("like")) {
                 String typeExtra = intent.getStringExtra("typeExtra");
                 int openID = Integer.parseInt(typeExtra);
-                Fragment fragments = new StatusActivity(1,openID);
+                Fragment fragments = new StatusActivity(1, openID);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
-                ft.replace(R.id.mainFrame, fragments,"Newsfeed");
+                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
+                ft.replace(R.id.mainFrame, fragments, "Newsfeed");
                 ft.commit();
-            }
-            else if(type.equals("shop"))
-            {
+            } else if (type.equals("shop")) {
                 String typeExtra = intent.getStringExtra("typeExtra");
                 int openID = Integer.parseInt(typeExtra);
                 Fragment fragments = new BuySell();
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 // ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
-                ft.replace(R.id.mainFrame, fragments,"BuySell Shop");
+                ft.replace(R.id.mainFrame, fragments, "BuySell Shop");
                 ft.commit();
-            }
-            else if(type.equals("url"))
-            {
+            } else if (type.equals("url")) {
                 Fragment fragment = new UserProfile();
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.mainFrame, fragment,"Profile");
+                ft.replace(R.id.mainFrame, fragment, "Profile");
                 ft.commit();
                 String typeExtra = intent.getStringExtra("typeExtra");
-                Utils.CustomTab(typeExtra,context);
-            }
-            else if(type.equals("alert"))
-            {
+                Utils.CustomTab(typeExtra, context);
+            } else if (type.equals("alert")) {
                 Fragment fragment = new UserProfile();
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.mainFrame, fragment,"Profile");
+                ft.replace(R.id.mainFrame, fragment, "Profile");
                 ft.commit();
                 String typeExtra = intent.getStringExtra("typeExtra");
 
-                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this,R.style.AlertDialogTheme).create();
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialogTheme).create();
                 alertDialog.setTitle("From notification");
                 alertDialog.setMessage(typeExtra);
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "CLOSE",
@@ -555,60 +557,53 @@ public class MainActivity extends AppCompatActivity
                 alertDialog.show();
 
 
-            }
-            else if(type.equals("comment"))
-            {
+            } else if (type.equals("comment")) {
                 String typeExtra = intent.getStringExtra("typeExtra");
                 int openID = Integer.parseInt(typeExtra);
-                Fragment fragments = new StatusActivity(2,openID);
+                Fragment fragments = new StatusActivity(2, openID);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
-                ft.replace(R.id.mainFrame, fragments,"Newsfeed");
+                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
+                ft.replace(R.id.mainFrame, fragments, "Newsfeed");
                 ft.commit();
 
-            }
-            else if(type.equals("reminder"))
-            {
+            } else if (type.equals("reminder")) {
                 Fragment fragments = new ScheduleFragment();
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
-                ft.replace(R.id.mainFrame, fragments,"Schedule");
+                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
+                ft.replace(R.id.mainFrame, fragments, "Schedule");
                 ft.commit();
 
-            }else if(type.equals("calendar"))
-            {
+            } else if (type.equals("calendar")) {
                 Fragment fragments = new AcademicCalendar();
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
-                ft.replace(R.id.mainFrame, fragments,"Academic Calendar");
+                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
+                ft.replace(R.id.mainFrame, fragments, "Academic Calendar");
                 ft.commit();
-            }else if(type.equals("notice"))
-            {
+            } else if (type.equals("notice")) {
                 Fragment fragments = new NsuNotices();
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
-                ft.replace(R.id.mainFrame, fragments,"Notices & Events");
+                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
+                ft.replace(R.id.mainFrame, fragments, "Notices & Events");
                 ft.commit();
 
-            }else if(type.equals("blood"))
-            {
+            } else if (type.equals("blood")) {
                 Fragment fragments = new BloodBank();
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 //ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
-                ft.replace(R.id.mainFrame, fragments,"Blood Bank");
+                ft.replace(R.id.mainFrame, fragments, "Blood Bank");
                 ft.commit();
 
-            } else if(type.equals("playstore")){
+            } else if (type.equals("playstore")) {
 
 
                 Fragment fragment = new UserProfile();
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.mainFrame, fragment,"Profile");
+                ft.replace(R.id.mainFrame, fragment, "Profile");
                 ft.commit();
 
                 String appPackageName = getPackageName();
 
-                if(!intent.getStringExtra("typeExtra").equals(""))
+                if (!intent.getStringExtra("typeExtra").equals(""))
                     appPackageName = intent.getStringExtra("typeExtra");
 
                 try {
@@ -618,10 +613,7 @@ public class MainActivity extends AppCompatActivity
                 }
 
 
-
-            }
-            else if(type.equals("message"))
-            {
+            } else if (type.equals("message")) {
 
                 String senderMemID = intent.getStringExtra("senderMemID");
                 String typeExtra = intent.getStringExtra("typeExtra");
@@ -648,10 +640,10 @@ public class MainActivity extends AppCompatActivity
 //
 //                }
 
-                Fragment fragments = new Messages(senderMemID,typeExtra);
+                Fragment fragments = new Messages(senderMemID, typeExtra);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
-                ft.replace(R.id.mainFrame, fragments,"Newsfeed");
+                ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
+                ft.replace(R.id.mainFrame, fragments, "Newsfeed");
                 ft.commit();
 
             }
@@ -659,7 +651,7 @@ public class MainActivity extends AppCompatActivity
         } else {
             Fragment fragment = new UserProfile();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.mainFrame, fragment,"Profile");
+            ft.replace(R.id.mainFrame, fragment, "Profile");
             ft.commit();
 
         }
@@ -668,15 +660,14 @@ public class MainActivity extends AppCompatActivity
         // Custom condition: 1 days and 5 launches
         RateThisApp.onCreate(this);
         RateThisApp.showRateDialogIfNeeded(this);
-        RateThisApp.Config config = new RateThisApp.Config(3,5);
+        RateThisApp.Config config = new RateThisApp.Config(3, 5);
         RateThisApp.init(config);
 
 
-        if (bloodGroup < 0){
+        if (bloodGroup < 0) {
 
-            if (Utils.isNetworkAvailable(context))
-            {
-                final Intent intentB = new Intent(context,BloodBeDonor.class);
+            if (Utils.isNetworkAvailable(context)) {
+                final Intent intentB = new Intent(context, BloodBeDonor.class);
 
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
@@ -684,7 +675,6 @@ public class MainActivity extends AppCompatActivity
 
                     }
                 }, 1500);
-
 
 
             }
@@ -696,7 +686,6 @@ public class MainActivity extends AppCompatActivity
         if (!session.isPremium()) {
 
 
-
             offlineSubs = true;
 
 //            Intent intentz = new Intent(MainActivity.this, Subscription.class);
@@ -704,24 +693,14 @@ public class MainActivity extends AppCompatActivity
 //
 
 
-        } else{}
-
-
+        } else {
+        }
 
 
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public void showUpodateAlert(String msg){
+
+    public void showUpodateAlert(String msg) {
 
         new AlertDialog.Builder(this, R.style.AlertDialogTheme)
                 .setMessage(msg)
@@ -744,17 +723,17 @@ public class MainActivity extends AppCompatActivity
 
     public void logoutUser() {
 
-                        session.setLogin(false);
+        session.setLogin(false);
 
-                        // Launching the login activity
-                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+        // Launching the login activity
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void logoutUserDelete() {
 
-        new AlertDialog.Builder(this,R.style.AlertDialogTheme)
+        new AlertDialog.Builder(this, R.style.AlertDialogTheme)
                 .setMessage("Do you really want to logout?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -781,7 +760,7 @@ public class MainActivity extends AppCompatActivity
                         final String imgDirr = context.getFilesDir().getPath() + File.separator + "images" + File.separator + "tamim.jpg";
                         File userProfilePicturez = new File(imgDirr);
 
-                        if(userProfilePicturez.exists()) {
+                        if (userProfilePicturez.exists()) {
                             Picasso.get().invalidate(userProfilePicturez);
                             userProfilePicturez.delete();
 
@@ -793,149 +772,140 @@ public class MainActivity extends AppCompatActivity
                         finish();
 
 
-                    }})
+                    }
+                })
                 .setNegativeButton(android.R.string.no, null).show();
 
     }
 
 
-
-
-
-    public void isLatestVersion(){
+    public void isLatestVersion() {
 
         Log.d("called", "called" + advisingTools);
 
-        if(Utils.isNetworkAvailable(this)){
+        if (Utils.isNetworkAvailable(this)) {
 
 
-        HashMap<String, String> parametters = new HashMap<String, String>();
-        parametters.put("version", BuildConfig.VERSION_NAME);
-        parametters.put("uid", session.getUid());
-        JSONParser parser = new JSONParser("https://nsuer.club/apps/version.php", "GET", parametters);
-        parser.setListener(new JSONParser.ParserListener() {
-            @Override
-            public void onSuccess(JSONObject result) {
+            HashMap<String, String> parametters = new HashMap<String, String>();
+            parametters.put("version", BuildConfig.VERSION_NAME);
+            parametters.put("uid", session.getUid());
+            JSONParser parser = new JSONParser("https://nsuer.club/apps/version.php", "GET", parametters);
+            parser.setListener(new JSONParser.ParserListener() {
+                @Override
+                public void onSuccess(JSONObject result) {
 
 
-                Log.d("called", result.toString());
+                    Log.d("called", result.toString());
 
-                String latestVersion = "1.0";
-                String currentVersion = "1.0";
-                String msg = "Please update the app to latest version";
-                String closeMainActivity = "false";
+                    String latestVersion = "1.0";
+                    String currentVersion = "1.0";
+                    String msg = "Please update the app to latest version";
+                    String closeMainActivity = "false";
 
-               try{
+                    try {
 
-                   FirebaseMessaging.getInstance().subscribeToTopic("BLOOD." + session.getBloodGroup());
-
-
-                   latestVersion = result.getString("version");
-
-                   msg = result.getString("msg");
+                        FirebaseMessaging.getInstance().subscribeToTopic("BLOOD." + session.getBloodGroup());
 
 
-                   String isPremium = result.getString("isPremium");
-                   String expire = result.getString("expire");
+                        latestVersion = result.getString("version");
 
-                   closeMainActivity = result.getString("closeMainActivity");
-
-                   advisingTools = result.getBoolean("advisingTools");
+                        msg = result.getString("msg");
 
 
+                        String isPremium = result.getString("isPremium");
+                        String expire = result.getString("expire");
+
+                        closeMainActivity = result.getString("closeMainActivity");
+
+                        advisingTools = result.getBoolean("advisingTools");
 
 
-                   if(isPremium.equals("true")) {
-                       session.setPremium(true);
-                       session.setExpireDate(expire);
-                   } else {
+                        if (isPremium.equals("true")) {
+                            session.setPremium(true);
+                            session.setExpireDate(expire);
+                        } else {
 
-                       session.setPremium(false);
-                       session.setExpireDate("0");
-
-
-                       if (result.getBoolean("showMembershipDialog")) {
-
-                           if (!offlineSubs) {
-
-                               if (session.isPremium()) {
-                                   Intent intentz = new Intent(MainActivity.this, Subscription.class);
-                                   startActivity(intentz);
-
-                                   if (closeMainActivity.equals("true"))
-                                       finish();
-                               }
-
-                               if (closeMainActivity.equals("true")) {
-
-                                   Intent intentz = new Intent(MainActivity.this, Subscription.class);
-                                   startActivity(intentz);
-                                   finish();
-                               }
+                            session.setPremium(false);
+                            session.setExpireDate("0");
 
 
-                           } else {
+                            if (result.getBoolean("showMembershipDialog")) {
 
-                               if (closeMainActivity.equals("true"))
-                                   finish();
-                           }
+                                if (!offlineSubs) {
+
+                                    if (session.isPremium()) {
+                                        Intent intentz = new Intent(MainActivity.this, Subscription.class);
+                                        startActivity(intentz);
+
+                                        if (closeMainActivity.equals("true"))
+                                            finish();
+                                    }
+
+                                    if (closeMainActivity.equals("true")) {
+
+                                        Intent intentz = new Intent(MainActivity.this, Subscription.class);
+                                        startActivity(intentz);
+                                        finish();
+                                    }
 
 
+                                } else {
 
-                       }
-                   }
-
-
-
-
-
-                   Log.d("called", "called" + advisingTools);
+                                    if (closeMainActivity.equals("true"))
+                                        finish();
+                                }
 
 
+                            }
+                        }
 
-               } catch (JSONException e) {
 
-                Log.e("JSON", e.toString());
-            }
-                try {
-                    PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-                    currentVersion = (String) pInfo.versionName;
-                   // Toast.makeText(context,latestVersion,Toast.LENGTH_LONG).show();
+                        Log.d("called", "called" + advisingTools);
 
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
+
+                    } catch (JSONException e) {
+
+                        Log.e("JSON", e.toString());
+                    }
+                    try {
+                        PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                        currentVersion = (String) pInfo.versionName;
+                        // Toast.makeText(context,latestVersion,Toast.LENGTH_LONG).show();
+
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (!latestVersion.equals(currentVersion))
+                        showUpodateAlert(msg);
                 }
 
-                if(!latestVersion.equals(currentVersion))
-                    showUpodateAlert(msg);
-            }
-            @Override
-            public void onFailure() {
-            }
-        });
+                @Override
+                public void onFailure() {
+                }
+            });
 
-        parser.execute();
+            parser.execute();
 
         }
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
-        if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
+        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
             hideBottomSheet();
             return;
         }
         UserProfile test = (UserProfile) getSupportFragmentManager().findFragmentByTag("Profile");
         if (test != null && test.isVisible()) {
             finish();
-        }
-        else{
+        } else {
 
             Fragment fragment3 = new UserProfile();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.abc_popup_exit, 0, 0);
-            ft.replace(R.id.mainFrame, fragment3,"Profile");
+            ft.setCustomAnimations(R.animator.slide_in_left, R.animator.abc_popup_exit, 0, 0);
+            ft.replace(R.id.mainFrame, fragment3, "Profile");
             ft.addToBackStack(null);
             ft.commit();
         }
@@ -957,7 +927,7 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("FROM_ACTIVITY", "MAIN_ACTIVITY");
             startActivity(intent);
             finish();
-        } else if (id == R.id.action_logout){
+        } else if (id == R.id.action_logout) {
 
             logoutUserDelete();
         }
@@ -965,8 +935,6 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -981,148 +949,139 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_cgpa_calculator) {
             fragment = new CgpaCalculator();
-            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right, 0, 0);
+            ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
             ft.replace(R.id.mainFrame, fragment, "Cgpa_Calculator");
             ft.addToBackStack(null);
             ft.commit();
-        } else if(id == R.id.nav_bloodbank){
+        } else if (id == R.id.nav_bloodbank) {
 
             fragment = new BloodBank();
             ft.setCustomAnimations(0, 0, 0, 0);
             ft.replace(R.id.mainFrame, fragment, "Blood Bank");
             ft.addToBackStack(null);
             ft.commit();
-        }
-
-        else if(id == R.id.nav_message){
+        } else if (id == R.id.nav_message) {
             fragment = new Messages();
             ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
             ft.replace(R.id.mainFrame, fragment, "Messages");
             ft.addToBackStack(null);
             ft.commit();
-        }
-        else if(id == R.id.nav_buysell){
+        } else if (id == R.id.nav_buysell) {
             fragment = new BuySell();
             ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
             ft.replace(R.id.mainFrame, fragment, "Buy-Sell Shop");
             ft.addToBackStack(null);
             ft.commit();
-        }
-        else if(id == R.id.nav_schedules){
+        } else if (id == R.id.nav_schedules) {
             fragment = new ScheduleFragment();
             ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
             ft.replace(R.id.mainFrame, fragment, "Schedules");
             ft.addToBackStack(null);
             ft.commit();
-        }
-         else if (id == R.id.nav_user_profile) {
+        } else if (id == R.id.nav_user_profile) {
 
 
             fragment = new UserProfile();
-            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right, 0, 0);
+            ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
             //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-            ft.replace(R.id.mainFrame, fragment,"Profile");
+            ft.replace(R.id.mainFrame, fragment, "Profile");
             ft.addToBackStack(null);
             ft.commit();
-
 
 
         } else if (id == R.id.nav_books) {
 
             fragment = new Books();
-            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right, 0, 0);
-            ft.replace(R.id.mainFrame, fragment,"Books");
+            ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
+            ft.replace(R.id.mainFrame, fragment, "Books");
             ft.addToBackStack(null);
             ft.commit();
 
         } else if (id == R.id.nav_courses) {
 
             fragment = new CoursesActivity();
-            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
-            ft.replace(R.id.mainFrame, fragment,"Courses");
+            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
+            ft.replace(R.id.mainFrame, fragment, "Courses");
             ft.addToBackStack(null);
             ft.commit();
 
         } else if (id == R.id.nav_faculty) {
 
             fragment = new FacultiesActivity();
-            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
 
             //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-            ft.replace(R.id.mainFrame, fragment,"Faculties");
+            ft.replace(R.id.mainFrame, fragment, "Faculties");
             ft.addToBackStack(null);
             ft.commit();
 
         } else if (id == R.id.nav_about) {
 
             fragment = new About();
-            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
 
             //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-            ft.replace(R.id.mainFrame, fragment,"About");
+            ft.replace(R.id.mainFrame, fragment, "About");
             ft.addToBackStack(null);
             ft.commit();
 
-        }
-        else if (id == R.id.nav_newsfeed) {
+        } else if (id == R.id.nav_newsfeed) {
 
             fragment = new StatusActivity();
-            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
 
             //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-            ft.replace(R.id.mainFrame, fragment,"Newsfeed");
+            ft.replace(R.id.mainFrame, fragment, "Newsfeed");
             ft.addToBackStack(null);
             ft.commit();
 
-        }else if (id == R.id.nav_classmates) {
+        } else if (id == R.id.nav_classmates) {
 
             fragment = new ClassMates();
-            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
 
             //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-            ft.replace(R.id.mainFrame, fragment,"Classmates");
+            ft.replace(R.id.mainFrame, fragment, "Classmates");
             ft.addToBackStack(null);
             ft.commit();
 
-        }
-        else if (id == R.id.nav_classes) {
+        } else if (id == R.id.nav_classes) {
 
             fragment = new ClassesActivity();
-            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
 
             //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-            ft.replace(R.id.mainFrame, fragment,"Classes");
+            ft.replace(R.id.mainFrame, fragment, "Classes");
             ft.addToBackStack(null);
             ft.commit();
 
-        }
-        else if (id == R.id.nav_academic_calendar) {
+        } else if (id == R.id.nav_academic_calendar) {
 
             fragment = new AcademicCalendar();
-            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
 
             //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-            ft.replace(R.id.mainFrame, fragment,"Academic Calendar");
+            ft.replace(R.id.mainFrame, fragment, "Academic Calendar");
             ft.addToBackStack(null);
             ft.commit();
 
-        }else if (id == R.id.nav_notice_events) {
+        } else if (id == R.id.nav_notice_events) {
 
             fragment = new NsuNoticeFragment();
-            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
 
             //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-            ft.replace(R.id.mainFrame, fragment,"Notices");
+            ft.replace(R.id.mainFrame, fragment, "Notices");
             ft.addToBackStack(null);
             ft.commit();
 
-        }else if (id == R.id.nav_cgpa_analyzer) {
+        } else if (id == R.id.nav_cgpa_analyzer) {
 
             fragment = new CgpaAnalyzer();
-            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
+            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
 
             //overridePendingTransition(R.animator.slide_from_bottom, R.animator.slide_from_up);
-            ft.replace(R.id.mainFrame, fragment,"CGPA Analyzer");
+            ft.replace(R.id.mainFrame, fragment, "CGPA Analyzer");
             ft.addToBackStack(null);
             ft.commit();
 
@@ -1164,31 +1123,27 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_advising_assistant) {
 
             fragment = new AdvisingAssistant(uid);
-            ft.setCustomAnimations(R.animator.slide_in_left,R.animator.slide_out_right, 0, 0);
-            ft.replace(R.id.mainFrame, fragment,"Advising_Assistant");
+            ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
+            ft.replace(R.id.mainFrame, fragment, "Advising_Assistant");
             ft.addToBackStack(null);
             ft.commit();
 
-        }
-
-
-        else if (id == R.id.nav_contribute) {
+        } else if (id == R.id.nav_contribute) {
 
             fragment = new Contribute();
-            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom,R.animator.fade_out, 0, 0);
-            ft.replace(R.id.mainFrame, fragment,"Contribute");
+            ft.setCustomAnimations(R.animator.abc_grow_fade_in_from_bottom, R.animator.fade_out, 0, 0);
+            ft.replace(R.id.mainFrame, fragment, "Contribute");
             ft.addToBackStack(null);
             ft.commit();
 
         } else if (id == R.id.nav_contact) {
 
             Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                    "mailto","hm.tamim@northsouth.edu", null));
-            intent.putExtra(Intent.EXTRA_SUBJECT, "[NSUer App] Message from "+getName());
+                    "mailto", "hm.tamim@northsouth.edu", null));
+            intent.putExtra(Intent.EXTRA_SUBJECT, "[NSUer App] Message from " + getName());
             startActivity(intent);
             //startActivity(Intent.createChooser(intent, "Choose an Email client:"));
-        }
-        else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_share) {
 
             Intent share = new Intent(android.content.Intent.ACTION_SEND);
             share.setType("text/plain");
@@ -1200,7 +1155,7 @@ public class MainActivity extends AppCompatActivity
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-        drawer.closeDrawer(GravityCompat.START);
+                drawer.closeDrawer(GravityCompat.START);
 
             }
         }, 150);

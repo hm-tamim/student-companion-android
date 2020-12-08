@@ -16,11 +16,7 @@ public class GradeValueChart implements IValueFormatter {
 
     @Override
     public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-
-
         String val = Utils.getGpaGrade(value);
-
-
         return val + " " + " \n "; // e.g. append a dollar-sign
     }
 }

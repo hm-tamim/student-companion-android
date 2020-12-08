@@ -1,26 +1,21 @@
 package club.nsuer.nsuer;
 
 
-import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
@@ -31,13 +26,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
     private ScheduleFragment instance;
 
 
-    public ScheduleAdapter(int layoutId, ArrayList<ScheduleItem> itemList,Context context, ScheduleFragment instance) {
+    public ScheduleAdapter(int layoutId, ArrayList<ScheduleItem> itemList, Context context, ScheduleFragment instance) {
         listItemLayout = layoutId;
         this.itemList = itemList;
         this.context = context;
         this.instance = instance;
     }
-
 
 
     @Override
@@ -72,7 +66,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         View circle = holder.circle;
 
 
-
         cardView.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -91,14 +84,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
         String totalTitle = titleS;
 
-        if(!typeS.equals(""))
-         totalTitle += " - " + typeS;
+        if (!typeS.equals(""))
+            totalTitle += " - " + typeS;
 
         title.setText(totalTitle);
 
 
-
-        long timeI =  itemList.get(listPosition).getDate();
+        long timeI = itemList.get(listPosition).getDate();
 
         long timestamp = (long) timeI * 1000L;
 
@@ -114,7 +106,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         //timeSdf.setTimeZone(tz);
 
 
-
         String dateS = dateSdf.format(new Date(timestamp));
         String monthS = monthSdf.format(new Date(timestamp));
         String timeS = timeSdf.format(new Date(timestamp));
@@ -126,11 +117,9 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         cardView.setCardBackgroundColor(itemList.get(listPosition).getColor());
 
 
-
-
         String noteS = itemList.get(listPosition).getExtraNote();
 
-        if(noteS.equals(""))
+        if (noteS.equals(""))
             noteHolder.setVisibility(View.GONE);
         else
             note.setText(noteS);
@@ -138,23 +127,16 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
         boolean doReminder = itemList.get(listPosition).isDoReminder();
 
-        if(!doReminder)
+        if (!doReminder)
             alarmIcon.setVisibility(View.GONE);
-
-
-
-
-
 
 
         isPassed = itemList.get(listPosition).isPassed();
 
-        if(isPassed)
+        if (isPassed)
             circle.setBackground(ContextCompat.getDrawable(context, R.drawable.ac_circle_filled_ddd));
         else
             circle.setBackground(ContextCompat.getDrawable(context, R.drawable.ac_circle_ddd));
-
-
 
 
     }
@@ -190,9 +172,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             circle = (View) itemView.findViewById(R.id.acCircle);
 
 
-
-
-
         }
 
 
@@ -200,7 +179,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         public void onClick(View view) {
 
         }
-
 
 
     }

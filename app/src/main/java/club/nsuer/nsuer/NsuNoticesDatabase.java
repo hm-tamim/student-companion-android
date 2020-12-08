@@ -17,7 +17,6 @@ public abstract class NsuNoticesDatabase extends RoomDatabase {
 
         if (INSTANCE == null)
             INSTANCE = Room.inMemoryDatabaseBuilder(context.getApplicationContext(), NsuNoticesDatabase.class).allowMainThreadQueries().build();
-
         return INSTANCE;
     }
 

@@ -30,7 +30,6 @@ public class Contribute extends Fragment {
         main = (MainActivity) getActivity();
 
 
-
         context = getContext();
 
 
@@ -45,8 +44,6 @@ public class Contribute extends Fragment {
 
 
         main.setActionBarTitle("Contribute");
-
-
 
 
         return view;

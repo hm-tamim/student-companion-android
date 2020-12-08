@@ -70,7 +70,7 @@ public class StatusActivity extends Fragment {
     private int openID = 0;
 
 
-    public void likeSound(){
+    public void likeSound() {
 
         mp.start();
     }
@@ -84,7 +84,6 @@ public class StatusActivity extends Fragment {
         this.notificationType = notificationType;
         this.openID = openID;
     }
-
 
 
     @Override
@@ -109,7 +108,8 @@ public class StatusActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.status_activity, container, false);;
+        view = inflater.inflate(R.layout.status_activity, container, false);
+        ;
 
         return view;
     }
@@ -121,12 +121,13 @@ public class StatusActivity extends Fragment {
         inflater.inflate(R.menu.reload_button, menu);
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.navReloadButton:
-                if(Utils.isNetworkAvailable(context))
+                if (Utils.isNetworkAvailable(context))
                     loadJson(true);
 
                 return true;
@@ -134,7 +135,6 @@ public class StatusActivity extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
 
     @Override
@@ -147,7 +147,6 @@ public class StatusActivity extends Fragment {
         main.resetShadow();
 
         //main.removeShadow();
-
 
 
         db = Room.databaseBuilder(context,
@@ -168,14 +167,10 @@ public class StatusActivity extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
-
         recyclerView.setAdapter(itemAdapter);
 
 
-
-
         noPost = view.findViewById(R.id.noStatus);
-
 
 
         final String key = "newsfeed";
@@ -186,7 +181,7 @@ public class StatusActivity extends Fragment {
 
         int timeDiff = 9999;
 
-        if (acCache.isExists() && list.size() > 0){
+        if (acCache.isExists() && list.size() > 0) {
 
             jsonCache = acCache.retrieve();
 
@@ -196,22 +191,22 @@ public class StatusActivity extends Fragment {
 
             timeDiff = acCache.getTimeDiffMin();
 
-          //  Log.e("Cache", jsonCache);
-          //  Log.e("Time", String.valueOf(timeDiff));
+            //  Log.e("Cache", jsonCache);
+            //  Log.e("Time", String.valueOf(timeDiff));
 
         }
 
-        if(!acCache.isExists() || timeDiff > 2 && Utils.isNetworkAvailable(context) && list.size() > 0 || notificationType != 0) {
+        if (!acCache.isExists() || timeDiff > 2 && Utils.isNetworkAvailable(context) && list.size() > 0 || notificationType != 0) {
 
 
-                        loadJson(true);
+            loadJson(true);
 
 
         }
 
-        if(notificationType != 0){
+        if (notificationType != 0) {
 
-            if(notificationType == 1){
+            if (notificationType == 1) {
 
 
                 for (int i = 0; i < itemList.size(); i++) {
@@ -224,13 +219,11 @@ public class StatusActivity extends Fragment {
             }
 
 
-            if(notificationType == 2){
+            if (notificationType == 2) {
 
 
                 for (int i = 0; i < itemList.size(); i++) {
                     if (itemList.get(i).getId() == openID) {
-
-
 
 
                         String thisMsgID = String.valueOf(itemList.get(i).getId());
@@ -242,8 +235,7 @@ public class StatusActivity extends Fragment {
                         String creatorPost = itemList.get(i).getPost();
                         String postTime = itemList.get(i).getTime();
 
-                        AlertComment(thisMsgID,creatorName,creatorGender,creatorPic,creatorID,courseGroup,creatorPost,postTime);
-
+                        AlertComment(thisMsgID, creatorName, creatorGender, creatorPic, creatorID, courseGroup, creatorPost, postTime);
 
 
                         break;
@@ -256,24 +248,15 @@ public class StatusActivity extends Fragment {
         }
 
 
-
-
-
-
-
-
-
-
-
         FloatingActionButton myFab = (FloatingActionButton) view.findViewById(R.id.AddPostFloatingActionButton);
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(!Utils.isNetworkAvailable(getContext())) {
+                if (!Utils.isNetworkAvailable(getContext())) {
                     Toast.makeText(getContext(), "Internet connection required.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(list.size() < 1){
+                if (list.size() < 1) {
 
                     Toast.makeText(getContext(), "Add some courses first.", Toast.LENGTH_SHORT).show();
                     return;
@@ -289,7 +272,8 @@ public class StatusActivity extends Fragment {
                     context.startActivity(intentz);
 
 
-                } else{}
+                } else {
+                }
 
 
                 final Dialog dialog = new Dialog(getContext(), R.style.WideDialog);
@@ -304,10 +288,10 @@ public class StatusActivity extends Fragment {
                 final EditText postInput = (EditText) dialog.findViewById(R.id.createPostInput);
 
 
-                 ArrayList<String> spinnerArray =  new ArrayList<String>();
+                ArrayList<String> spinnerArray = new ArrayList<String>();
 
 
-                for (int i=0; i < list.size(); i++) {
+                for (int i = 0; i < list.size(); i++) {
 
 
                     String course = list.get(i).getCourse();
@@ -315,7 +299,7 @@ public class StatusActivity extends Fragment {
 
                     String lastLetter = course.substring(course.length() - 1);
 
-                    if(!lastLetter.equals("L"))
+                    if (!lastLetter.equals("L"))
                         spinnerArray.add(course + "." + section);
 
 
@@ -331,11 +315,6 @@ public class StatusActivity extends Fragment {
                 sItems.invalidate();
 
 
-
-
-
-
-
                 ImageView closeButton = (ImageView) dialog.findViewById(R.id.aabCloseButton);
 
 
@@ -346,8 +325,6 @@ public class StatusActivity extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-
-
 
 
                         // dialogButton.setBackgroundColor(Color.RED);
@@ -367,17 +344,16 @@ public class StatusActivity extends Fragment {
 
                         try {
                             postz = new String(posts.getBytes("UTF-8"), "UTF-8");
-                        } catch (Exception e){
+                        } catch (Exception e) {
 
 
                         }
 
                         parametters.put("uid", uid);
                         parametters.put("course", coursez);
-                        parametters.put("post",postz);
+                        parametters.put("post", postz);
 
                         JSONParser parser = new JSONParser("https://nsuer.club/apps/newsfeed/create-post-2.php", "GET", parametters);
-
 
 
                         parser.setListener(new JSONParser.ParserListener() {
@@ -389,18 +365,18 @@ public class StatusActivity extends Fragment {
 
                                 try {
 
-                                    if(!result.getBoolean("error")){
+                                    if (!result.getBoolean("error")) {
                                         id = result.getInt("id");
 
-                                        String topic = "COMMENT."+id;
+                                        String topic = "COMMENT." + id;
 
-                                        Log.d("topic",topic);
+                                        Log.d("topic", topic);
 
                                         FirebaseMessaging.getInstance().subscribeToTopic(topic);
 
                                     }
 
-                                } catch (Exception e){
+                                } catch (Exception e) {
 
                                     return;
                                 }
@@ -414,8 +390,7 @@ public class StatusActivity extends Fragment {
                                 // itemList.add();
 
 
-
-                                itemAdapter.addStutusTop(new StatusItem(id,main.getName(),coursez,main.getPicture(),timeStamp,main.getGender(),main.getMemberID(),postz,0,0,false));
+                                itemAdapter.addStutusTop(new StatusItem(id, main.getName(), coursez, main.getPicture(), timeStamp, main.getGender(), main.getMemberID(), postz, 0, 0, false));
 
                                 itemAdapter.notifyDataSetChanged();
 
@@ -457,14 +432,12 @@ public class StatusActivity extends Fragment {
     }
 
 
-
-
-    public void loadJson(final boolean loadReycler){
+    public void loadJson(final boolean loadReycler) {
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
-        if(list.size()<1)
+        if (list.size() < 1)
             return;
 
 
@@ -474,7 +447,7 @@ public class StatusActivity extends Fragment {
         String allCourse = course0 + "." + section0;
 
 
-        for (int i=1; i < list.size(); i++) {
+        for (int i = 1; i < list.size(); i++) {
 
 
             String course = list.get(i).getCourse();
@@ -482,8 +455,8 @@ public class StatusActivity extends Fragment {
 
             String lastLetter = course.substring(course.length() - 1);
 
-            if(!lastLetter.equals("L"))
-                allCourse += ","+course + "." + section;
+            if (!lastLetter.equals("L"))
+                allCourse += "," + course + "." + section;
 
 
         }
@@ -499,13 +472,12 @@ public class StatusActivity extends Fragment {
 
                 acCache.save(result.toString());
 
-                if(loadReycler) {
+                if (loadReycler) {
                     itemList.clear();
                     loadRecylcer(result.toString());
                 }
 
                 //Toast.makeText(getContext(),"Updated!",Toast.LENGTH_SHORT).show();
-
 
 
             }
@@ -523,15 +495,14 @@ public class StatusActivity extends Fragment {
     }
 
 
-
-    private void loadRecylcer(String string){
+    private void loadRecylcer(String string) {
 
         //  ProgressBar p = (ProgressBar) view.findViewById(R.id.acProgressBar);
 
 //        p.setVisibility(View.GONE);
 
 
-       // Log.d("newsfeed",string);
+        // Log.d("newsfeed",string);
 
         try {
 
@@ -541,9 +512,7 @@ public class StatusActivity extends Fragment {
             JSONArray obj = result.getJSONArray("dataArray");
 
 
-
             for (int j = 0; j < obj.length(); j++) {
-
 
 
                 boolean liked = false;
@@ -566,23 +535,22 @@ public class StatusActivity extends Fragment {
                 int id = data.getInt("id");
 
 
-
                 int ownIntMemID = Integer.parseInt(ownMemID);
 
                 JSONArray likedJSON = new JSONArray(likedBy);
 
                 for (int l = 0; l < likedJSON.length(); l++) {
 
-                    if(likedJSON.get(l).toString().equals(ownMemID))
+                    if (likedJSON.get(l).toString().equals(ownMemID))
                         liked = true;
                 }
 
 
-                itemList.add(new StatusItem(id,name,course,picture,time,gender,memID,post,likes,comments,liked));
+                itemList.add(new StatusItem(id, name, course, picture, time, gender, memID, post, likes, comments, liked));
 
             }
 
-            if(itemList.size() > 0)
+            if (itemList.size() > 0)
                 noPost.setVisibility(View.GONE);
 
         } catch (JSONException e) {
@@ -591,24 +559,13 @@ public class StatusActivity extends Fragment {
         }
 
 
-
-
-
-
         itemAdapter.notifyDataSetChanged();
-
-
-
-
-
-
 
 
     }
 
 
-
-    public void  AlertComment(final String msgID, String creatorName, String creatorGender, String picUrl, final String creatorID, String courseGroup, String creatorPost, String creatorTime) {
+    public void AlertComment(final String msgID, String creatorName, String creatorGender, String picUrl, final String creatorID, String courseGroup, String creatorPost, String creatorTime) {
 
 
         final Dialog dialog = new Dialog(context, R.style.WideDialogComments);
@@ -625,7 +582,7 @@ public class StatusActivity extends Fragment {
 
         ImageView image = (ImageView) dialog.findViewById(R.id.statusImage);
 
-        if(!picUrl.equals("0")) {
+        if (!picUrl.equals("0")) {
             Picasso.get()
                     .load("https://nsuer.club/images/profile_picture/" + picUrl)
                     .fit()
@@ -633,8 +590,8 @@ public class StatusActivity extends Fragment {
                     .centerCrop(Gravity.TOP)
                     .into(image);
 
-        }else {
-            if(creatorGender.equals("female"))
+        } else {
+            if (creatorGender.equals("female"))
                 image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_female_user));
             else
                 image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_male_user));
@@ -648,7 +605,6 @@ public class StatusActivity extends Fragment {
         post.setText(creatorPost);
 
         final String thisMsgID = String.valueOf(msgID);
-
 
 
         final ArrayList commentList = new ArrayList<CommentItem>();
@@ -666,9 +622,6 @@ public class StatusActivity extends Fragment {
         commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
 
 
                 HashMap<String, String> parametters = new HashMap<String, String>();
@@ -692,7 +645,6 @@ public class StatusActivity extends Fragment {
                 final String timeStamp = String.valueOf(unixTime);
 
 
-
                 JSONParser parser = new JSONParser("https://nsuer.club/apps/newsfeed/create-comment-2.php", "GET", parametters);
 
                 parser.setListener(new JSONParser.ParserListener() {
@@ -707,25 +659,24 @@ public class StatusActivity extends Fragment {
                         commentButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_menu_send));
 
 
-
                         int id = 0;
 
                         try {
 
-                            if(!result.getBoolean("error")){
+                            if (!result.getBoolean("error")) {
                                 id = result.getInt("id");
 
                             }
 
-                        } catch (Exception e){
+                        } catch (Exception e) {
 
                             return;
                         }
 
 
-                        commentList.add(new CommentItem(main.getName(),main.getGender(),main.getPicture(),id,main.getMemberID(),comment,timeStamp));
+                        commentList.add(new CommentItem(main.getName(), main.getGender(), main.getPicture(), id, main.getMemberID(), comment, timeStamp));
 
-                        String commentTopic = "COMMENT."+msgID;
+                        String commentTopic = "COMMENT." + msgID;
                         FirebaseMessaging.getInstance().subscribeToTopic(commentTopic);
 
                         commentAdapter.notifyDataSetChanged();
@@ -747,9 +698,6 @@ public class StatusActivity extends Fragment {
                 parser.execute();
 
 
-
-
-
                 InputMethodManager inputManager = (InputMethodManager) context
                         .getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -763,11 +711,6 @@ public class StatusActivity extends Fragment {
             }
 
         });
-
-
-
-
-
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
@@ -797,13 +740,10 @@ public class StatusActivity extends Fragment {
                     commentList.clear();
 
 
-
                     JSONArray obj = result.getJSONArray("dataArray");
 
 
-
                     for (int j = 0; j < obj.length(); j++) {
-
 
 
                         JSONObject data = obj.getJSONObject(j);
@@ -820,20 +760,17 @@ public class StatusActivity extends Fragment {
                         int commentID = data.getInt("id");
 
 
-
-
-                        commentList.add(new CommentItem(name,gender,picture,commentID,commentMemID,text,time));
+                        commentList.add(new CommentItem(name, gender, picture, commentID, commentMemID, text, time));
 
                     }
-
 
 
                     commentAdapter.notifyDataSetChanged();
 
 
-                    if(commentList.size() < 1)
+                    if (commentList.size() < 1)
                         noComment.setVisibility(View.VISIBLE);
-                    else{
+                    else {
                         linearLayout.setVisibility(View.GONE);
 
                         commentRecyclerView.post(new Runnable() {
@@ -851,10 +788,6 @@ public class StatusActivity extends Fragment {
                 }
 
 
-
-
-
-
             }
 
             @Override
@@ -864,14 +797,12 @@ public class StatusActivity extends Fragment {
         parser.execute();
 
 
-
-
         commentRecyclerView.setAdapter(commentAdapter);
 
 
     }
 
-    public void  AlertWhoLiked(String msgID){
+    public void AlertWhoLiked(String msgID) {
 
 
         final Dialog dialog = new Dialog(context, R.style.WideDialogComments);
@@ -909,9 +840,6 @@ public class StatusActivity extends Fragment {
         likerReyclerView.addItemDecoration(itemDecorator);
 
 
-
-
-
         //likerList.add(new ClassMatesItem("Tamim", "CSE", "20", "/20.jpg", "make", "hmtamim"));
 
 
@@ -931,9 +859,7 @@ public class StatusActivity extends Fragment {
         noLike.setVisibility(View.GONE);
 
 
-
         likerReyclerView.setAdapter(likerAdapter);
-
 
 
         parser.setListener(new JSONParser.ParserListener() {
@@ -943,14 +869,9 @@ public class StatusActivity extends Fragment {
                 progressBar.setVisibility(View.GONE);
 
 
-
-
-
                 try {
 
                     likerList.clear();
-
-
 
 
                     JSONArray obj = result.getJSONArray("dataArray");
@@ -969,7 +890,6 @@ public class StatusActivity extends Fragment {
                         String email = data.getString("email");
 
 
-
                         String dept = data.getString("dept");
 
                         String[] deptArray = getResources().getStringArray(R.array.deptShort);
@@ -984,25 +904,18 @@ public class StatusActivity extends Fragment {
                         String gender = data.getString("gender");
 
 
-
-                         likerList.add(new ClassMatesItem(name, deptString, memID, picture, gender, email));
+                        likerList.add(new ClassMatesItem(name, deptString, memID, picture, gender, email));
 
 
                     }
 
 
-
                     likerAdapter.notifyDataSetChanged();
 
 
-
-
-
-
-
-                    if(likerList.size() < 1)
+                    if (likerList.size() < 1)
                         noLike.setVisibility(View.VISIBLE);
-                    else{
+                    else {
                         linearLayout.setVisibility(View.GONE);
 
                     }
@@ -1022,11 +935,6 @@ public class StatusActivity extends Fragment {
 
 
     }
-
-
-
-
-
 
 
 }

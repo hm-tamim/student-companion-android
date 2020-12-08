@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +25,6 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -108,7 +105,6 @@ public class LoginActivity extends Activity {
         });
 
 
-
         btnLinkForget.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -119,19 +115,18 @@ public class LoginActivity extends Activity {
         });
 
 
-
     }
 
     /**
      * function to verify login details in mysql db
-     * */
+     */
     private void checkLogin(final String email, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
 
         pDialog.setMessage("Logging in ...");
-       showDialog();
+        showDialog();
 
         StringRequest strReq = new StringRequest(Method.POST,
                 AppConfig.URL_LOGIN, new Response.Listener<String>() {
@@ -173,12 +168,11 @@ public class LoginActivity extends Activity {
                         String bgroup = user.getString("bgroup");
 
 
-
                         String type = user.getString("type");
                         String expire = user.getString("expire");
 
 
-                        if(type == null || type.equals("")) {
+                        if (type == null || type.equals("")) {
                             session.setPremium(false);
                             session.setExpireDate("0");
                         } else {
@@ -188,14 +182,13 @@ public class LoginActivity extends Activity {
                         }
 
 
-                        if(bgroup == null) {
+                        if (bgroup == null) {
                             bgroup = "-1";
                         } else {
 
                             FirebaseMessaging.getInstance().subscribeToTopic("BLOOD." + bgroup);
 
                         }
-
 
 
                         String phone = user.getString("phone");
@@ -214,7 +207,7 @@ public class LoginActivity extends Activity {
                         session.setSemester(semester);
                         session.setBloodGroup(bgroup);
 
-                        if(phone != null)
+                        if (phone != null)
                             session.setPhone(phone);
                         if (address != null)
                             session.setAddress(address);
@@ -225,7 +218,7 @@ public class LoginActivity extends Activity {
                         // Launch main activity
 
 
-                        Toast.makeText(context,"Syncing account data...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Syncing account data...", Toast.LENGTH_SHORT).show();
 
                         syncCourse(memberID, LoginActivity.this);
                         Utils.syncSchedule(memberID, context);
@@ -282,12 +275,7 @@ public class LoginActivity extends Activity {
     }
 
 
-
-
-
-
-    private void syncCourse(String memID, final Context context){
-
+    private void syncCourse(String memID, final Context context) {
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
@@ -296,7 +284,6 @@ public class LoginActivity extends Activity {
 
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/sync-data.php", "GET", parametters);
-
 
 
         parser.setListener(new JSONParser.ParserListener() {
@@ -316,8 +303,6 @@ public class LoginActivity extends Activity {
                 FacultiesDatabase dbFaculties = Room.databaseBuilder(context,
                         FacultiesDatabase.class, "faculties").allowMainThreadQueries().build();
                 dbFaculties.facultiesDao().nukeTable();
-
-
 
 
                 try {
@@ -367,7 +352,6 @@ public class LoginActivity extends Activity {
                         // faculty
 
 
-
                         String name = data.getString("name");
 
                         if (name != null && !name.isEmpty() && !name.equals("null")) {
@@ -395,12 +379,10 @@ public class LoginActivity extends Activity {
                             facultiesEntity.setOffice(office);
                             facultiesEntity.setUrl(url);
 
-                            if(dbFaculties.facultiesDao().findByInitial(initial) == null)
+                            if (dbFaculties.facultiesDao().findByInitial(initial) == null)
                                 dbFaculties.facultiesDao().insertAll(facultiesEntity);
 
                         }
-
-
 
 
                     }
@@ -422,13 +404,9 @@ public class LoginActivity extends Activity {
             public void onFailure() {
 
 
-
-
             }
         });
         parser.execute();
-
-
 
 
     }
@@ -446,19 +424,17 @@ public class LoginActivity extends Activity {
     }
 
 
-
-    public String timeConverter(String time, int type){
+    public String timeConverter(String time, int type) {
 
         try {
             SimpleDateFormat date12Format = new SimpleDateFormat("hh:mm a", Locale.ENGLISH);
 
             SimpleDateFormat date24Format = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
 
-            if(type == 24) {
+            if (type == 24) {
                 String t24 = date24Format.format(date12Format.parse(time));
                 return t24;
-            }
-            else {
+            } else {
                 String t12 = date12Format.format(date24Format.parse(time));
                 return t12;
             }

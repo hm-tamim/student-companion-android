@@ -14,7 +14,6 @@ public abstract class CoursesDatabase extends RoomDatabase {
     public abstract CoursesDao coursesDao();
 
     public static CoursesDatabase getInMemoryDatabase(Context context) {
-
         if (INSTANCE == null)
             INSTANCE = Room.inMemoryDatabaseBuilder(context.getApplicationContext(), CoursesDatabase.class).allowMainThreadQueries().build();
 

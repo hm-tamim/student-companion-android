@@ -1,27 +1,20 @@
 package club.nsuer.nsuer;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.FragmentManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -30,13 +23,15 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.thebluealliance.spectrum.SpectrumDialog;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,14 +39,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-
-import android.support.v4.app.DialogFragment;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 
 public class AddSchedule extends AppCompatActivity {
@@ -77,8 +64,8 @@ public class AddSchedule extends AppCompatActivity {
     private Switch reminderSwitch;
 
     private int defaultColor = -11566660;
-    private int quizColor =  -14246231;
-    private int midColor =  -49023;
+    private int quizColor = -14246231;
+    private int midColor = -49023;
     private int examColor = -1695465;
 
     private int selectedColor = -11566660;
@@ -125,7 +112,7 @@ public class AddSchedule extends AppCompatActivity {
 
         final ArrayList<String> courses = new ArrayList<String>();
 
-        for (int i=0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
 
             String course = list.get(i).getCourse();
             String section = list.get(i).getSection();
@@ -159,8 +146,8 @@ public class AddSchedule extends AppCompatActivity {
         extraNote = findViewById(R.id.note);
         reminderPicker = findViewById(R.id.reminderPicker);
         reminderSwitch = findViewById(R.id.setReminder);
-        addButton = (FloatingActionButton)findViewById(R.id.addButton);
-        deleteButton = (FloatingActionButton)findViewById(R.id.deleteButton);
+        addButton = (FloatingActionButton) findViewById(R.id.addButton);
+        deleteButton = (FloatingActionButton) findViewById(R.id.deleteButton);
 
         reminderHolder = findViewById(R.id.reminderHolder);
 
@@ -173,7 +160,7 @@ public class AddSchedule extends AppCompatActivity {
         reminderSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if(isChecked)
+                if (isChecked)
                     reminderHolder.setVisibility(View.VISIBLE);
                 else
                     reminderHolder.setVisibility(View.GONE);
@@ -192,30 +179,30 @@ public class AddSchedule extends AppCompatActivity {
         colorPicker.setSelectedColor(defaultColor);
         colorPicker.setOutlineWidth(0);
         colorPicker.setOnColorSelectedListener(new SpectrumDialog.OnColorSelectedListener() {
-                            @Override public void onColorSelected(boolean positiveResult, @ColorInt int color) {
-                                if (positiveResult) {
+            @Override
+            public void onColorSelected(boolean positiveResult, @ColorInt int color) {
+                if (positiveResult) {
 
-                                    selectedColor = color;
-                                    colorPicker.setSelectedColor(color);
+                    selectedColor = color;
+                    colorPicker.setSelectedColor(color);
 
-                                    colorCard.setCardBackgroundColor(color);
+                    colorCard.setCardBackgroundColor(color);
 
-                                    Log.d("color", color+" ");
+                    Log.d("color", color + " ");
 
-                                } else {
+                } else {
 
-                                }
-                            }
-                        });
+                }
+            }
+        });
 
         colorPickLayout.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                colorPicker.build().show(fm,"yo");
+                colorPicker.build().show(fm, "yo");
             }
         });
-
 
 
         titlePicker.setOnClickListener(new View.OnClickListener() {
@@ -226,7 +213,7 @@ public class AddSchedule extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AddSchedule.this, R.style.AlertDialogCustom);
                 builder.setTitle("Choose a subject");
 
-                builder.setPositiveButton("Add Manually",  new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Add Manually", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
 
@@ -239,7 +226,7 @@ public class AddSchedule extends AppCompatActivity {
                         input.setText(titlePicker.getText().toString());
                         alertDialog.setPositiveButton("Add",
                                 new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int which) {
+                                    public void onClick(DialogInterface dialog, int which) {
                                         titlePicker.setText(input.getText().toString());
                                     }
                                 });
@@ -288,7 +275,7 @@ public class AddSchedule extends AppCompatActivity {
 
                         alertDialog.setPositiveButton("Add",
                                 new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int which) {
+                                    public void onClick(DialogInterface dialog, int which) {
                                         typePicker.setText(input.getText().toString());
                                         String type = input.getText().toString();
                                         updateColorCard(type);
@@ -310,7 +297,7 @@ public class AddSchedule extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         typePicker.setText("");
                     }
-                 });
+                });
 
                 builder.setItems(types.toArray(new String[types.size()]), new DialogInterface.OnClickListener() {
                     @Override
@@ -335,7 +322,7 @@ public class AddSchedule extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                
+
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -348,7 +335,7 @@ public class AddSchedule extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                
+
                 new DatePickerDialog(AddSchedule.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -367,7 +354,7 @@ public class AddSchedule extends AppCompatActivity {
                 myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 myCalendar.set(Calendar.MINUTE, minute);
 
-               updateTimePicker();
+                updateTimePicker();
 
             }
         };
@@ -376,14 +363,11 @@ public class AddSchedule extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                
+
                 new TimePickerDialog(AddSchedule.this, time, myCalendar
-                        .get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE),false).show();
+                        .get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE), false).show();
             }
         });
-
-
-
 
 
         // reminder pickers
@@ -393,7 +377,7 @@ public class AddSchedule extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                
+
                 reminderCalendar.set(Calendar.YEAR, year);
                 reminderCalendar.set(Calendar.MONTH, monthOfYear);
                 reminderCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -406,7 +390,7 @@ public class AddSchedule extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                
+
                 new DatePickerDialog(AddSchedule.this, dateReminder, reminderCalendar
                         .get(Calendar.YEAR), reminderCalendar.get(Calendar.MONTH),
                         reminderCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -433,32 +417,30 @@ public class AddSchedule extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new TimePickerDialog(AddSchedule.this, timeReminder, reminderCalendar
-                        .get(Calendar.HOUR_OF_DAY), reminderCalendar.get(Calendar.MINUTE),false).show();
+                        .get(Calendar.HOUR_OF_DAY), reminderCalendar.get(Calendar.MINUTE), false).show();
             }
         });
 
-        
+
         deleteButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-            new AlertDialog.Builder(context, R.style.AlertDialogTheme)
-                    .setMessage("Are you sure you want to delete this schedule?")
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(context, R.style.AlertDialogTheme)
+                        .setMessage("Are you sure you want to delete this schedule?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            db.scheduleDao().deleteById(id);
-                            sendDelete(id);
-                            cancelReminder(id);
-                            onBackPressed();
-                        }
-                    })
-                    .setNegativeButton(android.R.string.no, null).show();
-                }
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                db.scheduleDao().deleteById(id);
+                                sendDelete(id);
+                                cancelReminder(id);
+                                onBackPressed();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+            }
         });
-
-
 
 
         reminderPicker.setOnClickListener(new View.OnClickListener() {
@@ -480,16 +462,16 @@ public class AddSchedule extends AppCompatActivity {
 
 
                         Calendar temp;
-                        switch (which){
+                        switch (which) {
 
                             case 0:
-                                reminderTime = ScheduleTime-(1800*1000L);
+                                reminderTime = ScheduleTime - (1800 * 1000L);
                                 break;
                             case 1:
-                                reminderTime = ScheduleTime-(3600*1000L);
+                                reminderTime = ScheduleTime - (3600 * 1000L);
                                 break;
                             case 2:
-                                reminderTime = ScheduleTime-(7200*1000L);
+                                reminderTime = ScheduleTime - (7200 * 1000L);
                                 break;
                             case 3:
                                 temp = Calendar.getInstance();
@@ -529,7 +511,6 @@ public class AddSchedule extends AppCompatActivity {
                         updateReminderTime();
 
 
-
                         reminderPicker.setText(quickTime.get(which));
                     }
                 });
@@ -543,10 +524,10 @@ public class AddSchedule extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if(intent.hasExtra("uid"))
+        if (intent.hasExtra("uid"))
             uid = intent.getStringExtra("uid");
 
-        if(intent.hasExtra("id")) {
+        if (intent.hasExtra("id")) {
 
             editPage = true;
 
@@ -564,8 +545,8 @@ public class AddSchedule extends AppCompatActivity {
             long dateExtra = item.getDate();
             long reminderDate = item.getReminderDate();
 
-            myCalendar.setTimeInMillis(dateExtra*1000L);
-            reminderCalendar.setTimeInMillis(reminderDate*1000L);
+            myCalendar.setTimeInMillis(dateExtra * 1000L);
+            reminderCalendar.setTimeInMillis(reminderDate * 1000L);
 
             updateDatePicker();
             updateTimePicker();
@@ -576,7 +557,7 @@ public class AddSchedule extends AppCompatActivity {
 
             int color = item.getColor();
             selectedColor = color;
-            boolean doRemind =  item.isDoReminder();
+            boolean doRemind = item.isDoReminder();
 
             titlePicker.setText(title);
             typePicker.setText(type);
@@ -588,7 +569,7 @@ public class AddSchedule extends AppCompatActivity {
             colorCard.setCardBackgroundColor(color);
 
 
-            if(doRemind)
+            if (doRemind)
                 reminderHolder.setVisibility(View.VISIBLE);
             else
                 reminderHolder.setVisibility(View.GONE);
@@ -597,8 +578,7 @@ public class AddSchedule extends AppCompatActivity {
         }
 
 
-
-        if(intent.hasExtra("classmate")) {
+        if (intent.hasExtra("classmate")) {
 
             deleteButton.hide();
             id = intent.getIntExtra("id", 0);
@@ -607,20 +587,20 @@ public class AddSchedule extends AppCompatActivity {
             String title = intent.getStringExtra("title");
             String type = intent.getStringExtra("type");
             String note = intent.getStringExtra("note");
-            long dateExtra = intent.getLongExtra("date",0);
-            long reminderDate = intent.getLongExtra("reminderDate",0);
-            int color = intent.getIntExtra("color",-11566660);
-            boolean doRemind =  intent.getBooleanExtra("doRemind",false);
+            long dateExtra = intent.getLongExtra("date", 0);
+            long reminderDate = intent.getLongExtra("reminderDate", 0);
+            int color = intent.getIntExtra("color", -11566660);
+            boolean doRemind = intent.getBooleanExtra("doRemind", false);
 
             selectedColor = color;
 
-            if(doRemind)
+            if (doRemind)
                 reminderHolder.setVisibility(View.VISIBLE);
             else
                 reminderHolder.setVisibility(View.GONE);
 
-            myCalendar.setTimeInMillis(dateExtra*1000L);
-            reminderCalendar.setTimeInMillis(reminderDate*1000L);
+            myCalendar.setTimeInMillis(dateExtra * 1000L);
+            reminderCalendar.setTimeInMillis(reminderDate * 1000L);
 
             updateDatePicker();
             updateTimePicker();
@@ -636,9 +616,7 @@ public class AddSchedule extends AppCompatActivity {
             colorCard.setCardBackgroundColor(color);
 
 
-
         }
-
 
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -647,20 +625,20 @@ public class AddSchedule extends AppCompatActivity {
             public void onClick(View v) {
                 String title = titlePicker.getText().toString();
                 String type = typePicker.getText().toString();
-                long date = myCalendar.getTimeInMillis()/1000L;
+                long date = myCalendar.getTimeInMillis() / 1000L;
 
-                long reminderDate =  reminderCalendar.getTimeInMillis()/1000L;
+                long reminderDate = reminderCalendar.getTimeInMillis() / 1000L;
 
                 String note = extraNote.getText().toString();
                 int color = selectedColor;
                 boolean doRemind = false;
 
-                if(reminderSwitch.isChecked())
+                if (reminderSwitch.isChecked())
                     doRemind = true;
 
 
-                if(title.equals("")) {
-                    Toast.makeText(context,"Enter subject", Toast.LENGTH_SHORT).show();
+                if (title.equals("")) {
+                    Toast.makeText(context, "Enter subject", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -668,10 +646,10 @@ public class AddSchedule extends AppCompatActivity {
                 int insertedID = id;
 
 
-                if(!editPage) {
+                if (!editPage) {
                     addSchedule(title, type, note, date, reminderDate, color, doRemind);
 
-                }else {
+                } else {
 
 
                     sendDelete(id);
@@ -684,12 +662,12 @@ public class AddSchedule extends AppCompatActivity {
                 }
 
 
-                if(reminderSwitch.isChecked()){
+                if (reminderSwitch.isChecked()) {
 
                     String reminderText = title;
 
 
-                    if(!type.equals(""))
+                    if (!type.equals(""))
                         reminderText += " - " + type;
 
                     Utils.setReminder(insertedID, reminderText, reminderCalendar, true, context);
@@ -698,81 +676,71 @@ public class AddSchedule extends AppCompatActivity {
                 }
 
 
-
             }
         });
 
 
-
-
-
-
-
     }
 
 
-
-    public void addSchedule(final String title, final String type, final String extraNote, final long date, final long reminderDate, final int color, final boolean doReminder){
-
-
-                Toast.makeText(context,"Submitting Schedule", Toast.LENGTH_SHORT).show();
-
-                String remind = "0";
-                if (doReminder)
-                    remind = "1";
+    public void addSchedule(final String title, final String type, final String extraNote, final long date, final long reminderDate, final int color, final boolean doReminder) {
 
 
+        Toast.makeText(context, "Submitting Schedule", Toast.LENGTH_SHORT).show();
 
-                HashMap<String, String> parametters = new HashMap<String, String>();
+        String remind = "0";
+        if (doReminder)
+            remind = "1";
 
-                parametters.put("uid",sessionManager.getUid());
-                parametters.put("subject", title);
-                parametters.put("type", type);
-                parametters.put("extraNote", extraNote);
-                parametters.put("date", String.valueOf(date));
-                parametters.put("reminderDate", String.valueOf(reminderDate));
-                parametters.put("color", String.valueOf(color));
-                parametters.put("doReminder", remind);
-
-                JSONParser parser = new JSONParser("https://nsuer.club/apps/schedules/add.php", "GET", parametters);
-
-                parser.setListener(new JSONParser.ParserListener() {
-                    @Override
-                    public void onSuccess(JSONObject result) {
-                        int courseCount = 0;
-                        try {
-                            int id = result.getInt("msg");
-
-                            long[] insertedIDlong = db.scheduleDao().insertAll(new ScheduleEntity(id, title, type, extraNote, date, reminderDate, color, doReminder));
-
-                            Toast.makeText(context,"Schedule Submitted", Toast.LENGTH_SHORT).show();
-
-                            onBackPressed();
-
-                        } catch (JSONException e) {
-
-
-
-
-                            Log.e("JSON", e.toString());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure() {
-                    }
-                });
-                parser.execute();
-
-    }
-
-
-    public void sendDelete(int id){
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
-        parametters.put("scheduleID",String.valueOf(id));
-        parametters.put("uid",sessionManager.getUid());
+        parametters.put("uid", sessionManager.getUid());
+        parametters.put("subject", title);
+        parametters.put("type", type);
+        parametters.put("extraNote", extraNote);
+        parametters.put("date", String.valueOf(date));
+        parametters.put("reminderDate", String.valueOf(reminderDate));
+        parametters.put("color", String.valueOf(color));
+        parametters.put("doReminder", remind);
+
+        JSONParser parser = new JSONParser("https://nsuer.club/apps/schedules/add.php", "GET", parametters);
+
+        parser.setListener(new JSONParser.ParserListener() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                int courseCount = 0;
+                try {
+                    int id = result.getInt("msg");
+
+                    long[] insertedIDlong = db.scheduleDao().insertAll(new ScheduleEntity(id, title, type, extraNote, date, reminderDate, color, doReminder));
+
+                    Toast.makeText(context, "Schedule Submitted", Toast.LENGTH_SHORT).show();
+
+                    onBackPressed();
+
+                } catch (JSONException e) {
+
+
+                    Log.e("JSON", e.toString());
+                }
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
+        parser.execute();
+
+    }
+
+
+    public void sendDelete(int id) {
+
+        HashMap<String, String> parametters = new HashMap<String, String>();
+
+        parametters.put("scheduleID", String.valueOf(id));
+        parametters.put("uid", sessionManager.getUid());
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/schedules/delete.php", "GET", parametters);
 
@@ -785,7 +753,6 @@ public class AddSchedule extends AppCompatActivity {
 
                 try {
                     JSONArray obj = result.getJSONArray("dataArray");
-
 
 
                 } catch (JSONException e) {
@@ -802,31 +769,29 @@ public class AddSchedule extends AppCompatActivity {
         parser.execute();
 
 
-
-
     }
 
 
-    private void updateColorCard(String type){
+    private void updateColorCard(String type) {
 
-        if(Utils.doesContain(type, "quiz")){
+        if (Utils.doesContain(type, "quiz")) {
 
             colorPicker.setSelectedColor(quizColor);
             colorCard.setCardBackgroundColor(quizColor);
             selectedColor = quizColor;
-        } else if(Utils.doesContain(type, "mid")){
+        } else if (Utils.doesContain(type, "mid")) {
 
             colorPicker.setSelectedColor(midColor);
             colorCard.setCardBackgroundColor(midColor);
             selectedColor = midColor;
 
-        } else if(Utils.doesContain(type, "exam")){
+        } else if (Utils.doesContain(type, "exam")) {
 
             colorPicker.setSelectedColor(examColor);
             colorCard.setCardBackgroundColor(examColor);
             selectedColor = examColor;
 
-        } else{
+        } else {
 
             colorPicker.setSelectedColor(defaultColor);
             colorCard.setCardBackgroundColor(defaultColor);
@@ -834,10 +799,9 @@ public class AddSchedule extends AppCompatActivity {
         }
 
 
-
     }
 
-    public void cancelReminder(int idd){
+    public void cancelReminder(int idd) {
 
         Intent intent = new Intent(this, ReminderBroadcast.class);
         PendingIntent.getBroadcast(this.getApplicationContext(), idd, intent,
@@ -884,7 +848,6 @@ public class AddSchedule extends AppCompatActivity {
         }
         return true;
     }
-
 
 
     @Override

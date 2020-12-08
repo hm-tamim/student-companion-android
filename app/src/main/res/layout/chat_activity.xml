@@ -54,8 +54,8 @@
                 android:ems="10"
                 android:hint="Send a message"
                 android:inputType="textMultiLine"
-                android:paddingLeft="20dp"
-                android:minHeight="65dp"/>
+                android:minHeight="65dp"
+                android:paddingLeft="20dp" />
 
             <ImageButton
                 android:id="@+id/sendMessage"

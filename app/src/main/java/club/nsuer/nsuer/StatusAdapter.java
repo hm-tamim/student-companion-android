@@ -1,55 +1,30 @@
 package club.nsuer.nsuer;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
@@ -65,7 +40,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
     private String dp;
 
 
-
     public StatusAdapter(int layoutId, ArrayList<StatusItem> itemList, Context context, String memID, String uid, StatusActivity instance) {
         listItemLayout = layoutId;
         this.itemList = itemList;
@@ -74,7 +48,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         this.uid = uid;
         this.instanse = instance;
     }
-
 
 
     @Override
@@ -94,7 +67,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         return myViewHolder;
     }
 
-    public void addStutusTop(StatusItem statusItem){
+    public void addStutusTop(StatusItem statusItem) {
         this.itemList.add(0, statusItem);
         notifyItemInserted(0);
     }
@@ -112,7 +85,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         Button reportButton = holder.report;
 
 
-
         ImageView image = holder.image;
         final ImageView menu = holder.menu;
 
@@ -126,12 +98,12 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
         int placeH = R.drawable.ic_male_color;
 
-        if(gender.equals("female"))
+        if (gender.equals("female"))
             placeH = R.drawable.ic_female_color;
 
         image.setImageDrawable(context.getResources().getDrawable(placeH));
 
-        if(!picUrl.equals("0")) {
+        if (!picUrl.equals("0")) {
             RequestOptions placeholderRequest = new RequestOptions();
             placeholderRequest.placeholder(placeH);
 
@@ -153,15 +125,13 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         time.setText(dates);
 
 
-
         int comments = itemList.get(listPosition).getComments();
 
 
-
         String commentText = " Comment";
-        if(comments < 1)
+        if (comments < 1)
             commentText = "Comment";
-        else if(comments == 1)
+        else if (comments == 1)
             commentText = "1 Comment";
         else
             commentText = comments + " Comments";
@@ -175,18 +145,18 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
 
         String likeText = " Like";
-        if(likes < 1)
+        if (likes < 1)
             likeText = "Like";
-        else if(likes == 1)
+        else if (likes == 1)
             likeText = "1 Like";
         else
             likeText = likes + " Likes";
 
-        if(isLiked) {
+        if (isLiked) {
 
 
-            Drawable img = context.getResources().getDrawable( R.drawable.ic_heart_filled);
-            img.setBounds( 0, 0, 50, 50);
+            Drawable img = context.getResources().getDrawable(R.drawable.ic_heart_filled);
+            img.setBounds(0, 0, 50, 50);
             likeButton.setCompoundDrawables(img, null, null, null);
             likeButton.setText(likeText);
 
@@ -194,13 +164,12 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         } else {
 
 
-            Drawable img = context.getResources().getDrawable( R.drawable.ic_heart_outline);
-            img.setBounds( 0, 0, 52, 52);
+            Drawable img = context.getResources().getDrawable(R.drawable.ic_heart_outline);
+            img.setBounds(0, 0, 52, 52);
             likeButton.setCompoundDrawables(img, null, null, null);
             likeButton.setText(likeText);
 
         }
-
 
 
         likeButton.setOnClickListener(new View.OnClickListener() {
@@ -216,13 +185,12 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         });
 
 
-
         reportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-                Toast.makeText(context,"Post reported!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Post reported!", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -242,15 +210,11 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
                 String creatorPost = itemList.get(listPosition).getPost();
                 String postTime = itemList.get(listPosition).getTime();
 
-                instanse.AlertComment(thisMsgID,creatorName,creatorGender,creatorPic,creatorID,courseGroup,creatorPost,postTime);
-
+                instanse.AlertComment(thisMsgID, creatorName, creatorGender, creatorPic, creatorID, courseGroup, creatorPost, postTime);
 
 
             }
         });
-
-
-
 
 
         menu.setOnClickListener(new View.OnClickListener() {
@@ -265,7 +229,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
                 String thisMemID = itemList.get(listPosition).getMemID();
 
 
-                if(thisMemID.equals(memID))
+                if (thisMemID.equals(memID))
                     popup.inflate(R.menu.newsfeed_menu_own);
                 else
                     popup.inflate(R.menu.newsfeed_menu_others);
@@ -279,7 +243,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
                             case R.id.cr_action_remove:
 
 
-                                new AlertDialog.Builder(context,R.style.AlertDialogTheme)
+                                new AlertDialog.Builder(context, R.style.AlertDialogTheme)
                                         .setMessage("Do you really want to delete?")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -288,7 +252,8 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
                                                 sendDelete(listPosition);
 
-                                            }})
+                                            }
+                                        })
                                         .setNegativeButton(android.R.string.no, null).show();
 
                                 break;
@@ -338,26 +303,20 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
     }
 
 
-    public ArrayList<StatusItem> getItemList(){
+    public ArrayList<StatusItem> getItemList() {
 
         return itemList;
 
     }
 
 
+    private void sendEdit(int listPosition, String post) {
 
 
-
-
-    private void sendEdit(int listPosition, String post){
-
-
-
-        if(!Utils.isNetworkAvailable(context)) {
+        if (!Utils.isNetworkAvailable(context)) {
             Toast.makeText(context, "Internet connection required.", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
@@ -366,7 +325,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         final int msgID = itemList.get(listPosition).getId();
 
         parametters.put("msgID", String.valueOf(msgID));
-        parametters.put("post",post);
+        parametters.put("post", post);
         parametters.put("uid", uid);
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/newsfeed/edit-post.php", "POST", parametters);
@@ -379,8 +338,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
                 instanse.loadJson(true);
 
-                Toast.makeText(context,"Post Edited", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(context, "Post Edited", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -396,22 +354,19 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
     }
 
-    private void sendDelete(int listPosition){
+    private void sendDelete(int listPosition) {
 
 
-
-        if(!Utils.isNetworkAvailable(context)) {
+        if (!Utils.isNetworkAvailable(context)) {
             Toast.makeText(context, "Internet connection required.", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
 
         final int msgID = itemList.get(listPosition).getId();
-
 
 
         itemList.remove(listPosition);
@@ -433,8 +388,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
                 instanse.loadJson(true);
 
-                Toast.makeText(context,"Post Deleted", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(context, "Post Deleted", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -451,21 +405,20 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
     }
 
 
-    private void setLike(Button button, int listPosition){
-
+    private void setLike(Button button, int listPosition) {
 
 
         boolean isLiked = itemList.get(listPosition).isLiked();
         int likes = itemList.get(listPosition).getLikes();
 
-        if(isLiked) {
+        if (isLiked) {
 
             likes--;
 
             String likeText = " Like";
-            if(likes < 1)
+            if (likes < 1)
                 likeText = "Like";
-            else if(likes == 1)
+            else if (likes == 1)
                 likeText = "1 Like";
             else
                 likeText = likes + " Likes";
@@ -473,8 +426,8 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
             itemList.get(listPosition).setLikes(likes);
 
-            Drawable img = context.getResources().getDrawable( R.drawable.ic_heart_outline);
-            img.setBounds( 0, 0, 52, 52);
+            Drawable img = context.getResources().getDrawable(R.drawable.ic_heart_outline);
+            img.setBounds(0, 0, 52, 52);
             button.setCompoundDrawables(img, null, null, null);
             button.setText(likeText);
 
@@ -485,9 +438,9 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
             likes++;
 
             String likeText = " Like";
-            if(likes < 1)
+            if (likes < 1)
                 likeText = "Like";
-            else if(likes == 1)
+            else if (likes == 1)
                 likeText = "1 Like";
             else
                 likeText = likes + " Likes";
@@ -495,8 +448,8 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
             itemList.get(listPosition).setLikes(likes);
 
-            Drawable img = context.getResources().getDrawable( R.drawable.ic_heart_filled);
-            img.setBounds( 0, 0, 50, 50);
+            Drawable img = context.getResources().getDrawable(R.drawable.ic_heart_filled);
+            img.setBounds(0, 0, 50, 50);
             button.setCompoundDrawables(img, null, null, null);
 
 
@@ -509,12 +462,13 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
 
     }
-    private void setDislike(Button button, int listPosition){
 
-        Drawable img = context.getResources().getDrawable( R.drawable.ic_heart_outline);
-        img.setBounds( 0, 0, 52, 52);
+    private void setDislike(Button button, int listPosition) {
 
-       // button.setTextColor(Color.parseColor("#55555"));
+        Drawable img = context.getResources().getDrawable(R.drawable.ic_heart_outline);
+        img.setBounds(0, 0, 52, 52);
+
+        // button.setTextColor(Color.parseColor("#55555"));
         button.setCompoundDrawables(img, null, null, null);
         //button.setTypeface(null, Typeface.NORMAL);
         button.setText("Like");
@@ -522,11 +476,10 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
     }
 
 
-    private void sendLike(int listPosition, final Button likeButton, final String creatorID){
+    private void sendLike(int listPosition, final Button likeButton, final String creatorID) {
 
 
-
-        if(!Utils.isNetworkAvailable(context)) {
+        if (!Utils.isNetworkAvailable(context)) {
             Toast.makeText(context, "Internet connection required.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -608,7 +561,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         public void onClick(View view) {
 
         }
-
 
 
     }

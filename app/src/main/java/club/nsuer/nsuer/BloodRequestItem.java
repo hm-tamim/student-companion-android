@@ -14,7 +14,6 @@ public class BloodRequestItem {
     private String note;
     private boolean managed;
 
-
     public BloodRequestItem(int id, String memID, String name, long postedDate, int bloodGroup, String bags, long whenDate, String phone, String address, String note, boolean managed) {
         this.id = id;
         this.memID = memID;

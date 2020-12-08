@@ -1,25 +1,15 @@
 package club.nsuer.nsuer;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -102,14 +92,13 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int listPosition) {
 
         String from = itemList.get(listPosition).getFrom();
 
 
-        if(from.equals(memID)){
+        if (from.equals(memID)) {
 
 
             configureMyChatViewHolder((MyChatViewHolder) holder, listPosition);
@@ -138,11 +127,12 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                 String timeString = Utils.getTimeAgoShop(time);
 
-                if(itemList.get(listPosition).isShowTime()) {
+                if (itemList.get(listPosition).isShowTime()) {
                     holder.time.setVisibility(View.GONE);
                     itemList.get(listPosition).setShowTime(false);
                 } else {
-                    holder.time.setVisibility(View.VISIBLE);itemList.get(listPosition).setShowTime(true);
+                    holder.time.setVisibility(View.VISIBLE);
+                    itemList.get(listPosition).setShowTime(true);
                 }
             }
         });
@@ -160,10 +150,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         messageView.setText(message);
 
 
-
         int placeH = R.drawable.ic_male_color;
 
-        if(otherGender.equals("female"))
+        if (otherGender.equals("female"))
             placeH = R.drawable.ic_female_color;
 
         imageView.setImageDrawable(context.getResources().getDrawable(placeH));
@@ -175,17 +164,18 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                 String timeString = Utils.getTimeAgoShop(time);
 
-                if(itemList.get(listPosition).isShowTime()) {
+                if (itemList.get(listPosition).isShowTime()) {
                     holder.time.setVisibility(View.GONE);
                     itemList.get(listPosition).setShowTime(false);
                 } else {
-                    holder.time.setVisibility(View.VISIBLE);itemList.get(listPosition).setShowTime(true);
+                    holder.time.setVisibility(View.VISIBLE);
+                    itemList.get(listPosition).setShowTime(true);
                 }
             }
         });
 
 
-        if(otherImage.contains(".")) {
+        if (otherImage.contains(".")) {
 
             RequestOptions placeholderRequest = new RequestOptions();
             placeholderRequest.placeholder(placeH);
@@ -200,7 +190,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
 
-
     }
 
     @Override
@@ -209,7 +198,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         String from = itemList.get(listPosition).getFrom();
 
 
-        if(from.equals(memID)){
+        if (from.equals(memID)) {
             return VIEW_TYPE_ME;
         } else {
             return VIEW_TYPE_OTHER;

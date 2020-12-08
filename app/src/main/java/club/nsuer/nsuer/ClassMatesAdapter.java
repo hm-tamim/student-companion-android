@@ -2,13 +2,8 @@ package club.nsuer.nsuer;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,11 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import static android.support.v7.widget.helper.ItemTouchHelper.Callback.makeMovementFlags;
 
 
 public class ClassMatesAdapter extends RecyclerView.Adapter<ClassMatesAdapter.ViewHolder> {
@@ -39,14 +31,11 @@ public class ClassMatesAdapter extends RecyclerView.Adapter<ClassMatesAdapter.Vi
     }
 
 
-
     @Override
     public int getItemCount() {
 
         return itemList == null ? 0 : itemList.size();
     }
-
-
 
 
     // specify the row layout file and click for each row
@@ -74,7 +63,7 @@ public class ClassMatesAdapter extends RecyclerView.Adapter<ClassMatesAdapter.Vi
 //                .cancelRequest(holder.image);
 
 
-        if(gender.equals("female"))
+        if (gender.equals("female"))
             image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_female_color));
         else
             image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_male_color));
@@ -97,11 +86,11 @@ public class ClassMatesAdapter extends RecyclerView.Adapter<ClassMatesAdapter.Vi
 
         int placeH = R.drawable.ic_male_color;
 
-        if(gender.equals("female"))
-             placeH = R.drawable.ic_female_color;
+        if (gender.equals("female"))
+            placeH = R.drawable.ic_female_color;
 
 
-        if(picUrl.contains(".")) {
+        if (picUrl.contains(".")) {
 
             RequestOptions placeholderRequest = new RequestOptions();
             placeholderRequest.placeholder(placeH);
@@ -126,9 +115,7 @@ public class ClassMatesAdapter extends RecyclerView.Adapter<ClassMatesAdapter.Vi
 //                context.startActivity(intent);
 
 
-
-
-                Intent intent = new Intent(context,ChatActivity.class);
+                Intent intent = new Intent(context, ChatActivity.class);
 
                 intent.putExtra("otherMemID", memID);
                 intent.putExtra("otherMemName", userName);
@@ -168,7 +155,6 @@ public class ClassMatesAdapter extends RecyclerView.Adapter<ClassMatesAdapter.Vi
         public void onClick(View view) {
 
         }
-
 
 
     }

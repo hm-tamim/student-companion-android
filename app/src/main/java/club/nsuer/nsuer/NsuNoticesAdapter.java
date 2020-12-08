@@ -2,7 +2,6 @@ package club.nsuer.nsuer;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -27,8 +26,7 @@ public class NsuNoticesAdapter extends RecyclerView.Adapter<NsuNoticesAdapter.Vi
     private Context context;
     private String type;
 
-
-    public NsuNoticesAdapter(int layoutId, ArrayList<NsuNoticesItem> itemList,Context context, String type) {
+    public NsuNoticesAdapter(int layoutId, ArrayList<NsuNoticesItem> itemList, Context context, String type) {
         listItemLayout = layoutId;
         this.itemList = itemList;
         this.context = context;
@@ -110,17 +108,12 @@ public class NsuNoticesAdapter extends RecyclerView.Adapter<NsuNoticesAdapter.Vi
         DateFormat formateMonth = new SimpleDateFormat("MMM");
 
 
-
-
-
-
         date.setText(formateDate.format(dateFormated));
 
         month.setText(formateMonth.format(dateFormated));
 
 
         //holder.viewPager.setId(listPosition);
-
 
 
 //
@@ -187,9 +180,6 @@ public class NsuNoticesAdapter extends RecyclerView.Adapter<NsuNoticesAdapter.Vi
             viewPager = (ViewPager) itemView.findViewById(R.id.nsuNoticesViewPager);
 
 
-
-
-
         }
 
 
@@ -199,7 +189,7 @@ public class NsuNoticesAdapter extends RecyclerView.Adapter<NsuNoticesAdapter.Vi
 
             MainActivity main = MainActivity.getInstance();
 
-            if(!Utils.isNetworkAvailable(main.getApplicationContext())) {
+            if (!Utils.isNetworkAvailable(main.getApplicationContext())) {
                 Toast.makeText(main.getApplicationContext(), "No internet connection!", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -208,7 +198,7 @@ public class NsuNoticesAdapter extends RecyclerView.Adapter<NsuNoticesAdapter.Vi
             //Intent intent = new Intent(view.getContext(), NoticeBrowser.class);
             String nsuurl = "http://www.northsouth.edu/" + url.getText();
 
-            Utils.CustomTab(nsuurl,view.getContext());
+            Utils.CustomTab(nsuurl, view.getContext());
 
             //intent.putExtra("URL", nsuurl);
 
@@ -222,7 +212,6 @@ public class NsuNoticesAdapter extends RecyclerView.Adapter<NsuNoticesAdapter.Vi
 
             Log.d("onclick", "onClick " + getLayoutPosition() + " " + url.getText());
         }
-
 
 
     }

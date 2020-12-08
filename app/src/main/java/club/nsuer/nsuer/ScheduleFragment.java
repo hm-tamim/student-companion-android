@@ -13,12 +13,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class ScheduleFragment extends Fragment {
     private LinearLayout noSchedule;
     private int scrollID = 999999;
     private SessionManager sessionManager;
-    private List<ScheduleEntity>  list;
+    private List<ScheduleEntity> list;
 
     private CountDownTimer countDownTimer;
 
@@ -68,7 +68,6 @@ public class ScheduleFragment extends Fragment {
         context = getContext();
 
 
-
         db = Room.databaseBuilder(context,
                 ScheduleDatabase.class, "schedule").fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
@@ -88,8 +87,7 @@ public class ScheduleFragment extends Fragment {
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if ((requestCode == 10001) || (resultCode == Activity.RESULT_OK))
@@ -97,12 +95,12 @@ public class ScheduleFragment extends Fragment {
     }
 
 
-    public void openActivityWithId(int id){
+    public void openActivityWithId(int id) {
 
         Intent intent = new Intent(context,
                 AddSchedule.class);
         intent.putExtra("id", id);
-        intent.putExtra("uid",main.getUid());
+        intent.putExtra("uid", main.getUid());
         startActivityForResult(intent, 10001);
 
 
@@ -114,22 +112,20 @@ public class ScheduleFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-
-
         titleLinear = v.findViewById(R.id.titleLinear);
-        crLine2  = v.findViewById(R.id.crLine2);
+        crLine2 = v.findViewById(R.id.crLine2);
         noSchedule = v.findViewById(R.id.noSchedule);
 
 
         ft = getFragmentManager().beginTransaction();
 
         addButton = v.findViewById(R.id.addButton);
-        addButton.setOnClickListener(new View.OnClickListener(){
+        addButton.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(context,
                         AddSchedule.class);
-                intent.putExtra("uid",main.getUid());
+                intent.putExtra("uid", main.getUid());
                 startActivityForResult(intent, 10001);
 
             }
@@ -147,36 +143,34 @@ public class ScheduleFragment extends Fragment {
 
         list = db.scheduleDao().getAll();
 
-       if(list.size() < 1) {
-           titleLinear.setVisibility(View.GONE);
-           crLine2.setVisibility(View.GONE);
+        if (list.size() < 1) {
+            titleLinear.setVisibility(View.GONE);
+            crLine2.setVisibility(View.GONE);
 
-           Toast.makeText(context,"Syncing from cloud...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Syncing from cloud...", Toast.LENGTH_SHORT).show();
 
-           Utils.syncSchedule(sessionManager.getMemberID(),context);
+            Utils.syncSchedule(sessionManager.getMemberID(), context);
 
-           new Handler().postDelayed(new Runnable() {
-               public void run() {
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
 
-                   itemList.clear();
-                   loadRecycler();
+                    itemList.clear();
+                    loadRecycler();
 
-                   if(list.size()<1)
-                       Toast.makeText(context,"You haven't added any schedule.", Toast.LENGTH_SHORT).show();
+                    if (list.size() < 1)
+                        Toast.makeText(context, "You haven't added any schedule.", Toast.LENGTH_SHORT).show();
 
-               }
-               }, 3000);
+                }
+            }, 3000);
 
-       } else {
-           noSchedule.setVisibility(View.GONE);
-       }
-
+        } else {
+            noSchedule.setVisibility(View.GONE);
+        }
 
 
         loadRecycler();
 
         recyclerView.setAdapter(itemAdapter);
-
 
 
         countDownTimer = new CountDownTimer(500000, 2000) {
@@ -186,7 +180,7 @@ public class ScheduleFragment extends Fragment {
 
                 // refresh recycler from database to make it live
 
-                if(list.size() > 0) {
+                if (list.size() > 0) {
                     itemList.clear();
                     loadRecycler();
                 }
@@ -202,16 +196,15 @@ public class ScheduleFragment extends Fragment {
         countDownTimer.start();
 
 
-
     }
 
 
-    private void loadRecycler(){
+    private void loadRecycler() {
 
 
         list = db.scheduleDao().getAll();
 
-        for (int i=0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
 
             int id = list.get(i).getId();
             String title = list.get(i).getTitle();
@@ -226,7 +219,7 @@ public class ScheduleFragment extends Fragment {
 
             long unixTime = System.currentTimeMillis() / 1000L;
 
-            if(unixTime > date)
+            if (unixTime > date)
                 isPassed = true;
 
 
@@ -238,7 +231,7 @@ public class ScheduleFragment extends Fragment {
         itemAdapter.notifyDataSetChanged();
 
 
-        if(list.size() < 1) {
+        if (list.size() < 1) {
             noSchedule.setVisibility(View.VISIBLE);
             titleLinear.setVisibility(View.GONE);
             crLine2.setVisibility(View.GONE);
@@ -269,8 +262,6 @@ public class ScheduleFragment extends Fragment {
         countDownTimer.cancel();
 
     }
-
-
 
 
 }

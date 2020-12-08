@@ -1,17 +1,13 @@
 package club.nsuer.nsuer;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.google.firebase.FirebaseApp;
@@ -29,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
 
-        if(Build.VERSION.SDK_INT >= 25) {
+        if (Build.VERSION.SDK_INT >= 25) {
 
 
             ImageView v = (ImageView) this.findViewById(R.id.animatedLoadingBar);
@@ -45,9 +41,7 @@ public class SplashActivity extends AppCompatActivity {
         }
 
 
-
         final Intent intent = new Intent(this, MainActivity.class);
-
 
 
         int secondsDelayed = 1;
@@ -55,20 +49,15 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
 
 
-                 startActivity(intent);
+                startActivity(intent);
 
-                 overridePendingTransition(0, R.animator.fade_out);
+                overridePendingTransition(0, R.animator.fade_out);
 
-                 finish();
+                finish();
 
 
             }
         }, 100);
-
-
-
-
-
 
 
     }

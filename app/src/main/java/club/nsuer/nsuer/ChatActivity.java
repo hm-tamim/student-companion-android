@@ -2,29 +2,21 @@ package club.nsuer.nsuer;
 
 import android.app.Activity;
 import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,8 +26,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-
-import club.nsuer.nsuer.R;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -102,25 +92,22 @@ public class ChatActivity extends AppCompatActivity {
         sentID = new ArrayList<>();
 
 
-
         Intent intent = getIntent();
 
         otherMemID = intent.getStringExtra("otherMemID");
         otherMemName = intent.getStringExtra("otherMemName");
-        otherMemImage = otherMemID+".jpg";
+        otherMemImage = otherMemID + ".jpg";
 
-        if(intent.hasExtra("otherMemGender"))
-        otherMemGender = intent.getStringExtra("otherMemGender");
-
+        if (intent.hasExtra("otherMemGender"))
+            otherMemGender = intent.getStringExtra("otherMemGender");
 
 
         actionBar.setTitle(otherMemName);
 
 
-        sound1 =  MediaPlayer.create(ChatActivity.this, R.raw.chat_1);
-        sound2 =  MediaPlayer.create(ChatActivity.this, R.raw.chat_2);
-        sound3 =  MediaPlayer.create(ChatActivity.this, R.raw.bubble);
-
+        sound1 = MediaPlayer.create(ChatActivity.this, R.raw.chat_1);
+        sound2 = MediaPlayer.create(ChatActivity.this, R.raw.chat_2);
+        sound3 = MediaPlayer.create(ChatActivity.this, R.raw.bubble);
 
 
         session = new SessionManager(getApplicationContext());
@@ -138,8 +125,7 @@ public class ChatActivity extends AppCompatActivity {
         dept = session.getDepartment();
 
 
-
-        String dbName = "chat_"+otherMemID;
+        String dbName = "chat_" + otherMemID;
 
         chatDb = Room.databaseBuilder(ChatActivity.this,
                 ChatDatabase.class, dbName).allowMainThreadQueries().build();
@@ -148,19 +134,18 @@ public class ChatActivity extends AppCompatActivity {
 
         dbLength = chatDao.count();
 
-        if(dbLength > 0){
+        if (dbLength > 0) {
 
             chatStartID = chatDao.getLastIDJson();
             chatStartIDRefresh = chatDao.getLastID();
 
         }
 
-        Log.d("LastID",chatDao.getLastIDJson()+"");
-
+        Log.d("LastID", chatDao.getLastIDJson() + "");
 
 
         itemList = new ArrayList<ChatItem>();
-        itemAdapter = new ChatAdapter(R.layout.chat_recycler, itemList, ChatActivity.this, this, memberID, otherMemID, otherMemImage,otherMemGender);
+        itemAdapter = new ChatAdapter(R.layout.chat_recycler, itemList, ChatActivity.this, this, memberID, otherMemID, otherMemImage, otherMemGender);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         LinearLayoutManager linearLayoutManager =
@@ -170,29 +155,23 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
-
-
-
-
-        if(dbLength > 0)
+        if (dbLength > 0)
             loadFromDb();
 
 
-        if(Utils.isNetworkAvailable(ChatActivity.this))
-            loadJson(uid,false);
-
-
+        if (Utils.isNetworkAvailable(ChatActivity.this))
+            loadJson(uid, false);
 
 
         countDownTimer = new CountDownTimer(1000000, 5000) {
 
             public void onTick(long millisUntilFinished) {
-                if(Utils.isNetworkAvailable(ChatActivity.this)) {
+                if (Utils.isNetworkAvailable(ChatActivity.this)) {
 
-                    if(isLoaded && isVisible) {
+                    if (isLoaded && isVisible) {
 
-                      isLoaded = false;
-                      loadJson(uid,true);
+                        isLoaded = false;
+                        loadJson(uid, true);
 
                     }
 
@@ -230,50 +209,43 @@ public class ChatActivity extends AppCompatActivity {
         sendMessage = findViewById(R.id.sendMessage);
 
 
-
-
         sendMessage.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
 
-
                 sound1.start();
                 String msg = inputMessage.getText().toString();
 
-                long time = Calendar.getInstance().getTimeInMillis()/1000L;
+                long time = Calendar.getInstance().getTimeInMillis() / 1000L;
 
 
-                int randID = lastID+3524;
+                int randID = lastID + 3524;
 
-                itemList.add(new ChatItem(randID,memberID,otherMemID,msg,time));
+                itemList.add(new ChatItem(randID, memberID, otherMemID, msg, time));
 
-                int postitionToRemove = itemList.size()-1;
+                int postitionToRemove = itemList.size() - 1;
 
-                itemAdapter.notifyItemInserted(itemList.size()-1);
+                itemAdapter.notifyItemInserted(itemList.size() - 1);
 
                 inputMessage.setText("");
 
 
-                recyclerView.smoothScrollToPosition(itemList.size()-1);
+                recyclerView.smoothScrollToPosition(itemList.size() - 1);
 
-                sendMessage(otherMemID,msg,postitionToRemove);
-
-
-
+                sendMessage(otherMemID, msg, postitionToRemove);
 
 
             }
         });
 
 
-
         inputMessage.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    if(itemList.size()>1) {
+                    if (itemList.size() > 1) {
                         recyclerView.post(new Runnable() {
                             @Override
                             public void run() {
@@ -289,9 +261,7 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
-
-
-        if(intent.hasExtra("pretext")){
+        if (intent.hasExtra("pretext")) {
 
             inputMessage.setText(intent.getStringExtra("pretext"));
 
@@ -299,12 +269,7 @@ public class ChatActivity extends AppCompatActivity {
         }
 
 
-
-
-
-
     }
-
 
 
     @Override
@@ -326,7 +291,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    public void loadFromDb(){
+    public void loadFromDb() {
 
 
         List<ChatEntity> list = chatDao.getAllByTime();
@@ -336,7 +301,7 @@ public class ChatActivity extends AppCompatActivity {
         itemList.clear();
 
 
-        for (int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
 
 
             int id = list.get(i).getMsg_id();
@@ -347,15 +312,13 @@ public class ChatActivity extends AppCompatActivity {
             long time = list.get(i).getTime();
 
 
-            itemList.add(new ChatItem(id,from,to,message,time));
-
-
+            itemList.add(new ChatItem(id, from, to, message, time));
 
 
         }
 
 
-        if(itemList.size()>1 && itemList.size() > oldSize) {
+        if (itemList.size() > 1 && itemList.size() > oldSize) {
             recyclerView.post(new Runnable() {
                 @Override
                 public void run() {
@@ -366,14 +329,10 @@ public class ChatActivity extends AppCompatActivity {
         itemAdapter.notifyDataSetChanged();
 
 
-
-
-
-
     }
 
 
-    public void loadFromDbStart(){
+    public void loadFromDbStart() {
 
 
         List<ChatEntity> list = chatDao.getAfterStart(chatStartIDRefresh);
@@ -383,19 +342,18 @@ public class ChatActivity extends AppCompatActivity {
         int counter = 0;
         boolean isSounded = false;
 
-        for (int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
 
             int id = list.get(i).getMsg_id();
             boolean notExist = true;
-            for(int k=0; k < itemList.size(); k++){
-                if(itemList.get(k).getId() == id)
-                {
+            for (int k = 0; k < itemList.size(); k++) {
+                if (itemList.get(k).getId() == id) {
                     notExist = false;
                     break;
                 }
             }
 
-            if(notExist) {
+            if (notExist) {
                 String from = list.get(i).getUser_from();
                 String to = list.get(i).getUser_to();
                 String message = list.get(i).getMessage();
@@ -425,25 +383,20 @@ public class ChatActivity extends AppCompatActivity {
 
         chatStartIDRefresh = chatDao.getLastID();
 
-        if(counter>0) {
+        if (counter > 0) {
 
         }
-        }
+    }
 
 
-
-
-
-
-    public void loadJson(final String uid, final boolean fromRefresh){
-
+    public void loadJson(final String uid, final boolean fromRefresh) {
 
 
         HashMap<String, String> parametters = new HashMap<String, String>();
 
         parametters.put("uid", uid);
-        parametters.put("otherMemID",otherMemID);
-        parametters.put("chatStartID",String.valueOf(chatStartID));
+        parametters.put("otherMemID", otherMemID);
+        parametters.put("chatStartID", String.valueOf(chatStartID));
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/chat/message.php", "GET", parametters);
 
@@ -457,7 +410,6 @@ public class ChatActivity extends AppCompatActivity {
 
 
                     JSONArray obj = result.getJSONArray("messages");
-
 
 
                     JSONObject userInfo = result.getJSONObject("user");
@@ -474,7 +426,6 @@ public class ChatActivity extends AppCompatActivity {
                     actionBar.setTitle(name);
 
 
-
                     boolean isSounded = false;
 
                     for (int j = 0; j < obj.length(); j++) {
@@ -483,7 +434,6 @@ public class ChatActivity extends AppCompatActivity {
 
 
                         int id = data.getInt("id");
-
 
 
                         String from = data.getString("f");
@@ -502,11 +452,7 @@ public class ChatActivity extends AppCompatActivity {
                         chatItem.setFrom_json(1);
 
 
-
-
-
                         //itemList.add(new ChatItem(id,from,to,message,time));
-
 
 
                         chatDao.insertAll(chatItem);
@@ -514,14 +460,14 @@ public class ChatActivity extends AppCompatActivity {
                         lastID = id;
                         chatStartID = id;
 
-                        if(fromRefresh) {
+                        if (fromRefresh) {
 
-                            if(!from.equals(memberID)) {
+                            if (!from.equals(memberID)) {
                                 itemList.add(new ChatItem(id, from, to, message, time));
 
-                                itemAdapter.notifyItemInserted(itemList.size()-1);
+                                itemAdapter.notifyItemInserted(itemList.size() - 1);
 
-                                if(!isSounded) {
+                                if (!isSounded) {
                                     sound2.start();
                                     isSounded = true;
                                 }
@@ -531,7 +477,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     }
 
-                        loadFromDb();
+                    loadFromDb();
 
 
                     isLoaded = true;
@@ -540,14 +486,10 @@ public class ChatActivity extends AppCompatActivity {
 //                        itemAdapter.();
 
 
-
                 } catch (JSONException e) {
 
                     Log.e("JSON", e.toString());
                 }
-
-
-
 
 
             }
@@ -565,9 +507,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-
-
-    private void loadRecylcer(String string){
+    private void loadRecylcer(String string) {
 
 
         try {
@@ -578,21 +518,18 @@ public class ChatActivity extends AppCompatActivity {
             JSONArray obj = result.getJSONArray("messages");
 
 
-
             JSONObject userInfo = result.getJSONObject("user");
 
 
-                String name = userInfo.getString("username");
-                String picture = userInfo.getString("picture");
-                String gender = userInfo.getString("gender");
+            String name = userInfo.getString("username");
+            String picture = userInfo.getString("picture");
+            String gender = userInfo.getString("gender");
 
-                itemAdapter.setOtherImage(picture);
-                itemAdapter.setOtherGender(gender);
-
-
-                actionBar.setTitle(name);
+            itemAdapter.setOtherImage(picture);
+            itemAdapter.setOtherGender(gender);
 
 
+            actionBar.setTitle(name);
 
 
             for (int j = 0; j < obj.length(); j++) {
@@ -603,14 +540,13 @@ public class ChatActivity extends AppCompatActivity {
                 int id = data.getInt("id");
 
 
-
                 String from = data.getString("f");
                 String to = data.getString("t");
                 String message = data.getString("m");
                 long time = data.getLong("tm");
 
 
-                itemList.add(new ChatItem(id,from,to,message,time));
+                itemList.add(new ChatItem(id, from, to, message, time));
 
                 lastID = id;
 
@@ -618,12 +554,10 @@ public class ChatActivity extends AppCompatActivity {
             }
 
 
-
         } catch (JSONException e) {
 
             Log.e("JSON", e.toString());
         }
-
 
 
 //
@@ -637,20 +571,19 @@ public class ChatActivity extends AppCompatActivity {
 //
 //        }
 
-        if(itemList.size()>1) {
+        if (itemList.size() > 1) {
             recyclerView.post(new Runnable() {
                 @Override
                 public void run() {
-                        recyclerView.scrollToPosition(itemList.size() - 1);
-                    }
-                });
+                    recyclerView.scrollToPosition(itemList.size() - 1);
+                }
+            });
         }
         itemAdapter.notifyDataSetChanged();
     }
 
 
-
-    private void sendMessage(final String to, final String message, final int postitionToRemove){
+    private void sendMessage(final String to, final String message, final int postitionToRemove) {
 
 
         isLoaded = true;
@@ -668,7 +601,6 @@ public class ChatActivity extends AppCompatActivity {
         final String timeStamp = String.valueOf(unixTime);
 
 
-
         JSONParser parser = new JSONParser("https://nsuer.club/apps/chat/send-message.php", "GET", parametters);
 
         parser.setListener(new JSONParser.ParserListener() {
@@ -680,7 +612,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 try {
 
-                    if(!result.getBoolean("error")){
+                    if (!result.getBoolean("error")) {
                         id = result.getInt("id");
 
 
@@ -709,13 +641,10 @@ public class ChatActivity extends AppCompatActivity {
                         isLoaded = false;
                     }
 
-                } catch (Exception e){
+                } catch (Exception e) {
 
                     return;
                 }
-
-
-
 
 
             }
@@ -730,8 +659,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -742,7 +669,6 @@ public class ChatActivity extends AppCompatActivity {
         }
         return true;
     }
-
 
 
     @Override

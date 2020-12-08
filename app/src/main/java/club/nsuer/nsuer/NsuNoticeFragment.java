@@ -13,7 +13,6 @@ import android.widget.ProgressBar;
 
 public class NsuNoticeFragment extends Fragment {
 
-
     private View v;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -22,7 +21,6 @@ public class NsuNoticeFragment extends Fragment {
     public NsuNoticeFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

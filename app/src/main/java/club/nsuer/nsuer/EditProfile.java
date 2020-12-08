@@ -53,8 +53,6 @@ public class EditProfile extends AppCompatActivity {
     private ImageView img;
     private String imgPath;
     private SessionManager session;
-
-
     private String name = "Username";
     private String email;
     private String gender;
@@ -65,13 +63,9 @@ public class EditProfile extends AppCompatActivity {
     private String credit = "";
     private String semester = "0";
     private String dept = "0";
-
     private String pictureNew = "0";
-
     private String uploadURL = "";
-
     final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 8888;
-
     private EditText nameInput;
     private EditText cgpaInput;
     private EditText creditInput;
@@ -81,9 +75,7 @@ public class EditProfile extends AppCompatActivity {
     private Context context;
 
 
-
-    private void openImage(){
-
+    private void openImage() {
 
 
         if (ContextCompat.checkSelfPermission(EditProfile.this,
@@ -115,16 +107,13 @@ public class EditProfile extends AppCompatActivity {
             openSelector();
 
 
-
         }
-
 
 
     }
 
 
-
-    private void openSelector(){
+    private void openSelector() {
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
@@ -153,7 +142,6 @@ public class EditProfile extends AppCompatActivity {
                 return;
 
 
-
             } else {
                 // User refused to grant permission.
             }
@@ -175,21 +163,17 @@ public class EditProfile extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
         StateListAnimator stateListAnimator = new StateListAnimator();
         stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(findViewById(R.id.mainBar), "elevation", 0));
         findViewById(R.id.mainBar).setStateListAnimator(stateListAnimator);
 
 
         String url = getIntent().getStringExtra("URL");
-        String title  = "Edit Profile";
+        String title = "Edit Profile";
         setTitle(title);
 
 
-
-
         ImageView dp = (ImageView) findViewById(R.id.profilePicEdit);
-
 
 
         // session manager
@@ -212,8 +196,6 @@ public class EditProfile extends AppCompatActivity {
         dept = session.getDepartment();
 
 
-
-
         FloatingActionButton settingsFB = findViewById(R.id.settingsButton);
 
         settingsFB.setOnClickListener(new View.OnClickListener() {
@@ -225,21 +207,14 @@ public class EditProfile extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
         String destinationPaths = getFilesDir().getPath() + File.separator + "images";
 
         File dpp = new File(destinationPaths, "tamim.jpg");
 
 
+        if (picture != null && !picture.equals("0")) {
 
-        if (picture != null && !picture.equals("0")){
-
-            if(!dpp.exists()) {
+            if (!dpp.exists()) {
 
 
                 Picasso.get()
@@ -259,11 +234,7 @@ public class EditProfile extends AppCompatActivity {
         }
 
 
-
         // Toast.makeText(getApplicationContext(), dept, Toast.LENGTH_LONG).show();
-
-
-
 
 
         ImageView dpBtn = findViewById(R.id.dpEditbutton);
@@ -282,46 +253,41 @@ public class EditProfile extends AppCompatActivity {
         semesterInput = findViewById(R.id.editProfileSemester);
 
 
-        if(picture.equals("0"))
+        if (picture.equals("0"))
             pictureNew = "0";
         else
             pictureNew = picture;
 
 
-
-        if(!name.equals(""))
+        if (!name.equals(""))
             nameInput.setText(name);
 
-        if(!cgpa.equals(""))
+        if (!cgpa.equals(""))
             cgpaInput.setText(cgpa);
 
-        if(!credit.equals(""))
+        if (!credit.equals(""))
             creditInput.setText(credit);
 
-        if(!dept.equals("")) {
+        if (!dept.equals("")) {
 
             int indexd = Integer.parseInt(dept);
             deptInput.setSelection(indexd);
         }
 
-        if(!semester.equals("")) {
+        if (!semester.equals("")) {
 
             int indexs = Integer.parseInt(semester);
             semesterInput.setSelection(indexs);
         }
 
 
-
         //String selectedVal = getResources().getStringArray(R.array.values)[spinner.getSelectedItemPosition()];
-
-
 
 
         dpBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 openImage();
-
 
 
             }
@@ -336,9 +302,7 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-        uploadURL = "https://nsuer.club/apps/edit-profile/upload.php?uid="+ uid;
-
-
+        uploadURL = "https://nsuer.club/apps/edit-profile/upload.php?uid=" + uid;
 
 
         FloatingActionButton btn = findViewById(R.id.editProfileButton);
@@ -347,11 +311,10 @@ public class EditProfile extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                if(!Utils.isNetworkAvailable(EditProfile.this)) {
+                if (!Utils.isNetworkAvailable(EditProfile.this)) {
                     Toast.makeText(EditProfile.this, "Internet connection required.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
 
 
                 String nameNew = nameInput.getText().toString();
@@ -361,13 +324,12 @@ public class EditProfile extends AppCompatActivity {
                 String deptNew = String.valueOf(deptInput.getSelectedItemPosition());
                 String semesterNew = String.valueOf(semesterInput.getSelectedItemPosition());
 
-                if(cgpaNew.equals(""))
+                if (cgpaNew.equals(""))
                     cgpaNew = "0";
-                if(creditNew.equals(""))
+                if (creditNew.equals(""))
                     creditNew = "0";
-                if(semesterNew.equals(""))
+                if (semesterNew.equals(""))
                     semesterNew = "0";
-
 
 
                 double creditDouble = Double.valueOf(creditNew);
@@ -375,7 +337,6 @@ public class EditProfile extends AppCompatActivity {
                 int creditNewInt = (int) creditDouble;
 
                 creditNew = String.valueOf(creditNewInt);
-
 
 
                 session.setName(nameNew);
@@ -388,7 +349,6 @@ public class EditProfile extends AppCompatActivity {
                 session.setCgpa(cgpaNew);
                 session.setDepartment(deptNew);
                 session.setSemester(semesterNew);
-
 
 
                 HashMap<String, String> parametters = new HashMap<String, String>();
@@ -407,7 +367,7 @@ public class EditProfile extends AppCompatActivity {
                     @Override
                     public void onSuccess(JSONObject result) {
 
-                        Toast.makeText(context,"Profile updated!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Profile updated!", Toast.LENGTH_LONG).show();
 
 
                     }
@@ -422,18 +382,16 @@ public class EditProfile extends AppCompatActivity {
                 parser.execute();
 
 
-
                 finishNow();
 
             }
         });
 
 
-
     }
 
 
-    public boolean checkFieldsRequired(ViewGroup viewGroup){
+    public boolean checkFieldsRequired(ViewGroup viewGroup) {
 
         int count = viewGroup.getChildCount();
         for (int i = 0; i < count; i++) {
@@ -453,14 +411,14 @@ public class EditProfile extends AppCompatActivity {
 
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
         finishNow();
 
     }
 
 
-    private void finishNow(){
+    private void finishNow() {
 
         Intent intent = new Intent(EditProfile.this,
                 MainActivity.class);
@@ -491,12 +449,12 @@ public class EditProfile extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-                Intent intent = new Intent(EditProfile.this, SettingsActivity.class);
-                intent.putExtra("FROM_ACTIVITY", "EDIT_PROFILE");
-                startActivity(intent);
-        } else if (id == R.id.action_logout){
+            Intent intent = new Intent(EditProfile.this, SettingsActivity.class);
+            intent.putExtra("FROM_ACTIVITY", "EDIT_PROFILE");
+            startActivity(intent);
+        } else if (id == R.id.action_logout) {
 
-            MainActivity  main = MainActivity.getInstance();
+            MainActivity main = MainActivity.getInstance();
 
             main.logoutUser();
         }
@@ -504,16 +462,6 @@ public class EditProfile extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
-
-
-
-
-
-
 
 
     @TargetApi(19)
@@ -531,77 +479,59 @@ public class EditProfile extends AppCompatActivity {
 
                     if ("primary".equalsIgnoreCase(type)) {
                         imgPath = Environment.getExternalStorageDirectory() + "/" + split[1];
-                    }
-                    else {
+                    } else {
                         Pattern DIR_SEPORATOR = Pattern.compile("/");
                         Set<String> rv = new HashSet<>();
                         String rawExternalStorage = System.getenv("EXTERNAL_STORAGE");
                         String rawSecondaryStoragesStr = System.getenv("SECONDARY_STORAGE");
                         String rawEmulatedStorageTarget = System.getenv("EMULATED_STORAGE_TARGET");
-                        if(TextUtils.isEmpty(rawEmulatedStorageTarget))
-                        {
-                            if(TextUtils.isEmpty(rawExternalStorage))
-                            {
+                        if (TextUtils.isEmpty(rawEmulatedStorageTarget)) {
+                            if (TextUtils.isEmpty(rawExternalStorage)) {
                                 rv.add("/storage/sdcard0");
-                            }
-                            else
-                            {
+                            } else {
                                 rv.add(rawExternalStorage);
                             }
-                        }
-                        else
-                        {
+                        } else {
                             String rawUserId;
-                            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1)
-                            {
+                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
                                 rawUserId = "";
-                            }
-                            else
-                            {
+                            } else {
                                 String path = Environment.getExternalStorageDirectory().getAbsolutePath();
                                 String[] folders = DIR_SEPORATOR.split(path);
                                 String lastFolder = folders[folders.length - 1];
                                 boolean isDigit = false;
-                                try
-                                {
+                                try {
                                     Integer.valueOf(lastFolder);
                                     isDigit = true;
-                                }
-                                catch(NumberFormatException ignored)
-                                {
+                                } catch (NumberFormatException ignored) {
                                 }
                                 rawUserId = isDigit ? lastFolder : "";
                             }
-                            if(TextUtils.isEmpty(rawUserId))
-                            {
+                            if (TextUtils.isEmpty(rawUserId)) {
                                 rv.add(rawEmulatedStorageTarget);
-                            }
-                            else
-                            {
+                            } else {
                                 rv.add(rawEmulatedStorageTarget + File.separator + rawUserId);
                             }
                         }
-                        if(!TextUtils.isEmpty(rawSecondaryStoragesStr))
-                        {
+                        if (!TextUtils.isEmpty(rawSecondaryStoragesStr)) {
                             String[] rawSecondaryStorages = rawSecondaryStoragesStr.split(File.pathSeparator);
                             Collections.addAll(rv, rawSecondaryStorages);
                         }
                         String[] temp = rv.toArray(new String[rv.size()]);
-                        for (int i = 0; i < temp.length; i++)   {
+                        for (int i = 0; i < temp.length; i++) {
                             File tempf = new File(temp[i] + "/" + split[1]);
-                            if(tempf.exists()) {
+                            if (tempf.exists()) {
                                 imgPath = temp[i] + "/" + split[1];
                             }
                         }
                     }
-                }
-                else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
                     String id = DocumentsContract.getDocumentId(uri);
-                    Uri contentUri = ContentUris.withAppendedId( Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                    Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
 
                     Cursor cursor = null;
                     String column = "_data";
-                    String[] projection = { column };
+                    String[] projection = {column};
                     try {
                         cursor = this.getContentResolver().query(contentUri, projection, null, null,
                                 null);
@@ -613,8 +543,7 @@ public class EditProfile extends AppCompatActivity {
                         if (cursor != null)
                             cursor.close();
                     }
-                }
-                else if("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                } else if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
                     String docId = DocumentsContract.getDocumentId(uri);
                     String[] split = docId.split(":");
                     String type = split[0];
@@ -629,11 +558,11 @@ public class EditProfile extends AppCompatActivity {
                     }
 
                     String selection = "_id=?";
-                    String[] selectionArgs = new String[]{ split[1] };
+                    String[] selectionArgs = new String[]{split[1]};
 
                     Cursor cursor = null;
                     String column = "_data";
-                    String[] projection = { column };
+                    String[] projection = {column};
 
                     try {
                         cursor = this.getContentResolver().query(contentUri, projection, selection, selectionArgs, null);
@@ -645,15 +574,13 @@ public class EditProfile extends AppCompatActivity {
                         if (cursor != null)
                             cursor.close();
                     }
-                }
-                else if("com.google.android.apps.docs.storage".equals(uri.getAuthority()))   {
+                } else if ("com.google.android.apps.docs.storage".equals(uri.getAuthority())) {
                     isImageFromGoogleDrive = true;
                 }
-            }
-            else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            } else if ("content".equalsIgnoreCase(uri.getScheme())) {
                 Cursor cursor = null;
                 String column = "_data";
-                String[] projection = { column };
+                String[] projection = {column};
 
                 try {
                     cursor = this.getContentResolver().query(uri, projection, null, null, null);
@@ -661,46 +588,39 @@ public class EditProfile extends AppCompatActivity {
                         int column_index = cursor.getColumnIndexOrThrow(column);
                         imgPath = cursor.getString(column_index);
                     }
-                }
-                finally {
+                } finally {
                     if (cursor != null)
                         cursor.close();
                 }
-            }
-            else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            } else if ("file".equalsIgnoreCase(uri.getScheme())) {
                 imgPath = uri.getPath();
             }
 
-            if(isImageFromGoogleDrive)  {
+            if (isImageFromGoogleDrive) {
                 try {
                     Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
 
 
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            else    {
+            } else {
                 File f = new File(imgPath);
 
 
-                Bitmap gbit =  BitmapFactory.decodeResource(getResources(), R.drawable.default_user_pic);;
+                Bitmap gbit = BitmapFactory.decodeResource(getResources(), R.drawable.default_user_pic);
+                ;
 
                 File compressedImageFile = f;
 
                 try {
-                      compressedImageFile = new Compressor(this).compressToFile(f);
+                    compressedImageFile = new Compressor(this).compressToFile(f);
 
-                      gbit = new Compressor(this).compressToBitmap(f);
+                    gbit = new Compressor(this).compressToBitmap(f);
 
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
-
-
-
-
 
 
                 String destinationPath = getFilesDir().getPath() + File.separator + "images";
@@ -714,25 +634,25 @@ public class EditProfile extends AppCompatActivity {
                 File myFile = new File(destinationPath, "tamim.jpg");
 
 
-                if(!myFile.exists()) {
+                if (!myFile.exists()) {
 
                     try {
 
                         myFile.createNewFile();
 
-                    } catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                 }
 
                 try {
 
-                    FileOutputStream out = new FileOutputStream(myFile,false);
+                    FileOutputStream out = new FileOutputStream(myFile, false);
                     gbit.compress(Bitmap.CompressFormat.JPEG, 100, out);
                     out.flush();
                     out.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
 
 
                 Picasso.get()
@@ -743,14 +663,9 @@ public class EditProfile extends AppCompatActivity {
                         .into(img);
 
 
-
-
-
-
-
                 UploadFileAsync parser = new UploadFileAsync(compressedImageFile, imgPath, uploadURL);
 
-                pictureNew = memberID+".jpeg";
+                pictureNew = memberID + ".jpeg";
 
 
                 Picasso.get().invalidate(myFile);
@@ -758,8 +673,6 @@ public class EditProfile extends AppCompatActivity {
                 parser.setListener(new JSONParser.ParserListener() {
                     @Override
                     public void onSuccess(JSONObject result) {
-
-
 
 
                     }
@@ -772,16 +685,12 @@ public class EditProfile extends AppCompatActivity {
                 });
 
 
-            parser.execute();
+                parser.execute();
 
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-
-
-
 
 
 }

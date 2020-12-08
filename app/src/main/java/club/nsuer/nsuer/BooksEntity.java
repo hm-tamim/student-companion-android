@@ -17,7 +17,6 @@ public class BooksEntity {
     @ColumnInfo(name = "books")
     private String books;
 
-
     @Override
     public String toString() {
         return "BooksEntity{" +

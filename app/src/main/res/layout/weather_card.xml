@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/weatherCardHolder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,10 +11,10 @@
         android:id="@+id/weatherCard"
         android:layout_width="match_parent"
         android:layout_height="232dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="10dp"
         android:background="@android:color/transparent"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="3dp"
@@ -44,10 +43,10 @@
                 android:id="@+id/weatherReloadButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="8dp"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:padding="10dp"
                 app:srcCompat="@drawable/ic_reset_white" />
 
@@ -76,8 +75,8 @@
                         android:id="@+id/weatherDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignStart="@+id/weatherTitleBar"
                         android:layout_below="@+id/weatherTitle"
+                        android:layout_alignStart="@+id/weatherTitleBar"
                         android:layout_marginTop="1dp"
                         android:text="Mon, 20 Aug"
                         android:textColor="@color/white"
@@ -87,8 +86,8 @@
                         android:id="@+id/weatherFeels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignStart="@+id/weatherTitleBar"
                         android:layout_below="@+id/weatherDate"
+                        android:layout_alignStart="@+id/weatherTitleBar"
                         android:layout_centerVertical="false"
                         android:layout_marginTop="1dp"
                         android:text="Feels like 38°"
@@ -141,8 +140,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
                 android:orientation="horizontal">
 
                 <RelativeLayout

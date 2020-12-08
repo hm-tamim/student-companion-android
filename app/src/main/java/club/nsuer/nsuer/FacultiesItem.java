@@ -5,7 +5,6 @@ public class FacultiesItem {
     private String name;
     private String rank;
     private String image;
-
     private String initial;
     private String course;
     private String section;
@@ -130,8 +129,7 @@ public class FacultiesItem {
     }
 
 
-
-    public FacultiesItem(){
+    public FacultiesItem() {
 
     }
 }

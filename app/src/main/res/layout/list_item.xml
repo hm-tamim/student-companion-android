@@ -21,8 +21,8 @@
                 android:id="@+id/timeBarHolder"
                 android:layout_width="110dp"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true">
 
                 <RelativeLayout
@@ -32,8 +32,8 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginRight="4dp"
                     android:layout_toStartOf="@+id/classEndRecycler"
-                    android:paddingBottom="2dp"
-                    android:paddingTop="8dp">
+                    android:paddingTop="8dp"
+                    android:paddingBottom="2dp">
 
                     <View
                         android:id="@+id/timelineIcon"
@@ -67,8 +67,8 @@
                     android:id="@+id/classEndRecycler"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="false"
                     android:paddingBottom="2dp"
                     android:text="01:00 PM"
@@ -79,8 +79,8 @@
                     android:id="@+id/classStartRecycler"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
                     android:layout_centerHorizontal="false"
                     android:autoText="false"
                     android:text="11:20 AM"
@@ -127,11 +127,11 @@
                 android:id="@+id/imageView3"
                 android:layout_width="12dp"
                 android:layout_height="14dp"
-                android:layout_alignStart="@+id/courseNameRecycler"
                 android:layout_below="@+id/courseNameRecycler"
+                android:layout_alignStart="@+id/courseNameRecycler"
                 android:layout_marginLeft="-1dp"
-                android:layout_marginRight="1dp"
                 android:layout_marginTop="3dp"
+                android:layout_marginRight="1dp"
                 android:tint="#f6f6f6"
                 app:srcCompat="@drawable/ic_marker_white" />
         </RelativeLayout>

@@ -29,7 +29,6 @@ public class NsuNoticesEntity {
     @ColumnInfo(name = "url")
     private String url;
 
-
     public String getTitle() {
         return title;
     }

@@ -10,7 +10,6 @@ public class CoursesListItem {
     private String day;
     private String section;
 
-
     public CoursesListItem(String name, String section, String start, String end, String room, String faculty, String day) {
         this.name = name;
         this.start = start;

@@ -11,11 +11,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
-import android.provider.CalendarContract;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -40,8 +37,7 @@ import static android.content.Context.ALARM_SERVICE;
 public class Utils {
 
 
-
-    public static void syncSchedule(String memID, final Context context){
+    public static void syncSchedule(String memID, final Context context) {
 
 
         final ScheduleDatabase scheduleDb = Room.databaseBuilder(context,
@@ -61,7 +57,6 @@ public class Utils {
         parser.setListener(new JSONParser.ParserListener() {
             @Override
             public void onSuccess(JSONObject result) {
-
 
 
                 try {
@@ -106,12 +101,12 @@ public class Utils {
                         int insertedID = (int) insertedIDlong[0];
 
 
-                        if (doRemind){
-                            reminderCalendar.setTimeInMillis(reminderDate*1000L);
+                        if (doRemind) {
+                            reminderCalendar.setTimeInMillis(reminderDate * 1000L);
 
                             String reminderText = title;
 
-                            if(!type.equals(""))
+                            if (!type.equals(""))
                                 reminderText += " - " + type;
 
                             Utils.setReminder(insertedID, reminderText, reminderCalendar, false, context);
@@ -119,10 +114,9 @@ public class Utils {
                         }
 
 
-
                     }
 
-                } catch (Exception e){
+                } catch (Exception e) {
 
 
                 }
@@ -143,11 +137,7 @@ public class Utils {
     }
 
 
-
-
-
-
-    public static void syncReminders(final Context context){
+    public static void syncReminders(final Context context) {
 
 
         final ScheduleDatabase scheduleDb = Room.databaseBuilder(context,
@@ -157,10 +147,7 @@ public class Utils {
         List<ScheduleEntity> list = scheduleDb.scheduleDao().getAll();
 
 
-
-
-
-        for (int i=0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
 
             int id = list.get(i).getId();
             String title = list.get(i).getTitle();
@@ -175,7 +162,7 @@ public class Utils {
 
             long unixTime = System.currentTimeMillis() / 1000L;
 
-            if(unixTime > date)
+            if (unixTime > date)
                 isPassed = true;
 
             if (doRemind && !isPassed) {
@@ -191,22 +178,16 @@ public class Utils {
         }
 
 
-
-
-
     }
-
-
 
 
     public static void setReminder(int idd, String reminderText, Calendar reminderCalendar, boolean showToast, Context context) {
 
 
-
         long unixTime = System.currentTimeMillis() / 1000L;
 
-        long reminderTime = reminderCalendar.getTimeInMillis()/1000L;
-        if(unixTime < reminderTime) {
+        long reminderTime = reminderCalendar.getTimeInMillis() / 1000L;
+        if (unixTime < reminderTime) {
 
             Intent intent = new Intent(context, ReminderBroadcast.class);
 
@@ -223,7 +204,7 @@ public class Utils {
             String reminderTextx = sdf.format(reminderCalendar.getTime());
 
             if (showToast)
-                Toast.makeText(context, "Reminder is set to " + reminderTextx,Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Reminder is set to " + reminderTextx, Toast.LENGTH_LONG).show();
 
         }
 
@@ -231,15 +212,14 @@ public class Utils {
     }
 
 
+    public static String limitWords(int n, String str, boolean dots) {
 
-    public static String limitWords(int n, String str, boolean dots){
+        String dot = "...";
 
-            String dot = "...";
+        if (!dots)
+            dot = "";
 
-            if (!dots)
-                dot = "";
-
-            return str.replaceAll("^((?:\\W*\\w+){" + n + "}).*$", "$1") + dot;
+        return str.replaceAll("^((?:\\W*\\w+){" + n + "}).*$", "$1") + dot;
     }
 
     // The public static function which can be called from other classes
@@ -255,7 +235,7 @@ public class Utils {
     }
 
 
-    public static boolean doesContain(String str1, String str2){
+    public static boolean doesContain(String str1, String str2) {
 
         return Pattern.compile(Pattern.quote(str2), Pattern.CASE_INSENSITIVE).matcher(str1).find();
 
@@ -291,9 +271,7 @@ public class Utils {
     }
 
 
-
-
-    public static String getGpaGrade(double point){
+    public static String getGpaGrade(double point) {
 
 
         NumberFormat formatter = new DecimalFormat("#0.0");
@@ -305,35 +283,34 @@ public class Utils {
 
         String grade = "F";
 
-            if (point >= 4.0)
-                grade = "A";
-            else if (point >= 3.7)
-                grade = "A-";
-            else if (point >= 3.3)
-                grade = "B+";
-            else if (point >= 3.0)
-                grade = "B";
-            else if (point >= 2.7)
-                grade = "B-";
-            else if (point >= 2.3)
-                grade = "C+";
-            else if (point >= 2.0)
-                grade = "C";
-            else if (point >= 1.7)
-                grade = "C-";
-            else if (point >= 1.3)
-                grade = "D+";
-            else if (point >= 1.0)
-                grade = "D";
-            else
-                grade = "F";
+        if (point >= 4.0)
+            grade = "A";
+        else if (point >= 3.7)
+            grade = "A-";
+        else if (point >= 3.3)
+            grade = "B+";
+        else if (point >= 3.0)
+            grade = "B";
+        else if (point >= 2.7)
+            grade = "B-";
+        else if (point >= 2.3)
+            grade = "C+";
+        else if (point >= 2.0)
+            grade = "C";
+        else if (point >= 1.7)
+            grade = "C-";
+        else if (point >= 1.3)
+            grade = "D+";
+        else if (point >= 1.0)
+            grade = "D";
+        else
+            grade = "F";
 
-            return grade;
-        }
+        return grade;
+    }
 
 
-    public static void CustomTab(String url, Context context)
-    {
+    public static void CustomTab(String url, Context context) {
         Uri uri = Uri.parse(url);
 
         CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
@@ -355,7 +332,6 @@ public class Utils {
     }
 
 
-
     public static String getTimeAgo(int timestampi) {
 
         long timestamp = (long) timestampi;
@@ -372,7 +348,7 @@ public class Utils {
             e.printStackTrace();
         }
 
-        if(date == null) {
+        if (date == null) {
             return null;
         }
 
@@ -400,12 +376,12 @@ public class Utils {
             timeAgo = (Math.round(timeDIM / 60)) + " hours ago";
         } else if (timeDIM >= 1440) {
 
-                Date tdate = new Date(timestamp * 1000);
+            Date tdate = new Date(timestamp * 1000);
 
-                SimpleDateFormat jdf = new SimpleDateFormat("MMM dd 'at' h:mm a", Locale.ENGLISH);
-                jdf.setTimeZone(TimeZone.getTimeZone("GMT-6"));
+            SimpleDateFormat jdf = new SimpleDateFormat("MMM dd 'at' h:mm a", Locale.ENGLISH);
+            jdf.setTimeZone(TimeZone.getTimeZone("GMT-6"));
 
-                timeAgo = jdf.format(tdate);
+            timeAgo = jdf.format(tdate);
 
         }
 
@@ -427,7 +403,7 @@ public class Utils {
             e.printStackTrace();
         }
 
-        if(date == null) {
+        if (date == null) {
             return null;
         }
 
@@ -468,7 +444,6 @@ public class Utils {
     }
 
 
-
     public static String getTimeAgoChat(long timestamp) {
 
         Calendar cal = Calendar.getInstance();
@@ -483,7 +458,7 @@ public class Utils {
             e.printStackTrace();
         }
 
-        if(date == null) {
+        if (date == null) {
             return null;
         }
 
@@ -524,19 +499,15 @@ public class Utils {
     }
 
 
-
-
     public static String getHumanTime(long timestamp) {
 
 
+        Date tdate = new Date(timestamp * 1000);
 
-            Date tdate = new Date(timestamp * 1000);
-
-            SimpleDateFormat jdf = new SimpleDateFormat("MMM dd 'at' h:mm a", Locale.ENGLISH);
+        SimpleDateFormat jdf = new SimpleDateFormat("MMM dd 'at' h:mm a", Locale.ENGLISH);
 
 
-            String timeAgo = jdf.format(tdate);
-
+        String timeAgo = jdf.format(tdate);
 
 
         return timeAgo;
@@ -552,19 +523,14 @@ public class Utils {
         return Math.round((Math.abs(timeDistance) / 1000) / 60);
     }
 
-    public static boolean isNumeric(String str)
-    {
-        try
-        {
+    public static boolean isNumeric(String str) {
+        try {
             double d = Double.parseDouble(str);
-        }
-        catch(NumberFormatException nfe)
-        {
+        } catch (NumberFormatException nfe) {
             return false;
         }
         return true;
     }
-
 
 
 }

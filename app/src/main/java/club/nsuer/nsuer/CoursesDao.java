@@ -25,7 +25,6 @@ public interface CoursesDao {
     @Query("SELECT * FROM coursesEntity ORDER BY startTime")
     List<CoursesEntity> getAllByTime();
 
-
     @Query("SELECT course FROM coursesEntity where faculty LIKE :initial")
     String getCourseByFaculty(String initial);
 
@@ -35,7 +34,6 @@ public interface CoursesDao {
     @Query("SELECT section FROM coursesEntity where course LIKE :course")
     String getSectionByCourse(String course);
 
-
     @Query("SELECT * FROM coursesEntity WHERE uid IN (:userIds)")
     List<CoursesEntity> loadAllByIds(int[] userIds);
 
@@ -44,7 +42,6 @@ public interface CoursesDao {
 
     @Query("DELETE FROM coursesEntity WHERE course LIKE :name")
     void deleteByCourseName(String name);
-
 
     @Query("SELECT COUNT(uid) from coursesEntity")
     int countUsers();
