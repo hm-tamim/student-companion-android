@@ -17,32 +17,6 @@ MySQLi was used to store all the data and PHP to make custom JSON APIs for the a
 
 <br/>
 
-
-<br />
-Here's the introduction video of this app, that describes the app properly: 
-https://www.youtube.com/watch?v=YvE1DWpwIDI
-
-<br />
-<br />
-
-To test the app, please use this demo account to sign in:<br>
-Email: ieeemadc@gmail.com<br>
-Password: ieeemadc
-
-<br />
-<br />
-
-If you want, you can download files from links below as well.
-
-
-Executable APK file: 
-https://nsuer.club/IEEEMadC/NSUer_App_APK_IEEEMadC.apk
-
-PHP files for Custom APIs, crawling, database management etc: 
-https://nsuer.club/IEEEMadC/move/NSUer_App_PHP_files.zip
-
-<br>
-
 Screenshots(also provided separetly in repository):
 
 ![row 1](https://github.com/hm-tamim/NSUer/raw/master/GRAPHICS/row1.jpg)
