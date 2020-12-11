@@ -2,7 +2,7 @@ package club.nsuer.nsuer;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;

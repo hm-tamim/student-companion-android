@@ -3,7 +3,8 @@
     <color name="colorPrimary">#fff</color>
     <color name="colorPrimaryDark">#fff</color>
     <color name="colorAccent">#FF4081</color>
-
+    <color name="chatColor">#4196af</color>
+    <color name="chatColorDark">#388096</color>
 <!--    <color name="colorPrimary">#4196af</color>-->
 <!--    <color name="colorPrimaryDark">#388096</color>-->
 

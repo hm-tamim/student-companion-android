@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/newsfeedTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,28 +22,28 @@
             app:tabSelectedTextColor="#fff"
             app:tabTextColor="#e9e9e9">
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:id="@+id/classmateTabBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="classmates" />
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:id="@+id/allStudentTabBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="All" />
 
-        </android.support.design.widget.TabLayout>
+        </com.google.android.material.tabs.TabLayout>
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/newsfeedViewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:background="#fff">
 
-        </android.support.v4.view.ViewPager>
+        </androidx.viewpager.widget.ViewPager>
 
     </RelativeLayout>
 

@@ -7,13 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -279,82 +279,52 @@ public class BuySell extends Fragment {
 
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 SessionManager session = new SessionManager(context);
-
-
                 Intent intent = new Intent(context, BuySellCreate.class);
                 startActivityForResult(intent, 10001);
-
-
                 if (!session.isPremium()) {
-
                     Intent intentz = new Intent(context, Subscription.class);
                     context.startActivity(intentz);
-
-
                 } else {
                 }
-
             }
         });
 
-
         ft = main.getSupportFragmentManager().beginTransaction();
-
 
         View.OnClickListener btnclick = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if (view instanceof Button) {
-
                     int id = view.getId();
-
                     try {
                         loadByBtn(id);
                     } catch (Exception e) {
-
                         Log.e("ClassMates", e.toString());
-
                         Toast.makeText(context, "No items found.", Toast.LENGTH_SHORT).show();
                     }
-
-
                 }
             }
         };
 
         tabLayout = view.findViewById(R.id.tab);
 
-
         String[] categories = getResources().getStringArray(R.array.shopCat);
 
-
         for (int i = 0; i < categories.length; i++) {
-
-
             int buttonStyle = R.style.ChipButtonShop;
             Button btnTag = new Button(new ContextThemeWrapper(context, buttonStyle), null, buttonStyle);
             btnTag.setOnClickListener(btnclick);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 80);
             lp.setMarginStart(20);
             btnTag.setLayoutParams(lp);
-
             btnTag.setTextAppearance(context, R.style.ChipButtonShop);
-
-
             String courseName = categories[i];
             btnTag.setText(courseName);
             btnTag.setTag(courseName);
             btnTag.setId(numOfButton++);
-
             tabLayout.addView(btnTag);
-
         }
-
-
     }
 
 

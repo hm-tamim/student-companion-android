@@ -3,7 +3,7 @@ package club.nsuer.nsuer;
 import android.animation.ObjectAnimator;
 import android.animation.StateListAnimator;
 import android.app.Activity;
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,18 +16,18 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.navigation.NavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity
         BloodBank bloodBank = (BloodBank) getSupportFragmentManager().findFragmentByTag("Blood Bank");
         if (bloodBank != null && bloodBank.isVisible()) {
         } else {
-            getWindow().setStatusBarColor(isBottomSheetOpen ? Color.parseColor("#b1000000") : Color.parseColor("#388096"));
+            getWindow().setStatusBarColor(isBottomSheetOpen ? Color.parseColor("#b1000000") : Color.parseColor("#ffffff"));
         }
 
     }

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".NsuNoticeFragment">
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,26 +19,26 @@
         app:tabSelectedTextColor="#fff"
         app:tabTextColor="#e9e9e9">
 
-        <android.support.design.widget.TabItem
+        <com.google.android.material.tabs.TabItem
             android:id="@+id/mine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="MINE" />
 
-        <android.support.design.widget.TabItem
+        <com.google.android.material.tabs.TabItem
             android:id="@+id/others"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Classmate's" />
 
-    </android.support.design.widget.TabLayout>
+    </com.google.android.material.tabs.TabLayout>
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#fff">
 
-    </android.support.v4.view.ViewPager>
+    </androidx.viewpager.widget.ViewPager>
 
 </LinearLayout>

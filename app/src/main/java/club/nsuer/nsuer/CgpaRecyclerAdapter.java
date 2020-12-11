@@ -3,9 +3,9 @@ package club.nsuer.nsuer;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.core.view.GravityCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.Gravity;

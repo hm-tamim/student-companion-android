@@ -2,18 +2,18 @@ package club.nsuer.nsuer;
 
 
 import android.app.Dialog;
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -69,9 +69,7 @@ public class StatusActivity extends Fragment {
     private int notificationType = 0;
     private int openID = 0;
 
-
     public void likeSound() {
-
         mp.start();
     }
 
@@ -85,32 +83,20 @@ public class StatusActivity extends Fragment {
         this.openID = openID;
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setHasOptionsMenu(true);
-
-
         main = (MainActivity) getActivity();
-
-
         ownMemID = main.getMemberID();
-
         context = getContext();
-
-
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.status_activity, container, false);
-        ;
-
         return view;
     }
 
@@ -145,9 +131,7 @@ public class StatusActivity extends Fragment {
         main.setActionBarTitle("Newsfeed");
 
         main.resetShadow();
-
         //main.removeShadow();
-
 
         db = Room.databaseBuilder(context,
                 CoursesDatabase.class, "courses").allowMainThreadQueries().build();

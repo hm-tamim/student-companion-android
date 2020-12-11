@@ -2,7 +2,7 @@ package club.nsuer.nsuer;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;

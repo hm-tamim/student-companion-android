@@ -4,17 +4,19 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
+import androidx.annotation.ColorInt;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -168,7 +170,7 @@ public class AddSchedule extends AppCompatActivity {
         });
 
 
-        final android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        final FragmentManager fm = getSupportFragmentManager();
 
         colorPicker = new SpectrumDialog.Builder(context, R.style.AlertDialogTheme);
 

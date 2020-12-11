@@ -7,13 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +17,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,9 +97,7 @@ public class BloodBank extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-
         v = inflater.inflate(R.layout.fragment_blood_bank, container, false);
-
 
         return v;
     }
@@ -331,14 +330,11 @@ public class BloodBank extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ActionBar bar = main.getSupportActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4196af")));
-
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
         Window window = main.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(Color.parseColor("#388096"));
+        window.setStatusBarColor(Color.parseColor("#ffffff"));
         main.setMenuBackground(false);
-
-
     }
 
 }
