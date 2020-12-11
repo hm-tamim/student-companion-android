@@ -1,6 +1,5 @@
-<h1>NSUer - Student Companion</h1>
+<h1>Student Companion</h1>
 
-![banner logo](https://github.com/hm-tamim/NSUer/raw/master/GRAPHICS/banner.png)
 
 <br>
 
@@ -8,7 +7,7 @@ On this era, mobile phone is replacing desktop for day-to day tasks. According t
 
 Every university should have their own app for the students instead of using 5-6 different apps for specific task. 
 
-NSUer is a student companion and social media android app for the students of North South University. It has almost all features needed to help students to become more productive, manages tasks easily, and stay connected with their university.
+Student companion and social media android app for the students of Bangladesh. It has almost all features needed to help students to become more productive, manages tasks easily, and stay connected with their university.
 
 
 <br />
