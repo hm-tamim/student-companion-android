@@ -19,7 +19,7 @@ public class SessionManager {
     int PRIVATE_MODE = 0;
 
     // Shared preferences file name
-    private static final String PREF_NAME = "NSUerAppLogin2";
+    private static final String PREF_NAME = "Student CompanionAppLogin2";
 
     private static final String KEY_IS_LOGGEDIN = "isloggedIn";
     private static final String KEY_IS_CGPA = "willShowCgpa";

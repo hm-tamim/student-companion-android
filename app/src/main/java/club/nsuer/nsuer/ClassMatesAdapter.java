@@ -110,7 +110,7 @@ public class ClassMatesAdapter extends RecyclerView.Adapter<ClassMatesAdapter.Vi
 
 //                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
 //                        "mailto",email, null));
-//                intent.putExtra(Intent.EXTRA_SUBJECT, "[NSUer App] Message from "+ myName);
+//                intent.putExtra(Intent.EXTRA_SUBJECT, "[Student Companion App] Message from "+ myName);
 //
 //                context.startActivity(intent);
 

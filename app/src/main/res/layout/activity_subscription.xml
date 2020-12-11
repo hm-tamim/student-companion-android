@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Last year, NSUer app was released. My goal has been to help students to make their study life easier to manage. Happy so say, I'm successful, as so many of you are using this app and loving it."
+                android:text="Last year, Student Companion app was released. My goal has been to help students to make their study life easier to manage. Happy so say, I'm successful, as so many of you are using this app and loving it."
                 android:textAlignment="viewStart"
                 android:textColor="#fff"
                 android:textSize="18sp" />
@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="As many of you suggested, there will be a membership system in NSUer App. Cost will be 30TK per semester."
+                android:text="As many of you suggested, there will be a membership system in Student Companion App. Cost will be 30TK per semester."
                 android:textAlignment="viewStart"
                 android:textColor="#fff"
                 android:textSize="18sp" />

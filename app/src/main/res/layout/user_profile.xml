@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="0dp"
+    android:background="#fff"
     android:fillViewport="true"
     android:padding="0dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -17,16 +18,18 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#f9f9f9"
+        android:background="#fff"
         android:minHeight="500dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingStart="7dp"
+        android:paddingEnd="7dp">
 
 
         <androidx.cardview.widget.CardView
             android:id="@+id/profileBackground"
             android:layout_width="fill_parent"
-            android:layout_height="155dp"
-            android:layout_marginBottom="10dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="8dp"
             android:fitsSystemWindows="true"
             app:cardCornerRadius="0dp"
             app:cardElevation="0dp">
@@ -43,7 +46,7 @@
                     android:id="@+id/dpCropperCard"
                     android:layout_width="72dp"
                     android:layout_height="72dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="10dp"
                     app:cardBackgroundColor="#eee"
                     app:cardCornerRadius="36dp"
                     app:cardElevation="0dp">
@@ -73,7 +76,7 @@
                     android:layout_toRightOf="@+id/dpCropperCard"
                     android:maxLines="1"
                     android:text="HM Tamim TamimTest"
-                    android:textColor="?attr/colorBackgroundFloating"
+                    android:textColor="#333"
                     android:textSize="20dp" />
 
                 <TextView
@@ -86,10 +89,11 @@
                     android:layout_marginRight="110dp"
                     android:drawableLeft="@drawable/ic_graduation_cap_win10"
                     android:drawablePadding="5dp"
+                    android:drawableTint="#555"
                     android:maxLines="1"
                     android:text="BS in CSE"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
-                    android:textColor="@color/eee"
+                    android:textColor="#555"
                     android:textSize="14dp" />
 
                 <LinearLayout
@@ -98,7 +102,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="2dp"
-                    android:layout_marginRight="18dp"
+                    android:layout_marginRight="10dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -108,9 +112,11 @@
                         android:layout_below="@+id/userName"
                         android:layout_alignStart="@+id/textView3"
                         android:background="@drawable/round_border_white"
-                        android:text="EDIT PROFILE"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="PROFILE"
                         android:textAlignment="center"
-                        android:textColor="#fcfcfc"
+                        android:textColor="#333"
                         android:textSize="12dp" />
 
                     <TextView
@@ -121,10 +127,10 @@
                         android:layout_alignStart="@+id/textView3"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/round_border_white"
-                        android:text="NSU RDS"
+                        android:text="RDS"
                         android:textAlignment="center"
                         android:textAllCaps="true"
-                        android:textColor="#fcfcfc"
+                        android:textColor="#333"
                         android:textSize="12dp" />
 
                 </LinearLayout>
@@ -138,7 +144,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="-70dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="10dp"
             android:elevation="0dp"
@@ -155,6 +160,7 @@
                 android:paddingTop="17dp"
                 android:paddingRight="5dp"
                 android:paddingBottom="15dp"
+                android:visibility="gone"
                 android:weightSum="3">
 
                 <RelativeLayout
@@ -240,19 +246,18 @@
             android:layout_gravity="center"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="15dp"
             android:elevation="0dp"
             android:minHeight="165dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="1dp">
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp">
 
 
             <LinearLayout
                 android:id="@+id/todayGradientLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/card_tiles_today"
+                android:background="@drawable/bg_eee_round"
                 android:minHeight="165dp"
                 android:orientation="vertical">
 
@@ -269,7 +274,7 @@
                         android:layout_marginStart="20sp"
                         android:layout_marginTop="20sp"
                         android:text="TODAY"
-                        android:textColor="#f9fafe"
+                        android:textColor="#333"
                         android:textSize="13dp" />
 
                     <TextView
@@ -280,9 +285,9 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="15dp"
-                        android:background="@drawable/date_shape"
+                        android:background="@drawable/bg_fafafa"
                         android:text="30 Mar 2018"
-                        android:textColor="@android:color/white"
+                        android:textColor="#444"
                         android:textSize="13dp" />
                 </RelativeLayout>
 
@@ -313,7 +318,8 @@
                                 android:id="@+id/imageView4"
                                 android:layout_width="45dp"
                                 android:layout_height="60dp"
-                                android:src="@drawable/ic_thumbs_up" />
+                                android:src="@drawable/ic_thumbs_up"
+                                android:tint="#888" />
 
                             <TextView
                                 android:id="@+id/textView2"
@@ -321,7 +327,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="15dp"
                                 android:text="No Classes Today"
-                                android:textColor="@color/white"
+                                android:textColor="#666"
                                 android:textSize="17dp" />
                         </LinearLayout>
 
@@ -350,17 +356,18 @@
             android:layout_gravity="center"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginBottom="5dp"
             android:elevation="0dp"
             android:minHeight="165dp"
             app:cardBackgroundColor="@null"
             app:cardCornerRadius="3dp"
-            app:cardElevation="1dp">
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:id="@+id/tomorrowGradientLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/card_tiles_tomorrow"
+                android:background="@drawable/bg_eee_round"
                 android:minHeight="165dp"
                 android:orientation="vertical">
 
@@ -378,7 +385,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="100dp"
                         android:text="TOMORROW"
-                        android:textColor="#f9fafe"
+                        android:textColor="#333"
                         android:textSize="13dp" />
 
                     <TextView
@@ -389,9 +396,9 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="15dp"
-                        android:background="@drawable/date_shape"
+                        android:background="@drawable/bg_fafafa"
                         android:text="31 Mar 2018"
-                        android:textColor="@android:color/white"
+                        android:textColor="#333"
                         android:textSize="13dp" />
                 </RelativeLayout>
 
@@ -422,7 +429,8 @@
                                 android:id="@+id/imageView4"
                                 android:layout_width="45dp"
                                 android:layout_height="60dp"
-                                android:src="@drawable/ic_thumbs_up" />
+                                android:src="@drawable/ic_thumbs_up"
+                                android:tint="#888" />
 
                             <TextView
                                 android:id="@+id/textView2tm"
@@ -430,7 +438,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="15dp"
                                 android:text="No Classes Tomorrow"
-                                android:textColor="@color/white"
+                                android:textColor="#666"
                                 android:textSize="17dp" />
                         </LinearLayout>
 

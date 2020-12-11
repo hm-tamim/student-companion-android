@@ -39,9 +39,9 @@
                         android:id="@+id/timelineIcon"
                         android:layout_width="2dp"
                         android:layout_height="36dp"
-                        android:layout_centerInParent="true"
+                        android:layout_centerHorizontal="true"
                         android:layout_gravity="center_vertical"
-                        android:background="#fff" />
+                        android:background="#999" />
 
                     <TextView
                         android:id="@+id/ball2"
@@ -51,7 +51,8 @@
                         android:layout_centerInParent="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginBottom="3dp"
-                        android:background="@drawable/whitecircle" />
+                        android:background="@drawable/whitecircle"
+                        android:backgroundTint="#999" />
 
                     <TextView
                         android:id="@+id/ball1"
@@ -60,7 +61,8 @@
                         android:layout_alignParentTop="true"
                         android:layout_centerInParent="true"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/whitecircle" />
+                        android:background="@drawable/whitecircle"
+                        android:backgroundTint="#999" />
                 </RelativeLayout>
 
                 <TextView
@@ -72,8 +74,8 @@
                     android:layout_centerHorizontal="false"
                     android:paddingBottom="2dp"
                     android:text="01:00 PM"
-                    android:textColor="#c3ffffff"
-                    android:textSize="17dp" />
+                    android:textColor="#555"
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/classStartRecycler"
@@ -84,8 +86,8 @@
                     android:layout_centerHorizontal="false"
                     android:autoText="false"
                     android:text="11:20 AM"
-                    android:textColor="@android:color/white"
-                    android:textSize="17dp" />
+                    android:textColor="#333"
+                    android:textSize="16dp" />
 
             </RelativeLayout>
 
@@ -98,8 +100,8 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:text="CSE225"
-                android:textColor="@android:color/white"
-                android:textSize="19dp"
+                android:textColor="#333"
+                android:textSize="18dp"
                 android:textStyle="normal" />
 
             <ImageView
@@ -110,6 +112,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="13dp"
                 android:text="NAC505"
+                android:tint="#888"
                 app:srcCompat="@drawable/ic_clock_round" />
 
             <TextView

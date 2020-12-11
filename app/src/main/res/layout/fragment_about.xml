@@ -29,7 +29,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="15dp"
-            android:text="NSUer App for \nAndroid"
+            android:text="Student Companion App for \nAndroid"
             android:textAlignment="viewStart"
             android:textColor="#fff"
             android:textSize="24sp" />

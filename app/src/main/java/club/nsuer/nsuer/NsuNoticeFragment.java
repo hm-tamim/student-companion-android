@@ -40,7 +40,7 @@ public class NsuNoticeFragment extends Fragment {
 
         MainActivity main = (MainActivity) getActivity();
 
-        main.setActionBarTitle("NSUer");
+        main.setActionBarTitle("Student Companion");
 
         ProgressBar p = (ProgressBar) v.findViewById(R.id.progressBarOnProfile);
 

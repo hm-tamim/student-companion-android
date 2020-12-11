@@ -129,9 +129,7 @@ public class StatusActivity extends Fragment {
 
 
         main.setActionBarTitle("Newsfeed");
-
-        main.resetShadow();
-        //main.removeShadow();
+        main.removeShadow();
 
         db = Room.databaseBuilder(context,
                 CoursesDatabase.class, "courses").allowMainThreadQueries().build();

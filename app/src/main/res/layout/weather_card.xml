@@ -17,15 +17,15 @@
         android:layout_marginBottom="10dp"
         android:background="@android:color/transparent"
         app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="3dp"
-        app:cardElevation="1dp">
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp">
 
 
         <RelativeLayout
             android:id="@+id/weatherGradient"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/card_tiles_weather">
+            android:background="@drawable/card_tiles_tomorrow">
 
             <TextView
                 android:id="@+id/weatherTitleBar"

@@ -40,7 +40,7 @@ public class ReminderBroadcast extends BroadcastReceiver {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_MAX);
-            notificationChannel.setDescription("Get schedule reminders from NSUer App");
+            notificationChannel.setDescription("Get schedule reminders from Student Companion App");
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
             notificationChannel.setVibrationPattern(new long[]{0, 500, 250});
@@ -59,7 +59,7 @@ public class ReminderBroadcast extends BroadcastReceiver {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
         notificationBuilder.setSmallIcon(R.drawable.ic_status_icon)
-                .setContentTitle("NSUer Reminder")
+                .setContentTitle("Student Companion Reminder")
                 .setContentText(reminderText)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(reminderText))
                 .setAutoCancel(true)

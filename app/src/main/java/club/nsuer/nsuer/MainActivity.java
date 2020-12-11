@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity
 
     public void resetShadow() {
         StateListAnimator stateListAnimator = new StateListAnimator();
-        stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(findViewById(R.id.mainBar), "elevation", 16));
+        stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(findViewById(R.id.mainBar), "elevation", 6));
         findViewById(R.id.mainBar).setStateListAnimator(stateListAnimator);
         showingShadow = true;
     }
@@ -1140,16 +1140,16 @@ public class MainActivity extends AppCompatActivity
 
             Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                     "mailto", "hm.tamim@northsouth.edu", null));
-            intent.putExtra(Intent.EXTRA_SUBJECT, "[NSUer App] Message from " + getName());
+            intent.putExtra(Intent.EXTRA_SUBJECT, "[Student Companion App] Message from " + getName());
             startActivity(intent);
             //startActivity(Intent.createChooser(intent, "Choose an Email client:"));
         } else if (id == R.id.nav_share) {
 
             Intent share = new Intent(android.content.Intent.ACTION_SEND);
             share.setType("text/plain");
-            share.putExtra(Intent.EXTRA_SUBJECT, "Share NSUer app with your friends.");
+            share.putExtra(Intent.EXTRA_SUBJECT, "Share Student Companion app with your friends.");
             share.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=club.nsuer.nsuer");
-            startActivity(Intent.createChooser(share, "Share NSUer app with your friends: "));
+            startActivity(Intent.createChooser(share, "Share Student Companion app with your friends: "));
         }
 
         new Handler().postDelayed(new Runnable() {

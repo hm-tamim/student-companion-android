@@ -129,7 +129,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_HIGH);
 
             // Configure the notification channel.
-            notificationChannel.setDescription("Get important notifications from NSUer App");
+            notificationChannel.setDescription("Get important notifications from Student Companion App");
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
             notificationChannel.setVibrationPattern(new long[]{0, 500, 250});

@@ -110,10 +110,8 @@ public class BuySell extends Fragment {
         menu.clear();
         // inflater.inflate(R.menu.main, menu);
 
-
         inflater.inflate(R.menu.sell_button, menu);
         inflater.inflate(R.menu.search_button, menu);
-
 
         menuItem = menu.findItem(R.id.menuSearch);
         searchView = (SearchView) menuItem.getActionView();
@@ -122,10 +120,7 @@ public class BuySell extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-
                 startWith = 0;
-
 
                 if (currentBtn >= 0) {
                     Button tempBtn = tabLayout.findViewById(currentBtn);
@@ -135,12 +130,8 @@ public class BuySell extends Fragment {
 
                 }
                 currentBtn = -1;
-
-
                 currentBtn = -1;
-
                 searchQuery = query;
-
                 loadJson(false, true, "0", startWith, true, searchQuery);
 
                 searchView.clearFocus();
@@ -364,10 +355,8 @@ public class BuySell extends Fragment {
 
         itemAdapter.notifyDataSetChanged();
 
-
         teButton.setBackground(context.getDrawable(R.drawable.chip_background_shop_selected));
         teButton.setTextAppearance(context, R.style.ChipButtonShopSelected);
-
 
         loadJson(true, true, String.valueOf(id), 0, false, "");
 
@@ -406,7 +395,6 @@ public class BuySell extends Fragment {
 
     public void loadJson(final boolean loadByCat, final boolean clearItem, final String cat, final int start, final boolean loadBySearch, final String query) {
 
-
         noItem.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         noItemText.setVisibility(View.GONE);
@@ -422,24 +410,16 @@ public class BuySell extends Fragment {
 
         JSONParser parser = new JSONParser("https://nsuer.club/apps/buy-sell/get-all.php", "GET", parametters);
 
-
         parser.setListener(new JSONParser.ParserListener() {
             @Override
             public void onSuccess(JSONObject result) {
-
-
                 if (clearItem) {
                     itemList.clear();
-
                     startWith = 0;
-
                 }
-
                 loadRecylcer(result.toString());
                 loading = true;
                 loadingBar.setVisibility(View.GONE);
-
-
             }
 
             @Override
@@ -447,11 +427,7 @@ public class BuySell extends Fragment {
 
             }
         });
-
-
         parser.execute();
-
-
     }
 
 

@@ -3,19 +3,10 @@ package club.nsuer.nsuer;
 
 import android.animation.ObjectAnimator;
 import android.animation.StateListAnimator;
-import androidx.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,9 +19,19 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
+import androidx.viewpager.widget.ViewPager;
+
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
@@ -53,47 +54,30 @@ public class UserProfile extends Fragment {
     private String uid = "uid";
     private String memberID = "0";
     private String picture = "0";
-
     private double cgpa = 0.0;
     private int dept = 0;
     private int credit = 0;
     private int semester = 0;
-
     private ImageView dp;
-
 
     public UserProfile() {
 
 
     }
 
-
     private CoursesDatabase db;
     private View v;
-
-
     private TabLayout tabLayout;
-
-
     private ViewPager viewPager;
-
     private MainActivity main;
-
     private Context context;
-
-
     private NsuNoticesTabAdapter viewPagerAdapter;
-
     private MenuItem item;
 
-
     public String timeConverter(String time, int type) {
-
         try {
             SimpleDateFormat date12Format = new SimpleDateFormat("hh:mm a", Locale.US);
-
             SimpleDateFormat date24Format = new SimpleDateFormat("HH:mm", Locale.US);
-
             if (type == 24) {
                 String t24 = date24Format.format(date12Format.parse(time));
                 return t24;
@@ -103,24 +87,18 @@ public class UserProfile extends Fragment {
             }
         } catch (final ParseException e) {
             e.printStackTrace();
-
             return "nothing";
         }
-
     }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setHasOptionsMenu(true);
 
-
         main = (MainActivity) getActivity();
-
         context = getContext();
-
 
         this.name = main.getName();
         this.email = main.getEmail();
@@ -139,8 +117,6 @@ public class UserProfile extends Fragment {
 
         this.semester = main.getSemesterInt();
         this.dept = main.getDeptInt();
-
-
     }
 
 
@@ -149,11 +125,7 @@ public class UserProfile extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.main, menu);
         inflater.inflate(R.menu.facebook_button, menu);
-
-
         //item = menu.findItem(R.id.editButton);
-
-
     }
 
 
@@ -162,29 +134,20 @@ public class UserProfile extends Fragment {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.editButton:
-
                 Intent intent = new Intent(context, EditProfile.class);
-
                 startActivity(intent);
                 return true;
             case R.id.navFacbookButton:
-
                 try {
-
                     Intent intent1;
                     context.getPackageManager().getPackageInfo("com.facebook.katana", 0);
                     intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/1972692516364422"));
-
                     startActivity(intent1);
-
                 } catch (Exception e) {
-
                     Intent intent1;
                     intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/nsuerApp"));
                     startActivity(intent1);
                 }
-
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -196,8 +159,6 @@ public class UserProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.user_profile, container, false);
-
-
         // Inflate the layout for this fragment
         return v;
     }
@@ -207,27 +168,16 @@ public class UserProfile extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-        main.setActionBarTitle("NSUer");
-
-
+        main.setActionBarTitle("Student Companion");
         db = Room.databaseBuilder(context,
                 CoursesDatabase.class, "courses").allowMainThreadQueries().build();
-
-
         dp = (ImageView) v.findViewById(R.id.userProfilePicture);
-
 
         final String imgDir = context.getFilesDir().getPath() + File.separator + "images" + File.separator + "tamim.jpg";
 
         File dpp = new File(imgDir);
-
-
         if (!picture.equals("0")) {
-
             if (!dpp.exists()) {
-
-
                 Picasso.get()
                         .load("https://nsuer.club/images/profile_picture/" + picture)
                         .fit()
@@ -244,85 +194,49 @@ public class UserProfile extends Fragment {
             }
         }
 
-
         dp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 Intent intent = new Intent(context, EditProfile.class);
-
                 startActivity(intent);
-
                 main.finish();
             }
         });
 
-
         final ArcProgressz arc = (ArcProgressz) v.findViewById(R.id.arc_cgpa);
-
         TextView rdsBtn = v.findViewById(R.id.editProfileButton);
-
-
         rdsBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 //Utils.CustomTab("https://rds3.northsouth.edu/index.php/welcome/enter_login",context);
-
-
                 Intent intent = new Intent(context,
                         EditProfile.class);
                 startActivity(intent);
                 main.finish();
-
-
             }
         });
-
 
         final TextView showHideCgpa = v.findViewById(R.id.nsuRdsBtn);
 
-
         showHideCgpa.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 Utils.CustomTab("https://rds3.northsouth.edu/index.php/welcome/enter_login", context);
-
-
             }
         });
-
 
         TextView userDept = v.findViewById(R.id.userProfileDept);
         String[] deptArray = getResources().getStringArray(R.array.deptShort);
 
         userDept.setText(deptArray[dept]);
-
-
         StateListAnimator stateListAnimator = new StateListAnimator();
         stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(main.findViewById(R.id.mainBar), "elevation", 0));
         main.findViewById(R.id.mainBar).setStateListAnimator(stateListAnimator);
-
 
 //        String upperStringName = name.substring(0,1).toUpperCase() + name.substring(1);
 
         ((TextView) v.findViewById(R.id.userName)).setText(name);
 
-
-//
-//
-//        new Handler().postDelayed(new Runnable() {
-//            public void run() {
-//
-//
-//            }
-//        }, 100);
-//            }
-
-
         arc.setMax(4);
 
-
         float cgpaf;
-
 
         if (main.willShowCgpa()) {
 
