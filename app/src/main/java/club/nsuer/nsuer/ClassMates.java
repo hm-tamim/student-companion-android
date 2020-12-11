@@ -142,7 +142,7 @@ public class ClassMates extends Fragment {
         itemDecorator.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.recycler_devider));
 
 
-        recyclerView.addItemDecoration(itemDecorator);
+       // recyclerView.addItemDecoration(itemDecorator);
 
 
         final String key = "classmates";

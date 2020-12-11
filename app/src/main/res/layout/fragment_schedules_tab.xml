@@ -14,10 +14,10 @@
         android:layout_marginTop="-5dp"
         android:background="@color/colorPrimary"
         android:elevation="3dp"
-        app:tabIndicatorColor="#fff"
+        app:tabIndicatorColor="@color/colorAccent"
         app:tabIndicatorHeight="4dp"
-        app:tabSelectedTextColor="#fff"
-        app:tabTextColor="#e9e9e9">
+        app:tabSelectedTextColor="#333"
+        app:tabTextColor="#666">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/mine"

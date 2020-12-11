@@ -110,7 +110,7 @@ public class CoursesActivity extends Fragment implements CoursesList {
 
 
         main = (MainActivity) getActivity();
-        main.resetShadow();
+        main.removeShadow();
 
         main.setActionBarTitle("Courses");
 

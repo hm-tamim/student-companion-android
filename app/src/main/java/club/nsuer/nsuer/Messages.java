@@ -167,10 +167,10 @@ public class Messages extends Fragment {
 
 
         DividerItemDecoration itemDecorator = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
-        itemDecorator.setDrawable(ContextCompat.getDrawable(context, R.drawable.recycler_devider));
+        // itemDecorator.setDrawable(ContextCompat.getDrawable(context, R.drawable.recycler_devider));
 
 
-        recyclerView.addItemDecoration(itemDecorator);
+//        recyclerView.addItemDecoration(itemDecorator);
 
 
         recyclerView.setAdapter(itemAdapter);

@@ -114,12 +114,17 @@ public class FacultyPredictor extends Fragment implements CoursesList {
         itemDecorator.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.recycler_devider));
 
         recyclerView.addItemDecoration(itemDecorator);
-
         recyclerView.setAdapter(itemAdapter);
 
 
         final AutoCompleteTextView couseInitalSection = view.findViewById(R.id.courseInitialSection);
         final Spinner courseSection = view.findViewById(R.id.predictorSection);
+
+        ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
+                R.array.numbers, R.layout.spinner_item);
+
+        adapter3.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        courseSection.setAdapter(adapter3);
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>
                 (context, R.layout.suggestion_adapter_textview, SUGGESTIONS);
@@ -127,6 +132,7 @@ public class FacultyPredictor extends Fragment implements CoursesList {
         couseInitalSection.setThreshold(2);
         couseInitalSection.setDropDownVerticalOffset(0);
         couseInitalSection.setAdapter(adapter2);
+
 
         final AutoCompleteTextView couseInitalFaculty = view.findViewById(R.id.courseInitialFaculty);
         final TextView facultyInitial = view.findViewById(R.id.facultyPredictorInitial);

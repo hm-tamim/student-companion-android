@@ -2,8 +2,6 @@
 <resources>
 
 
-
-
     <string-array name="shopCat">
         <item>Books</item>
         <item>Education</item>
@@ -110,6 +108,15 @@
         <item>48</item>
         <item>49</item>
         <item>50</item>
+    </string-array>
+
+    <string-array name="universities">
+        <item>North South University</item>
+        <item>American International University</item>
+        <item>Independent University</item>
+        <item>BRAC University</item>
+        <item>East West University</item>
+        <item>Dhaka College</item>
     </string-array>
 
     <string-array name="department">

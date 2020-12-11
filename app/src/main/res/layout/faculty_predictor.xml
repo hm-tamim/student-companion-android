@@ -30,7 +30,7 @@
                 android:layout_marginLeft="18dp"
                 android:layout_marginBottom="5dp"
                 android:text="Predict By Section"
-                android:textColor="#fff"
+                android:textColor="#333"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -48,14 +48,14 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#eee"
+                    android:backgroundTint="#aaa"
                     android:ems="10"
                     android:hint="Course Initial"
                     android:inputType="textCapCharacters|textPersonName"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:textColor="#fff"
-                    android:textColorHint="#e5e5e5"
+                    android:textColor="#333"
+                    android:textColorHint="#888"
                     android:textSize="15sp" />
 
                 <Spinner
@@ -65,13 +65,13 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#fff"
+                    android:backgroundTint="#aaa"
                     android:entries="@array/numbers"
                     android:minWidth="60dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:popupTheme="@style/spinnerStyleWhite"
+                    android:theme="@style/Spinner"
                     android:spinnerMode="dialog" />
 
                 <Button
@@ -98,7 +98,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="5dp"
                 android:text="Predict By Faculty"
-                android:textColor="#fff"
+                android:textColor="#333"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -116,14 +116,14 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#eee"
+                    android:backgroundTint="#aaa"
                     android:ems="10"
                     android:hint="Course Initial"
                     android:inputType="textCapCharacters|textPersonName"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:textColor="#fff"
-                    android:textColorHint="#e5e5e5"
+                    android:textColor="#333"
+                    android:textColorHint="#888"
                     android:textSize="15sp" />
 
                 <EditText
@@ -132,15 +132,15 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#fff"
+                    android:backgroundTint="#aaa"
                     android:hint="Faculty Initial"
                     android:minWidth="60dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:singleLine="true"
                     android:textAlignment="viewStart"
-                    android:textColor="#fff"
-                    android:textColorHint="#e5e5e5"
+                    android:textColor="#333"
+                    android:textColorHint="#888"
                     android:textSize="15sp" />
 
                 <Button

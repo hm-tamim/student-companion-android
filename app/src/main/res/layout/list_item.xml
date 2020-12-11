@@ -41,7 +41,7 @@
                         android:layout_height="36dp"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center_vertical"
-                        android:background="#999" />
+                        android:background="#ccc" />
 
                     <TextView
                         android:id="@+id/ball2"
@@ -52,7 +52,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/whitecircle"
-                        android:backgroundTint="#999" />
+                        android:backgroundTint="#ccc" />
 
                     <TextView
                         android:id="@+id/ball1"
@@ -62,7 +62,7 @@
                         android:layout_centerInParent="true"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/whitecircle"
-                        android:backgroundTint="#999" />
+                        android:backgroundTint="#ccc" />
                 </RelativeLayout>
 
                 <TextView
@@ -111,8 +111,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="13dp"
+                android:padding="3dp"
                 android:text="NAC505"
-                android:tint="#888"
+                android:tint="#999"
                 app:srcCompat="@drawable/ic_clock_round" />
 
             <TextView
@@ -123,7 +124,7 @@
                 android:layout_marginTop="1dp"
                 android:layout_toEndOf="@+id/imageView3"
                 android:text="SAC208"
-                android:textColor="#f6f6f6"
+                android:textColor="#555"
                 android:textSize="12dp" />
 
             <ImageView
@@ -135,7 +136,7 @@
                 android:layout_marginLeft="-1dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginRight="1dp"
-                android:tint="#f6f6f6"
+                android:tint="#666"
                 app:srcCompat="@drawable/ic_marker_white" />
         </RelativeLayout>
 

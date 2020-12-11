@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:maxHeight="5000dp"
+    android:background="#fff"
     tools:context=".CgpaAnalyzer">
 
 

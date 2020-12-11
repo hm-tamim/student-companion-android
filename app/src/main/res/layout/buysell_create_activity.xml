@@ -4,22 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/mainBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="0dp"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:elevation="0dp">
 
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarNotice"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:background="@color/colorPrimary" />
 
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -72,7 +71,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     app:cardBackgroundColor="#eee"
-                    app:cardCornerRadius="3dp"
+                    app:cardCornerRadius="10dp"
                     app:cardElevation="0dp">
 
                     <ImageView

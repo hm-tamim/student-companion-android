@@ -4,6 +4,7 @@
         android:id="@+id/nav_classmates"
         android:title=""
         app:showAsAction="always"
+        android:iconTint="@color/c333"
         android:icon="@drawable/ic_students_white"
         />
 </menu>

@@ -4,6 +4,7 @@
         android:id="@+id/navReloadButton"
         android:title=""
         app:showAsAction="always"
+        android:iconTint="@color/c333"
         android:icon="@drawable/ic_reload_menu"
         />
 </menu>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     tools:context=".CgpaCalculator">
@@ -17,16 +18,17 @@
         <RelativeLayout
             android:id="@+id/cgpaCalculatorRelative"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#fff">
 
             <LinearLayout
                 android:id="@+id/cgpaGraphHolder"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="150dp"
                 android:layout_gravity="top"
                 android:background="@color/colorPrimary"
                 android:orientation="horizontal"
-                android:paddingBottom="20dp">
+                android:paddingBottom="0dp">
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -36,8 +38,8 @@
 
                     <club.nsuer.nsuer.ArcProgressz xmlns:custom="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/calculator_arc_cgpa"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
                         android:layout_marginLeft="20dp"
                         custom:arc_bottom_text="CGPA"
                         custom:arc_bottom_text_size="12dp"
@@ -46,7 +48,7 @@
                         custom:arc_progress="1"
                         custom:arc_stroke_width="7dp"
                         custom:arc_suffix_text=" "
-                        custom:arc_text_color="#f9f9f9"
+                        custom:arc_text_color="#333"
                         custom:arc_text_size="20dp"
                         custom:arc_unfinished_color="#1b000000" />
 
@@ -61,8 +63,8 @@
 
                     <club.nsuer.nsuer.ArcProgressz xmlns:custom="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/calculator_arc_credits"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
                         android:layout_marginRight="20dp"
                         custom:arc_bottom_text="CREDIT"
                         custom:arc_bottom_text_size="12dp"
@@ -71,7 +73,7 @@
                         custom:arc_progress="10"
                         custom:arc_stroke_width="7dp"
                         custom:arc_suffix_text=" "
-                        custom:arc_text_color="#f9f9f9"
+                        custom:arc_text_color="#333"
                         custom:arc_text_size="20dp"
                         custom:arc_unfinished_color="#1b000000" />
 
@@ -193,6 +195,7 @@
         android:layout_marginBottom="20dp"
         android:clickable="true"
         android:src="@drawable/ic_plus"
+        android:tint="@color/c333"
         app:backgroundTint="@color/colorPrimary" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

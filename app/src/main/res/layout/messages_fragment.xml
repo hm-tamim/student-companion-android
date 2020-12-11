@@ -13,7 +13,6 @@
         android:layout_weight="0"
         android:background="@color/white"
         android:clipToPadding="false"
-        android:paddingTop="3dp"
         android:paddingBottom="15dp" />
 
     <LinearLayout
