@@ -108,6 +108,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:clickable="true"
-        android:src="@drawable/ic_plus" />
+        android:src="@drawable/ic_plus"
+        android:tint="#fff" />
 
 </FrameLayout>

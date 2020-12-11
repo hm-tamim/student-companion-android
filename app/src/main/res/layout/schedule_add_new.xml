@@ -18,6 +18,7 @@
         android:layout_marginBottom="20dp"
         android:clickable="true"
         app:backgroundTint="@color/colorPrimary"
+        android:tint="@color/c333"
         app:srcCompat="@drawable/ic_send_white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
