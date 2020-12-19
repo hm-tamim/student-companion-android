@@ -1,7 +1,6 @@
 <layer-list
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/nsucampus" />
 
     <item android:drawable="@drawable/login_bg_gradient" />
 </layer-list>

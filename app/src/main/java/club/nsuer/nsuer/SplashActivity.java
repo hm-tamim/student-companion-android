@@ -16,49 +16,19 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.splash_bar);
 
         FirebaseApp.initializeApp(this);
 
-
-        if (Build.VERSION.SDK_INT >= 25) {
-
-
-            ImageView v = (ImageView) this.findViewById(R.id.animatedLoadingBar);
-            Drawable d = v.getDrawable();
-            if (d instanceof AnimatedVectorDrawable) {
-                AnimatedVectorDrawable avd = (AnimatedVectorDrawable) d;
-                avd.start();
-            } else if (d instanceof AnimatedVectorDrawableCompat) {
-                AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) d;
-                avd.start();
-            }
-
-        }
-
-
         final Intent intent = new Intent(this, MainActivity.class);
-
-
         int secondsDelayed = 1;
         new Handler().postDelayed(new Runnable() {
             public void run() {
-
-
                 startActivity(intent);
-
                 overridePendingTransition(0, R.animator.fade_out);
-
                 finish();
-
-
             }
-        }, 100);
-
-
+        }, 1000);
     }
 }
